@@ -133,6 +133,7 @@ alias gs='git status'
 alias c='clear'
 alias h='history'
 alias nosleep='caffeinate -d'
+alias cat='bat'
 
 # npm aliases
 alias build='npm run build'
