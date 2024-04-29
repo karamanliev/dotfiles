@@ -1,6 +1,6 @@
 export ZSH_PLUGINS_FOLDER
 
-if [[ $IS_MACOS == true ]]; then 
+if [[ $IS_MACOS ]]; then 
 	ZSH_PLUGINS_FOLDER="$(brew --prefix)/share"
 
 	# Fix completions for Homebrew packages on MacOS and include zsh-completions package
@@ -9,9 +9,9 @@ else
 	ZSH_PLUGINS_FOLDER=/usr/share/zsh/plugins
 fi
 
-source $ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZSH_PLUGINS_FOLDER/$(if [[ $IS_MACOS ]]; then echo "zsh-"; fi)fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source $ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions$(if [[ ! $IS_MACOS ]]; then echo ".plugin."; fi).zsh
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
