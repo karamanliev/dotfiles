@@ -1,0 +1,8 @@
+export ZSH_PLUGINS_FOLDER=/usr/share/zsh/plugins
+source $ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+eval "$(starship init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(fzf --zsh)"

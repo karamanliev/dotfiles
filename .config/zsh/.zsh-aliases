@@ -1,0 +1,33 @@
+# ALIASES
+## General
+alias c='clear'
+alias h='history'
+
+## GIT
+alias ff='git pull --ff-only'
+alias gs='git status'
+alias gco='git checkout'
+
+# eza
+alias ls='eza --icons --color=always --group-directories-first'
+alias ll='eza -alF --icons --color=always --group-directories-first'
+alias la='eza -a --icons --color=always --group-directories-first'
+alias l='eza -F --icons --color=always --group-directories-first'
+alias l.='eza -a | egrep "^\."'
+alias ld='eza --icons --color=always -lD'
+alias lf='eza -lfa --icons --color=always | grep -v /'
+
+#show tree view of current directory - if no argument is passed, show 2 levels
+alias lt='f() { if [ $# -eq 0 ]; then eza --tree --level=2 --icons --color=always --group-directories-first; else eza --tree --level="$1" --icons --color=always --group-directories-first; fi }; f'
+
+# Remap
+alias cat='bat'
+alias top='btop'
+alias v='nvim'
+alias vim='nvim'
+
+# pacman
+alias pmuinfo='sudo pacman -Sy;pacman -Quq | fzf --multi --height 80% --reverse --preview "pacman -Qi {1}" | xargs -ro sudo pacman -S'
+
+# Misc
+alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
