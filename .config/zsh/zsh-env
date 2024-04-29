@@ -3,7 +3,7 @@ export VISUAL="nvim"
 
 export IS_MACOS
 
-if [[ $(uname) == "Darwin" && $(command -v brew &> /dev/null) ]]; then
+if [[ $(uname) == "Darwin" ]] && type brew &>/dev/null; then
 	IS_MACOS=true
 else
 	IS_MACOS=false
