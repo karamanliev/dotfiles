@@ -1,14 +1,7 @@
 # Stop CTRL+S from sleeping the terminal and search instead
 stty -ixon
 
-export EDITOR="nvim"
-export VISUAL="nvim"
-
-export ZSH_MODULES=$HOME/.config/zsh
-
-export HISTFILE=$ZSH_MODULES/zsh-history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
+source $ZSH_MODULES/zsh-env
 
 # History options
 setopt EXTENDED_HISTORY
@@ -24,14 +17,12 @@ setopt NOMATCH
 setopt NOTIFY
 unsetopt beep
 
-# Open man pages with nvim
-export MANPAGER='nvim +Man!'
-
-# Default fzf options
-export FZF_DEFAULT_OPTS="--height 60% --border --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(hidden|)'"
-
 source $ZSH_MODULES/zsh-vim-mode
 source $ZSH_MODULES/zsh-plugins
 source $ZSH_MODULES/zsh-tmux
 source $ZSH_MODULES/zsh-keys
 source $ZSH_MODULES/zsh-aliases
+if [[ $IS_MACOS == true ]]; then
+	source $ZSH_MODULES/zsh-macos-env
+	source $ZSH_MODULES/zsh-macos-aliases
+fi
