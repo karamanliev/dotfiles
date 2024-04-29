@@ -6,7 +6,7 @@ export VISUAL="nvim"
 
 export ZSH_MODULES=$HOME/.config/zsh
 
-export HISTFILE=$ZSH_MODULES/.zsh-history
+export HISTFILE=$ZSH_MODULES/zsh-history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
@@ -30,8 +30,8 @@ export MANPAGER='nvim +Man!'
 # Default fzf options
 export FZF_DEFAULT_OPTS="--height 60% --border --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(hidden|)'"
 
-source $ZSH_MODULES/.zsh-vim-mode
-source $ZSH_MODULES/.zsh-plugins
-source $ZSH_MODULES/.zsh-tmux
-source $ZSH_MODULES/.zsh-keys
-source $ZSH_MODULES/.zsh-aliases
+source $ZSH_MODULES/zsh-vim-mode
+source $ZSH_MODULES/zsh-plugins
+source $ZSH_MODULES/zsh-tmux
+source $ZSH_MODULES/zsh-keys
+source $ZSH_MODULES/zsh-aliases
