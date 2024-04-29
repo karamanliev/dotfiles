@@ -24,7 +24,7 @@ source $ZSH_MODULES/zsh-tmux
 source $ZSH_MODULES/zsh-keys
 source $ZSH_MODULES/zsh-aliases
 
-if [[ $IS_MACOS ]]; then
+if $IS_MACOS; then
 	source $ZSH_MODULES/zsh-macos-env
 	source $ZSH_MODULES/zsh-macos-aliases
 fi
