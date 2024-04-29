@@ -9,8 +9,6 @@ else
 	IS_MACOS=false
 fi
 
-export ZSH_MODULES=$HOME/.config/zsh
-
 export HISTFILE=$ZSH_MODULES/zsh-history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
