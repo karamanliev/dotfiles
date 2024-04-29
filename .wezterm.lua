@@ -1,8 +1,5 @@
--- Pull in the wezterm API
 local wezterm = require("wezterm")
--- local act = wezterm.action
 
--- This will hold the configuration.
 local config = wezterm.config_builder()
 
 config = {
@@ -30,111 +27,12 @@ config = {
 
 	-- window_decorations = "RESIZE",
 	window_decorations = "NONE",
-	-- enable_scroll_bar = true,
 
 	initial_rows = 46,
 	initial_cols = 180,
 	window_close_confirmation = "NeverPrompt",
 
 	enable_tab_bar = false,
-	use_fancy_tab_bar = false,
-	tab_max_width = 32,
-	-- hide_tab_bar_if_only_one_tab = true,
-
-	--[[
-	window_padding = {
-		left = 16,
-		right = 16,
-		top = 8,
-		bottom = 8,
-	},
-	--]]
-
-	prefer_to_spawn_tabs = true,
-
-	keys = {
-		{
-			key = "f",
-			mods = "CTRL",
-			action = wezterm.action.ToggleFullScreen,
-		},
-	},
-	--[[
-	keys = {
-		{
-			key = "w",
-			mods = "CTRL",
-			action = wezterm.action.CloseCurrentPane({ confirm = false }),
-		},
-		{
-			key = "t",
-			mods = "CTRL",
-			action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-		},
-		{
-			key = "d",
-			mods = "CTRL",
-			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-		},
-		{
-			key = "D",
-			mods = "CTRL",
-			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
-		},
-		{
-			key = "c",
-			mods = "CTRL",
-			action = wezterm.action_callback(function(window, pane)
-				local has_selection = window:get_selection_text_for_pane(pane) ~= ""
-				if has_selection then
-					window:perform_action(act.CopyTo("ClipboardAndPrimarySelection"), pane)
-
-					window:perform_action(act.ClearSelection, pane)
-				else
-					window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
-				end
-			end),
-		},
-		{
-			key = "v",
-			mods = "CTRL",
-			action = wezterm.action.PasteFrom("Clipboard"),
-		},
-		{
-			key = "H",
-			mods = "CTRL",
-			action = act.AdjustPaneSize({ "Left", 5 }),
-		},
-		{
-			key = "L",
-			mods = "CTRL",
-			action = act.AdjustPaneSize({ "Right", 5 }),
-		},
-		{
-			key = "J",
-			mods = "CTRL",
-			action = act.AdjustPaneSize({ "Down", 5 }),
-		},
-		{
-			key = "K",
-			mods = "CTRL",
-			action = act.AdjustPaneSize({ "Up", 5 }),
-		},
-		{
-			key = "{",
-			mods = "CTRL|SHIFT",
-			action = act.ActivateTabRelative(-1),
-		},
-		{
-			key = "}",
-			mods = "CTRL|SHIFT",
-			action = act.ActivateTabRelative(1),
-		},
-	},
---]]
-	colors = {
-		scrollbar_thumb = "#292e42",
-	},
 }
 
 return config
