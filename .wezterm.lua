@@ -2,6 +2,10 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
+local is_macos = function()
+	return wezterm.target_triple:find("darwin") ~= nil
+end
+
 config = {
 	enable_wayland = true,
 	front_end = "WebGpu",
@@ -26,10 +30,10 @@ config = {
 	adjust_window_size_when_changing_font_size = false,
 
 	-- window_decorations = "RESIZE",
-	window_decorations = "NONE",
+	window_decorations = is_macos() and "RESIZE" or "NONE",
 
 	initial_rows = 46,
-	initial_cols = 180,
+	initial_cols = is_macos() and 160 or 180,
 	window_close_confirmation = "NeverPrompt",
 
 	enable_tab_bar = false,
