@@ -10,16 +10,15 @@ alias gco='git checkout'
 alias lg='lazygit'
 
 # eza
-alias ls='eza --icons --color=always --group-directories-first'
+alias ls='eza -F --icons --color=always --group-directories-first'
 alias ll='eza -alF --icons --color=always --group-directories-first'
 alias la='eza -a --icons --color=always --group-directories-first'
-alias l='eza -F --icons --color=always --group-directories-first'
-alias l.='eza -a | egrep "^\."'
-alias ld='eza --icons --color=always -lD'
-alias lf='eza -lfa --icons --color=always | grep -v /'
-
+alias ls.='eza -a | egrep "^\."'
+alias lsd='eza --icons --color=always -lD'
+alias lsf='eza -lfa --icons --color=always | grep -v /'
 #show tree view of current directory - if no argument is passed, show 2 levels
 alias lt='f() { if [ $# -eq 0 ]; then eza --tree --level=2 --icons --color=always --group-directories-first; else eza --tree --level="$1" --icons --color=always --group-directories-first; fi }; f'
+alias tree='lt'
 
 # Remap
 alias cat='bat'
@@ -27,9 +26,12 @@ alias top='btop'
 alias v='nvim'
 alias vim='nvim'
 
-# pacman
+# fzf
+## pacman
 alias pmuinfo='sudo pacman -Sy;pacman -Quq | fzf --multi --height 80% --reverse --preview "pacman -Qi {1}" | xargs -ro sudo pacman -S'
 alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}"'
+## commands
+alias mancmd='apropos -s 1 . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
 
 # Misc
 alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
