@@ -36,7 +36,10 @@ config = {
 	initial_cols = is_macos() and 160 or 180,
 	window_close_confirmation = "NeverPrompt",
 
-	enable_tab_bar = false,
+	enable_tab_bar = true,
+	hide_tab_bar_if_only_one_tab = true,
+	prefer_to_spawn_tabs = true,
+	use_fancy_tab_bar = false,
 }
 
 return config

@@ -17,4 +17,10 @@ export SAVEHIST=1000000
 export MANPAGER='nvim +Man!'
 
 # Default fzf options
-export FZF_DEFAULT_OPTS="--height 60% --border --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(hidden|)'"
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS }--height 60% --preview 'bat -n --color=always {}' --preview-window hidden --bind 'ctrl-/:toggle-preview'"
+
+# View full path in preview window (?)
+export FZF_ALT_C_OPTS="${FZF_ALT_C_OPTS:+$FZF_ALT_C_OPTS }--preview 'echo {}' --preview-window down:5:hidden:wrap --bind 'ctrl-/:toggle-preview'"
+
+# View full command in preview window (?)
+export FZF_CTRL_R_OPTS="${FZF_CTRL_R_OPTS:+$FZF_CTRL_R_OPTS }--preview 'echo {}' --preview-window down:5:hidden:wrap --bind 'ctrl-/:toggle-preview'"

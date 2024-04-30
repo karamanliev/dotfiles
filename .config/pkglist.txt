@@ -70,7 +70,6 @@ gvfs-smb
 htop
 hyprland
 iwd
-kitty
 lazygit
 lib32-alsa-lib
 lib32-alsa-plugins
