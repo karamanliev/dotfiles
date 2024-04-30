@@ -71,6 +71,7 @@ htop
 hyprland
 iwd
 kitty
+lazygit
 lib32-alsa-lib
 lib32-alsa-plugins
 lib32-faudio
@@ -114,6 +115,8 @@ neofetch
 neovim
 network-manager-applet
 networkmanager
+networkmanager-l2tp
+networkmanager-strongswan
 noto-fonts
 ntfs-3g
 nvidia-dkms
