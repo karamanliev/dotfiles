@@ -13,6 +13,10 @@ bindkey -M menuselect 'down' vi-down-line-or-history
 bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 
+# This makes Tab and ShiftTab, when pressed on the command line, enter the menu instead of inserting a completion:
+bindkey '^I' menu-select
+bindkey '$terminfo[kcbt]' menu-select
+
 # Fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
 
