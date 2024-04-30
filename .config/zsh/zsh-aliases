@@ -7,6 +7,7 @@ alias h='history'
 alias ff='git pull --ff-only'
 alias gs='git status'
 alias gco='git checkout'
+alias lg='lazygit'
 
 # eza
 alias ls='eza --icons --color=always --group-directories-first'
@@ -28,6 +29,7 @@ alias vim='nvim'
 
 # pacman
 alias pmuinfo='sudo pacman -Sy;pacman -Quq | fzf --multi --height 80% --reverse --preview "pacman -Qi {1}" | xargs -ro sudo pacman -S'
+alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}"'
 
 # Misc
 alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
