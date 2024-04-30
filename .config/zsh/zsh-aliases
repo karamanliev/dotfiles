@@ -31,7 +31,7 @@ alias vim='nvim'
 alias pmuinfo='sudo pacman -Sy;pacman -Quq | fzf --multi --height 80% --reverse --preview "pacman -Qi {1}" | xargs -ro sudo pacman -S'
 alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}"'
 ## commands
-alias mancmd='apropos -s 1 . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
+alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
 
 # Misc
 alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'

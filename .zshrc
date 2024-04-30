@@ -1,7 +1,7 @@
 # Stop CTRL+S from sleeping the terminal and search instead
 stty -ixon
 
-export ZSH_MODULES=$HOME/.config/zsh
+export ZSH_MODULES=$XDG_CONFIG_HOME/zsh
 source $ZSH_MODULES/zsh-env
 
 # History options

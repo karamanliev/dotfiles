@@ -8,26 +8,26 @@ bindkey -M vicmd "^v" edit-command-line
 # bindkey -M menuselect 'k' vi-up-line-or-history
 # bindkey -M menuselect 'l' vi-forward-char
 
-bindkey -v '^P' vi-up-line-or-history
-bindkey -v '^N' vi-down-line-or-history
+bindkey '^P' history-search-backward
+bindkey '^N' vi-down-line-or-history
 
-bindkey -v '^L' vi-forward-char
-bindkey -v '^H' vi-backward-char
+bindkey '^L' vi-forward-char
+bindkey '^H' vi-backward-char
 
-bindkey -v '^B' vi-backward-word
-bindkey -v '^W' vi-forward-word
+bindkey '^B' vi-backward-word
+bindkey '^W' vi-forward-word
 
-bindkey -v '^[h' backward-delete-char
-bindkey -v '^[l' delete-char
+bindkey '^[h' backward-delete-char
+bindkey '^[l' delete-char
 
-bindkey -v '^[b' backward-delete-word
-bindkey -v '^[w' kill-word
+bindkey '^[b' backward-delete-word
+bindkey '^[w' kill-word
 
-bindkey -v '^A' vi-beginning-of-line
-bindkey -v '^E' vi-end-of-line
+bindkey '^A' vi-beginning-of-line
+bindkey '^E' vi-end-of-line
 
-bindkey -v '^U' backward-kill-line
-bindkey -v '^K' vi-kill-eol
+bindkey '^U' vi-kill-eol
+bindkey '^K' backward-kill-line
 
 # This makes Tab and ShiftTab, when pressed on the command line, enter the menu instead of inserting a completion:
 bindkey '^I' menu-select

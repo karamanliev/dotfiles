@@ -1,14 +1,6 @@
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-export IS_MACOS
-
-if [[ $(uname) == "Darwin" ]] && type brew &>/dev/null; then
-	IS_MACOS=true
-else
-	IS_MACOS=false
-fi
-
 export HISTFILE=$ZSH_MODULES/zsh-history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
