@@ -3,14 +3,37 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd "^v" edit-command-line
 
 # Use vim keys in tab complete menu
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
+# bindkey -M menuselect 'h' vi-backward-char
+# bindkey -M menuselect 'j' vi-down-line-or-history
+# bindkey -M menuselect 'k' vi-up-line-or-history
+# bindkey -M menuselect 'l' vi-forward-char
+
+bindkey -v '^P' vi-up-line-or-history
+bindkey -v '^N' vi-down-line-or-history
+
+bindkey -v '^L' vi-forward-char
+bindkey -v '^H' vi-backward-char
+
+bindkey -v '^B' vi-backward-word
+bindkey -v '^W' vi-forward-word
+
+bindkey -v '^[h' backward-delete-char
+bindkey -v '^[l' delete-char
+
+bindkey -v '^[b' backward-delete-word
+bindkey -v '^[w' kill-word
+
+bindkey -v '^A' vi-beginning-of-line
+bindkey -v '^E' vi-end-of-line
+
+bindkey -v '^U' backward-kill-line
+bindkey -v '^K' vi-kill-eol
 
 # This makes Tab and ShiftTab, when pressed on the command line, enter the menu instead of inserting a completion:
 bindkey '^I' menu-select
 bindkey '$terminfo[kcbt]' menu-select
+bindkey '^N' menu-select
+bindkey '^J' menu-select
 
 # Fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
