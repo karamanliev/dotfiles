@@ -71,6 +71,7 @@ htop
 hyprland
 iwd
 lazygit
+lf
 lib32-alsa-lib
 lib32-alsa-plugins
 lib32-faudio
