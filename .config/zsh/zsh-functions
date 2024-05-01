@@ -1,0 +1,18 @@
+# Delete entries from $HISTFILE using fzf, works like ^R history widget
+# Got this gem from https://github.com/junegunn/fzf/issues/3522#issuecomment-1872415948
+hist_delete_fzf() {
+  local +h HISTORY_IGNORE=
+  local -a ignore
+  fc -pa "$HISTFILE"
+  selection=$(fc -rl 1 |
+  		awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++)  print $0}' |
+  		fzf --multi --bind 'enter:become:echo {+f1}')
+  if [ -n "$selection" ]; then
+  	while IFS= read -r line; do ignore+=("${(b)history[$line]}"); done < "$selection"
+  	HISTORY_IGNORE="(${(j:|:)ignore})"
+  	# Write history excluding lines that match `$HISTORY_IGNORE` and read new history.
+  	fc -W && fc -p "$HISTFILE"
+  else
+  	echo "nothing deleted from history"
+  fi
+}
