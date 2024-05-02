@@ -1,1 +1,3 @@
 .config/zsh/zsh-history
+.config/tmux/sessions
+.config/tmux/plugins

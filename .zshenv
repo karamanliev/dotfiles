@@ -10,6 +10,9 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export DOTFILES=$HOME/dotfiles
 
+# set custom zsh config path
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+
 # add scripts to path
 export PATH=$HOME/.local/bin:$PATH
 
