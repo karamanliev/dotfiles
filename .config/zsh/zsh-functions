@@ -1,6 +1,6 @@
 # Delete entries from $HISTFILE using fzf, works like ^R history widget
 # Got this gem from https://github.com/junegunn/fzf/issues/3522#issuecomment-1872415948
-hist_delete_fzf() {
+function hist_delete_fzf() {
   local +h HISTORY_IGNORE=
   local -a ignore
   fc -pa "$HISTFILE"
