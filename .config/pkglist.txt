@@ -22,6 +22,7 @@ eza
 faudio
 fd
 firefox
+fnm
 fzf
 gamemode
 gdm
@@ -169,7 +170,6 @@ ttf-nerd-fonts-symbols-mono
 ttf-opensans
 vim
 visual-studio-code-bin
-visual-studio-code-bin-debug
 vkbasalt
 vkd3d
 vulkan-tools

@@ -14,7 +14,7 @@ export DOTFILES=$HOME/dotfiles
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # add scripts to path
-export PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.local/bin:$PATH
 
 if $IS_MACOS; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
