@@ -17,7 +17,7 @@ alias lg='lazygit'
 
 ## eza
 alias ls='eza -F --icons --color=always --group-directories-first'
-alias ll='eza -alF --icons --color=always --group-directories-first'
+alias ll='eza -algF --icons --color=always --group-directories-first'
 alias la='eza -a --icons --color=always --group-directories-first'
 alias ls.='eza -a | egrep "^\."'
 alias lsd='eza --icons --color=always -lD'
