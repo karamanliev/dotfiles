@@ -16,10 +16,10 @@ config = {
 	wezterm.on("update-status", function(window)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
-			overrides.color_scheme = "Tokyo Night Moon"
+			overrides.color_scheme = "Tokyo Night"
 			-- overrides.window_background_opacity = 0.9
 		else
-			overrides.color_scheme = "Tokyo Night Storm"
+			overrides.color_scheme = "Tokyo Night Moon"
 			-- overrides.window_background_opacity = 0.8
 		end
 		window:set_config_overrides(overrides)
