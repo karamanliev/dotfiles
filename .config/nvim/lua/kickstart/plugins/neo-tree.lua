@@ -11,10 +11,16 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    { '\\', ':Neotree float reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        visible = true, -- when true, they will just be displayed differently than normal items
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_hidden = false, -- only works on Windows for hidden files/directories
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
