@@ -33,6 +33,7 @@ bindkey '^E' vi-end-of-line
 bindkey '^U' vi-kill-eol
 bindkey '^K' backward-kill-line
 
+bindkey '^Y' clear-screen
 # This makes Tab and ShiftTab, when pressed on the command line, enter the menu instead of inserting a completion:
 bindkey '^I' menu-select
 bindkey '$terminfo[kcbt]' menu-select
