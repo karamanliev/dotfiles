@@ -35,7 +35,7 @@ alias vim='nvim'
 ## fzf
 ### pacman
 alias pmuinfo='sudo yay -Sy;yay -Quq | fzf --multi --height 80% --reverse --preview "yay -Qi {1}" --preview-window right:70%:wrap:nohidden | xargs -ro sudo yay -S'
-alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}"'
+alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}" --preview-window right: 60%:wrap:nohidden'
 ### commands
 alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
 
