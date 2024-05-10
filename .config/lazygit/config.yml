@@ -1,4 +1,9 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers
 gui:
+  sidePanelWidth: 0.2
   nerdFontsVersion: '3'
   theme:
     activeBorderColor:
