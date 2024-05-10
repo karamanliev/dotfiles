@@ -26,7 +26,9 @@ fnm
 fzf
 gamemode
 gdm
+gdm-settings
 git
+git-delta
 gnome-backgrounds
 gnome-calculator
 gnome-calendar
@@ -68,11 +70,9 @@ gvfs-mtp
 gvfs-nfs
 gvfs-onedrive
 gvfs-smb
-htop
 hyprland
 iwd
 lazygit
-lf
 lib32-alsa-lib
 lib32-alsa-plugins
 lib32-faudio
@@ -130,12 +130,14 @@ orca
 otf-san-francisco
 otf-san-francisco-mono
 pacman-contrib
+pika-backup
 pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
 polychromatic
 protonup-qt
+python-llfuse
 python-pystray
 qt5-wayland
 qt6-wayland
@@ -147,6 +149,7 @@ sbctl
 seahorse
 smartmontools
 snap-pac
+snapborg
 snapper
 spotify
 starship
