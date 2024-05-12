@@ -21,6 +21,7 @@ extension-manager
 eza
 faudio
 fd
+file-roller
 firefox
 fnm
 fzf
@@ -47,9 +48,6 @@ gnome-remote-desktop
 gnome-session
 gnome-settings-daemon
 gnome-shell
-gnome-shell-extension-appindicator
-gnome-shell-extension-blur-my-shell
-gnome-shell-extension-dash-to-dock-git
 gnome-shell-extension-rounded-window-corners-git
 gnome-shell-extensions
 gnome-software
@@ -57,7 +55,6 @@ gnome-system-monitor
 gnome-text-editor
 gnome-tweaks
 gnome-user-share
-gnome-weather
 goverlay
 grilo-plugins
 gst-plugin-pipewire
