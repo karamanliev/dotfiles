@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 local config = wezterm.config_builder()
 
@@ -9,7 +10,7 @@ end
 config = {
 	enable_wayland = true,
 	front_end = "WebGpu",
-	-- disable_default_key_bindings = true,
+	disable_default_key_bindings = true,
 
 	-- color_scheme = "Tokyo Night Moon",
 	window_background_opacity = 0.95,
@@ -38,8 +39,19 @@ config = {
 
 	enable_tab_bar = true,
 	hide_tab_bar_if_only_one_tab = true,
-	prefer_to_spawn_tabs = true,
+	prefer_to_spawn_tabs = false,
 	use_fancy_tab_bar = false,
+
+	keys = {
+		{ key = "T", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "W", mods = "CTRL", action = act.CloseCurrentTab({ confirm = false }) },
+		{ key = "N", mods = "CTRL", action = act.SpawnWindow },
+		{ key = "V", mods = "CTRL", action = act.PasteFrom("Clipboard") },
+		{ key = "C", mods = "CTRL", action = act.CopyTo("Clipboard") },
+		{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },
+		{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
+		{ key = "0", mods = "CTRL", action = act.ResetFontSize },
+	},
 }
 
 return config
