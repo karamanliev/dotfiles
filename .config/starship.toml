@@ -1,31 +1,52 @@
-# A minimal left prompt
-#format = """$character"""
+# Don't print a new line at the start of the prompt
+add_newline = false
 
-# move the rest of the prompt to the right
-#right_format = """$all"""
-
-# [line_break]
-# disabled = true
-format = """$all$sudo"""
+format = """
+[╭─](white)$env_var$os in $directory$package$java$python$git_branch$battery$cmd_duration
+[╰─](white)$character """
 right_format = """$time"""
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 1000
+
+[env_var]
+variable = 'SHELL'
+format = "$symbol"
+disabled = false
+
+[os]
+format = '[$symbol](bold white)'   
+disabled = false
+
+[os.symbols]
+Windows = ' '
+Arch = '󰣇 '
+Macos = '󰀵 '
 
 [aws]
 style = "bold #ffb86c"
 
 [character]
-error_symbol = "[✗](bold #ff5555)"
-success_symbol = "[➜](bold #50fa7b)"
-vimcmd_symbol = '[](bold #bd93f9)'
+format = "$symbol"
+success_symbol = "[❯](bold green)"
+error_symbol = "[✗](bold red)"
+vicmd_symbol = "[❮](bold purple)"
 
 [cmd_duration]
 style = "bold #f1fa8c"
 
 [directory]
-style = "bold #50fa7b"
+style = "bold #bb9af7"
 read_only = ' 🔒'
+truncation_length = 8
+truncation_symbol = "…/"
+format = "[$read_only]($read_only_style)[$path]($style) "
 
+# git settings
 [git_branch]
-style = "bold #ff79c6"
+style = "bold cyan"
+truncation_length = 4
+truncation_symbol = ""
 
 [git_status]
 style = "bold #ff5555"
@@ -45,3 +66,17 @@ disabled = false
 
 [gcloud]
 disabled = true
+
+# Package Version Config
+[package]
+format = "via [🎁 $version](208 bold) "
+
+# Battery information
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
