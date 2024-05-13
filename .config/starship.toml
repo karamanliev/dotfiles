@@ -54,6 +54,7 @@ diverged = '[\[⇕⇡${ahead_count}⇣${behind_count}\]](yellow)'
 untracked = '[\[?\]](white)'
 behind = '[\[⇣${count}\]](red)'
 renamed = "»"
+stashed = '[\[⚑${count}\]](blue) '
 deleted = "✘"
 modified = "[✹](white) "
 staged = '[\[+$count\]](green)'
