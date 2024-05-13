@@ -31,7 +31,7 @@ config = {
 	adjust_window_size_when_changing_font_size = false,
 
 	-- window_decorations = "RESIZE",
-	window_decorations = is_macos() and "RESIZE" or "NONE",
+	window_decorations = "RESIZE",
 
 	initial_rows = 46,
 	initial_cols = is_macos() and 160 or 180,

@@ -1,4 +1,5 @@
 1password
+1password-cli
 adobe-source-sans-fonts
 alsa-plugins
 amd-ucode
@@ -48,7 +49,6 @@ gnome-remote-desktop
 gnome-session
 gnome-settings-daemon
 gnome-shell
-gnome-shell-extension-rounded-window-corners-git
 gnome-shell-extensions
 gnome-software
 gnome-system-monitor
