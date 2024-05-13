@@ -1,13 +1,13 @@
 # Don't print a new line at the start of the prompt
-add_newline = false
+add_newline = true
 
 format = """
-[╭─](white)$env_var$os in $directory$package$java$python$git_branch$battery$cmd_duration
+[╭─](white)$env_var$os in $directory$nodejs$git_branch$git_status$battery$cmd_duration
 [╰─](white)$character """
 right_format = """$time"""
 
 # Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
+# scan_timeout = 10
 
 [env_var]
 variable = 'SHELL'
@@ -47,7 +47,17 @@ format = "[$read_only]($read_only_style)[$path]($style) "
 style = "bold cyan"
 
 [git_status]
-style = "bold #ff5555"
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold white"
+ahead = '[\[⇡${count}\]](green)'
+diverged = '[\[⇕⇡${ahead_count}⇣${behind_count}\]](yellow)'
+untracked = '[\[?\]](white)'
+behind = '[\[⇣${count}\]](red)'
+renamed = "»"
+deleted = "✘"
+modified = "[✹](white) "
+staged = '[\[+$count\]](green)'
+conflicted = "═"
 
 [hostname]
 style = "bold #bd93f9"
@@ -64,10 +74,6 @@ disabled = false
 
 [gcloud]
 disabled = true
-
-# Package Version Config
-[package]
-format = "via [🎁 $version](208 bold) "
 
 # Battery information
 [battery]
