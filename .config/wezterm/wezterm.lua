@@ -8,6 +8,7 @@ local is_macos = function()
 end
 
 config = {
+	term = "wezterm",
 	enable_wayland = true,
 	front_end = "WebGpu",
 	-- disable_default_key_bindings = true,
@@ -17,7 +18,7 @@ config = {
 	wezterm.on("update-status", function(window)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
-			overrides.color_scheme = "Tokyo Night"
+			overrides.color_scheme = "Tokyo Night Moon"
 			-- overrides.color_scheme = "Sequoia Moonlight"
 			-- overrides.color_scheme = "Whimsy"
 			-- overrides.color_scheme = "Synthwave (Gogh)"
@@ -29,10 +30,10 @@ config = {
 			-- overrides.color_scheme = "Lavandula"
 			-- overrides.color_scheme = "lovelace"
 			-- overrides.color_scheme = "hardhacker"
-			-- overrides.window_background_opacity = 0.9
+			overrides.window_background_opacity = 1.0
 		else
-			overrides.color_scheme = "Tokyo Night Moon"
-			-- overrides.window_background_opacity = 0.8
+			overrides.color_scheme = "Tokyo Night Storm"
+			overrides.window_background_opacity = 0.9
 		end
 		window:set_config_overrides(overrides)
 	end),

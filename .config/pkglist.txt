@@ -145,7 +145,6 @@ rygel
 sbctl
 seahorse
 sesh-bin
-sesh-bin-debug
 smartmontools
 snap-pac
 snapborg
