@@ -8,7 +8,6 @@ local is_macos = function()
 end
 
 config = {
-	term = "wezterm",
 	enable_wayland = true,
 	front_end = "WebGpu",
 	-- disable_default_key_bindings = true,
