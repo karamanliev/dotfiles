@@ -359,6 +359,11 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        pickers = {
+          lsp_references = {
+            show_line = false,
+          },
+        },
         extensions = {
           file_browser = {
             hidden = { file_browser = true, folder_browser = true },
