@@ -11,6 +11,18 @@ return {
     -- Create new buttons using the alpha module
     local button = require('alpha.themes.dashboard').button
 
+    -- Define the header
+    local header = {
+      [[ ___  ___  ________  ___  ________  __________ ________      ________  _______   ___      ___ ]],
+      [[|\  \|\  \|\   __  \|\  \|\   ____\|\___   ___ \   __  \    |\   ___ \|\  ___ \ |\  \    /  /|]],
+      [[\ \  \\\  \ \  \|\  \ \  \ \  \___|\|___ \  \_\ \  \|\  \   \ \  \_|\ \ \   __/|\ \  \  /  / /]],
+      [[ \ \   __  \ \   _  _\ \  \ \_____  \   \ \  \ \ \  \\\  \   \ \  \ \\ \ \  \_|/_\ \  \/  / / ]],
+      [[  \ \  \ \  \ \  \\  \\ \  \|____|\  \   \ \  \ \ \  \\\  \ __\ \  \_\\ \ \  \_|\ \ \    / /  ]],
+      [[   \ \__\ \__\ \__\\ _\\ \__\____\_\  \   \ \__\ \ \_______\\__\ \_______\ \_______\ \__/ /   ]],
+      [[    \|__|\|__|\|__|\|__|\|__|\_________\   \|__|  \|_______\|__|\|_______|\|_______|\|__|/    ]],
+      [[                            \|_________|                                                      ]],
+    }
+
     -- Define the new buttons
     local buttons = {
       button('e', '  New file', ':ene <BAR> startinsert <CR>'),
@@ -25,11 +37,13 @@ return {
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
+      button('l', '󰒲  Lazy', ':Lazy <CR>'),
       button('c', '  Config', ':e $MYVIMRC <CR>'),
       button('q', '  Quit', ':qa<CR>'),
     }
 
     -- Modify the buttons in the theta theme layout
+    theta.config.layout[2].val = header
     theta.config.layout[6].val = buttons
 
     alpha.setup(theta.config)
