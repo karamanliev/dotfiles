@@ -1,9 +1,37 @@
 return {
-  'startup-nvim/startup.nvim',
-  requires = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+  'goolord/alpha-nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'nvim-lua/plenary.nvim',
+  },
   config = function()
-    require('startup').setup {
-      theme = 'dashboard',
+    local alpha = require 'alpha'
+    local theta = require 'alpha.themes.theta'
+
+    -- Create new buttons using the alpha module
+    local button = require('alpha.themes.dashboard').button
+
+    -- Define the new buttons
+    local buttons = {
+      button('e', '  New file', ':ene <BAR> startinsert <CR>'),
+      button('f', '󰈞  Find files', ':Telescope find_files <CR>'),
+      button('r', '  Recent files', ':Telescope oldfiles <CR>'),
+      button('g', '  Live grep', ':Telescope live_grep <CR>'),
+      { type = 'padding', val = 1 }, -- This adds a new line
+
+      button('<C-s>', '󰊢  Git Status', ':Telescope git_status <CR>'),
+      button('<C-c>', '  Commits', ':Telescope git_commits <CR>'),
+      button('<C-b>', '  Branches', ':Telescope git_branches <CR>'),
+      { type = 'padding', val = 1 }, -- This adds a new line
+
+      button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
+      button('c', '  Config', ':e $MYVIMRC <CR>'),
+      button('q', '  Quit', ':qa<CR>'),
     }
+
+    -- Modify the buttons in the theta theme layout
+    theta.config.layout[6].val = buttons
+
+    alpha.setup(theta.config)
   end,
 }
