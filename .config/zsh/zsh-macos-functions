@@ -1,0 +1,46 @@
+# React Native Clean
+rnclean() {
+	metro_process_id=$(lsof -i :8081 | grep node | awk '{print $2}')
+	mobile_project_path=~/Projects/Altrix/mobile/
+	tmux=/opt/homebrew/bin/tmux
+	current_metro_pane=$($tmux list-panes -st mobile -F "#{window_index}.#{pane_index} #{pane_current_command}" | grep node | awk '{print $1}') 
+	
+	if [ -n "$metro_process_id" ]; then
+		kill -9 $metro_process_id
+		$tmux kill-pane -t mobile:$current_metro_pane
+	fi
+
+	cd $mobile_project_path
+	watchman watch-del-all
+	
+	echo "\\nremoving \e[1;34mnode_modules\e[0m..."
+	rm -rf node_modules/
+	echo "removed \e[1;34mnode_modules\e[0m!\\n"
+
+	yarn cache clean
+	yarn install
+
+	cd ios/
+	echo "\\nremoving \e[1;34mPods\e[0m..."
+	rm -rf Pods
+	echo "removed \e[1;34mPods\e[0m!\\n"
+	pod install
+	cd ..
+
+	# Wait for Metro to start
+	(rns) &
+	while ! lsof -i :8081 | grep -q node; do
+      		echo "\\nWaiting for \e[1;34mMetro\e[0m to start...\\n"
+        	sleep 2
+    	done
+
+	# Bring Metro to the foreground again
+	$tmux send-keys -t mobile "fg %2" Enter
+	echo "\\n\e[1;34mMetro\e[0m is running again!\\n"
+
+	$tmux splitw -h -t mobile
+	# $tmux send-keys -t mobile "echo 'Starting \e[0;34m$(if [ '$1' = 'device' ]; then echo 'device'; else echo 'simulator'; fi)\e[0m...'" Enter
+	$tmux send-keys -t mobile "react-native run-ios --$(if [ "$1" = "device" ]; then echo "device"; else echo "simulator 'x iPhone 11'"; fi)" Enter
+
+	$tmux selectp -t mobile -l
+}
