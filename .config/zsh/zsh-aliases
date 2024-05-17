@@ -32,9 +32,6 @@ alias top='btop'
 alias v='nvim'
 alias vim='nvim'
 
-# tmux
-alias tmux='tmux new-session -A -s dotfiles -c ~/dotfiles'
-
 ## fzf
 ### pacman
 alias pmuinfo='sudo yay -Sy;yay -Quq | fzf --multi --height 80% --reverse --preview "yay -Qi {1}" --preview-window right:70%:wrap:nohidden | xargs -ro sudo yay -S'
