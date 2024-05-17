@@ -31,7 +31,7 @@ return {
       button('g', '  Live grep', ':Telescope live_grep <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('<C-p>', '󰤄  LazyGit', ':LazyGit <CR>'),
+      button('<C-l>', '󰤄  LazyGit', ':LazyGit <CR>'),
       button('<C-s>', '󰊢  Git Status', ':Telescope git_status <CR>'),
       button('<C-c>', '  Commits', ':Telescope git_commits <CR>'),
       button('<C-b>', '  Branches', ':Telescope git_branches <CR>'),
