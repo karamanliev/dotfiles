@@ -10,6 +10,7 @@ return {
   -- require 'custom.plugins.nvim-tree',
   require 'custom.plugins.oil',
   require 'custom.plugins.start',
+  require 'custom.plugins.twilight',
   require 'custom.plugins.typescript',
 
   require 'custom.plugins.neo-tree',
