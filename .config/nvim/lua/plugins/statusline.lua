@@ -4,6 +4,7 @@ return {
   event = 'VeryLazy',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
+    local colors = require('tokyonight.colors').setup()
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -20,7 +21,7 @@ return {
         always_divide_middle = true,
         globalstatus = true,
         refresh = {
-          statusline = 2000,
+          statusline = 1000,
         },
       },
       sections = {
@@ -30,16 +31,16 @@ return {
           {
             'diff',
             diff_color = {
-              added = { fg = '#4fd6be' },
-              modified = { fg = '#ffc777' },
-              removed = { fg = '#c53b53' },
+              added = { fg = colors.git.add },
+              modified = { fg = colors.git.change },
+              removed = { fg = colors.git.delete },
             },
           },
           { 'diagnostics', icons_enabled = true },
         },
         lualine_c = {
-          --[[ { 'filename', file_status = true, path = 4 }, ]]
-          { 'buffers', icons_enabled = false, use_mode_colors = true },
+          { 'filename', file_status = true, path = 4, shorting_target = 100 },
+          -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
         lualine_x = { 'searchcount', 'filetype' },
         lualine_y = { 'progress' },
