@@ -52,6 +52,19 @@ config = {
 	prefer_to_spawn_tabs = false,
 	use_fancy_tab_bar = false,
 
+	keys = {
+		{
+			key = "L",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
+		{
+			key = "H",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
+	},
+
 	-- keys = {
 	-- 	{ key = "T", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
 	-- 	{ key = "W", mods = "CTRL", action = act.CloseCurrentTab({ confirm = false }) },
