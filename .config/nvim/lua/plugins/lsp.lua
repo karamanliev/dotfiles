@@ -169,14 +169,11 @@ return {
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-    },
+    opts = {},
     keys = {
       { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>xw', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', desc = 'Trouble: Workspace Diagnostics' },
-      { '<leader>xd', '<cmd>TroubleToggle lsp_document_diagnostics<cr>', desc = 'Trouble: document diagnostics' },
+      { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Trouble: Workspace Diagnostics' },
+      { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Trouble: document diagnostics' },
       { '<leader>xl', '<cmd>TroubleToggle loclist<cr>', desc = 'Trouble LocList' },
       { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', desc = 'Trouble: Quickfix' },
     },
