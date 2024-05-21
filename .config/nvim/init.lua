@@ -70,6 +70,9 @@ vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpo
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line [L]eft' })
+-- do i really need this?
+-- vim.keymap.set('n', 'H', 'd$O<escape>p', { desc = 'Split line [R]ight' })
 -- Navigate buffers with Ctrl + hjkl
 vim.keymap.set('n', '<M-l>', '<cmd>bnext<cr>', { desc = 'Go to [N]ext buffer' })
 vim.keymap.set('n', '<M-h>', '<cmd>bprevious<cr>', { desc = 'Go to [P]revious buffer' })
