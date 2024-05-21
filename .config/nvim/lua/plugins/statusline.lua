@@ -2,9 +2,27 @@ return {
   'nvim-lualine/lualine.nvim',
   -- enabled = false,
   event = 'VeryLazy',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = { 'nvim-tree/nvim-web-devicons', 'AndreM222/copilot-lualine' },
   config = function()
+    -- use gitsigns as diff_source
+    local function diff_source()
+      local gitsigns = vim.b.gitsigns_status_dict
+      if gitsigns then
+        return {
+          added = gitsigns.added,
+          modified = gitsigns.changed,
+          removed = gitsigns.removed,
+        }
+      end
+    end
+
+    -- count buffers
+    local function buff_count()
+      return '  ' .. vim.fn.len(vim.fn.getbufinfo { buflisted = 1 })
+    end
+
     local colors = require('tokyonight.colors').setup()
+
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -14,12 +32,12 @@ return {
         disabled_filetypes = {
           statusline = {
             'alpha',
-            --[[ 'neo-tree' ]]
+            -- 'neo-tree',
           },
         },
         ignore_focus = {},
         always_divide_middle = true,
-        globalstatus = true,
+        globalstatus = false,
         refresh = {
           statusline = 1000,
         },
@@ -27,7 +45,7 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = {
-          'branch',
+          { 'b:gitsigns_head', icon = ' ' },
           {
             'diff',
             diff_color = {
@@ -35,16 +53,28 @@ return {
               modified = { fg = colors.git.change },
               removed = { fg = colors.git.delete },
             },
+            source = diff_source,
           },
           { 'diagnostics', icons_enabled = true },
         },
         lualine_c = {
-          { 'filename', file_status = true, path = 4, shorting_target = 100 },
+          { 'filename', file_status = true, path = 4 },
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
-        lualine_x = { 'searchcount', 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' },
+        lualine_x = {
+          'copilot',
+          'fileformat',
+          'encoding',
+          'filetype',
+        },
+        lualine_y = {
+          buff_count,
+          'progress',
+        },
+        lualine_z = {
+          'searchcount',
+          'location',
+        },
       },
       inactive_sections = {
         lualine_a = {},
