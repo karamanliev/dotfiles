@@ -31,6 +31,10 @@ return {
       button('g', '  Live grep', ':Telescope live_grep <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
+      button('r', '  Restore session', ':SessionRestore <CR>'),
+      button('<leader>ls', '󰈞  List sessions', ':lua require("auto-session.session-lens").search_session() <CR>'),
+      { type = 'padding', val = 1 }, -- This adds a new line
+
       button('<C-l>', '󰤄  LazyGit', ':LazyGit <CR>'),
       button('<C-s>', '󰊢  Git Status', ':Telescope git_status <CR>'),
       button('<C-c>', '  Commits', ':Telescope git_commits <CR>'),

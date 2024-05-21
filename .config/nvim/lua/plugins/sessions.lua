@@ -3,6 +3,7 @@ return {
   config = function()
     require('auto-session').setup {
       auto_session_use_git_branch = true,
+      auto_restore_enabled = false,
 
       pre_save_cmds = { 'tabdo Neotree close' },
 
