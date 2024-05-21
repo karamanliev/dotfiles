@@ -7,6 +7,17 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        javascript = { 'eslint_d' },
+        typescript = { 'eslint_d' },
+        javascriptreact = { 'eslint_d' },
+        typescriptreact = { 'eslint_d' },
+        css = { 'stylelint' },
+        scss = { 'stylelint' },
+        sass = { 'stylelint' },
+        less = { 'stylelint' },
+        html = { 'htmlhint' },
+        json = { 'jsonlint' },
+        yaml = { 'yamllint' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -47,9 +58,13 @@ return {
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
-          require('lint').try_lint()
+          lint.try_lint()
         end,
       })
+
+      vim.keymap.set('n', '<leader>dl', function()
+        lint.try_lint()
+      end, { desc = '[L]int buffer' })
     end,
   },
 }
