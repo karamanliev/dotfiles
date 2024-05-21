@@ -59,7 +59,7 @@ return {
         },
         window = {
           position = 'right',
-          width = 50,
+          width = 40,
           mappings = {
             ['\\'] = 'close_window',
             ['P'] = { 'toggle_preview', config = { use_float = false, use_image_nvim = false } },

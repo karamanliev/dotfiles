@@ -73,4 +73,13 @@ return {
       end,
     },
   },
+
+  -- Diffview
+  {
+    'sindrets/diffview.nvim',
+    cmd = 'DiffviewOpen',
+    keys = {
+      { '<leader>ld', '<cmd>DiffviewOpen<cr>', desc = '[D]iffview' },
+    },
+  },
 }
