@@ -1,11 +1,27 @@
 return {
   -- Copilot
   {
-    'github/copilot.vim',
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
     event = 'InsertEnter',
     config = function()
       local colors = require('tokyonight.colors').setup()
       vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
+
+      require('copilot').setup {
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          keymap = {
+            accept = '<Tab>',
+          },
+        },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          ['.'] = true,
+        },
+      }
     end,
   },
 
@@ -37,10 +53,13 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
+      'onsails/lspkind.nvim',
     },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
+
       luasnip.config.setup {}
 
       cmp.setup {
@@ -50,6 +69,14 @@ return {
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert,preview' },
+
+        ---@diagnostic disable-next-line: missing-fields
+        formatting = {
+          format = lspkind.cmp_format {
+            maxwidth = 50,
+            ellipsis_char = '...',
+          },
+        },
 
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
