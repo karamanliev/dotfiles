@@ -7,6 +7,17 @@ return {
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 
+    -- Auto update imports on file/folder rename
+    {
+      'antosha417/nvim-lsp-file-operations',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-neo-tree/neo-tree.nvim',
+        'stevearc/oil.nvim',
+      },
+      opts = {},
+    },
+
     -- Useful status updates for LSP.
     { 'j-hui/fidget.nvim', opts = {} },
 
@@ -109,6 +120,7 @@ return {
       html = {},
       cssls = {},
       graphql = {},
+      tailwindcss = {},
       emmet_ls = {},
       jsonls = {},
       lua_ls = {
