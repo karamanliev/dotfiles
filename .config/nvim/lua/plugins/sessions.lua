@@ -5,7 +5,7 @@ return {
       auto_session_use_git_branch = true,
       auto_restore_enabled = false,
 
-      pre_save_cmds = { 'tabdo Neotree close' },
+      -- pre_save_cmds = { 'tabdo Neotree close' },
 
       session_lens = {
         buftypes_to_ignore = {}, -- list of buffer types what should not be deleted from current session

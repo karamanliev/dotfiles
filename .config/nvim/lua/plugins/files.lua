@@ -2,7 +2,7 @@ return {
   {
     'nvim-neo-tree/neo-tree.nvim',
     version = '*',
-    enabled = true,
+    enabled = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
@@ -105,17 +105,23 @@ return {
   },
   {
     'stevearc/oil.nvim',
-    opts = {},
-    -- Optional dependencies
+    lazy = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('oil').setup {
+        default_file_explorer = true,
         view_options = {
           show_hidden = true,
         },
+        keymaps = {
+          ['q'] = 'actions.close',
+          ['<esc>'] = 'actions.close',
+          ['\\'] = 'actions.close',
+          ['<bs>'] = 'actions.parent',
+        },
       }
 
-      vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open parent directory' })
+      vim.keymap.set('n', '\\', '<cmd>Oil<CR>', { desc = 'Open Oil' })
     end,
   },
 }
