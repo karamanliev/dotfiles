@@ -37,15 +37,15 @@ return {
         path_display = { 'smart' },
         -- `hidden = true` is not supported in text grep commands.
         vimgrep_arguments = vimgrep_arguments,
-        mappings = {
-          i = {
-            ['<c-j>'] = 'move_selection_next',
-            ['<c-k>'] = 'move_selection_previous',
-            ['<c-n>'] = 'cycle_history_next',
-            ['<c-p>'] = 'cycle_history_prev',
-            ['<esc>'] = 'close',
-          },
-        },
+        -- mappings = {
+        --   i = {
+        --     ['<c-j>'] = 'move_selection_next',
+        --     ['<c-k>'] = 'move_selection_previous',
+        --     ['<c-n>'] = 'cycle_history_next',
+        --     ['<c-p>'] = 'cycle_history_prev',
+        --     ['<esc>'] = 'close',
+        --   },
+        -- },
       },
       pickers = {
         lsp_references = {
