@@ -14,11 +14,13 @@ rnclean() {
 	watchman watch-del-all
 
 	echo "\\nremoving \e[1;34mXcode\e[0m cache and \e[1;34mXcode\e[0m build data..."
+	cd ios/
 	killall Xcode
 	xcrun -k
 	xcodebuild -alltargets clean
 	rm -rf ~/Library/Developer/Xcode/DerivedData/*
 	rm -rf ~/Library/Caches/com.apple.dt.Xcode/*
+	cd ..
 	echo "removed \e[1;34mXcode\e[0m cache and \e[1;34mXcode\e[0m build data!\\n"
 	
 	echo "\\nremoving \e[1;34mnode_modules\e[0m..."
