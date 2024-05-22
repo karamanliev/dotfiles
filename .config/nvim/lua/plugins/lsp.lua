@@ -146,12 +146,10 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
-        'eslint_d', -- Used to lint JavaScript and TypeScript
+        'eslint', -- Used to lint JavaScript and TypeScript
         'stylelint', -- Used to lint CSS
         'htmlhint', -- Used to lint HTML
         'jsonlint', -- Used to lint JSON
-        'yamllint', -- Used to lint YAML
-        'markdownlint', -- Used to lint Markdown
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
