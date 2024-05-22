@@ -83,6 +83,23 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Disable diagnostics text
+vim.diagnostic.config {
+  virtual_text = {
+    source = false,
+    severity = { min = vim.diagnostic.severity.ERROR },
+  },
+  severity_sort = true,
+  -- signs = {
+  --   text = {
+  --     [vim.diagnostic.severity.ERROR] = '󰅚 ',
+  --     [vim.diagnostic.severity.WARN] = '󰀪 ',
+  --     [vim.diagnostic.severity.HINT] = '󰌶 ',
+  --     [vim.diagnostic.severity.INFO] = '󰋽 ',
+  --   },
+  -- },
+}
+
 -- [[ Basic Autocommands ]]
 
 -- Highlight when yanking (copying) text
