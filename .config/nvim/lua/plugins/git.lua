@@ -89,29 +89,38 @@ return {
         enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
         keymaps = {
           view = {
-            { 'n', 'q', actions.close },
-            { 'n', '<Tab>', actions.select_next_entry },
-            { 'n', '<S-Tab>', actions.select_prev_entry },
-            -- { 'n', '<LocalLeader>a', actions.focus_files },
-            -- { 'n', '<LocalLeader>e', actions.toggle_files },
+            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
           },
           file_panel = {
-            { 'n', 'q', actions.close },
-            -- { 'n', 'h', actions.prev_entry },
-            -- { 'n', 'o', actions.focus_entry },
-            -- { 'n', 'gf', actions.goto_file },
-            -- { 'n', 'sg', actions.goto_file_split },
-            -- { 'n', 'st', actions.goto_file_tab },
-            -- { 'n', '<C-r>', actions.refresh_files },
-            -- { 'n', '<LocalLeader>e', actions.toggle_files },
+            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
           },
           file_history_panel = {
-            { 'n', 'q', '<cmd>DiffviewClose<CR>' },
-            -- { 'n', 'o', actions.focus_entry },
-            -- { 'n', 'O', actions.options },
+            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
           },
         },
       }
     end,
+  },
+  {
+    'NeogitOrg/neogit',
+    lazy = true,
+    cmd = 'Neogit',
+    keys = {
+      { '<leader>g', '<cmd>Neogit<cr>', desc = 'NeoGit' },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'sindrets/diffview.nvim',
+    },
+    opts = {
+      kind = 'replace',
+      integrations = {
+        diffview = true,
+      },
+    },
   },
 }
