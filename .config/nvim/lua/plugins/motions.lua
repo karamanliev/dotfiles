@@ -12,7 +12,7 @@ return {
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]ist', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
@@ -46,22 +46,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-surround').setup {}
-    end,
-  },
-
-  -- Subsitute motions
-  {
-    'gbprod/substitute.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      local substitute = require 'substitute'
-      substitute.setup()
-
-      -- keymaps
-      vim.keymap.set('n', 's', substitute.operator, { desc = 'Substitute with motion' })
-      vim.keymap.set('n', 'ss', substitute.line, { desc = 'Substitute line' })
-      vim.keymap.set('n', 'S', substitute.eol, { desc = 'Substitute to end of line' })
-      vim.keymap.set('x', 's', substitute.visual, { desc = 'Substitute in visual mode' })
     end,
   },
 }

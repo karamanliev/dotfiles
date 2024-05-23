@@ -2,6 +2,7 @@ return {
   {
     'kdheepak/lazygit.nvim',
     lazy = true,
+    enabled = false,
     cmd = {
       'LazyGit',
       'LazyGitConfig',
@@ -13,7 +14,7 @@ return {
       'nvim-lua/plenary.nvim',
     },
     keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>gl', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
   {
@@ -62,10 +63,10 @@ return {
         map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
         map('n', '<leader>hp', gitsigns.preview_hunk_inline, { desc = 'git [p]review hunk' })
         map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
-        map('n', '<leader>hD', function()
+        map('n', '<leader>gt', gitsigns.diffthis, { desc = 'git diff against index' })
+        map('n', '<leader>gT', function()
           gitsigns.diffthis '@'
-        end, { desc = 'git [D]iff against last commit' })
+        end, { desc = 'git diff against last commit' })
         -- Toggles
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
@@ -77,39 +78,47 @@ return {
   -- Diffview
   {
     'sindrets/diffview.nvim',
-    cmd = 'DiffviewOpen',
-    keys = {
-      { '<leader>ld', '<cmd>DiffviewOpen<cr>', desc = 'Workspace [D]iff View' },
-      { '<leader>lf', '<cmd>DiffviewFileHistory %<cr>', desc = '[F]ile Diff View' },
+    cmd = {
+      'DiffviewClose',
+      'DiffviewFileHistory',
+      'DiffviewFocusFiles',
+      'DiffviewLog',
+      'DiffviewOpen',
+      'DiffviewRefresh',
+      'DiffviewToggleFiles',
     },
-    opts = function()
-      local actions = require 'diffview.actions'
-
-      return {
-        enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-        keymaps = {
-          view = {
-            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          },
-          file_panel = {
-            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          },
-          file_history_panel = {
-            { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-            { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          },
+    keys = {
+      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace [D]iff View' },
+      { '<leader>gD', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History [D]iff' },
+    },
+    opts = {
+      enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
+      file_panel = {
+        position = 'bottom',
+        height = 15,
+      },
+      keymaps = {
+        view = {
+          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
         },
-      }
-    end,
+        file_panel = {
+          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+        },
+        file_history_panel = {
+          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+        },
+      },
+    },
   },
   {
     'NeogitOrg/neogit',
     lazy = true,
     cmd = 'Neogit',
     keys = {
-      { '<leader>g', '<cmd>Neogit<cr>', desc = 'NeoGit' },
+      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'NeoGit' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
