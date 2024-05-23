@@ -1,5 +1,6 @@
 return {
   'rmagatti/auto-session',
+  event = { 'BufReadPre', 'BufNewFile' },
   cmd = { 'SessionRestore', 'SessionSave', 'SessionDelete' },
   config = function()
     require('auto-session').setup {
