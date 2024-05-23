@@ -179,6 +179,7 @@ return {
         'stylelint', -- Used to lint CSS
         'htmlhint', -- Used to lint HTML
         'jsonlint', -- Used to lint JSON
+        -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

@@ -2,7 +2,7 @@ return {
   -- Visualizie motions
   {
     'folke/which-key.nvim',
-    event = 'VimEnter',
+    event = 'VeryLazy',
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
 
