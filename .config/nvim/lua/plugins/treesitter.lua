@@ -13,7 +13,23 @@ return {
     },
   },
   opts = {
-    ensure_installed = { 'bash', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'json', 'css', 'typescript' },
+    ensure_installed = {
+      'bash',
+      'html',
+      'lua',
+      'luadoc',
+      'markdown',
+      'vim',
+      'vimdoc',
+      'javascript',
+      'json',
+      'css',
+      'typescript',
+      'markdown',
+      'query',
+      'c',
+      'diff',
+    },
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
