@@ -9,6 +9,11 @@ return {
       vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
 
       require('copilot').setup {
+        panel = {
+          keymap = {
+            open = '<M-p>',
+          },
+        },
         suggestion = {
           enabled = true,
           auto_trigger = true,
@@ -89,16 +94,16 @@ return {
 
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
-          ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<C-j>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          ['<C-k>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-CR>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
