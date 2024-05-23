@@ -193,4 +193,17 @@ return {
       { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', desc = 'Trouble: Quickfix' },
     },
   },
+  {
+    'dmmulroy/tsc.nvim',
+    lazy = true,
+    ft = { 'typescript', 'typescriptreact' },
+    config = function()
+      require('tsc').setup {
+        use_trouble_qflist = true,
+        auto_open_qflist = true,
+        auto_focus_qflist = true,
+        pretty_errors = false,
+      }
+    end,
+  },
 }
