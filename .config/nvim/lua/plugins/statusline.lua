@@ -59,6 +59,7 @@ return {
         },
         lualine_c = {
           { 'filename', file_status = true, path = 4 },
+          'searchcount',
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
         lualine_x = {
@@ -72,7 +73,6 @@ return {
           'progress',
         },
         lualine_z = {
-          'searchcount',
           'location',
         },
       },
