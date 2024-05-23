@@ -160,8 +160,11 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              -- fix undefined global variables and unused variables diagnostics
+              diagnostics = {
+                disable = { 'missing-fields' },
+                globals = { 'vim', 'use', 'describe', 'it', 'before_each', 'after_each', 'before_all', 'after_all' },
+              },
             },
           },
         },

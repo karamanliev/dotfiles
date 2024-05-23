@@ -42,7 +42,7 @@ vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 150
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -109,10 +109,24 @@ vim.keymap.set('n', '*', '*zz', { desc = 'Go to [N]ext matching word' })
 
 -- Press 'C-S' for quick find/replace for the word under the cursor
 vim.keymap.set('n', '<C-s>', function()
-  local cmd = ':%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>'
+  local cmd = ':%s/<C-r><C-w>//gI<Left><Left><Left>'
   local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
   vim.api.nvim_feedkeys(keys, 'n', false)
 end)
+
+-- Same as above but for visual mode selection
+vim.keymap.set('x', '<C-s>', '"zy<Esc>:%s/<C-R>z//gI<Left><Left>')
+
+-- Toggle diagnostics virtual_text, because it could be annoying
+local diagnostics_active = true
+vim.keymap.set('n', '<leader>tx', function()
+  diagnostics_active = not diagnostics_active
+  if diagnostics_active then
+    vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
+  end
+end, { desc = 'Toggle text diagnostics' })
 
 -- Disable diagnostics text
 vim.diagnostic.config {
