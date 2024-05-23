@@ -87,10 +87,13 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { silent = false, desc = 'Save [W]rite' })
 
 -- Quit with leader key
-vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit' })
+vim.keymap.set('n', '<leader>Q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit' })
 
 -- Save and Quit with leader key
-vim.keymap.set('n', '<leader>z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
+vim.keymap.set('n', '<leader>Z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
+
+-- Close all buffers, but the active one
+vim.keymap.set('n', '<leader>bx', '<cmd>%bd|e#|bd#<cr>', { desc = 'Close all [B]uffers but the current one' })
 
 -- Center buffer while navigating
 vim.keymap.set('n', 'n', 'nzz', { desc = 'Go to [N]ext search result' })

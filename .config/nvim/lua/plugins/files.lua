@@ -1,5 +1,26 @@
 return {
   {
+    'stevearc/oil.nvim',
+    cmd = { 'Oil' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('oil').setup {
+        default_file_explorer = true,
+        view_options = {
+          show_hidden = true,
+        },
+        keymaps = {
+          ['q'] = 'actions.close',
+          ['<esc>'] = 'actions.close',
+          ['-'] = 'actions.close',
+          ['<bs>'] = 'actions.parent',
+        },
+      }
+
+      vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Oil' })
+    end,
+  },
+  {
     'nvim-neo-tree/neo-tree.nvim',
     version = '*',
     enabled = false,
@@ -10,7 +31,7 @@ return {
     },
     cmd = 'Neotree',
     keys = {
-      { '-', '<cmd>Neotree reveal<cr>', desc = 'NeoTree reveal' },
+      { '\\', '<cmd>Neotree reveal<cr>', desc = 'NeoTree reveal' },
     },
     opts = {},
     config = function()
@@ -101,27 +122,6 @@ return {
           end,
         },
       }
-    end,
-  },
-  {
-    'stevearc/oil.nvim',
-    cmd = { 'Oil' },
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('oil').setup {
-        default_file_explorer = true,
-        view_options = {
-          show_hidden = true,
-        },
-        keymaps = {
-          ['q'] = 'actions.close',
-          ['<esc>'] = 'actions.close',
-          ['\\'] = 'actions.close',
-          ['<bs>'] = 'actions.parent',
-        },
-      }
-
-      vim.keymap.set('n', '\\', '<cmd>Oil<CR>', { desc = 'Open Oil' })
     end,
   },
 }
