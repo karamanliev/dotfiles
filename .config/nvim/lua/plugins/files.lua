@@ -10,7 +10,7 @@ return {
     },
     cmd = 'Neotree',
     keys = {
-      { '\\', '<cmd>Neotree reveal<cr>', desc = 'NeoTree reveal' },
+      { '-', '<cmd>Neotree reveal<cr>', desc = 'NeoTree reveal' },
     },
     opts = {},
     config = function()
