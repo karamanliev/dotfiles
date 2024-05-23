@@ -81,13 +81,44 @@ vim.keymap.set('n', '<M-h>', '<cmd>bprevious<cr>', { desc = 'Go to [P]revious bu
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Save with leader key
+vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { silent = false, desc = 'Save [W]rite' })
+
+-- Quit with leader key
+vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit' })
+
+-- Save and Quit with leader key
+vim.keymap.set('n', '<leader>z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
+
+-- Center buffer while navigating
+vim.keymap.set('n', 'n', 'nzz', { desc = 'Go to [N]ext search result' })
+vim.keymap.set('n', 'N', 'Nzz', { desc = 'Go to [P]revious search result' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll [U]p' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll [D]own' })
+vim.keymap.set('n', '{', '{zz', { desc = 'Go to [P]revious paragraph' })
+vim.keymap.set('n', '}', '}zz', { desc = 'Go to [N]ext paragraph' })
+vim.keymap.set('n', 'G', 'Gzz', { desc = 'Go to [E]nd of file' })
+vim.keymap.set('n', 'gg', 'ggzz', { desc = 'Go to [B]eginning of file' })
+vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to [N]ext cursor position' })
+vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to [P]revious cursor position' })
+vim.keymap.set('n', '%', '%zz', { desc = 'Go to [M]atching bracket' })
+vim.keymap.set('n', '#', '#zz', { desc = 'Go to [P]revious matching word' })
+vim.keymap.set('n', '*', '*zz', { desc = 'Go to [N]ext matching word' })
+
+-- Press 'C-S' for quick find/replace for the word under the cursor
+vim.keymap.set('n', '<C-s>', function()
+  local cmd = ':%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>'
+  local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
+end)
 
 -- Disable diagnostics text
 vim.diagnostic.config {
   virtual_text = {
     source = false,
-    severity = { min = vim.diagnostic.severity.ERROR },
+    severity = { min = vim.diagnostic.severity.WARN },
   },
   severity_sort = true,
   -- signs = {
