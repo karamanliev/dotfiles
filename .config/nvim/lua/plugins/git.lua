@@ -93,12 +93,12 @@ return {
     },
     opts = {
       enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-      file_panel = {
-        win_config = {
-          position = 'bottom',
-          height = 15,
-        },
-      },
+      -- file_panel = {
+      --   win_config = {
+      --     position = 'bottom',
+      --     height = 15,
+      --   },
+      -- },
       keymaps = {
         view = {
           { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
