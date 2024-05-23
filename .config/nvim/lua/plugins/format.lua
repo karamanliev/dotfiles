@@ -2,12 +2,13 @@ return {
   -- Detect tabstop and shiftwidth automatically
   {
     'tpope/vim-sleuth',
+    event = { 'BufReadPre', 'BufNewFile' },
   },
 
   -- Autoformat on save
   {
     'stevearc/conform.nvim',
-    lazy = false,
+    event = { 'BufReadPre', 'BufNewFile' },
     keys = {
       {
         '<leader>df',

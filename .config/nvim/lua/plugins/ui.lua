@@ -17,19 +17,24 @@ return {
   -- Highlight colors HEX/RGB/HSV/HSL
   {
     'brenoprata10/nvim-highlight-colors',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-highlight-colors').setup()
     end,
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+  },
 
   -- vim.input and vim.select replacement
   {
     'stevearc/dressing.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
     config = function()
       require('dressing').setup {
@@ -80,7 +85,7 @@ return {
   -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { { 'kevinhwang91/nvim-hlslens' } },
     config = function()
       local colors = require('tokyonight.colors').setup()
@@ -110,7 +115,7 @@ return {
   -- Noice (nice cmd/search line ui + notifications)
   {
     'folke/noice.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       'MunifTanjim/nui.nvim',

@@ -1,7 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
   -- enabled = false,
-  event = 'VeryLazy',
+  event = { 'BufReadPre', 'BufNewFile' },
   dependencies = { 'nvim-tree/nvim-web-devicons', 'AndreM222/copilot-lualine' },
   config = function()
     -- use gitsigns as diff_source

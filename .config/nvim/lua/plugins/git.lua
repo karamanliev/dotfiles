@@ -1,7 +1,6 @@
 return {
   {
     'kdheepak/lazygit.nvim',
-    lazy = true,
     enabled = false,
     cmd = {
       'LazyGit',
@@ -19,6 +18,7 @@ return {
   },
   {
     'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPre' },
     opts = {
       numhl = false,
       on_attach = function(bufnr)
@@ -94,8 +94,10 @@ return {
     opts = {
       enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
       file_panel = {
-        position = 'bottom',
-        height = 15,
+        win_config = {
+          position = 'bottom',
+          height = 15,
+        },
       },
       keymaps = {
         view = {
@@ -115,7 +117,6 @@ return {
   },
   {
     'NeogitOrg/neogit',
-    lazy = true,
     cmd = 'Neogit',
     keys = {
       { '<leader>gg', '<cmd>Neogit<cr>', desc = 'NeoGit' },

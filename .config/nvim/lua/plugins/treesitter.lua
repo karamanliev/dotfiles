@@ -1,9 +1,16 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  event = { 'BufReadPre', 'BufNewFile' },
   build = ':TSUpdate',
   dependencies = {
-    'windwp/nvim-ts-autotag',
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    {
+      'windwp/nvim-ts-autotag',
+      event = { 'InsertEnter' },
+    },
+    {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      event = { 'BufReadPre', 'BufNewFile' },
+    },
   },
   opts = {
     ensure_installed = { 'bash', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'json', 'css', 'typescript' },

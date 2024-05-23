@@ -2,6 +2,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
@@ -11,19 +12,28 @@ return {
       -- Auto update imports on file/folder rename
       {
         'antosha417/nvim-lsp-file-operations',
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
           'nvim-lua/plenary.nvim',
-          'nvim-neo-tree/neo-tree.nvim',
+          -- 'nvim-neo-tree/neo-tree.nvim',
           'stevearc/oil.nvim',
         },
         opts = {},
       },
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        opts = {},
+      },
 
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      {
+        'folke/neodev.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        opts = {},
+      },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -183,6 +193,7 @@ return {
   },
   {
     'folke/trouble.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
     keys = {
@@ -195,7 +206,6 @@ return {
   },
   {
     'dmmulroy/tsc.nvim',
-    lazy = true,
     ft = { 'typescript', 'typescriptreact' },
     config = function()
       require('tsc').setup {
