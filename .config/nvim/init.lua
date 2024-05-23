@@ -120,6 +120,12 @@ end)
 -- Same as above but for visual mode selection
 vim.keymap.set('x', '<C-s>', '"zy<Esc>:%s/<C-R>z//gI<Left><Left>')
 
+-- Move lines up and down
+vim.keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move line [D]own' })
+vim.keymap.set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move line [U]p' })
+vim.keymap.set('v', '<A-j>', "<cmd>m '>+1<cr>gv=gv", { desc = 'Move line [D]own' })
+vim.keymap.set('v', '<A-k>', "<cmd>m '<-2<cr>gv=gv", { desc = 'Move line [U]p' })
+
 -- Toggle diagnostics virtual_text, because it could be annoying
 local diagnostics_active = true
 vim.keymap.set('n', '<leader>tx', function()
