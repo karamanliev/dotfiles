@@ -178,6 +178,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Show current buffer CWD for 5 seconds
+vim.api.nvim_create_user_command('BufCWD', function()
+  local function print_buffer_cwd()
+    local cwd = vim.fn.expand '%:p:h'
+    local padded_cwd = cwd .. string.rep(' ', 2) -- Adding 2 spaces of padding
+    vim.notify('Current Buffer CWD: ' .. padded_cwd, vim.log.levels.INFO, { ttl = 10000 })
+  end
+
+  print_buffer_cwd()
+end, {})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
