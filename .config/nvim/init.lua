@@ -93,7 +93,13 @@ vim.keymap.set('n', '<leader>Q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit'
 vim.keymap.set('n', '<leader>Z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
 
 -- Close all buffers, but the active one
-vim.keymap.set('n', '<leader>bx', '<cmd>%bd|e#|bd#<cr>', { desc = 'Close all [B]uffers but the current one' })
+vim.api.nvim_create_user_command('ClearBuffers', function()
+  local current_line = vim.fn.line '.'
+  vim.cmd [[%bd|e#|bd#]]
+  vim.cmd(current_line .. 'norm! zz')
+end, {})
+
+vim.keymap.set('n', '<leader>bx', '<cmd>ClearBuffers<cr>', { desc = 'Close all [B]uffers but the current one' })
 
 -- Center buffer while navigating
 vim.keymap.set('n', 'n', 'nzz', { desc = 'Go to [N]ext search result' })
@@ -136,23 +142,6 @@ vim.keymap.set('n', '<leader>tx', function()
     vim.diagnostic.hide()
   end
 end, { desc = 'Toggle text diagnostics' })
-
--- Disable diagnostics text
-vim.diagnostic.config {
-  virtual_text = {
-    source = false,
-    severity = { min = vim.diagnostic.severity.WARN },
-  },
-  severity_sort = true,
-  -- signs = {
-  --   text = {
-  --     [vim.diagnostic.severity.ERROR] = '󰅚 ',
-  --     [vim.diagnostic.severity.WARN] = '󰀪 ',
-  --     [vim.diagnostic.severity.HINT] = '󰌶 ',
-  --     [vim.diagnostic.severity.INFO] = '󰋽 ',
-  --   },
-  -- },
-}
 
 -- [[ Basic Autocommands ]]
 

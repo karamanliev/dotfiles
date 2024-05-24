@@ -10,16 +10,16 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Auto update imports on file/folder rename
-      {
-        'antosha417/nvim-lsp-file-operations',
-        event = { 'BufReadPre', 'BufNewFile' },
-        dependencies = {
-          'nvim-lua/plenary.nvim',
-          -- 'nvim-neo-tree/neo-tree.nvim',
-          'stevearc/oil.nvim',
-        },
-        opts = {},
-      },
+      -- {
+      --   'antosha417/nvim-lsp-file-operations',
+      --   event = { 'BufReadPre', 'BufNewFile' },
+      --   dependencies = {
+      --     'nvim-lua/plenary.nvim',
+      --     -- 'nvim-neo-tree/neo-tree.nvim',
+      --     'stevearc/oil.nvim',
+      --   },
+      --   opts = {},
+      -- },
 
       -- Useful status updates for LSP.
       {
@@ -43,51 +43,37 @@ return {
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-
-          -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
-          -- Jump to the implementation of the word under your cursor.
-          --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
-          -- Jump to the type of the word under your cursor.
-          --  Useful when you're not sure what type a variable is and you want to see
-          --  the definition of its *type*, not where it was *defined*.
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-
-          -- Fuzzy find all the symbols in your current document.
-          --  Symbols are things like variables, functions, types, etc.
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-
-          -- Fuzzy find all the symbols in your current workspace.
-          --  Similar to document symbols, except searches over your entire project.
-          -- map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-          -- Rename the variable under your cursor.
-          --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
+          map('<leader>cr', vim.lsp.buf.rename, '[R]ename Word')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-          -- Organize imports
-          map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap.
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-          -- not needed for JS/TS
-          -- map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          -- Keybinds are only enabled for tsserver files
+          if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' then
+            -- Organize imports
+            map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
 
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
+            -- Go to source definition
+            map('gD', '<cmd>GoToSourceDefintion<cr>', 'Go to Source [D]efinition')
+
+            -- Remove unused imports
+            map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove [U]nused Imports')
+
+            -- Sort imports
+            map('<leader>cs', '<cmd>SortImports<cr>', '[S]ort Imports')
+
+            -- Add missing imports
+            map('<leader>ci', '<cmd>AddMissingImports<cr>', '[A]dd Missing Imports')
+
+            -- Rename file and update imports
+            map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
+          end
+
+          -- Highlight references
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
             local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
@@ -112,9 +98,7 @@ return {
             })
           end
 
-          -- The following autocommand is used to enable inlay hints in your
-          -- code, if the language server you are using supports them
-          -- This may be unwanted, since they displace some of your code
+          -- Toggle inlay hints
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
               ---@diagnostic disable-next-line: missing-parameter
@@ -127,10 +111,18 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      -- add border to hover and signature help
+      local default_handlers = {
+        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
+        ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+      }
+
       local servers = {
         tsserver = {
+          root_dir = require('lspconfig.util').root_pattern 'package.json',
+          single_file_support = true,
           commands = {
-            -- organizeImports
+            -- Organize Imports
             OrganizeImports = {
               function()
                 local params = {
@@ -142,6 +134,111 @@ return {
               end,
               description = 'Organize Imports',
             },
+
+            -- Go to Source Definition
+            GoToSourceDefintion = {
+              function()
+                vim.lsp.buf.execute_command {
+                  command = '_typescript.goToSourceDefinition',
+                  arguments = {
+                    vim.api.nvim_buf_get_name(0),
+                    vim.lsp.util.make_position_params().position,
+                  },
+                }
+              end,
+              description = 'Go to Source Definition',
+            },
+
+            RenameFile = {
+              function()
+                local function prompt_ts_rename(prompt_path)
+                  local source_file = prompt_path or vim.api.nvim_buf_get_name(0)
+                  local target_file
+
+                  vim.ui.input({
+                    prompt = 'Target : ',
+                    completion = 'file',
+                    default = source_file,
+                  }, function(input)
+                    if not input or input == '' then
+                      vim.notify('The file was not renamed. Please provide a target file.', 'info', { ttl = 5000 })
+                      return
+                    end
+                    target_file = input
+                    local params = {
+                      command = '_typescript.applyRenameFile',
+                      arguments = {
+                        {
+                          sourceUri = source_file,
+                          targetUri = target_file,
+                        },
+                      },
+                      title = '',
+                    }
+
+                    vim.lsp.util.rename(source_file, target_file)
+                    vim.lsp.buf.execute_command(params)
+                    vim.notify('Imports updated! Use :wa to save the changes.', 'info', { ttl = 5000 })
+                  end)
+                end
+
+                prompt_ts_rename()
+              end,
+              description = 'Rename File and Update Imports',
+            },
+
+            -- Remove Unused Imports
+            RemoveUnusedImports = {
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { 'source.removeUnused.ts' },
+                    diagnostics = {},
+                  },
+                }
+              end,
+              description = 'Remove Unused Imports',
+            },
+
+            -- Sort Imports
+            SortImports = {
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { 'source.sortImports.ts' },
+                    diagnostics = {},
+                  },
+                }
+              end,
+              description = 'Sort Imports',
+            },
+
+            -- Add Missing Imports
+            AddMissingImports = {
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { 'source.addMissingImports.ts' },
+                    diagnostics = {},
+                  },
+                }
+              end,
+              description = 'Add Missing Imports',
+            },
+          },
+          handlers = {
+            ['workspace/executeCommand'] = function(_, result, ctx, _)
+              if ctx.params.command == '_typescript.goToSourceDefinition' and result ~= nil and #result > 0 then
+                vim.cmd 'vsplit'
+                vim.lsp.util.jump_to_location(result[1], 'utf-8')
+              end
+            end,
+            ['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+              virtual_text = false,
+            }),
           },
           settings = {
             typescript = {
@@ -171,18 +268,18 @@ return {
             completions = {
               completeFunctionCalls = true,
             },
+            diagnostics = {
+              ignoredCodes = {},
+            },
           },
         },
         html = {},
         cssls = {},
         graphql = {},
         tailwindcss = {},
-        emmet_ls = {},
+        -- emmet_ls = {},
         jsonls = {},
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ... },
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
@@ -217,9 +314,36 @@ return {
           function(server_name)
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
+      }
+
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+      vim.diagnostic.config {
+        -- virtual_text = {
+        --   source = false,
+        --   severity = { min = vim.diagnostic.severity.WARN },
+        -- },
+        virtual_text = true,
+        severity_sort = true,
+        update_in_insert = true,
+        underline = true,
+        float = {
+          source = false,
+          border = 'rounded',
+          severity_sort = true,
+        },
+        -- signs = {
+        --   text = {
+        --     [vim.diagnostic.severity.ERROR] = '󰅚 ',
+        --     [vim.diagnostic.severity.WARN] = '󰀪 ',
+        --     [vim.diagnostic.severity.HINT] = '󰌶 ',
+        --     [vim.diagnostic.severity.INFO] = '󰋽 ',
+        --   },
+        -- },
       }
     end,
   },

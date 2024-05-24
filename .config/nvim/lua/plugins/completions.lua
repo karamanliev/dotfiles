@@ -3,7 +3,7 @@ return {
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
-    event = 'InsertEnter',
+    event = { 'InsertEnter' },
     config = function()
       local colors = require('tokyonight.colors').setup()
       vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
@@ -42,9 +42,8 @@ return {
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
       {
         'L3MON4D3/LuaSnip',
         build = (function()
@@ -65,12 +64,14 @@ return {
       'saadparwaiz1/cmp_luasnip',
 
       'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'onsails/lspkind.nvim',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
     },
     config = function()
       local cmp = require 'cmp'
+      local cmp_window = require 'cmp.config.window'
       local luasnip = require 'luasnip'
       local lspkind = require 'lspkind'
 
@@ -87,9 +88,28 @@ return {
         ---@diagnostic disable-next-line: missing-fields
         formatting = {
           format = lspkind.cmp_format {
+            mode = 'text',
             maxwidth = 50,
             ellipsis_char = '...',
+
+            before = function(entry, vim_item)
+              vim_item.kind = vim_item.kind
+              vim_item.menu = ({
+                nvim_lsp = '[LSP]',
+                buffer = '[BUF]',
+                path = '[PATH]',
+                luasnip = '[SNIP]',
+              })[entry.source.name]
+              vim_item.abbr = lspkind.presets.default[vim_item.kind] .. '  ' .. vim_item.abbr
+
+              return vim_item
+            end,
           },
+        },
+
+        window = {
+          completion = cmp_window.bordered(),
+          documentation = cmp_window.bordered(),
         },
 
         mapping = cmp.mapping.preset.insert {
@@ -102,17 +122,11 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
 
           -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
-
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Manually trigger a completion from nvim-cmp.
           ['<C-Space>'] = cmp.mapping.complete {},
@@ -135,11 +149,65 @@ return {
         },
         sources = {
           { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          { name = 'buffer' },
+          { name = 'buffer', max_item_count = 5 },
+          { name = 'luasnip', max_item_count = 3 },
+          { name = 'path', max_item_count = 3 },
         },
       }
+
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline {
+          ['<C-k>'] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ['<C-j>'] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+        },
+
+        sources = {
+          { name = 'buffer' },
+        },
+      })
+
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline {
+          ['<C-k>'] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ['<C-j>'] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+        },
+        sources = cmp.config.sources {
+          { name = 'path' },
+          { name = 'cmdline' },
+        },
+      })
     end,
   },
 
@@ -147,7 +215,6 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    -- Optional dependency
     dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
       require('nvim-autopairs').setup {}
