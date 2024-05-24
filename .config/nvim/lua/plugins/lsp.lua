@@ -232,10 +232,12 @@ return {
           handlers = {
             ['workspace/executeCommand'] = function(_, result, ctx, _)
               if ctx.params.command == '_typescript.goToSourceDefinition' and result ~= nil and #result > 0 then
+                -- wanna open in vsplit? Try and maybe change to buffer.
                 vim.cmd 'vsplit'
                 vim.lsp.util.jump_to_location(result[1], 'utf-8')
               end
             end,
+            -- disable annoying virtual text
             ['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
               virtual_text = false,
             }),
@@ -277,6 +279,7 @@ return {
         cssls = {},
         graphql = {},
         tailwindcss = {},
+        -- getting annoying completion suggestions because of this
         -- emmet_ls = {},
         jsonls = {},
         lua_ls = {
