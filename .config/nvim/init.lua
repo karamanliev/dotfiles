@@ -60,6 +60,9 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
+-- add transparency to the popup completion menu
+vim.opt.pumblend = 15
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
 
@@ -91,6 +94,9 @@ vim.keymap.set('n', '<leader>Q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit'
 
 -- Save and Quit with leader key
 vim.keymap.set('n', '<leader>Z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
+
+-- Open Oil
+vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Oil' })
 
 -- Close all buffers, but the active one
 vim.api.nvim_create_user_command('ClearBuffers', function()

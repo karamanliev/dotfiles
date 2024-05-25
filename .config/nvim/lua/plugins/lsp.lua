@@ -239,7 +239,7 @@ return {
             end,
             -- disable annoying virtual text
             ['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-              virtual_text = false,
+              virtual_text = true,
             }),
           },
           settings = {
@@ -326,16 +326,15 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
       vim.diagnostic.config {
-        -- virtual_text = {
-        --   source = false,
-        --   severity = { min = vim.diagnostic.severity.WARN },
-        -- },
-        virtual_text = true,
+        virtual_text = {
+          source = false,
+          severity = { min = vim.diagnostic.severity.WARN },
+        },
         severity_sort = true,
         update_in_insert = true,
         underline = true,
         float = {
-          source = false,
+          source = true,
           border = 'rounded',
           severity_sort = true,
         },

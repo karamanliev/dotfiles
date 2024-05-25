@@ -15,8 +15,6 @@ return {
           ['<bs>'] = 'actions.parent',
         },
       }
-
-      vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Oil' })
     end,
   },
   {
