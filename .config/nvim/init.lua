@@ -60,8 +60,9 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
--- add transparency to the popup completion menu
+-- add transparency to the popup completion menu and
 vim.opt.pumblend = 15
+vim.opt.winblend = 15
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
