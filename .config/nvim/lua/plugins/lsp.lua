@@ -242,14 +242,14 @@ return {
               end
             end,
             -- add ts-error-translator to diagnostics
-            ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
-              require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
-              vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = {
-                  spacing = 4,
-                },
-              })(err, result, ctx, config)
-            end,
+            -- ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+            --   require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
+            --   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            --     virtual_text = {
+            --       spacing = 4,
+            --     },
+            --   })(err, result, ctx, config)
+            -- end,
           },
           settings = {
             typescript = {
@@ -386,9 +386,12 @@ return {
   {
     'dmmulroy/ts-error-translator.nvim',
     ft = { 'typescript', 'typescriptreact' },
-    opts = {
-      auto_override_publish_diagnostics = false,
-    },
+    -- opts = {
+    --   auto_override_publish_diagnostics = false,
+    -- },
+    config = function()
+      require('ts-error-translator').setup()
+    end,
   },
   {
     'rmagatti/goto-preview',
