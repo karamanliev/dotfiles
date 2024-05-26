@@ -70,7 +70,7 @@ return {
             file_status = true,
             path = 4,
           },
-          'searchcount',
+          -- 'searchcount',
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
         lualine_x = {
