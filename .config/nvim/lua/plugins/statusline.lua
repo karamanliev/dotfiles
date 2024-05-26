@@ -55,21 +55,32 @@ return {
             },
             source = diff_source,
           },
-          { 'diagnostics', icons_enabled = true },
         },
         lualine_c = {
-          { 'filename', file_status = true, path = 4 },
+          {
+            'filetype',
+            icon_only = true,
+            padding = {
+              left = 1,
+              right = 0,
+            },
+          },
+          {
+            'filename',
+            file_status = true,
+            path = 4,
+          },
           'searchcount',
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
         lualine_x = {
+          { 'diagnostics', icons_enabled = true },
           'copilot',
-          'fileformat',
-          'encoding',
-          'filetype',
+          buff_count,
+          -- 'fileformat',
+          -- 'encoding',
         },
         lualine_y = {
-          buff_count,
           'progress',
         },
         lualine_z = {
