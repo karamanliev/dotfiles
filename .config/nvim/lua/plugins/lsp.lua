@@ -72,7 +72,9 @@ return {
             -- Rename file and update imports
             map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
 
+            -- TSC
             map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
+            map('<leader>xt', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
           end
 
           -- Highlight references
@@ -239,10 +241,15 @@ return {
                 vim.lsp.util.jump_to_location(result[1], 'utf-8')
               end
             end,
-            -- disable annoying virtual text
-            ['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-              virtual_text = true,
-            }),
+            -- add ts-error-translator to diagnostics
+            ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+              require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
+              vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+                virtual_text = {
+                  spacing = 4,
+                },
+              })(err, result, ctx, config)
+            end,
           },
           settings = {
             typescript = {
@@ -375,6 +382,13 @@ return {
         pretty_errors = true,
       }
     end,
+  },
+  {
+    'dmmulroy/ts-error-translator.nvim',
+    ft = { 'typescript', 'typescriptreact' },
+    opts = {
+      auto_override_publish_diagnostics = false,
+    },
   },
   {
     'rmagatti/goto-preview',
