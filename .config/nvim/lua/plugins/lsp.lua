@@ -71,6 +71,8 @@ return {
 
             -- Rename file and update imports
             map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
+
+            map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
           end
 
           -- Highlight references
@@ -370,7 +372,7 @@ return {
         use_trouble_qflist = true,
         auto_open_qflist = true,
         auto_focus_qflist = true,
-        pretty_errors = false,
+        pretty_errors = true,
       }
     end,
   },

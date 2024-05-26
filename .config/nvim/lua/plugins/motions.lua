@@ -4,10 +4,11 @@ return {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+      local wk = require 'which-key'
+      wk.setup()
 
       -- Document existing key chains
-      require('which-key').register {
+      wk.register {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
@@ -19,9 +20,24 @@ return {
         ['<leader>x'] = { name = 'Trouble', _ = 'which_key_ignore' },
       }
       -- visual mode
-      require('which-key').register({
+      wk.register({
         ['<leader>h'] = { 'Git [H]unk' },
       }, { mode = 'v' })
+
+      wk.register({
+        q = {
+          name = 'file',
+          q = { '<cmd>q<CR>', 'Quit' },
+          Q = { '<cmd>q!<CR>', 'Quit without saving' },
+          w = { '<cmd>w<CR>', 'Write' },
+          W = { '<cmd>wq<CR>', 'Write and quit' },
+          x = { '<cmd>qa<CR>', 'Quit all' },
+          X = { '<cmd>qa!<CR>', 'Quit all without saving' },
+          s = { '<cmd>wa<CR>', 'Save all' },
+          S = { '<cmd>waq<CR>', 'Save all and quit' },
+          z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
+        },
+      }, { prefix = '' })
     end,
   },
 
