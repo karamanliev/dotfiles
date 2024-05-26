@@ -87,15 +87,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Save with leader key
-vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { silent = false, desc = 'Save [W]rite' })
-
--- Quit with leader key
-vim.keymap.set('n', '<leader>Q', '<cmd>q<cr>', { silent = false, desc = '[Q]uit' })
-
--- Save and Quit with leader key
-vim.keymap.set('n', '<leader>Z', '<cmd>wq<cr>', { silent = false, desc = 'Save and [X]it' })
-
 -- Open Oil
 vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Oil' })
 
@@ -105,8 +96,6 @@ vim.api.nvim_create_user_command('ClearBuffers', function()
   vim.cmd [[%bd|e#|bd#]]
   vim.cmd(current_line .. 'norm! zz')
 end, {})
-
-vim.keymap.set('n', '<leader>bx', '<cmd>ClearBuffers<cr>', { desc = 'Close all [B]uffers but the current one' })
 
 -- Center buffer while navigating
 vim.keymap.set('n', 'n', 'nzz', { desc = 'Go to [N]ext search result' })

@@ -25,8 +25,8 @@ return {
       }, { mode = 'v' })
 
       wk.register({
-        q = {
-          name = 'file',
+        b = {
+          name = 'Buffer',
           q = { '<cmd>q<CR>', 'Quit' },
           Q = { '<cmd>q!<CR>', 'Quit without saving' },
           w = { '<cmd>w<CR>', 'Write' },
@@ -37,7 +37,7 @@ return {
           S = { '<cmd>waq<CR>', 'Save all and quit' },
           z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
         },
-      }, { prefix = '' })
+      }, { prefix = '<leader>' })
     end,
   },
 
