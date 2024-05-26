@@ -291,7 +291,7 @@ return {
               -- fix undefined global variables and unused variables diagnostics
               diagnostics = {
                 disable = { 'missing-fields' },
-                globals = { 'vim', 'use', 'describe', 'it', 'before_each', 'after_each', 'before_all', 'after_all' },
+                globals = { 'vim' },
               },
             },
           },
@@ -372,6 +372,17 @@ return {
         auto_focus_qflist = true,
         pretty_errors = false,
       }
+    end,
+  },
+  {
+    'rmagatti/goto-preview',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('goto-preview').setup {
+        default_mappings = true,
+      }
+
+      vim.keymap.set('n', 'q', '<cmd>lua require("goto-preview").close_all_win()<cr>', { noremap = true, desc = 'Close Preview' })
     end,
   },
 }
