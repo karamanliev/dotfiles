@@ -22,6 +22,7 @@ return {
     end
 
     local colors = require('tokyonight.colors').setup()
+    local noice = require 'noice'
 
     require('lualine').setup {
       options = {
@@ -74,6 +75,12 @@ return {
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },
         lualine_x = {
+          -- show macro recording
+          {
+            noice.api.statusline.mode.get,
+            cond = noice.api.statusline.mode.has,
+            color = { fg = colors.red },
+          },
           { 'diagnostics', icons_enabled = true },
           'copilot',
           buff_count,

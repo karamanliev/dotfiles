@@ -397,8 +397,6 @@ return {
       require('goto-preview').setup {
         default_mappings = true,
       }
-
-      vim.keymap.set('n', 'q', '<cmd>lua require("goto-preview").close_all_win()<cr>', { noremap = true, desc = 'Close Preview' })
     end,
   },
 }
