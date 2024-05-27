@@ -123,8 +123,6 @@ return {
 
       local servers = {
         tsserver = {
-          root_dir = require('lspconfig.util').root_pattern 'package.json',
-          single_file_support = true,
           commands = {
             -- Organize Imports
             OrganizeImports = {

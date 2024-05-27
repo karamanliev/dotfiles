@@ -21,6 +21,14 @@ return {
       return '  ' .. vim.fn.len(vim.fn.getbufinfo { buflisted = 1 })
     end
 
+    local lint_progress = function()
+      local linters = require('lint').get_running()
+      if #linters == 0 then
+        return '󰦕'
+      end
+      return '󱉶 ' .. table.concat(linters, ', ')
+    end
+
     local colors = require('tokyonight.colors').setup()
     local noice = require 'noice'
 
@@ -82,6 +90,7 @@ return {
             color = { fg = colors.red },
           },
           { 'diagnostics', icons_enabled = true },
+          lint_progress,
           'copilot',
           buff_count,
           -- 'fileformat',
