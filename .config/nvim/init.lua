@@ -143,27 +143,48 @@ vim.keymap.set('n', '<leader>tx', function()
 end, { desc = 'Toggle text diagnostics' })
 
 -- [[ Basic Autocommands ]]
+local autocmd = vim.api.nvim_create_autocmd
+local autogroup = vim.api.nvim_create_augroup
+local general = autogroup('General', { clear = true })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+  group = general,
+  desc = 'Highlight when yanking (copying) text',
 })
 
--- Open help in vertical split
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('vertical_help', { clear = true }),
-  pattern = 'help',
+autocmd('FileType', {
   callback = function()
     vim.bo.bufhidden = 'unload'
     vim.cmd.wincmd 'L'
     vim.cmd.wincmd '='
   end,
+  pattern = 'help',
+  group = general,
+  desc = 'Open help in vertical split',
+})
+
+autocmd('BufReadPost', {
+  callback = function()
+    if vim.fn.line '\'"' > 1 and vim.fn.line '\'"' <= vim.fn.line '$' then
+      vim.cmd 'normal! g`"'
+    end
+  end,
+  group = general,
+  desc = 'Preserve Last Cursor Position on Quit',
+})
+
+autocmd('BufEnter', {
+  callback = function()
+    vim.opt.formatoptions:remove { 'c', 'r', 'o' }
+  end,
+  group = general,
+  desc = 'Disable New Line Comment',
 })
 
 -- Show current buffer CWD for 5 seconds

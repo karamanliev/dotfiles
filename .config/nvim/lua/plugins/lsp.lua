@@ -2,7 +2,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'VeryLazy' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
@@ -22,11 +22,11 @@ return {
       -- },
 
       -- Useful status updates for LSP.
-      {
-        'j-hui/fidget.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
-        opts = {},
-      },
+      -- {
+      --   'j-hui/fidget.nvim',
+      --   event = { 'BufReadPre', 'BufNewFile' },
+      --   opts = {},
+      -- },
 
       -- used for completion, annotations and signatures of Neovim apis
       {
@@ -43,7 +43,6 @@ return {
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
@@ -54,11 +53,13 @@ return {
 
           -- Keybinds are only enabled for tsserver files
           if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' then
+            -- Go to source definition
+            map('gd', '<cmd>GoToSourceDefintion<cr>', '[G]oto Source [D]efinition')
+            -- how to add vsplit here
+            map('gps', '<cmd>lua vim.cmd "vsplit" vim.cmd "GoToSourceDefintion"<cr>', '[G]oto Source [D]efinition (vsplit)')
+
             -- Organize imports
             map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
-
-            -- Go to source definition
-            map('gD', '<cmd>GoToSourceDefintion<cr>', 'Go to Source [D]efinition')
 
             -- Remove unused imports
             map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove [U]nused Imports')
@@ -75,6 +76,8 @@ return {
             -- TSC
             map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
             map('<leader>xt', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
+          else
+            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           end
 
           -- Highlight references
@@ -235,7 +238,7 @@ return {
             ['workspace/executeCommand'] = function(_, result, ctx, _)
               if ctx.params.command == '_typescript.goToSourceDefinition' and result ~= nil and #result > 0 then
                 -- wanna open in vsplit? Try and maybe change to buffer.
-                vim.cmd 'vsplit'
+                -- vim.cmd 'vsplit'
                 vim.lsp.util.jump_to_location(result[1], 'utf-8')
               end
             end,
