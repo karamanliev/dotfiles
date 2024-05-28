@@ -167,23 +167,4 @@ return {
       }
     end,
   },
-  {
-    'sunjon/shade.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    keys = {
-      {
-        '<leader>tS',
-        function()
-          require('shade').toggle()
-        end,
-        desc = 'Toggle [S]hade',
-      },
-    },
-    config = function()
-      require('shade').setup {
-        overlay_opacity = 60,
-        opacity_step = 1,
-      }
-    end,
-  },
 }
