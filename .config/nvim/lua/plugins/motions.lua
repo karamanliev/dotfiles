@@ -36,8 +36,12 @@ return {
           s = { '<cmd>wa<CR>', 'Save all' },
           S = { '<cmd>waq<CR>', 'Save all and quit' },
           z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
+          h = { '<cmd>leftabove vsplit<CR>', 'Split vertical left' },
+          l = { '<cmd>vsplit<CR>', 'Split vertical right' },
+          j = { '<cmd>split<CR>', 'Split horizontal down' },
+          k = { '<cmd>top split<CR>', 'Split horizontal up' },
         },
-      }, { prefix = '<leader>' })
+      }, { prefix = '' })
     end,
   },
 
