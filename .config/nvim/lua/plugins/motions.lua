@@ -25,7 +25,7 @@ return {
       }, { mode = 'v' })
 
       wk.register({
-        b = {
+        q = {
           name = 'Buffer',
           q = { '<cmd>q<CR>', 'Quit' },
           Q = { '<cmd>q!<CR>', 'Quit without saving' },
@@ -41,7 +41,7 @@ return {
           j = { '<cmd>split<CR>', 'Split horizontal down' },
           k = { '<cmd>top split<CR>', 'Split horizontal up' },
         },
-      }, { prefix = '' })
+      }, { prefix = '<leader>' })
     end,
   },
 
