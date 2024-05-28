@@ -46,7 +46,7 @@ return {
         },
         ignore_focus = {},
         always_divide_middle = true,
-        globalstatus = false,
+        globalstatus = true,
         refresh = {
           statusline = 1000,
         },
@@ -77,7 +77,7 @@ return {
           {
             'filename',
             file_status = true,
-            path = 4,
+            path = 1,
           },
           -- 'searchcount',
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
