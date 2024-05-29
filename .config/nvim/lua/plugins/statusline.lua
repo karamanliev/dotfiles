@@ -18,7 +18,7 @@ return {
 
     -- count buffers
     local function buff_count()
-      return '  ' .. vim.fn.len(vim.fn.getbufinfo { buflisted = 1 })
+      return '  ' .. vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
     end
 
     local lint_progress = function()
@@ -30,9 +30,9 @@ return {
     end
 
     local colors = require('tokyonight.colors').setup()
-    local noice = require 'noice'
+    local noice = require('noice')
 
-    require('lualine').setup {
+    require('lualine').setup({
       options = {
         icons_enabled = true,
         theme = 'tokyonight',
@@ -112,6 +112,6 @@ return {
         lualine_z = {},
       },
       extensions = { 'neo-tree' },
-    }
+    })
   end,
 }

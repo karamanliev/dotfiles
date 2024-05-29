@@ -4,13 +4,13 @@ return {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      require('tokyonight').setup {
+      require('tokyonight').setup({
         style = 'moon',
         transparent = false,
         dim_inactive = true,
-      }
+      })
 
-      vim.cmd.colorscheme 'tokyonight'
+      vim.cmd.colorscheme('tokyonight')
     end,
   },
 
@@ -37,7 +37,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
     config = function()
-      require('dressing').setup {
+      require('dressing').setup({
         input = {
           get_config = function()
             if vim.api.nvim_buf_get_option(0, 'filetype') == 'NvimTree' then
@@ -45,7 +45,7 @@ return {
             end
           end,
         },
-      }
+      })
     end,
   },
 
@@ -56,7 +56,7 @@ return {
     main = 'ibl',
     enabled = false,
     config = function()
-      require('ibl').setup {
+      require('ibl').setup({
         scope = {
           show_start = false,
         },
@@ -68,7 +68,7 @@ return {
         whitespace = {
           remove_blankline_trail = true,
         },
-      }
+      })
     end,
   },
   {
@@ -76,9 +76,9 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     enabled = true,
     config = function()
-      require('indentmini').setup {
+      require('indentmini').setup({
         char = '┊',
-      }
+      })
     end,
   },
 
@@ -90,7 +90,7 @@ return {
     config = function()
       local colors = require('tokyonight.colors').setup()
 
-      require('scrollbar').setup {
+      require('scrollbar').setup({
         handle = {
           color = colors.bg_highlight,
         },
@@ -108,7 +108,7 @@ return {
           search = true,
           gitsigns = true,
         },
-      }
+      })
     end,
   },
 
@@ -128,13 +128,13 @@ return {
       {
         '<leader>ll',
         function()
-          require('noice').cmd 'telescope'
+          require('noice').cmd('telescope')
         end,
         desc = 'List [L]ogs',
       },
     },
     config = function()
-      require('noice').setup {
+      require('noice').setup({
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
@@ -163,8 +163,22 @@ return {
             },
             opts = { skip = true },
           },
+          {
+            filter = {
+              event = 'msg_show',
+              any = {
+                { find = '%d+L, %d+B' },
+                { find = '; after #%d+' },
+                { find = '; before #%d+' },
+                { find = '%d fewer lines' },
+                { find = '%d more lines' },
+                { find = 'written' },
+              },
+            },
+            opts = { skip = true },
+          },
         },
-      }
+      })
     end,
   },
 }

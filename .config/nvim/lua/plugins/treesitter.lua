@@ -149,16 +149,16 @@ return {
 
     -- Treesitter Autotag
     ---@diagnostic disable-next-line: missing-fields
-    require('nvim-ts-autotag').setup {
+    require('nvim-ts-autotag').setup({
       opts = {
         enable_close = true,
         enable_rename = true,
         enable_close_on_slash = true,
       },
-    }
+    })
 
     -- Treesitter Textobjects Repeatable Move
-    local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
+    local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
 
     -- vim way: ; goes to the direction you were moving.
     vim.keymap.set({ 'n', 'x', 'o' }, ';', ts_repeat_move.repeat_last_move)

@@ -2,9 +2,12 @@ return {
   {
     'stevearc/oil.nvim',
     cmd = { 'Oil' },
+    keys = {
+      { '-', '<cmd>Oil<cr>', desc = 'Open oil' },
+    },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('oil').setup {
+      require('oil').setup({
         default_file_explorer = true,
         view_options = {
           show_hidden = true,
@@ -14,7 +17,7 @@ return {
           ['-'] = 'actions.close',
           ['<bs>'] = 'actions.parent',
         },
-      }
+      })
     end,
   },
   {
@@ -38,10 +41,10 @@ return {
           cwd = path,
           search_dirs = { path },
           attach_mappings = function(prompt_bufnr, map)
-            local actions = require 'telescope.actions'
+            local actions = require('telescope.actions')
             actions.select_default:replace(function()
               actions.close(prompt_bufnr)
-              local action_state = require 'telescope.actions.state'
+              local action_state = require('telescope.actions.state')
               local selection = action_state.get_selected_entry()
               local filename = selection.filename
               if filename == nil then
@@ -55,7 +58,7 @@ return {
         }
       end
 
-      require('neo-tree').setup {
+      require('neo-tree').setup({
         close_if_last_window = false,
         auto_clean_after_session_restore = true,
         source_selector = {
@@ -91,14 +94,14 @@ return {
           {
             event = 'file_opened',
             handler = function()
-              require('neo-tree.command').execute { action = 'close' }
+              require('neo-tree.command').execute({ action = 'close' })
             end,
           },
           -- Show preview automatically after rendering
           {
             event = 'after_render',
             handler = function()
-              local state = require('neo-tree.sources.manager').get_state 'filesystem'
+              local state = require('neo-tree.sources.manager').get_state('filesystem')
               if not require('neo-tree.sources.common.preview').is_active() then
                 state.config = { use_float = false }
                 state.commands.toggle_preview(state)
@@ -118,7 +121,7 @@ return {
             require('telescope.builtin').live_grep(getTelescopeOpts(state, path))
           end,
         },
-      }
+      })
     end,
   },
 }

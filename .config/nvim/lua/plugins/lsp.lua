@@ -9,18 +9,6 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      -- Auto update imports on file/folder rename
-      -- {
-      --   'antosha417/nvim-lsp-file-operations',
-      --   event = { 'BufReadPre', 'BufNewFile' },
-      --   dependencies = {
-      --     'nvim-lua/plenary.nvim',
-      --     -- 'nvim-neo-tree/neo-tree.nvim',
-      --     'stevearc/oil.nvim',
-      --   },
-      --   opts = {},
-      -- },
-
       -- Useful status updates for LSP.
       -- {
       --   'j-hui/fidget.nvim',
@@ -100,7 +88,7 @@ return {
               group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
               callback = function(event)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event.buf }
+                vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event.buf })
               end,
             })
           end
@@ -143,13 +131,13 @@ return {
             -- Go to Source Definition
             GoToSourceDefintion = {
               function()
-                vim.lsp.buf.execute_command {
+                vim.lsp.buf.execute_command({
                   command = '_typescript.goToSourceDefinition',
                   arguments = {
                     vim.api.nvim_buf_get_name(0),
                     vim.lsp.util.make_position_params().position,
                   },
-                }
+                })
               end,
               description = 'Go to Source Definition',
             },
@@ -195,13 +183,14 @@ return {
             -- Remove Unused Imports
             RemoveUnusedImports = {
               function()
-                vim.lsp.buf.code_action {
+                vim.lsp.buf.code_action({
                   apply = true,
                   context = {
+                    ---@diagnostic disable-next-line: assign-type-mismatch
                     only = { 'source.removeUnused.ts' },
                     diagnostics = {},
                   },
-                }
+                })
               end,
               description = 'Remove Unused Imports',
             },
@@ -209,13 +198,14 @@ return {
             -- Sort Imports
             SortImports = {
               function()
-                vim.lsp.buf.code_action {
+                vim.lsp.buf.code_action({
                   apply = true,
                   context = {
+                    ---@diagnostic disable-next-line: assign-type-mismatch
                     only = { 'source.sortImports.ts' },
                     diagnostics = {},
                   },
-                }
+                })
               end,
               description = 'Sort Imports',
             },
@@ -223,13 +213,14 @@ return {
             -- Add Missing Imports
             AddMissingImports = {
               function()
-                vim.lsp.buf.code_action {
+                vim.lsp.buf.code_action({
                   apply = true,
                   context = {
+                    ---@diagnostic disable-next-line: assign-type-mismatch
                     only = { 'source.addMissingImports.ts' },
                     diagnostics = {},
                   },
-                }
+                })
               end,
               description = 'Add Missing Imports',
             },
@@ -320,9 +311,9 @@ return {
         'jsonlint', -- Used to lint JSON
         -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
-      require('mason-lspconfig').setup {
+      require('mason-lspconfig').setup({
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -331,11 +322,11 @@ return {
             require('lspconfig')[server_name].setup(server)
           end,
         },
-      }
+      })
 
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
-      vim.diagnostic.config {
+      vim.diagnostic.config({
         virtual_text = {
           source = false,
           severity = { min = vim.diagnostic.severity.WARN },
@@ -356,34 +347,40 @@ return {
         --     [vim.diagnostic.severity.INFO] = '󰋽 ',
         --   },
         -- },
-      }
+      })
     end,
   },
+
+  -- Show diagnostics in a panel
   {
     'folke/trouble.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
     keys = {
-      { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Trouble: Workspace Diagnostics' },
-      { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Trouble: document diagnostics' },
-      { '<leader>xl', '<cmd>TroubleToggle loclist<cr>', desc = 'Trouble LocList' },
-      { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', desc = 'Trouble: Quickfix' },
+      -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
+      { '<leader>lD', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'List workspace [D]iagnostics' },
+      { '<leader>ld', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'List document [D]iagnostics' },
+      { '<leader>lL', '<cmd>TroubleToggle loclist<cr>', desc = 'List [L]ocList' },
+      { '<leader>lq', '<cmd>TroubleToggle quickfix<cr>', desc = 'List [Q]uickfix' },
     },
   },
+
+  -- Global project lint with TSC
   {
     'dmmulroy/tsc.nvim',
     ft = { 'typescript', 'typescriptreact' },
     config = function()
-      require('tsc').setup {
+      require('tsc').setup({
         use_trouble_qflist = true,
         auto_open_qflist = true,
         auto_focus_qflist = true,
         pretty_errors = true,
-      }
+      })
     end,
   },
+
+  -- Better errors for TypeScript
   {
     'dmmulroy/ts-error-translator.nvim',
     ft = { 'typescript', 'typescriptreact' },
@@ -394,13 +391,15 @@ return {
       require('ts-error-translator').setup()
     end,
   },
+
+  -- Show definitions in a popup
   {
     'rmagatti/goto-preview',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      require('goto-preview').setup {
+      require('goto-preview').setup({
         default_mappings = true,
-      }
+      })
     end,
   },
 }

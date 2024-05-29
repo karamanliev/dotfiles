@@ -10,15 +10,15 @@ return {
 
       build = 'make',
       cond = function()
-        return vim.fn.executable 'make' == 1
+        return vim.fn.executable('make') == 1
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
-    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
-    local actions = require 'telescope.actions'
-    local telescopeConfig = require 'telescope.config'
+    local actions = require('telescope.actions')
+    local telescopeConfig = require('telescope.config')
 
     -- Clone the default Telescope configuration
     local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
@@ -32,7 +32,7 @@ return {
     table.insert(vimgrep_arguments, '--glob')
     table.insert(vimgrep_arguments, '!**/.git/*')
 
-    require('telescope').setup {
+    require('telescope').setup({
       defaults = {
         path_display = { 'smart' },
         -- `hidden = true` is not supported in text grep commands.
@@ -75,13 +75,13 @@ return {
           require('telescope.themes').get_dropdown(),
         },
       },
-    }
+    })
 
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
 
-    local builtin = require 'telescope.builtin'
+    local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
     vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
     vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = '[F]ind [F]iles' })
@@ -94,22 +94,22 @@ return {
     vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind [T]odo Comments' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-    vim.keymap.set('n', '<leader>/', function()
-      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    --[[ vim.keymap.set('n', '<leader>/', function()
+      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
         winblend = 10,
         previewer = false,
-      })
-    end, { desc = '[/] Fuzzily search in current buffer' })
+      }))
+    end, { desc = '[/] Fuzzily search in current buffer' }) ]]
 
     vim.keymap.set('n', '<leader>f/', function()
-      builtin.live_grep {
+      builtin.live_grep({
         grep_open_files = true,
         prompt_title = 'Live Grep in Open Files',
-      }
+      })
     end, { desc = '[F]ind [/] in Open Files' })
 
     vim.keymap.set('n', '<leader>fn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      builtin.find_files({ cwd = vim.fn.stdpath('config') })
     end, { desc = '[F]ind [N]eovim files' })
   end,
 }

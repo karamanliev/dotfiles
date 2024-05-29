@@ -8,7 +8,7 @@ return {
       local colors = require('tokyonight.colors').setup()
       vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
 
-      require('copilot').setup {
+      require('copilot').setup({
         panel = {
           keymap = {
             open = '<M-p>',
@@ -26,7 +26,7 @@ return {
           markdown = true,
           ['.'] = true,
         },
-      }
+      })
 
       -- Enable <Tab> to indent if no suggestions are available
       vim.keymap.set('i', '<Tab>', function()
@@ -42,12 +42,12 @@ return {
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       {
         'L3MON4D3/LuaSnip',
         build = (function()
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+          if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
             return
           end
           return 'make install_jsregexp'
@@ -62,7 +62,6 @@ return {
         },
       },
       'saadparwaiz1/cmp_luasnip',
-
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'onsails/lspkind.nvim',
@@ -70,14 +69,14 @@ return {
       'hrsh7th/cmp-cmdline',
     },
     config = function()
-      local cmp = require 'cmp'
-      local cmp_window = require 'cmp.config.window'
-      local luasnip = require 'luasnip'
-      local lspkind = require 'lspkind'
+      local cmp = require('cmp')
+      local cmp_window = require('cmp.config.window')
+      local luasnip = require('luasnip')
+      local lspkind = require('lspkind')
 
-      luasnip.config.setup {}
+      luasnip.config.setup({})
 
-      cmp.setup {
+      cmp.setup({
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -87,7 +86,7 @@ return {
 
         ---@diagnostic disable-next-line: missing-fields
         formatting = {
-          format = lspkind.cmp_format {
+          format = lspkind.cmp_format({
             mode = 'text',
             maxwidth = 50,
             ellipsis_char = '...',
@@ -104,7 +103,7 @@ return {
 
               return vim_item
             end,
-          },
+          }),
         },
 
         window = {
@@ -112,7 +111,7 @@ return {
           documentation = cmp_window.bordered(),
         },
 
-        mapping = cmp.mapping.preset.insert {
+        mapping = cmp.mapping.preset.insert({
           -- Select the [n]ext item
           ['<C-j>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
@@ -126,10 +125,10 @@ return {
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
 
           -- Manually trigger a completion from nvim-cmp.
-          ['<C-Space>'] = cmp.mapping.complete {},
+          ['<C-Space>'] = cmp.mapping.complete({}),
 
           -- <c-l> will move you to the right of each of the expansion locations.
           -- <c-h> is similar, except moving you backwards.
@@ -143,20 +142,17 @@ return {
               luasnip.jump(-1)
             end
           end, { 'i', 's' }),
-
-          -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-        },
+        }),
         sources = {
           { name = 'nvim_lsp' },
           { name = 'buffer', max_item_count = 5 },
           { name = 'luasnip', max_item_count = 3 },
           { name = 'path', max_item_count = 3 },
         },
-      }
+      })
 
       cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline {
+        mapping = cmp.mapping.preset.cmdline({
           ['<C-k>'] = {
             c = function()
               if cmp.visible() then
@@ -175,7 +171,7 @@ return {
               end
             end,
           },
-        },
+        }),
 
         sources = {
           { name = 'buffer' },
@@ -183,7 +179,7 @@ return {
       })
 
       cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline {
+        mapping = cmp.mapping.preset.cmdline({
           ['<C-k>'] = {
             c = function()
               if cmp.visible() then
@@ -202,11 +198,11 @@ return {
               end
             end,
           },
-        },
-        sources = cmp.config.sources {
+        }),
+        sources = cmp.config.sources({
           { name = 'path' },
           { name = 'cmdline' },
-        },
+        }),
       })
     end,
   },
@@ -217,10 +213,10 @@ return {
     event = 'InsertEnter',
     dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
-      require('nvim-autopairs').setup {}
+      require('nvim-autopairs').setup({})
       -- If you want to automatically add `(` after selecting a function or method
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      local cmp = require 'cmp'
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },

@@ -3,7 +3,7 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   cmd = { 'SessionRestore', 'SessionSave', 'SessionDelete' },
   config = function()
-    require('auto-session').setup {
+    require('auto-session').setup({
       auto_session_use_git_branch = true,
       auto_restore_enabled = false,
 
@@ -21,7 +21,7 @@ return {
       --     require('lualine').refresh() -- refresh lualine so the new session name is displayed in the status bar
       --   end,
       -- },
-    }
+    })
 
     vim.keymap.set('n', '<leader>ls', require('auto-session.session-lens').search_session, {
       noremap = true,

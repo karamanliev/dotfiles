@@ -5,11 +5,12 @@ return {
     'nvim-lua/plenary.nvim',
   },
   config = function()
-    local alpha = require 'alpha'
-    local theta = require 'alpha.themes.theta'
+    local alpha = require('alpha')
+    local dashboard = require('alpha.themes.dashboard')
+    local theta = require('alpha.themes.theta')
 
     -- Create new buttons using the alpha module
-    local button = require('alpha.themes.dashboard').button
+    local button = dashboard.button
 
     -- Define the header
     local header = {
@@ -25,7 +26,7 @@ return {
 
     -- Define the new buttons
     local buttons = {
-      button('e', '  New file', ':ene <BAR> startinsert <CR>'),
+      -- button('e', '  New file', ':ene <BAR> startinsert <CR>'),
       button('f', '󰈞  Find files', ':Telescope find_files <CR>'),
       button('r', '  Recent files', ':Telescope oldfiles <CR>'),
       button('g', '  Live grep', ':Telescope live_grep <CR>'),
@@ -47,8 +48,8 @@ return {
     }
 
     -- Modify the buttons in the theta theme layout
-    theta.config.layout[2].val = header
-    theta.config.layout[6].val = buttons
+    theta.header.val = header
+    theta.buttons.val = buttons
 
     alpha.setup(theta.config)
   end,

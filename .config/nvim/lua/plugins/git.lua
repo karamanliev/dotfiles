@@ -22,7 +22,7 @@ return {
     opts = {
       numhl = false,
       on_attach = function(bufnr)
-        local gitsigns = require 'gitsigns'
+        local gitsigns = require('gitsigns')
 
         local function map(mode, l, r, opts)
           opts = opts or {}
@@ -33,27 +33,27 @@ return {
         -- Navigation
         map('n', ']h', function()
           if vim.wo.diff then
-            vim.cmd.normal { ']h', bang = true }
+            vim.cmd.normal({ ']h', bang = true })
           else
-            gitsigns.nav_hunk 'next'
+            gitsigns.nav_hunk('next')
           end
         end, { desc = 'Jump to next git [h]unk' })
 
         map('n', '[h', function()
           if vim.wo.diff then
-            vim.cmd.normal { '[h', bang = true }
+            vim.cmd.normal({ '[h', bang = true })
           else
-            gitsigns.nav_hunk 'prev'
+            gitsigns.nav_hunk('prev')
           end
         end, { desc = 'Jump to previous git [h]unk' })
 
         -- Actions
         -- visual mode
         map('v', '<leader>hs', function()
-          gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+          gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'stage git hunk' })
         map('v', '<leader>hr', function()
-          gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+          gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'reset git hunk' })
         -- normal mode
         map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
@@ -65,7 +65,7 @@ return {
         map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
         map('n', '<leader>gt', gitsigns.diffthis, { desc = 'git diff against index' })
         map('n', '<leader>gT', function()
-          gitsigns.diffthis '@'
+          gitsigns.diffthis('@')
         end, { desc = 'git diff against last commit' })
         -- Toggles
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
@@ -119,7 +119,12 @@ return {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
     keys = {
-      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'NeoGit' },
+      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Neo[G]it' },
+      { '<leader>gG', '<cmd>Neogit kind=vsplit<cr>', desc = 'Neo[G]it vsplit' },
+      { '<leader>gl', '<cmd>Neogit log<cr>', desc = '[L]og' },
+      { '<leader>gs', '<cmd>Neogit stash<cr>', desc = '[S]tash' },
+      { '<leader>gf', '<cmd>Neogit fetch<cr>', desc = '[F]etch' },
+      { '<leader>gp', '<cmd>Neogit pull<cr>', desc = '[P]ull' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
