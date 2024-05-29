@@ -72,5 +72,16 @@ return {
     'mg979/vim-visual-multi',
     event = { 'BufReadPre', 'BufNewFile' },
     branch = 'master',
+    init = function()
+      vim.g.VM_set_statusline = 0
+      vim.g.VM_theme = 'neon'
+    end,
+  },
+  {
+    'matze/vim-move',
+    event = { 'BufReadPre', 'BufNewFile' },
+    -- init = function()
+    -- vim.g.move_key_modifier = 'C'
+    -- end,
   },
 }
