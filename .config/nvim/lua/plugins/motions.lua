@@ -68,4 +68,9 @@ return {
       require('nvim-surround').setup {}
     end,
   },
+  {
+    'mg979/vim-visual-multi',
+    event = { 'BufReadPre', 'BufNewFile' },
+    branch = 'master',
+  },
 }
