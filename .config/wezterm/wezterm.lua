@@ -13,7 +13,7 @@ config = {
 	-- disable_default_key_bindings = true,
 
 	-- color_scheme = "Tokyo Night Moon",
-	window_background_opacity = 0.95,
+	window_background_opacity = 0.90,
 	wezterm.on("update-status", function(window)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
@@ -29,10 +29,10 @@ config = {
 			-- overrides.color_scheme = "Lavandula"
 			-- overrides.color_scheme = "lovelace"
 			-- overrides.color_scheme = "hardhacker"
-			overrides.window_background_opacity = 1.0
+			-- overrides.window_background_opacity = 1.0
 		else
 			overrides.color_scheme = "Tokyo Night Storm"
-			overrides.window_background_opacity = 0.9
+			-- overrides.window_background_opacity = 0.9
 		end
 		window:set_config_overrides(overrides)
 	end),
