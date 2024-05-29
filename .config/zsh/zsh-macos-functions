@@ -1,5 +1,5 @@
 # React Native Clean
-rnclean() {
+function rnclean() {
 	metro_process_id=$(lsof -i :8081 | grep node | awk '{print $2}')
 	mobile_project_path=~/Projects/Altrix/mobile/
 	tmux=/opt/homebrew/bin/tmux
@@ -53,4 +53,19 @@ rnclean() {
 	$tmux send-keys -t mobile "react-native run-ios --$(if [ "$1" = "device" ]; then echo "device"; else echo "simulator 'x iPhone 11'"; fi)" Enter
 
 	$tmux selectp -t mobile -l
+}
+
+# Make brew write to Brewfile on every install/uninstall operation
+function brew() {
+  local dump_commands=('install' 'uninstall') # Include all commands that should do a brew dump
+  local main_command="${1}"
+
+  command brew ${@}
+
+  for command in "${dump_commands[@]}"; do
+    if [[ "${command}" == "${main_command}" ]]; then
+      echo "\\nUpdating \e[1;34mBrewfile\e[0m!"
+      command brew bundle dump --file="${HOME}/dotfiles/.config/Brewfile" --force
+    fi
+  done
 }
