@@ -125,6 +125,7 @@ return {
       { '<leader>gs', '<cmd>Neogit stash<cr>', desc = '[S]tash' },
       { '<leader>gf', '<cmd>Neogit fetch<cr>', desc = '[F]etch' },
       { '<leader>gp', '<cmd>Neogit pull<cr>', desc = '[P]ull' },
+      { '<leader>gc', '<cmd>Neogit commit<cr>', desc = '[C]ommit' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
