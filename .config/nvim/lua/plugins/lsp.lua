@@ -43,6 +43,7 @@ return {
             -- TODO: having multiple clients attached to a buffer, this will not work as expected
             -- for example, if both tsserver and tailwindcss are attached it will not work
             -- because tsserver will have result and tailwindcss will not
+            -- https://www.reddit.com/r/neovim/comments/170ykc0/tailwind_lsp_hover_documentation_multiple_lsps/
             -- -- Function to check if any predefined clients are attached and only then show hover info
             -- local function is_accepted_client()
             --   -- Define the list of predefined LSP clients
@@ -327,8 +328,12 @@ return {
         graphql = {},
         tailwindcss = {
           -- TODO: find a way to have multiple hovers working with MEGA hover
-          on_attach = function(client)
-            client.server_capabilities.hoverProvider = false
+          -- on_attach = function(client)
+          --   client.server_capabilities.hoverProvider = false
+          -- end,
+          root_dir = function(fname)
+            local root_pattern = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js')
+            return root_pattern(fname)
           end,
         },
         -- getting annoying completion suggestions because of this
