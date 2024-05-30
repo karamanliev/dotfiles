@@ -13,7 +13,7 @@ config = {
 	-- disable_default_key_bindings = true,
 
 	-- color_scheme = "Tokyo Night Moon",
-	window_background_opacity = 0.90,
+	-- window_background_opacity = 0.90,
 	wezterm.on("update-status", function(window)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
