@@ -16,9 +16,9 @@ end, { expr = true })
 -- Split line in normal mode
 vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line [L]eft' })
 
--- Goto prev/next buffer with Alt + h/l
-vim.keymap.set('n', '<M-h>', '<cmd>bprevious<cr>', { desc = 'Go to [P]revious buffer' })
-vim.keymap.set('n', '<M-l>', '<cmd>bnext<cr>', { desc = 'Go to [N]ext buffer' })
+-- Goto prev/next buffer with Alt + </>
+vim.keymap.set('n', '<M-,>', '<cmd>bprevious<cr>', { desc = 'Go to [P]revious buffer' })
+vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to [N]ext buffer' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })

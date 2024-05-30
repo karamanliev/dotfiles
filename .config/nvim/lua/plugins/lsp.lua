@@ -38,7 +38,30 @@ return {
           map('<leader>cr', vim.lsp.buf.rename, '[R]ename Word')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
+          map('K', function()
+            local previewFold = require('ufo').peekFoldedLinesUnderCursor()
+            local gitsigns = require('gitsigns')
+            local params = vim.lsp.util.make_position_params()
+
+            if not previewFold then
+              vim.lsp.buf_request(0, 'textDocument/hover', params, function(_, result, _, _)
+                -- Check if hover value returns number followed by a space and then "byte" or "bytes"
+                -- this prevents showing hover info for byte values in the code
+                local pattern = '%d%s+byte[s]*'
+                local isRealHoverInfo = result and result.contents and not string.match(result.contents.value, pattern)
+
+                if isRealHoverInfo then
+                  vim.lsp.buf.hover()
+                else
+                  local previewHunk = gitsigns.preview_hunk()
+                  if not previewHunk then
+                    vim.notify('No hover info available!', 'info')
+                  end
+                end
+              end)
+            end
+          end, 'Mega Hover')
 
           -- Keybinds are only enabled for tsserver files
           if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' then

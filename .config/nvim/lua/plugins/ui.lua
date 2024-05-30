@@ -7,7 +7,7 @@ return {
       require('tokyonight').setup({
         style = 'moon',
         transparent = false,
-        dim_inactive = true,
+        dim_inactive = false,
       })
 
       vim.cmd.colorscheme('tokyonight')
@@ -251,14 +251,6 @@ return {
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
       vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
-
-      -- Hover on folded lines with K, uncomment line in LSP onattach if disable/remove this plugin
-      vim.keymap.set('n', 'K', function()
-        local winid = require('ufo').peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      end)
 
       -- disable ufo and fold column for Neogit and etc
       vim.api.nvim_create_autocmd('FileType', {
