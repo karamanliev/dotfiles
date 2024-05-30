@@ -14,6 +14,7 @@ config = {
 
 	-- color_scheme = "Tokyo Night Moon",
 	-- window_background_opacity = 0.90,
+	-- macos_window_background_blur = 20,
 	wezterm.on("update-status", function(window)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then

@@ -370,7 +370,9 @@ return {
       -- Folding
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
-        local suffix = ('  %d lines...'):format(endLnum - lnum)
+        local totalLines = vim.api.nvim_buf_line_count(0)
+        local foldedLines = endLnum - lnum
+        local suffix = ('  %d lines | %d%%'):format(foldedLines, foldedLines / totalLines * 100)
         local sufWidth = vim.fn.strdisplaywidth(suffix)
         local targetWidth = width - sufWidth
         local curWidth = 0
