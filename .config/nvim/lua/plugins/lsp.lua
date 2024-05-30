@@ -40,6 +40,27 @@ return {
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
           map('K', function()
+            -- TODO: having multiple clients attached to a buffer, this will not work as expected
+            -- for example, if both tsserver and tailwindcss are attached it will not work
+            -- because tsserver will have result and tailwindcss will not
+            -- -- Function to check if any predefined clients are attached and only then show hover info
+            -- local function is_accepted_client()
+            --   -- Define the list of predefined LSP clients
+            --   local accepted_clients = {
+            --     'tsserver',
+            --     'lua_ls',
+            --   }
+            --
+            --   for _, client_name in pairs(accepted_clients) do
+            --     local clients = vim.lsp.get_clients({ bufnr = 0, name = client_name })
+            --     if clients and #clients > 0 then
+            --       return true
+            --     end
+            --   end
+            --
+            --   return false
+            -- end
+
             local previewFold = require('ufo').peekFoldedLinesUnderCursor()
             local gitsigns = require('gitsigns')
             local params = vim.lsp.util.make_position_params()
@@ -304,7 +325,12 @@ return {
         html = {},
         cssls = {},
         graphql = {},
-        tailwindcss = {},
+        tailwindcss = {
+          -- TODO: find a way to have multiple hovers working with MEGA hover
+          on_attach = function(client)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
         -- getting annoying completion suggestions because of this
         -- emmet_ls = {},
         jsonls = {},
