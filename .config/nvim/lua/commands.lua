@@ -22,6 +22,11 @@ command('BufCWD', function()
   print_buffer_cwd()
 end, {})
 
+-- Copy current buffer file path to clipboard
+command('CopyFilePathToClipboard', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, {})
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()

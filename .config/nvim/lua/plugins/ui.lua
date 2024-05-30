@@ -181,4 +181,117 @@ return {
       })
     end,
   },
+
+  -- Folding
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async',
+    },
+    event = 'VeryLazy',
+    init = function()
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+    end,
+    config = function()
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local alignLimitByTextWidth = true -- limit the alignment of the fold text by:
+        -- true: the textwidth value, false: the width of the current window
+        local alignLimiter = alignLimitByTextWidth and vim.opt.textwidth['_value'] or vim.api.nvim_win_get_width(0)
+        local newVirtText = {}
+        local totalLines = vim.api.nvim_buf_line_count(0)
+        local foldedLines = endLnum - lnum
+        local suffix = (' --- %d / %d%%'):format(foldedLines, foldedLines / totalLines * 100)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        local rAlignAppndx = math.max(math.min(alignLimiter, width - 1) - curWidth - sufWidth, 0)
+        suffix = (' '):rep(rAlignAppndx) .. suffix
+        table.insert(newVirtText, { suffix, 'MoreMsg' })
+        return newVirtText
+      end
+      require('ufo').setup({
+        fold_virt_text_handler = handler,
+        open_fold_hl_timeout = 150,
+        preview = {
+          win_config = {
+            border = 'rounded',
+            winblend = 15,
+          },
+          mappings = {
+            scrollD = '<C-f>',
+            scrollU = '<C-b>',
+            jumpTop = '[',
+            jumpBot = ']',
+          },
+        },
+      })
+
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+
+      -- Hover on folded lines with K, uncomment line in LSP onattach if disable/remove this plugin
+      vim.keymap.set('n', 'K', function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end)
+
+      -- disable ufo and fold column for Neogit and etc
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'NeogitStatus' },
+        callback = function()
+          require('ufo').detach()
+          vim.opt_local.foldenable = false
+          vim.opt_local.foldcolumn = '0'
+        end,
+      })
+    end,
+  },
+
+  -- make the statusline fold indicator more bearable
+  {
+    'luukvbaal/statuscol.nvim',
+    opts = function()
+      local builtin = require('statuscol.builtin')
+      return {
+        setopt = true,
+        bt_ignore = { 'nofile', 'terminal' },
+        -- override the default list of segments with:
+        -- number-less fold indicator, then signs, then line number & separator
+        segments = {
+          { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
+          {
+            text = { builtin.lnumfunc, ' ' },
+            condition = { true, builtin.not_empty },
+            click = 'v:lua.ScLa',
+          },
+          { text = { '%s' }, click = 'v:lua.ScSa' },
+        },
+      }
+    end,
+  },
 }

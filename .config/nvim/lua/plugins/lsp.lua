@@ -16,13 +16,6 @@ return {
       --   opts = {},
       -- },
 
-      -- folding
-      {
-        'kevinhwang91/nvim-ufo',
-        event = { 'BufReadPre', 'BufNewFile' },
-        dependencies = { 'kevinhwang91/promise-async' },
-      },
-
       -- used for completion, annotations and signatures of Neovim apis
       {
         'folke/neodev.nvim',
@@ -44,13 +37,8 @@ return {
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
           map('<leader>cr', vim.lsp.buf.rename, '[R]ename Word')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
-          map('K', function()
-            local winid = require('ufo').peekFoldedLinesUnderCursor()
-            if not winid then
-              vim.lsp.buf.hover()
-            end
-          end, 'Hover Documentation')
 
           -- Keybinds are only enabled for tsserver files
           if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' then
@@ -118,10 +106,6 @@ return {
 
       -- Enhance LSP capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      -- define folding capabilities
-      capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
-
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- add border to hover and signature help
@@ -366,57 +350,6 @@ return {
         --   },
         -- },
       })
-
-      -- Folding
-      local handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local totalLines = vim.api.nvim_buf_line_count(0)
-        local foldedLines = endLnum - lnum
-        local suffix = ('  %d lines | %d%%'):format(foldedLines, foldedLines / totalLines * 100)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-          local chunkText = chunk[1]
-          local hlGroup = 'Comment'
-          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-          if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-          else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            table.insert(newVirtText, { chunkText, hlGroup })
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-          end
-          curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, 'MoreMsg' })
-        return newVirtText
-      end
-
-      require('ufo').setup({
-        open_fold_hl_timeout = 300,
-        fold_virt_text_handler = handler,
-        preview = {
-          -- win_config = {
-          --   border = 'rounded',
-          --   winblend = 12,
-          -- },
-          mappings = {
-            scrollU = '<C-b>',
-            scrollD = '<C-f>',
-            jumpTop = '[',
-            jumpBot = ']',
-          },
-        },
-      })
-
-      vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
-      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
     end,
   },
 

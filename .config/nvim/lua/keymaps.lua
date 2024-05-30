@@ -1,6 +1,18 @@
 -- Clear search highlights with <Esc>
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Remap macro recording to 'Q' instead of 'q'
+vim.keymap.set('n', 'q', '<nop>', {})
+vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
+
+-- Yank the line on `dd` only if it is non-empty
+vim.keymap.set('n', 'dd', function()
+  if vim.fn.getline('.'):match('^%s*$') then
+    return '"_dd'
+  end
+  return 'dd'
+end, { expr = true })
+
 -- Split line in normal mode
 vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line [L]eft' })
 

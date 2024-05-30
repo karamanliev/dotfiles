@@ -41,16 +41,16 @@ return {
 
   -- Move lines and blocks up and down
   {
-    'matze/vim-move',
+    'echasnovski/mini.move',
+    version = false,
     event = { 'BufReadPre', 'BufNewFile' },
-    init = function()
-      -- Because keymaps <M-h> and <M-l> are used for prev/next buffer
-      vim.g.move_map_keys = 0
-
-      vim.keymap.set('v', '<M-k>', '<Plug>MoveBlockUp')
-      vim.keymap.set('v', '<M-j>', '<Plug>MoveBlockDown')
-      vim.keymap.set('n', '<M-k>', '<Plug>MoveLineUp')
-      vim.keymap.set('n', '<M-j>', '<Plug>MoveLineDown')
+    config = function()
+      require('mini.move').setup({
+        mappings = {
+          line_left = '<nop>',
+          line_right = '<nop>',
+        },
+      })
     end,
   },
 }
