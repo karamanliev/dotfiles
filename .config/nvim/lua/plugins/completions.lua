@@ -99,7 +99,10 @@ return {
                 path = '[PATH]',
                 luasnip = '[SNIP]',
               })[entry.source.name]
-              vim_item.abbr = lspkind.presets.default[vim_item.kind] .. '  ' .. vim_item.abbr
+
+              if vim_item ~= nil then
+                vim_item.abbr = lspkind.presets.default[vim_item.kind] .. '  ' .. vim_item.abbr
+              end
 
               return vim_item
             end,
