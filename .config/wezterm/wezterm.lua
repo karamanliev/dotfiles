@@ -12,7 +12,7 @@ config = {
 	front_end = "WebGpu",
 	-- disable_default_key_bindings = true,
 
-	-- color_scheme = "Tokyo Night Moon",
+	color_scheme = "Tokyo Night Moon",
 	-- window_background_opacity = 0.90,
 	-- macos_window_background_blur = 20,
 	-- wezterm.on("update-status", function(window)
