@@ -1,0 +1,33 @@
+import = [ "~/.config/alacritty/tokyonight_moon.toml" ]
+
+shell = "/bin/zsh"
+# working_directory = "~/dotfiles"
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 1.0
+blur = true
+padding = { x = 0, y = 0 }
+dynamic_padding = true
+decorations = "None"
+decorations_theme_variant = "Dark"
+
+[font]
+normal = { family = "Operator Mono", style = "Book" }
+bold = { family = "Operator Mono", style = "Bold" }
+italic = { family = "Operator Mono", style = "Book Italic" }
+bold_italic = { family = "Operator Mono", style = "Bold Italic" }
+size = 15.0
+builtin_box_drawing = false
+
+[terminal]
+osc52 = "OnlyCopy"
+
+[keyboard]
+bindings = [
+	{ key = "C", mods = "Control|Shift", action = "Copy" },
+	{ key = "V", mods = "Control|Shift", action = "Paste" },
+]
