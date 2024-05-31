@@ -150,6 +150,7 @@ snap-pac
 snapborg
 snapper
 spotify
+sshfs
 starship
 steam
 stow
