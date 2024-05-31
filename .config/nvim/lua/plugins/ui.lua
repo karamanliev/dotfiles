@@ -140,6 +140,31 @@ return {
     },
     config = function()
       require('noice').setup({
+        cmdline = {
+          format = {
+            cmdline = { icon = '>' },
+            search_down = { icon = '🔍⌄' },
+            search_up = { icon = '🔍⌃' },
+            filter = { icon = '$' },
+            -- lua = { icon = '☾' },
+            help = { icon = '?' },
+          },
+        },
+        views = {
+          cmdline_popup = {
+            border = {
+              style = 'rounded',
+              padding = { 0, 1 },
+            },
+            position = {
+              row = '25%',
+              col = '50%',
+            },
+          },
+          popupmenu = {
+            enabled = false,
+          },
+        },
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
