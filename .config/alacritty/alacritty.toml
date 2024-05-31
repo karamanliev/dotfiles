@@ -9,8 +9,8 @@ TERM = "xterm-256color"
 
 [window]
 opacity = 1.0
-blur = false
-padding = { x = 0, y = 0 }
+blur = true
+padding = { x = 12, y = 6 }
 dynamic_padding = true
 decorations = "None"
 decorations_theme_variant = "Dark"
@@ -47,4 +47,5 @@ regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:
 bindings = [
 	{ key = "C", mods = "Control|Shift", action = "Copy" },
 	{ key = "V", mods = "Control|Shift", action = "Paste" },
+	{ key = "Enter", mods = "Alt", action = "ToggleFullscreen" },
 ]
