@@ -15,28 +15,28 @@ config = {
 	-- color_scheme = "Tokyo Night Moon",
 	-- window_background_opacity = 0.90,
 	-- macos_window_background_blur = 20,
-	wezterm.on("update-status", function(window)
-		local overrides = window:get_config_overrides() or {}
-		if window:is_focused() then
-			overrides.color_scheme = "Tokyo Night Moon"
-			-- overrides.color_scheme = "Sequoia Moonlight"
-			-- overrides.color_scheme = "Whimsy"
-			-- overrides.color_scheme = "Synthwave (Gogh)"
-			-- overrides.color_scheme = "rebecca"
-			-- overrides.color_scheme = "rose-pine"
-			-- overrides.color_scheme = "rose-pine-moon"
-			-- overrides.color_scheme = "Poimandres"
-			-- overrides.color_scheme = "Neon Night (Gogh)"
-			-- overrides.color_scheme = "Lavandula"
-			-- overrides.color_scheme = "lovelace"
-			-- overrides.color_scheme = "hardhacker"
-			-- overrides.window_background_opacity = 1.0
-		else
-			overrides.color_scheme = "Tokyo Night Storm"
-			-- overrides.window_background_opacity = 0.9
-		end
-		window:set_config_overrides(overrides)
-	end),
+	-- wezterm.on("update-status", function(window)
+	-- 	local overrides = window:get_config_overrides() or {}
+	-- 	if window:is_focused() then
+	-- 		overrides.color_scheme = "Tokyo Night Moon"
+	-- 		-- overrides.color_scheme = "Sequoia Moonlight"
+	-- 		-- overrides.color_scheme = "Whimsy"
+	-- 		-- overrides.color_scheme = "Synthwave (Gogh)"
+	-- 		-- overrides.color_scheme = "rebecca"
+	-- 		-- overrides.color_scheme = "rose-pine"
+	-- 		-- overrides.color_scheme = "rose-pine-moon"
+	-- 		-- overrides.color_scheme = "Poimandres"
+	-- 		-- overrides.color_scheme = "Neon Night (Gogh)"
+	-- 		-- overrides.color_scheme = "Lavandula"
+	-- 		-- overrides.color_scheme = "lovelace"
+	-- 		-- overrides.color_scheme = "hardhacker"
+	-- 		-- overrides.window_background_opacity = 1.0
+	-- 	else
+	-- 		overrides.color_scheme = "Tokyo Night Storm"
+	-- 		-- overrides.window_background_opacity = 0.9
+	-- 	end
+	-- 	window:set_config_overrides(overrides)
+	-- end),
 
 	font = wezterm.font("Operator Mono", { weight = 325, stretch = "Normal", style = "Normal" }),
 	font_size = 15,

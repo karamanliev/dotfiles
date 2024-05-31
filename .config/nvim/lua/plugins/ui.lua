@@ -8,6 +8,11 @@ return {
         style = 'moon',
         transparent = false,
         dim_inactive = false,
+
+        styles = {
+          keywords = { italic = false },
+          comments = { italic = false },
+        },
       })
 
       vim.cmd.colorscheme('tokyonight')
