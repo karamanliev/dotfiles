@@ -10,8 +10,9 @@ return {
 
       require('copilot').setup({
         panel = {
+          enabled = false,
           keymap = {
-            open = '<M-p>',
+            -- open = '<M-p>',
           },
         },
         suggestion = {
