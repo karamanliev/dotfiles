@@ -415,10 +415,10 @@ return {
     opts = {},
     keys = {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>lD', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'List workspace [D]iagnostics' },
-      { '<leader>ld', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'List document [D]iagnostics' },
-      { '<leader>lL', '<cmd>TroubleToggle loclist<cr>', desc = 'List [L]ocList' },
-      { '<leader>lq', '<cmd>TroubleToggle quickfix<cr>', desc = 'List [Q]uickfix' },
+      { '<leader>lD', '<cmd>Trouble workspace_diagnostics<cr>', desc = 'List workspace [D]iagnostics' },
+      { '<leader>ld', '<cmd>Trouble document_diagnostics<cr>', desc = 'List document [D]iagnostics' },
+      { '<leader>lL', '<cmd>Trouble loclist<cr>', desc = 'List [L]ocList' },
+      { '<leader>lq', '<cmd>Trouble quickfix<cr>', desc = 'List [Q]uickfix' },
     },
   },
 
