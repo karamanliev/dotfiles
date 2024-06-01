@@ -41,8 +41,10 @@ return {
           i = {
             ['<c-j>'] = 'move_selection_next',
             ['<c-k>'] = 'move_selection_previous',
-            ['<c-n>'] = 'cycle_history_next',
-            ['<c-p>'] = 'cycle_history_prev',
+            ['<c-n>'] = 'move_selection_next',
+            ['<c-p>'] = 'move_selection_previous',
+            ['<M-n>'] = 'cycle_history_next',
+            ['<M-p>'] = 'cycle_history_prev',
             -- ['<esc>'] = 'close',
           },
         },
