@@ -1,6 +1,7 @@
 1password
 1password-cli
 adobe-source-sans-fonts
+alacritty
 alsa-plugins
 amd-ucode
 baobab
@@ -69,6 +70,7 @@ gvfs-onedrive
 gvfs-smb
 hyprland
 iwd
+kitty
 lazygit
 lib32-alsa-lib
 lib32-alsa-plugins

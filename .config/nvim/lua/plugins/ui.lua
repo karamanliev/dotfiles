@@ -7,12 +7,16 @@ return {
       require('tokyonight').setup({
         style = 'moon',
         transparent = false,
-        dim_inactive = false,
+        dim_inactive = true,
 
         styles = {
           keywords = { italic = false },
           comments = { italic = false },
         },
+        on_highlights = function(hl, c)
+          hl.FoldColumn = { bg = 'none' }
+          hl.SignColumn = { bg = 'none' }
+        end,
       })
 
       vim.cmd.colorscheme('tokyonight')
@@ -284,7 +288,7 @@ return {
 
       -- disable ufo and fold column for Neogit and etc
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'NeogitStatus' },
+        pattern = { 'NeogitStatus', 'NeogitDiffView' },
         callback = function()
           require('ufo').detach()
           vim.opt_local.foldenable = false
@@ -302,16 +306,15 @@ return {
       return {
         setopt = true,
         bt_ignore = { 'nofile', 'terminal' },
-        -- override the default list of segments with:
-        -- number-less fold indicator, then signs, then line number & separator
         segments = {
+          { text = { ' ' }, click = 'v:lua.ScFa' },
           { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
           {
             text = { builtin.lnumfunc, ' ' },
             condition = { true, builtin.not_empty },
             click = 'v:lua.ScLa',
           },
-          { text = { '%s' }, click = 'v:lua.ScSa' },
+          { text = { '%s' } },
         },
       }
     end,
