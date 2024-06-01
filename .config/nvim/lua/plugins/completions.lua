@@ -102,7 +102,9 @@ return {
               })[entry.source.name]
 
               if vim_item ~= nil then
-                vim_item.abbr = lspkind.presets.default[vim_item.kind] .. '  ' .. vim_item.abbr
+                local kind = lspkind.presets.default[vim_item.kind] or ''
+                local abbr = vim_item.abbr or ''
+                vim_item.abbr = kind .. '  ' .. abbr
               end
 
               return vim_item
