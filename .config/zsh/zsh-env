@@ -1,6 +1,5 @@
 # Set correct terminal colors
 export COLORTERM=truecolor
-export TERM=xterm-256color
 
 export EDITOR="nvim"
 export VISUAL="nvim"
