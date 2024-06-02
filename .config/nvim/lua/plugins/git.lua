@@ -91,29 +91,125 @@ return {
       { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace [D]iff View' },
       { '<leader>gD', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History [D]iff' },
     },
-    opts = {
-      enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-      -- file_panel = {
-      --   win_config = {
-      --     position = 'bottom',
-      --     height = 15,
-      --   },
-      -- },
-      keymaps = {
-        view = {
-          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
+    config = function()
+      local actions = require('diffview.actions')
+
+      require('diffview').setup({
+        enhanced_diff_hl = false,
+        key_bindings = {
+          view = {
+            {
+              'n',
+              'q',
+              actions.focus_files,
+              { desc = 'Focus the files panel' },
+            },
+            {
+              'n',
+              '<Esc>',
+              actions.focus_files,
+              { desc = 'Focus the files panel' },
+            },
+            {
+              'n',
+              '[h',
+              '<cmd>Gitsigns prev_hunk<cr>',
+              { desc = 'Navigate to the previous hunk' },
+            },
+            {
+              'n',
+              ']h',
+              '<cmd>Gitsigns next_hunk<cr>',
+              { desc = 'Navigate to the next hunk' },
+            },
+          },
+          file_panel = {
+            {
+              'n',
+              '[h',
+              actions.view_windo(function(layout_name, sym)
+                if sym == 'b' then
+                  vim.cmd(':Gitsigns prev_hunk')
+                end
+              end),
+              { desc = 'Navigate to the previous hunk' },
+            },
+            {
+              'n',
+              ']h',
+              actions.view_windo(function(layout_name, sym)
+                if sym == 'b' then
+                  vim.cmd(':Gitsigns next_hunk')
+                end
+              end),
+              { desc = 'Navigate to the next hunk' },
+            },
+            {
+              'n',
+              's',
+              actions.view_windo(function(layout_name, sym)
+                if sym == 'b' then
+                  vim.cmd(':Gitsigns stage_hunk')
+                end
+              end),
+              { desc = 'Stage the selected hunk' },
+            },
+            {
+              'n',
+              'u',
+              actions.view_windo(function(layout_name, sym)
+                if sym == 'b' then
+                  vim.cmd(':Gitsigns undo_stage_hunk')
+                end
+              end),
+              { desc = 'Unstage the selected hunk' },
+            },
+            {
+              'n',
+              'x',
+              actions.view_windo(function(layout_name, sym)
+                if sym == 'b' then
+                  vim.cmd(':Gitsigns reset_hunk')
+                end
+              end),
+              { desc = 'Reset the selected hunk' },
+            },
+            {
+              'n',
+              'S',
+              actions.toggle_stage_entry,
+              { desc = 'Stage / Unstage the selected file' },
+            },
+            {
+              'n',
+              'q',
+              '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
+              { desc = 'Close the diffview' },
+            },
+            {
+              'n',
+              '<Esc>',
+              '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
+              { desc = 'Close the diffview' },
+            },
+          },
+          file_history_panel = {
+            {
+              'n',
+              'q',
+              '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
+              { desc = 'Close the file history panel' },
+            },
+            {
+              'n',
+              '<Esc>',
+              '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
+              { desc = 'Close the file history panel' },
+            },
+          },
         },
-        file_panel = {
-          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-        },
-        file_history_panel = {
-          { 'n', 'q', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-          { 'n', '<Esc>', '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>' },
-        },
-      },
-    },
+      })
+    end,
   },
   {
     'NeogitOrg/neogit',

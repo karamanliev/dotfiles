@@ -288,7 +288,7 @@ return {
 
       -- disable ufo and fold column for Neogit and etc
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'NeogitStatus', 'NeogitDiffView' },
+        pattern = { 'Neogit*' },
         callback = function()
           require('ufo').detach()
           vim.opt_local.foldenable = false
