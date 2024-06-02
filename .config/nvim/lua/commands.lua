@@ -41,7 +41,6 @@ command('WriteWithoutFormat', function()
     vim.b.dont_format_on_write = false
   end, 0)
 end, {
-  group = general,
   desc = 'Write without formatting the buffer',
 })
 
