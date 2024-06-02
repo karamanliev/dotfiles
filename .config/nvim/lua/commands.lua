@@ -32,6 +32,19 @@ command('CopyFilePathToClipboard', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
 end, {})
 
+-- Write current buffer without auto-formatting
+command('WriteWithoutFormat', function()
+  vim.b.dont_format_on_write = true
+  vim.cmd('write')
+
+  vim.defer_fn(function()
+    vim.b.dont_format_on_write = false
+  end, 0)
+end, {
+  group = general,
+  desc = 'Write without formatting the buffer',
+})
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
