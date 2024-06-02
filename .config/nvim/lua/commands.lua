@@ -1,15 +1,20 @@
 local command = vim.api.nvim_create_user_command
-
 local autocmd = vim.api.nvim_create_autocmd
 local autogroup = vim.api.nvim_create_augroup
 local general = autogroup('General', { clear = true })
 
 -- Close all buffers, but the active one
-command('ClearBuffers', function()
+command('ClearBuffers', function(args)
   local current_line = vim.fn.line('.')
-  vim.cmd([[%bd|e#|bd#]])
+
+  if args.bang then
+    vim.cmd([[%bd!|e#|bd#]])
+  else
+    vim.cmd([[%bd|e#|bd#]])
+  end
+
   vim.cmd(current_line .. 'norm! zz')
-end, {})
+end, { bang = true, desc = 'Close all buffers, but the active one' })
 
 -- Show current buffer CWD for 5 seconds
 command('BufCWD', function()
