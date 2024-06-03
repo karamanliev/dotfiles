@@ -410,11 +410,21 @@ return {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
       { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List [D]iagnostics (workspace)' },
       { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List [D]iagnostics (buffer)' },
-      { '<leader>lL', '<cmd>Trouble loclist<cr>', desc = 'List [L]ocList' },
-      { '<leader>lq', '<cmd>Trouble quickfix<cr>', desc = 'List [Q]uickfix' },
+      { '<leader>lL', '<cmd>Trouble loclist toggle focus=true<cr>', desc = 'List [L]ocList' },
+      { '<leader>lq', '<cmd>Trouble quickfix toggle focus=true<cr>', desc = 'List [Q]uickfix' },
       { '<leader>lt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'List [T]odo' },
-      { '<leader>ls', '<cmd>Trouble lsp_document_symbols win.position=right<cr>', desc = 'List [S]ymbols' },
+      { '<leader>ls', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'List [S]ymbols' },
     },
+    config = function()
+      require('trouble').setup({
+        win = {
+          size = {
+            width = 50,
+            height = 10,
+          },
+        },
+      })
+    end,
   },
 
   -- Global project lint with TSC
