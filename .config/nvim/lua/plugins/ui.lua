@@ -32,6 +32,15 @@ return {
     end,
   },
 
+  -- Highlight undo/redo changes
+  {
+    'tzachar/highlight-undo.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('highlight-undo').setup({})
+    end,
+  },
+
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
@@ -136,9 +145,7 @@ return {
     keys = {
       {
         '<leader>ll',
-        function()
-          require('noice').cmd('telescope')
-        end,
+        '<cmd>NoiceTelescope<CR>',
         desc = 'List [L]ogs',
       },
     },
