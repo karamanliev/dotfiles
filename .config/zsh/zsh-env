@@ -12,10 +12,26 @@ export SAVEHIST=1000000
 export MANPAGER='nvim +Man!'
 
 # Default fzf options
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS }--height 60% --preview 'bat -n --style=full --color=always {}' --preview-window hidden --bind ctrl-/:toggle-preview --bind alt-j:preview-down,alt-k:preview-up --bind alt-n:preview-down,alt-p:preview-up"
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS} \
+	--color=fg:#c8d3f5,bg:#222436,hl:#ff966c \
+	--color=fg+:#c8d3f5,bg+:#2f334d,hl+:#ff966c \
+	--color=info:#82aaff,prompt:#86e1fc,pointer:#86e1fc \
+	--color=marker:#c3e88d,spinner:#c3e88d,header:#c3e88d \
+	--height 60% \
+	--preview 'bat -n --style=full --color=always {}' \
+	--preview-window hidden \
+	--bind ctrl-/:toggle-preview \
+	--bind alt-j:preview-down,alt-k:preview-up \
+	--bind alt-n:preview-down,alt-p:preview-up"
 
 # View full path in preview window (?)
-export FZF_ALT_C_OPTS="${FZF_ALT_C_OPTS:+$FZF_ALT_C_OPTS }--preview 'echo {}' --preview-window down:5:hidden:wrap --bind 'ctrl-/:toggle-preview'"
+export FZF_ALT_C_OPTS="${FZF_ALT_C_OPTS:+$FZF_ALT_C_OPTS} \
+	--preview 'echo {}' \
+	--preview-window down:5:hidden:wrap \
+	--bind 'ctrl-/:toggle-preview'"
 
 # View full command in preview window (?)
-export FZF_CTRL_R_OPTS="${FZF_CTRL_R_OPTS:+$FZF_CTRL_R_OPTS }--preview 'echo {}' --preview-window down:5:hidden:wrap --bind 'ctrl-/:toggle-preview'"
+export FZF_CTRL_R_OPTS="${FZF_CTRL_R_OPTS:+$FZF_CTRL_R_OPTS} \
+	--preview 'echo {}' \
+	--preview-window down:5:hidden:wrap \
+	--bind 'ctrl-/:toggle-preview'"
