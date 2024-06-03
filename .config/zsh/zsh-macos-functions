@@ -53,6 +53,9 @@ function rnclean() {
 	$tmux send-keys -t mobile "react-native run-ios --$(if [ "$1" = "device" ]; then echo "device"; else echo "simulator 'x iPhone 11'"; fi)" Enter
 
 	$tmux selectp -t mobile -l
+
+	# Re-add watchman watch to make wml work again
+	watchman watch /Users/hkaramanliev/Library/Application\ Support/fnm/node-versions/v18.17.1/installation/lib/node_modules/wml/src
 }
 
 # Make brew write to Brewfile on every install/uninstall operation
