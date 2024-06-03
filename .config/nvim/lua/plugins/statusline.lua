@@ -85,8 +85,8 @@ return {
         lualine_x = {
           -- show macro recording
           {
-            noice.api.statusline.mode.get,
-            cond = noice.api.statusline.mode.has,
+            noice.api.status.mode.get,
+            cond = noice.api.status.mode.has,
             color = { fg = colors.red },
           },
           { 'diagnostics', icons_enabled = true },
