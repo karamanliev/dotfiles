@@ -9,17 +9,10 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      -- Useful status updates for LSP.
-      -- {
-      --   'j-hui/fidget.nvim',
-      --   event = { 'BufReadPre', 'BufNewFile' },
-      --   opts = {},
-      -- },
-
       -- used for completion, annotations and signatures of Neovim apis
       {
-        'folke/neodev.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
+        'folke/lazydev.nvim',
+        ft = { 'lua' },
         opts = {},
       },
     },
@@ -78,7 +71,7 @@ return {
                 else
                   local previewHunk = gitsigns.preview_hunk()
                   if not previewHunk then
-                    vim.notify('No hover info available!', 'info')
+                    vim.notify('No hover info available!', vim.log.levels.INFO)
                   end
                 end
               end)
@@ -201,7 +194,7 @@ return {
                     default = source_file,
                   }, function(input)
                     if not input or input == '' then
-                      vim.notify('The file was not renamed. Please provide a target file.', 'info', { ttl = 5000 })
+                      vim.notify('The file was not renamed. Please provide a target file.', vim.log.levels.INFO, { ttl = 5000 })
                       return
                     end
                     target_file = input
@@ -218,7 +211,7 @@ return {
 
                     vim.lsp.util.rename(source_file, target_file)
                     vim.lsp.buf.execute_command(params)
-                    vim.notify('Imports updated! Use :wa to save the changes.', 'info', { ttl = 5000 })
+                    vim.notify('Imports updated! Use :wa to save the changes.', vim.log.levels.INFO, { ttl = 5000 })
                   end)
                 end
 
@@ -348,7 +341,7 @@ return {
               -- fix undefined global variables and unused variables diagnostics
               diagnostics = {
                 disable = { 'missing-fields' },
-                globals = { 'vim' },
+                -- globals = { 'vim' },
               },
             },
           },
@@ -415,10 +408,12 @@ return {
     opts = {},
     keys = {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>lD', '<cmd>Trouble workspace_diagnostics<cr>', desc = 'List workspace [D]iagnostics' },
-      { '<leader>ld', '<cmd>Trouble document_diagnostics<cr>', desc = 'List document [D]iagnostics' },
+      { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List [D]iagnostics (workspace)' },
+      { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List [D]iagnostics (buffer)' },
       { '<leader>lL', '<cmd>Trouble loclist<cr>', desc = 'List [L]ocList' },
       { '<leader>lq', '<cmd>Trouble quickfix<cr>', desc = 'List [Q]uickfix' },
+      { '<leader>lt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'List [T]odo' },
+      { '<leader>ls', '<cmd>Trouble lsp_document_symbols win.position=right<cr>', desc = 'List [S]ymbols' },
     },
   },
 
