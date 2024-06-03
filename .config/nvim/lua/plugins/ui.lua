@@ -16,6 +16,8 @@ return {
         on_highlights = function(hl, c)
           hl.FoldColumn = { bg = 'none' }
           hl.SignColumn = { bg = 'none' }
+          hl.Undo = { link = 'DiffDelete' }
+          hl.Redo = { link = 'DiffAdd' }
         end,
       })
 
@@ -37,7 +39,23 @@ return {
     'tzachar/highlight-undo.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      require('highlight-undo').setup({})
+      require('highlight-undo').setup({
+        duration = 650,
+        undo = {
+          hlgroup = 'Undo',
+          mode = 'n',
+          lhs = 'u',
+          map = 'undo',
+          opts = {},
+        },
+        redo = {
+          hlgroup = 'Redo',
+          mode = 'n',
+          lhs = '<C-r>',
+          map = 'redo',
+          opts = {},
+        },
+      })
     end,
   },
 
