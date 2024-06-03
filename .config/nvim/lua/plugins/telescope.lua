@@ -13,7 +13,7 @@ return {
         return vim.fn.executable('make') == 1
       end,
     },
-    { 'nvim-telescope/telescope-ui-select.nvim' },
+    -- { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     {
       'AckslD/nvim-neoclip.lua',
@@ -54,6 +54,7 @@ return {
       defaults = {
         path_display = { 'smart' },
         -- `hidden = true` is not supported in text grep commands.
+        dynamic_preview_title = true,
         vimgrep_arguments = vimgrep_arguments,
         mappings = {
           i = {
@@ -91,15 +92,15 @@ return {
         },
       },
       extensions = {
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
-        },
+        -- ['ui-select'] = {
+        --   require('telescope.themes').get_dropdown(),
+        -- },
       },
     })
 
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
+    -- pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'live_grep_args')
     pcall(require('telescope').load_extension, 'neoclip')
 
@@ -115,7 +116,7 @@ return {
     vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind [T]odo Comments' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-    vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip<cr>', { desc = 'Find [c]lipboard contents' })
+    vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip initial_mode=normal theme=dropdown winblend=15<cr>', { desc = 'Find [c]lipboard contents' })
 
     --[[ vim.keymap.set('n', '<leader>/', function()
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
