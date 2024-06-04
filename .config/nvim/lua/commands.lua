@@ -53,6 +53,14 @@ autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
 })
 
+-- Trim trailing whitespace on save
+autocmd({ 'BufWritePre' }, {
+  pattern = '*',
+  command = [[%s/\s\+$//e]],
+  group = general,
+  desc = 'Trim trailing whitespace on save',
+})
+
 -- Open help in vertical split
 autocmd('FileType', {
   callback = function()

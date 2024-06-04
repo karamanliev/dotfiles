@@ -57,8 +57,6 @@ return {
         vimgrep_arguments = vimgrep_arguments,
         mappings = {
           i = {
-            ['<c-j>'] = 'move_selection_next',
-            ['<c-k>'] = 'move_selection_previous',
             ['<c-n>'] = 'move_selection_next',
             ['<c-p>'] = 'move_selection_previous',
             ['<M-n>'] = 'cycle_history_next',
@@ -85,7 +83,7 @@ return {
         buffers = {
           mappings = {
             i = {
-              ['<C-d>'] = actions.delete_buffer + actions.move_to_top,
+              ['<M-x>'] = actions.delete_buffer + actions.move_to_top,
             },
           },
         },

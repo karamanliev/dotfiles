@@ -119,9 +119,9 @@ return {
 
         mapping = cmp.mapping.preset.insert({
           -- Select the [n]ext item
-          ['<C-j>'] = cmp.mapping.select_next_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          ['<C-k>'] = cmp.mapping.select_prev_item(),
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Abort the completion
           ['<C-e>'] = cmp.mapping.abort(),
@@ -159,7 +159,7 @@ return {
 
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline({
-          ['<C-k>'] = {
+          ['<C-p>'] = {
             c = function()
               if cmp.visible() then
                 cmp.select_prev_item()
@@ -168,7 +168,7 @@ return {
               end
             end,
           },
-          ['<C-j>'] = {
+          ['<C-n>'] = {
             c = function()
               if cmp.visible() then
                 cmp.select_next_item()
@@ -186,7 +186,7 @@ return {
 
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline({
-          ['<C-k>'] = {
+          ['<C-p>'] = {
             c = function()
               if cmp.visible() then
                 cmp.select_prev_item()
@@ -195,7 +195,7 @@ return {
               end
             end,
           },
-          ['<C-j>'] = {
+          ['<C-n>'] = {
             c = function()
               if cmp.visible() then
                 cmp.select_next_item()

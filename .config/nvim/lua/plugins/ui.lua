@@ -301,8 +301,8 @@ return {
             winblend = 15,
           },
           mappings = {
-            scrollD = '<C-f>',
-            scrollU = '<C-b>',
+            scrollD = '<C-d>',
+            scrollU = '<C-u>',
             jumpTop = '[',
             jumpBot = ']',
           },
