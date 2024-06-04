@@ -13,7 +13,14 @@ return {
       {
         'folke/lazydev.nvim',
         ft = { 'lua' },
-        opts = {},
+        dependencies = {
+          'Bilal2453/luvit-meta',
+        },
+        opts = {
+          library = {
+            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+          },
+        },
       },
     },
     config = function()
