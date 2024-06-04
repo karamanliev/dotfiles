@@ -93,6 +93,15 @@ return {
         },
         lualine_c = {
           {
+            'harpoon2',
+            color = { bg = colors.bg_highlight, fg = colors.fg_float, gui = 'none' },
+            icon = '',
+            padding = {
+              right = 1,
+              left = 0,
+            },
+          },
+          {
             'filetype',
             icon_only = true,
             padding = {
@@ -102,7 +111,7 @@ return {
           },
           {
             custom_fname,
-            file_status = false,
+            file_status = true,
             path = 1,
             padding = {
               left = 0,
@@ -114,14 +123,6 @@ return {
           --   path = 1,
           -- },
           -- '%=', -- center the rest
-          {
-            'harpoon2',
-            icon = '',
-            padding = {
-              right = 0,
-              left = 2,
-            },
-          },
           -- 'searchcount',
           -- { 'buffers', icons_enabled = false, use_mode_colors = true },
         },

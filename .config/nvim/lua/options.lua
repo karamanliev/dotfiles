@@ -6,6 +6,9 @@ vim.g.maplocalleader = ' '
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- enable changing buffers without saving
+vim.opt.hidden = true
+
 -- Enable mouse support
 vim.opt.mouse = 'a'
 
@@ -79,4 +82,4 @@ vim.opt.scrolloff = 15
 vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- Set highlight on search
-vim.opt.hlsearch = true
+-- vim.opt.hlsearch = true

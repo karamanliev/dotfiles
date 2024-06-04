@@ -121,5 +121,13 @@ return {
     vim.keymap.set('n', '<leader>fn', function()
       builtin.find_files({ cwd = vim.fn.stdpath('config') })
     end, { desc = '[F]ind [N]eovim files' })
+
+    -- line wrap in telescope previewer
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'TelescopePreviewerLoaded',
+      callback = function(args)
+        vim.wo.wrap = true
+      end,
+    })
   end,
 }
