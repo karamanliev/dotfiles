@@ -16,6 +16,8 @@ return {
           ['q'] = 'actions.close',
           ['-'] = 'actions.close',
           ['<bs>'] = 'actions.parent',
+          ['<c-f>'] = 'actions.preview_scroll_down',
+          ['<c-b>'] = 'actions.preview_scroll_up',
         },
       })
     end,
