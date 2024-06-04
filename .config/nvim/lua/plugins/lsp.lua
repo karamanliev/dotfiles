@@ -417,10 +417,12 @@ return {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
       { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List [D]iagnostics (workspace)' },
       { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List [D]iagnostics (buffer)' },
-      { '<leader>lL', '<cmd>Trouble loclist toggle focus=true<cr>', desc = 'List [L]ocList' },
-      { '<leader>lq', '<cmd>Trouble quickfix toggle focus=true win.type=float<cr>', desc = 'List [Q]uickfix' },
+      { '<leader>lL', '<cmd>Trouble loclist toggle<cr>', desc = 'List [L]ocList' },
+      { '<leader>lq', '<cmd>Trouble quickfix toggle<cr>', desc = 'List [Q]uickfix' },
       { '<leader>lt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'List [T]odo' },
       { '<leader>ls', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'List [S]ymbols' },
+      { ']t', '<cmd>Trouble next jump=true skip_groups=true<cr>', desc = 'Next Trouble' },
+      { '[t', '<cmd>Trouble prev jump=true skip_groups=true<cr>', desc = 'Previous Trouble' },
     },
     config = function()
       require('trouble').setup({
