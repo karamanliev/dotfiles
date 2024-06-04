@@ -43,16 +43,6 @@ vim.keymap.set('n', '%', '%zz', { desc = 'Go to [M]atching bracket' })
 vim.keymap.set('n', '#', '#zz', { desc = 'Go to [P]revious matching word' })
 vim.keymap.set('n', '*', '*zz', { desc = 'Go to [N]ext matching word' })
 
--- Press 'C-S' for quick find/replace for the word under the cursor
-vim.keymap.set('n', '<C-s>', function()
-  local cmd = ':%s/<C-r><C-w>//gI<Left><Left><Left>'
-  local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
-  vim.api.nvim_feedkeys(keys, 'n', false)
-end)
-
--- Same as above but for visual mode selection
-vim.keymap.set('x', '<C-s>', '"zy<Esc>:%s/<C-R>z//gI<Left><Left><Left>')
-
 -- Toggle diagnostics virtual_text, because it could be annoying
 local diagnostics_active = true
 vim.keymap.set('n', '<leader>tx', function()
