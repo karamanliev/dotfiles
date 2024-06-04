@@ -27,23 +27,24 @@ return {
     -- Define the new buttons
     local buttons = {
       -- button('e', '  New file', ':ene <BAR> startinsert <CR>'),
-      button('f', '󰈞  Find files', ':Telescope find_files <CR>'),
+      button('.', '󰈞  Find files', ':Telescope find_files <CR>'),
+      button(',', '  Live grep', ':Telescope live_grep <CR>'),
       button('r', '  Recent files', ':Telescope oldfiles <CR>'),
-      button('g', '  Live grep', ':Telescope live_grep <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('R', '  Restore session', ':SessionRestore <CR>'),
       button('S', '󰈞  List sessions', ':lua require("auto-session.session-lens").search_session() <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('G', '󰊢  Neogit', ':Neogit <CR>'),
-      button('C', '  Commits', ':Telescope git_commits <CR>'),
-      button('B', '  Branches', ':Telescope git_branches <CR>'),
+      button('g', '󰊢  Neogit', ':Neogit <CR>'),
+      button('d', '  Diffview', ':DiffviewOpen <CR>'),
+      button('c', '  Commits', ':Telescope git_commits <CR>'),
+      button('b', '  Branches', ':Telescope git_branches <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
       button('l', '󰒲  Lazy', ':Lazy <CR>'),
-      button('c', '  Config', ':e $MYVIMRC <CR>'),
+      button('m', '󱥒  Mason', ':Mason <CR>'),
       button('q', '  Quit', ':qa<CR>'),
     }
 
