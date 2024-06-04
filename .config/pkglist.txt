@@ -10,6 +10,7 @@ base-devel
 bat
 bluez-utils
 brave-bin
+breaktimer-bin
 btop
 btrfs-assistant
 btrfs-progs

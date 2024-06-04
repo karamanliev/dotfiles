@@ -24,24 +24,42 @@ return {
       }, { mode = 'v' })
 
       wk.register({
-        q = {
-          name = 'Buffer',
-          q = { '<cmd>q<CR>', 'Quit' },
-          Q = { '<cmd>q!<CR>', 'Quit without saving' },
-          w = { '<cmd>w<CR>', 'Write' },
-          W = { '<cmd>wq<CR>', 'Write and quit' },
-          x = { '<cmd>qa<CR>', 'Quit all' },
-          X = { '<cmd>qa!<CR>', 'Quit all without saving' },
-          s = { '<cmd>wa<CR>', 'Save all' },
-          S = { '<cmd>waq<CR>', 'Save all and quit' },
-          z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
-          Z = { '<cmd>ClearBuffers!<CR>', 'Clear all buffers (unsaved also), but this one' },
-          h = { '<cmd>leftabove vsplit<CR>', 'Split vertical left' },
-          l = { '<cmd>vsplit<CR>', 'Split vertical right' },
-          j = { '<cmd>split<CR>', 'Split horizontal down' },
-          k = { '<cmd>top split<CR>', 'Split horizontal up' },
-        },
-      }, { prefix = '<leader>' })
+        q = { '<cmd>q<CR>', 'Quit' },
+        Q = { '<cmd>q!<CR>', 'Quit without saving' },
+        b = { '<cmd>bd<CR>', 'Buffer delete' },
+        B = { '<cmd>bd!<CR>', 'Buffer delete without saving' },
+        c = { '<cmd>close<CR>', 'Close' },
+        C = { '<cmd>close!<CR>', 'Close without saving' },
+        w = { '<cmd>w<CR>', 'Write' },
+        z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
+        Z = { '<cmd>ClearBuffers!<CR>', 'Clear all buffers (unsaved also), but this one' },
+        x = { '<cmd>qa<CR>', 'Quit all' },
+        X = { '<cmd>qa!<CR>', 'Quit all without saving' },
+        -- q = {
+        --   name = 'Buffer',
+        --   q = { '<cmd>q<CR>', 'Quit' },
+        --   Q = { '<cmd>q!<CR>', 'Quit without saving' },
+        --   w = { '<cmd>w<CR>', 'Write' },
+        --   W = { '<cmd>wq<CR>', 'Write and quit' },
+        --   x = { '<cmd>qa<CR>', 'Quit all' },
+        --   X = { '<cmd>qa!<CR>', 'Quit all without saving' },
+        --   s = { '<cmd>wa<CR>', 'Save all' },
+        --   S = { '<cmd>waq<CR>', 'Save all and quit' },
+        --   z = { '<cmd>ClearBuffers<CR>', 'Clear all buffers, but this one' },
+        --   Z = { '<cmd>ClearBuffers!<CR>', 'Clear all buffers (unsaved also), but this one' },
+        --   h = { '<cmd>leftabove vsplit<CR>', 'Split vertical left' },
+        --   l = { '<cmd>vsplit<CR>', 'Split vertical right' },
+        --   j = { '<cmd>split<CR>', 'Split horizontal down' },
+        --   k = { '<cmd>top split<CR>', 'Split horizontal up' },
+        -- },
+      }, { prefix = '\\' })
+
+      wk.register({
+        h = { '<cmd>leftabove vsplit<CR>', 'Split vertical left' },
+        l = { '<cmd>vsplit<CR>', 'Split vertical right' },
+        j = { '<cmd>split<CR>', 'Split horizontal down' },
+        k = { '<cmd>top split<CR>', 'Split horizontal up' },
+      }, { prefix = '\\' })
     end,
   },
 }
