@@ -74,10 +74,12 @@ return {
     opts = {},
     config = function()
       require('dressing').setup({
-        input = {
-          get_config = function()
-            if vim.api.nvim_buf_get_option(0, 'filetype') == 'NvimTree' then
-              return { enabled = false }
+        select = {
+          get_config = function(opts)
+            if opts.kind == 'codeaction' then
+              return {
+                backend = 'builtin',
+              }
             end
           end,
         },
