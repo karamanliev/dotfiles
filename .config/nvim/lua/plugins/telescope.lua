@@ -31,6 +31,13 @@ return {
         })
       end,
     },
+    {
+      'aaronhallaert/advanced-git-search.nvim',
+      cmd = { 'AdvancedGitSearch' },
+      dependencies = {
+        'sindrets/diffview.nvim',
+      },
+    },
     { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
@@ -88,13 +95,18 @@ return {
           },
         },
       },
-      -- extensions = {},
+      extensions = {
+        advanced_git_search = {
+          diff_plugin = 'diffview',
+        },
+      },
     })
 
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'live_grep_args')
     pcall(require('telescope').load_extension, 'neoclip')
+    pcall(require('telescope').load_extension, 'advanced_git_search')
 
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
@@ -110,6 +122,7 @@ return {
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip theme=dropdown winblend=15<cr>', { desc = 'Find [c]lipboard contents' })
     vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git [B]ranches' })
+    vim.keymap.set('n', '<leader>gS', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGit[S]earch' })
 
     vim.keymap.set('n', '<leader>f/', function()
       builtin.live_grep({
