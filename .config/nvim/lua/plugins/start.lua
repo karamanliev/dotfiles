@@ -28,7 +28,7 @@ return {
     local buttons = {
       -- button('e', '  New file', ':ene <BAR> startinsert <CR>'),
       button('.', '󰈞  Find files', ':Telescope find_files <CR>'),
-      button(',', '  Live grep', ':Telescope live_grep <CR>'),
+      button(',', '  Live grep', ':Telescope live_grep_args <CR>'),
       button('r', '  Recent files', ':Telescope oldfiles <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 

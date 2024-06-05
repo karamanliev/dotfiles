@@ -142,6 +142,9 @@ return {
         advanced_git_search = {
           diff_plugin = 'diffview',
         },
+        live_grep_args = {
+          auto_quoting = false,
+        },
       },
     })
 

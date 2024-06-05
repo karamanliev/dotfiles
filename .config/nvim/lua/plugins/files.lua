@@ -18,6 +18,8 @@ return {
           ['<bs>'] = 'actions.parent',
           ['<c-d>'] = 'actions.preview_scroll_down',
           ['<c-u>'] = 'actions.preview_scroll_up',
+          ['<c-s>'] = 'actions.select_split',
+          ['<c-v>'] = 'actions.select_vsplit',
         },
       })
     end,
