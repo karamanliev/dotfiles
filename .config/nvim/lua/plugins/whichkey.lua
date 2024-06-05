@@ -59,6 +59,10 @@ return {
         l = { '<cmd>vsplit<CR>', 'Split vertical right' },
         j = { '<cmd>split<CR>', 'Split horizontal down' },
         k = { '<cmd>top split<CR>', 'Split horizontal up' },
+        L = { '<C-w>L', 'Move window to right' },
+        H = { '<C-w>H', 'Move window to left' },
+        J = { '<C-w>J', 'Move window to bottom' },
+        K = { '<C-w>K', 'Move window to top' },
       }, { prefix = '\\' })
     end,
   },
