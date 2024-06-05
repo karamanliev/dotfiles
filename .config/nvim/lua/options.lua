@@ -72,8 +72,8 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- set transparency to the completion and popup menus
-vim.opt.pumblend = 10
-vim.opt.winblend = 10
+vim.opt.pumblend = 0
+vim.opt.winblend = 0
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15

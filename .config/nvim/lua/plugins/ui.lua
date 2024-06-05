@@ -6,7 +6,7 @@ return {
     init = function()
       require('tokyonight').setup({
         style = 'moon',
-        transparent = false,
+        transparent = true,
         dim_inactive = true,
 
         styles = {
@@ -128,8 +128,11 @@ return {
       local colors = require('tokyonight.colors').setup()
 
       require('scrollbar').setup({
+        show_in_active_only = false,
+        set_highlights = true,
         handle = {
-          color = colors.bg_highlight,
+          color = colors.fg_gutter,
+          -- highlight = "ScrollbarHandle"
         },
         marks = {
           Search = { color = colors.orange },
@@ -224,6 +227,15 @@ return {
           },
           popupmenu = {
             enabled = false,
+          },
+          mini = {
+            win_options = {
+              winblend = 0,
+              winhighlight = {
+                Normal = 'NormalFloat',
+                FloatBorder = 'NormalFloat',
+              },
+            },
           },
         },
         lsp = {
@@ -328,7 +340,7 @@ return {
         preview = {
           win_config = {
             border = 'rounded',
-            winblend = 15,
+            winblend = 0,
           },
           mappings = {
             scrollD = '<C-d>',
