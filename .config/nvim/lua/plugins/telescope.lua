@@ -94,6 +94,10 @@ return {
     require('telescope').setup({
       defaults = {
         path_display = { 'smart' },
+        sorting_strategy = 'ascending',
+        layout_config = {
+          prompt_position = 'top',
+        },
         -- `hidden = true` is not supported in text grep commands.
         dynamic_preview_title = true,
         vimgrep_arguments = vimgrep_arguments,
