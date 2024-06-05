@@ -27,6 +27,15 @@ command('BufCWD', function()
   print_buffer_cwd()
 end, {})
 
+command('ToggleFoldColumn', function()
+  local foldcolumn = vim.wo.foldcolumn
+  vim.wo.foldcolumn = foldcolumn == '0' and '1' or '0'
+
+  vim.notify('Fold column ' .. (foldcolumn == '1' and 'disabled' or 'enabled'), vim.log.levels.INFO)
+end, {
+  desc = 'Toggle fold column',
+})
+
 -- Copy current buffer file path to clipboard
 command('CopyFilePathToClipboard', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))

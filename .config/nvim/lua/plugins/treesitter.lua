@@ -11,6 +11,11 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
       event = { 'BufReadPre', 'BufNewFile' },
     },
+
+    {
+      'nvim-treesitter/nvim-treesitter-context',
+      event = { 'BufReadPre', 'BufNewFile' },
+    },
   },
   opts = {
     ensure_installed = {
@@ -156,6 +161,15 @@ return {
         enable_close_on_slash = true,
       },
     })
+
+    -- Treesitter Context
+    require('treesitter-context').setup({
+      enable = true,
+      max_lines = 1,
+    })
+    vim.keymap.set('n', 'gtc', function()
+      require('treesitter-context').go_to_context(vim.v.count1)
+    end, { silent = true })
 
     -- Treesitter Textobjects Repeatable Move
     local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')

@@ -18,6 +18,7 @@ return {
       'AckslD/nvim-neoclip.lua',
       config = function()
         require('neoclip').setup({
+          layout_strategy = 'vertical',
           history = 1000,
           filter = nil,
           preview = true,
@@ -37,6 +38,9 @@ return {
       dependencies = {
         'sindrets/diffview.nvim',
       },
+    },
+    {
+      'debugloop/telescope-undo.nvim',
     },
     { 'nvim-tree/nvim-web-devicons' },
   },
@@ -145,6 +149,14 @@ return {
         live_grep_args = {
           auto_quoting = false,
         },
+        undo = {
+          layout_strategy = 'vertical',
+          use_delta = true,
+          side_by_side = true,
+          layout_config = {
+            preview_height = 0.75,
+          },
+        },
       },
     })
 
@@ -153,6 +165,7 @@ return {
     pcall(require('telescope').load_extension, 'live_grep_args')
     pcall(require('telescope').load_extension, 'neoclip')
     pcall(require('telescope').load_extension, 'advanced_git_search')
+    pcall(require('telescope').load_extension, 'undo')
 
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
@@ -166,9 +179,10 @@ return {
     vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind [T]odo Comments' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-    vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip theme=dropdown winblend=15<cr>', { desc = 'Find [c]lipboard contents' })
+    vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip theme=dropdown<cr>', { desc = 'Find [c]lipboard contents' })
+    vim.keymap.set('n', '<leader>fu', '<cmd>Telescope undo<cr>', { desc = 'Find [u]ndo' })
     vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git [B]ranches' })
-    vim.keymap.set('n', '<leader>gS', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGit[S]earch' })
+    vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGit[S]earch' })
 
     vim.keymap.set('n', '<leader>f/', function()
       builtin.live_grep({
