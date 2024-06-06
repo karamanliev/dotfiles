@@ -468,7 +468,16 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('goto-preview').setup({
+        width = 120,
+        height = 20,
         default_mappings = true,
+        post_open_hook = function(buff, win)
+          vim.keymap.set('n', 'q', function()
+            if vim.api.nvim_win_is_valid(win) then
+              vim.api.nvim_win_close(win, true)
+            end
+          end, { buffer = buff })
+        end,
       })
     end,
   },
