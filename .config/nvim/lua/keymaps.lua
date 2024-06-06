@@ -26,6 +26,9 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Don't move cursor when using J
+vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines [J]' })
+
 -- Center buffer while navigating
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll [U]p' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll [D]own' })
