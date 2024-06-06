@@ -1,10 +1,6 @@
 return {
   {
     'stevearc/oil.nvim',
-    cmd = { 'Oil' },
-    keys = {
-      { '-', '<cmd>Oil<cr>', desc = 'Open oil' },
-    },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('oil').setup({
@@ -22,6 +18,8 @@ return {
           ['<c-v>'] = 'actions.select_vsplit',
         },
       })
+
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
     end,
   },
   {
