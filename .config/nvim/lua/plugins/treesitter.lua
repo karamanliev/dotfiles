@@ -153,7 +153,7 @@ return {
         enable = true,
         max_lines = 1,
       })
-      vim.keymap.set('n', 'gtc', function()
+      vim.keymap.set('n', 'gC', function()
         require('treesitter-context').go_to_context(vim.v.count1)
       end, { silent = true })
 
