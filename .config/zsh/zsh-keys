@@ -33,15 +33,17 @@ bindkey '^E' vi-end-of-line
 bindkey '^U' vi-kill-eol
 bindkey '^K' backward-kill-line
 
-bindkey '^Y' clear-screen
-# This makes Tab and ShiftTab, when pressed on the command line, enter the menu instead of inserting a completion:
-bindkey '^I' menu-select
-bindkey '$terminfo[kcbt]' menu-select
+# Completion menu navigation
+bindkey '^Y' menu-complete
+bindkey -M menuselect '^Y' accept-line
+bindkey -M menuselect '^I' accept-and-hold
+bindkey -M menuselect '^E' send-break
+bindkey -M menuselect '^M' .accept-line
+
 bindkey '^N' menu-select
-bindkey '^J' menu-select
 
 # Fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
 
 # Accept the autosuggestion with ctrl + spacebar
-bindkey '^ ' autosuggest-accept
+bindkey '^I' autosuggest-accept
