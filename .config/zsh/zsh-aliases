@@ -42,4 +42,4 @@ alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man
 ## Misc
 alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
 ### Kitty imgcat
-alias icat='kitty +kitten icat'
+alias icat='kitten icat'
