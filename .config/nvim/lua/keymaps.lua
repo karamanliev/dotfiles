@@ -5,6 +5,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', 'q', '<nop>', {})
 vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 
+-- Don't yank on visual paste
+vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
+
+-- Yank in visual without moving cursor
+vim.keymap.set('v', 'y', 'y`]', { desc = 'Yank' })
+
 -- Yank the line on `dd` only if it is non-empty
 vim.keymap.set('n', 'dd', function()
   if vim.fn.getline('.'):match('^%s*$') then
