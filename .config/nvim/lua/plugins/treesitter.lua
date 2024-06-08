@@ -174,6 +174,69 @@ return {
     end,
   },
 
+  -- More textobjects
+  {
+    'chrisgrieser/nvim-various-textobjs',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('various-textobjs').setup({
+        useDefaultKeymaps = false,
+      })
+
+      vim.keymap.set({ 'o', 'x' }, 'ir', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
+      vim.keymap.set({ 'o', 'x' }, 'ar', "<cmd>lua require('various-textobjs').indentation('outer', 'inner')<CR>", { desc = 'Outer indentation' })
+      vim.keymap.set({ 'o', 'x' }, 'iR', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
+      vim.keymap.set(
+        { 'o', 'x' },
+        'aR',
+        "<cmd>lua require('various-textobjs').indentation('outer', 'outer')<CR>",
+        { desc = 'Outer indentation and lines above/below' }
+      )
+      vim.keymap.set({ 'o', 'x' }, 'R', "<cmd>lua require('various-textobjs').restOfIndentation()<CR>", { desc = 'Rest of indentation' })
+      vim.keymap.set({ 'o', 'x' }, 'P', "<cmd>lua require('various-textobjs').restOfParagraph()<CR>", { desc = 'Rest of paragraph' })
+      vim.keymap.set({ 'o', 'x' }, 'iS', "<cmd>lua require('various-textobjs').subword('inner')<CR>", { desc = 'Inner subword' })
+      vim.keymap.set({ 'o', 'x' }, 'aS', "<cmd>lua require('various-textobjs').subword('outer')<CR>", { desc = 'Outer subword' })
+      vim.keymap.set({ 'o', 'x' }, 'O', "<cmd>lua require('various-textobjs').toNextClosingBracket()<CR>", { desc = 'To next closing bracket' })
+      vim.keymap.set({ 'o', 'x' }, 'Q', "<cmd>lua require('various-textobjs').toNextQuotationMark()<CR>", { desc = 'To next quotes' })
+      vim.keymap.set({ 'o', 'x' }, 'iq', "<cmd>lua require('various-textobjs').anyQuote('inner')<CR>", { desc = 'Inner quotes' })
+      vim.keymap.set({ 'o', 'x' }, 'aq', "<cmd>lua require('various-textobjs').anyQuote('outer')<CR>", { desc = 'Outer quotes' })
+      vim.keymap.set({ 'o', 'x' }, 'io', "<cmd>lua require('various-textobjs').anyBracket('inner')<CR>", { desc = 'Inner brackets' })
+      vim.keymap.set({ 'o', 'x' }, 'ao', "<cmd>lua require('various-textobjs').anyBracket('outer')<CR>", { desc = 'Outer brackets' })
+      vim.keymap.set({ 'o', 'x' }, 'gG', "<cmd>lua require('various-textobjs').entireBuffer()<CR>", { desc = 'Buffer' })
+      vim.keymap.set({ 'o', 'x' }, 'iv', "<cmd>lua require('various-textobjs').value('inner')<CR>", { desc = 'inner value' })
+      vim.keymap.set({ 'o', 'x' }, 'av', "<cmd>lua require('various-textobjs').value('outer')<CR>", { desc = 'outer value' })
+      vim.keymap.set({ 'o', 'x' }, 'ik', "<cmd>lua require('various-textobjs').key('inner')<CR>", { desc = 'inner key' })
+      vim.keymap.set({ 'o', 'x' }, 'ak', "<cmd>lua require('various-textobjs').key('outer')<CR>", { desc = 'outer key' })
+      vim.keymap.set({ 'o', 'x' }, 'in', "<cmd>lua require('various-textobjs').number('inner')<CR>", { desc = 'inner number' })
+      vim.keymap.set({ 'o', 'x' }, 'an', "<cmd>lua require('various-textobjs').number('outer')<CR>", { desc = 'Outer quotes' })
+      vim.keymap.set({ 'o', 'x' }, 'im', "<cmd>lua require('various-textobjs').chainMember('inner')<CR>", { desc = 'Inner chain' })
+      vim.keymap.set({ 'o', 'x' }, 'am', "<cmd>lua require('various-textobjs').chainMember('outer')<CR>", { desc = 'Outer chain' })
+      vim.keymap.set({ 'o', 'x' }, 'U', "<cmd>lua require('various-textobjs').lastChange()<CR>", { desc = 'Last change' })
+      vim.keymap.set({ 'o', 'x' }, 'iz', "<cmd>lua require('various-textobjs').closedFold('inner')<CR>", { desc = 'Inner fold' })
+      vim.keymap.set({ 'o', 'x' }, 'az', "<cmd>lua require('various-textobjs').closedFold('outer')<CR>", { desc = 'Outer fold' })
+      vim.keymap.set({ 'o', 'x' }, '|', "<cmd>lua require('various-textobjs').column()<CR>", { desc = 'Column' })
+      vim.keymap.set('n', 'dsi', function()
+        -- select outer indentation
+        require('various-textobjs').indentation('outer', 'outer')
+
+        -- plugin only switches to visual mode when a textobj has been found
+        local indentationFound = vim.fn.mode():find('V')
+        if not indentationFound then
+          return
+        end
+
+        -- dedent indentation
+        vim.cmd.normal({ '<', bang = true })
+
+        -- delete surrounding lines
+        local endBorderLn = vim.api.nvim_buf_get_mark(0, '>')[1]
+        local startBorderLn = vim.api.nvim_buf_get_mark(0, '<')[1]
+        vim.cmd(tostring(endBorderLn) .. ' delete') -- delete end first so line index is not shifted
+        vim.cmd(tostring(startBorderLn) .. ' delete')
+      end, { desc = 'Delete Surrounding Indentation' })
+    end,
+  },
+
   -- Autotag
   {
     'windwp/nvim-ts-autotag',
@@ -188,6 +251,8 @@ return {
       })
     end,
   },
+
+  -- Smart split/join
   {
     'Wansmer/treesj',
     keys = {

@@ -11,9 +11,6 @@ vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
 -- Yank in visual without moving cursor
 vim.keymap.set('v', 'y', 'y`]', { desc = 'Yank' })
 
--- Clear buffer content
-vim.keymap.set('n', 'dgG', 'ggdG', { desc = 'Clear buffer content' })
-
 -- Yank the line on `dd` only if it is non-empty
 vim.keymap.set('n', 'dd', function()
   if vim.fn.getline('.'):match('^%s*$') then

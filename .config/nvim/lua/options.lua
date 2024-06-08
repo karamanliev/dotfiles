@@ -22,20 +22,9 @@ vim.g.loaded_netrwPlugin = 1
 -- Enable true color support
 vim.opt.termguicolors = true
 
--- Sync clipboard between OS and Neovim.
--- Use OSC 52 escape sequences for clipboard operations (make SSH yank work)
-vim.opt.clipboard = 'unnamedplus'
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
+-- Clipboard
+-- Use OSC52 when SSH
+vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
