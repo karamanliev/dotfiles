@@ -100,14 +100,29 @@ autocmd('FileType', {
   desc = 'Open help in vertical split',
 })
 
--- Quit help buffer with q
+-- close Some windows with <q>
 autocmd('FileType', {
-  callback = function()
-    vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, desc = 'Quit (or Close) help' })
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
   end,
-  pattern = 'help',
+  pattern = {
+    'PlenaryTestPopup',
+    'help',
+    'lspinfo',
+    'notify',
+    'qf',
+    'spectre_panel',
+    'startuptime',
+    'tsplayground',
+    'neotest-output',
+    'checkhealth',
+    'neotest-summary',
+    'neotest-output-panel',
+    'dbout',
+  },
   group = general,
-  desc = 'Quit help buffer with q',
+  desc = 'Close some windows with <q>',
 })
 
 -- Preserve Last Cursor Position on Quit

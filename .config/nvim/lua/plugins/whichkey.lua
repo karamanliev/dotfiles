@@ -24,6 +24,7 @@ return {
       }, { mode = 'v' })
 
       wk.register({
+        a = { '<cmd>e #<CR>', 'Last buffer' },
         q = { '<cmd>q<CR>', 'Quit' },
         Q = { '<cmd>q!<CR>', 'Quit without saving' },
         b = { '<cmd>bd<CR>', 'Buffer delete' },
