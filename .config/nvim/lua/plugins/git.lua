@@ -234,6 +234,9 @@ return {
       integrations = {
         diffview = true,
       },
+      highlight = {
+        italic = false,
+      },
     },
   },
 }

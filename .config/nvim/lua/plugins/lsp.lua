@@ -389,7 +389,7 @@ return {
         },
         severity_sort = true,
         update_in_insert = true,
-        underline = true,
+        underline = false,
         float = {
           source = true,
           border = 'rounded',
