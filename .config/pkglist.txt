@@ -10,7 +10,6 @@ base-devel
 bat
 bluez-utils
 brave-bin
-breaktimer-bin
 btop
 btrfs-assistant
 btrfs-progs
@@ -126,6 +125,7 @@ nvidia-settings
 nvidia-utils
 obsidian
 opencl-nvidia
+openrgb
 orca
 otf-san-francisco
 otf-san-francisco-mono
@@ -157,6 +157,7 @@ sshfs
 starship
 steam
 stow
+stretchly-git
 sushi
 tecla
 telegram-desktop
@@ -183,6 +184,7 @@ wget
 wine-staging
 wireless_tools
 wireplumber
+wl-clipboard
 wofi
 xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
