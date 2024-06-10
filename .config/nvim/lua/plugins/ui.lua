@@ -151,6 +151,8 @@ return {
       })
     end,
   },
+
+  -- Highlight search results
   {
     'kevinhwang91/nvim-hlslens',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -183,6 +185,7 @@ return {
       ]])
     end,
   },
+
   -- Noice (nice cmd/search line ui + notifications)
   {
     'folke/noice.nvim',
