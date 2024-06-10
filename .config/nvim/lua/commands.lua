@@ -62,6 +62,17 @@ autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
 })
 
+-- resize splits if window got resized
+autocmd({ 'VimResized' }, {
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd('tabdo wincmd =')
+    vim.cmd('tabnext ' .. current_tab)
+  end,
+  group = general,
+  desc = 'Resize splits if window got resized',
+})
+
 -- Show cursor line only in active window
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
   callback = function()

@@ -14,6 +14,10 @@ return {
           comments = { italic = false },
         },
         on_highlights = function(hl, c)
+          hl.DiagnosticUnderlineError = { underline = false }
+          hl.DiagnosticUnderlineWarn = { underline = false }
+          hl.DiagnosticUnderlineInfo = { underline = false }
+          hl.DiagnosticUnderlineHint = { underline = false }
           hl.FoldColumn = { bg = 'none' }
           hl.SignColumn = { bg = 'none' }
           hl.Undo = { link = 'DiffDelete' }
