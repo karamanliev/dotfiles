@@ -336,6 +336,12 @@ return {
             return root_pattern(fname)
           end,
         },
+        eslint = {
+          settings = {
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectories = { mode = 'auto' },
+          },
+        },
         -- getting annoying completion suggestions because of this
         -- emmet_ls = {},
         jsonls = {},
