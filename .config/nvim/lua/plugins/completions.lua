@@ -16,8 +16,8 @@ return {
           },
         },
         suggestion = {
-          enabled = true,
-          auto_trigger = true,
+          enabled = false,
+          auto_trigger = false,
           keymap = {
             accept = false,
           },
@@ -30,13 +30,13 @@ return {
       })
 
       -- Enable <Tab> to indent if no suggestions are available
-      vim.keymap.set('i', '<Tab>', function()
-        if require('copilot.suggestion').is_visible() then
-          require('copilot.suggestion').accept()
-        else
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
-        end
-      end, { desc = 'Super Tab', silent = true })
+      -- vim.keymap.set('i', '<Tab>', function()
+      --   if require('copilot.suggestion').is_visible() then
+      --     require('copilot.suggestion').accept()
+      --   else
+      --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
+      --   end
+      -- end, { desc = 'Super Tab', silent = true })
     end,
   },
 
@@ -68,12 +68,18 @@ return {
       'onsails/lspkind.nvim',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
+      'zbirenbaum/copilot-cmp',
     },
     config = function()
       local cmp = require('cmp')
       local cmp_window = require('cmp.config.window')
       local luasnip = require('luasnip')
       local lspkind = require('lspkind')
+
+      -- copilot-cmp stuff
+      require('copilot_cmp').setup()
+      lspkind.presets.default.Copilot = ''
+      vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
 
       luasnip.config.setup({})
 
@@ -96,6 +102,7 @@ return {
               vim_item.kind = vim_item.kind
               vim_item.menu = ({
                 nvim_lsp = '[LSP]',
+                copilot = '[AI]',
                 buffer = '[BUF]',
                 path = '[PATH]',
                 luasnip = '[SNIP]',
@@ -117,6 +124,25 @@ return {
           documentation = cmp_window.bordered(),
         },
 
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            -- prioritize copilot suggestions
+            require('copilot_cmp.comparators').prioritize,
+
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
         mapping = cmp.mapping.preset.insert({
           -- Select the [n]ext item
           ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -150,11 +176,15 @@ return {
           end, { 'i', 's' }),
         }),
         sources = {
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'buffer', max_item_count = 5 },
           { name = 'luasnip', max_item_count = 3 },
           { name = 'path', max_item_count = 3 },
         },
+        -- experimental = {
+        --   ghost_text = true,
+        -- },
       })
 
       cmp.setup.cmdline({ '/', '?' }, {
