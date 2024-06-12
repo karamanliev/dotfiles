@@ -336,14 +336,15 @@ return {
             return root_pattern(fname)
           end,
         },
-        eslint = {
+        eslint_d = {
           settings = {
             -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
             workingDirectories = { mode = 'auto' },
           },
         },
-        -- getting annoying completion suggestions because of this
-        -- emmet_ls = {},
+        emmet_language_server = {
+          filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+        },
         jsonls = {},
         lua_ls = {
           settings = {
