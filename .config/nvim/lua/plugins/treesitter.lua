@@ -69,61 +69,50 @@ return {
               ['aa'] = { query = '@parameter.outer', desc = 'outer part of a parameter/argument' },
               ['ia'] = { query = '@parameter.inner', desc = 'inner part of a parameter/argument' },
 
-              ['ai'] = { query = '@conditional.outer', desc = 'outer part of a conditional' },
-              ['ii'] = { query = '@conditional.inner', desc = 'inner part of a conditional' },
-
-              ['al'] = { query = '@loop.outer', desc = 'outer part of a loop' },
-              ['il'] = { query = '@loop.inner', desc = 'inner part of a loop' },
-
               ['ac'] = { query = '@call.outer', desc = 'outer part of a function call' },
               ['ic'] = { query = '@call.inner', desc = 'inner part of a function call' },
 
               ['af'] = { query = '@function.outer', desc = 'outer part of a method/function definition' },
               ['if'] = { query = '@function.inner', desc = 'inner part of a method/function definition' },
 
-              ['aC'] = { query = '@class.outer', desc = 'outer part of a class' },
-              ['iC'] = { query = '@class.inner', desc = 'inner part of a class' },
+              ['ak'] = { query = '@class.outer', desc = 'outer part of a class' },
+              ['ik'] = { query = '@class.inner', desc = 'inner part of a class' },
 
-              ['a/'] = { query = '@comment.outer', desc = 'comment' },
+              ['gc'] = { query = '@comment.outer', desc = 'comment' },
             },
           },
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              [']f'] = { query = '@call.outer', desc = 'Next function call start' },
+              [']c'] = { query = '@call.outer', desc = 'Next function call start' },
               [']a'] = { query = '@assignment.outer', desc = 'Next assignment start' },
-              [']m'] = { query = '@function.outer', desc = 'Next method/function def start' },
-              [']c'] = { query = '@class.outer', desc = 'Next class start' },
+              [']f'] = { query = '@function.outer', desc = 'Next method/function def start' },
+              [']k'] = { query = '@class.outer', desc = 'Next class start' },
               [']i'] = { query = '@conditional.outer', desc = 'Next conditional start' },
               [']l'] = { query = '@loop.outer', desc = 'Next loop start' },
-
-              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-              [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
-              [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
             },
             goto_next_end = {
-              [']F'] = { query = '@call.outer', desc = 'Next function call end' },
+              [']C'] = { query = '@call.outer', desc = 'Next function call end' },
               [']A'] = { query = '@assignment.outer', desc = 'Next assignment end' },
-              [']M'] = { query = '@function.outer', desc = 'Next method/function def end' },
-              [']C'] = { query = '@class.outer', desc = 'Next class end' },
+              [']F'] = { query = '@function.outer', desc = 'Next method/function def end' },
+              [']K'] = { query = '@class.outer', desc = 'Next class end' },
               [']I'] = { query = '@conditional.outer', desc = 'Next conditional end' },
               [']L'] = { query = '@loop.outer', desc = 'Next loop end' },
             },
             goto_previous_start = {
-              ['[f'] = { query = '@call.outer', desc = 'Prev function call start' },
+              ['[c'] = { query = '@call.outer', desc = 'Prev function call start' },
               ['[a'] = { query = '@assignment.outer', desc = 'Prev assignment start' },
-              ['[m'] = { query = '@function.outer', desc = 'Prev method/function def start' },
-              ['[c'] = { query = '@class.outer', desc = 'Prev class start' },
+              ['[f'] = { query = '@function.outer', desc = 'Prev method/function def start' },
+              ['[k'] = { query = '@class.outer', desc = 'Prev class start' },
               ['[i'] = { query = '@conditional.outer', desc = 'Prev conditional start' },
               ['[l'] = { query = '@loop.outer', desc = 'Prev loop start' },
             },
             goto_previous_end = {
-              ['[F'] = { query = '@call.outer', desc = 'Prev function call end' },
+              ['[C'] = { query = '@call.outer', desc = 'Prev function call end' },
               ['[A'] = { query = '@assignment.outer', desc = 'Prev assignment end' },
-              ['[M'] = { query = '@function.outer', desc = 'Prev method/function def end' },
-              ['[C'] = { query = '@class.outer', desc = 'Prev class end' },
+              ['[F'] = { query = '@function.outer', desc = 'Prev method/function def end' },
+              ['[K'] = { query = '@class.outer', desc = 'Prev class end' },
               ['[I'] = { query = '@conditional.outer', desc = 'Prev conditional end' },
               ['[L'] = { query = '@loop.outer', desc = 'Prev loop end' },
             },
@@ -154,19 +143,17 @@ return {
         useDefaultKeymaps = false,
       })
 
-      vim.keymap.set({ 'o', 'x' }, 'ir', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
-      vim.keymap.set({ 'o', 'x' }, 'ar', "<cmd>lua require('various-textobjs').indentation('outer', 'inner')<CR>", { desc = 'Outer indentation' })
-      vim.keymap.set({ 'o', 'x' }, 'iR', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
+      vim.keymap.set({ 'o', 'x' }, 'ii', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
       vim.keymap.set(
         { 'o', 'x' },
-        'aR',
+        'ai',
         "<cmd>lua require('various-textobjs').indentation('outer', 'outer')<CR>",
         { desc = 'Outer indentation and lines above/below' }
       )
       vim.keymap.set({ 'o', 'x' }, 'R', "<cmd>lua require('various-textobjs').restOfIndentation()<CR>", { desc = 'Rest of indentation' })
       vim.keymap.set({ 'o', 'x' }, 'P', "<cmd>lua require('various-textobjs').restOfParagraph()<CR>", { desc = 'Rest of paragraph' })
-      vim.keymap.set({ 'o', 'x' }, 'iS', "<cmd>lua require('various-textobjs').subword('inner')<CR>", { desc = 'Inner subword' })
-      vim.keymap.set({ 'o', 'x' }, 'aS', "<cmd>lua require('various-textobjs').subword('outer')<CR>", { desc = 'Outer subword' })
+      vim.keymap.set({ 'o', 'x' }, 'ie', "<cmd>lua require('various-textobjs').subword('inner')<CR>", { desc = 'Inner subword' })
+      vim.keymap.set({ 'o', 'x' }, 'ae', "<cmd>lua require('various-textobjs').subword('outer')<CR>", { desc = 'Outer subword' })
       vim.keymap.set({ 'o', 'x' }, 'O', "<cmd>lua require('various-textobjs').toNextClosingBracket()<CR>", { desc = 'To next closing bracket' })
       vim.keymap.set({ 'o', 'x' }, 'Q', "<cmd>lua require('various-textobjs').toNextQuotationMark()<CR>", { desc = 'To next quotes' })
       vim.keymap.set({ 'o', 'x' }, 'iq', "<cmd>lua require('various-textobjs').anyQuote('inner')<CR>", { desc = 'Inner quotes' })
@@ -186,6 +173,8 @@ return {
       vim.keymap.set({ 'o', 'x' }, 'iz', "<cmd>lua require('various-textobjs').closedFold('inner')<CR>", { desc = 'Inner fold' })
       vim.keymap.set({ 'o', 'x' }, 'az', "<cmd>lua require('various-textobjs').closedFold('outer')<CR>", { desc = 'Outer fold' })
       vim.keymap.set({ 'o', 'x' }, '|', "<cmd>lua require('various-textobjs').column()<CR>", { desc = 'Column' })
+      vim.keymap.set({ 'o', 'x' }, '_', "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<CR>", { desc = 'Line' })
+
       vim.keymap.set('n', 'dsi', function()
         -- select outer indentation
         require('various-textobjs').indentation('outer', 'outer')
