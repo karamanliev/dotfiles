@@ -27,6 +27,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
@@ -86,7 +87,7 @@ return {
           end, 'Mega Hover')
 
           -- Keybinds are only enabled for tsserver files
-          if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' then
+          if client and (client.name == 'tsserver' or client.name == 'vtsls') then
             -- Go to source definition
             map('gd', '<cmd>GoToSourceDefintion<cr>', '[G]oto Source [D]efinition')
             -- how to add vsplit here
@@ -115,7 +116,6 @@ return {
           end
 
           -- Highlight references
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
             local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
