@@ -65,4 +65,4 @@ vim.keymap.set('n', '<leader>tx', function()
   end
 end, { desc = 'Toggle text diagnostics' })
 
-vim.keymap.set('n', '<leader>tfc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })
+vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })

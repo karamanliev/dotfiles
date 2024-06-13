@@ -53,6 +53,31 @@ end, {
   desc = 'Write without formatting the buffer',
 })
 
+-- Enable global/buffer formatting
+command('FormatEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+  vim.notify('Autoformat-on-save re-enabled', vim.log.levels.INFO)
+end, {
+  desc = 'Re-enable autoformat-on-save',
+})
+
+-- Toggle global autoformatting
+command('ToggleGlobalAutoformat', function()
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+  vim.notify('Global Autoformat-on-save ' .. (vim.g.disable_autoformat and 'disabled' or 'enabled'), vim.log.levels.INFO)
+end, {
+  desc = 'Toggle global autoformat-on-save',
+})
+
+-- Toggle buffer autoformatting
+command('ToggleBufferAutoformat', function()
+  vim.b.disable_autoformat = not vim.b.disable_autoformat
+  vim.notify('Buffer Autoformat-on-save ' .. (vim.b.disable_autoformat and 'disabled' or 'enabled'), vim.log.levels.INFO)
+end, {
+  desc = 'Toggle buffer autoformat-on-save',
+})
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
