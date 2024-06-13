@@ -153,7 +153,7 @@ return {
       vim.keymap.set({ 'o', 'x' }, 'an', "<cmd>lua require('various-textobjs').number('outer')<CR>", { desc = 'Outer quotes' })
       vim.keymap.set({ 'o', 'x' }, 'im', "<cmd>lua require('various-textobjs').chainMember('inner')<CR>", { desc = 'Inner chain' })
       vim.keymap.set({ 'o', 'x' }, 'am', "<cmd>lua require('various-textobjs').chainMember('outer')<CR>", { desc = 'Outer chain' })
-      vim.keymap.set({ 'o', 'x' }, 'U', "<cmd>lua require('various-textobjs').lastChange()<CR>", { desc = 'Last change' })
+      vim.keymap.set({ 'o', 'x' }, ';', "<cmd>lua require('various-textobjs').lastChange()<CR>", { desc = 'Last change' })
       vim.keymap.set({ 'o', 'x' }, 'iz', "<cmd>lua require('various-textobjs').closedFold('inner')<CR>", { desc = 'Inner fold' })
       vim.keymap.set({ 'o', 'x' }, 'az', "<cmd>lua require('various-textobjs').closedFold('outer')<CR>", { desc = 'Outer fold' })
       vim.keymap.set({ 'o', 'x' }, '|', "<cmd>lua require('various-textobjs').column()<CR>", { desc = 'Column' })
