@@ -65,6 +65,8 @@ return {
         yaml = { 'prettierd' },
         markdown = { 'prettierd' },
         graphql = { 'prettierd' },
+        zsh = { 'shfmt' },
+        sh = { 'shfmt' },
       },
     },
   },

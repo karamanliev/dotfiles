@@ -160,6 +160,9 @@ return {
       }
 
       local servers = {
+        bashls = {
+          filetypes = { 'sh', 'zsh' },
+        },
         tsserver = {
           commands = {
             -- Organize Imports
@@ -373,6 +376,7 @@ return {
         'htmlhint', -- Used to lint HTML
         'jsonlint', -- Used to lint JSON
         -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
+        'shfmt', -- Used to format shell scripts
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
