@@ -10,8 +10,8 @@ return {
         dim_inactive = true,
 
         styles = {
-          keywords = { italic = false },
-          comments = { italic = false },
+          keywords = { italic = true },
+          comments = { italic = true },
         },
         -- on_colors = function(c)
         --   c.gitSigns.add = c.git.add

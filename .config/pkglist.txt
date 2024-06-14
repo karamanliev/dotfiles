@@ -168,12 +168,14 @@ tmux-plugin-manager
 tracker3-miners
 ttf-bitstream-vera
 ttf-dejavu
+ttf-fira-code
 ttf-fira-mono
 ttf-fira-sans
 ttf-inconsolata
 ttf-liberation
 ttf-nerd-fonts-symbols-mono
 ttf-opensans
+ttf-victor-mono
 vim
 visual-studio-code-bin
 vkbasalt
