@@ -9,11 +9,11 @@ return {
       'LazyGitFilter',
       'LazyGitFilterCurrentFile',
     },
+    keys = {
+      { '<leader>gL', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
-    },
-    keys = {
-      { '<leader>gl', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
   {
