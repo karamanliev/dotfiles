@@ -13,6 +13,11 @@ return {
           keywords = { italic = false },
           comments = { italic = false },
         },
+        -- on_colors = function(c)
+        --   c.gitSigns.add = c.git.add
+        --   c.gitSigns.change = c.git.change
+        --   c.gitSigns.delete = c.git.delete
+        -- end,
         on_highlights = function(hl, c)
           hl.DiagnosticUnderlineError = { underline = false }
           hl.DiagnosticUnderlineWarn = { underline = false }
@@ -22,6 +27,8 @@ return {
           hl.SignColumn = { bg = 'none' }
           hl.Undo = { link = 'DiffDelete' }
           hl.Redo = { link = 'DiffAdd' }
+          hl.GitSignsChange = { fg = '#6785b8' }
+          hl.GitGutterChangeLineNr = { fg = '#6785b8' }
         end,
       })
 
@@ -299,13 +306,6 @@ return {
       'kevinhwang91/promise-async',
     },
     event = 'VeryLazy',
-    init = function()
-      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-      vim.o.foldcolumn = '1' -- '0' is not bad
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-    end,
     config = function()
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local alignLimitByTextWidth = true -- limit the alignment of the fold text by:
@@ -371,12 +371,28 @@ return {
           vim.opt_local.foldcolumn = '0'
         end,
       })
+
+      -- Stolen from Akinsho
+      -- local fcs = vim.opt.fillchars:get()
+      -- local function get_fold(lnum)
+      --   if vim.fn.foldlevel(lnum) <= vim.fn.foldlevel(lnum - 1) then
+      --     return ' '
+      --   end
+      --   return vim.fn.foldclosed(lnum) == -1 and fcs.foldopen or fcs.foldclose
+      -- end
+      --
+      -- _G.get_statuscol = function()
+      --   return '%s%l ' .. get_fold(vim.v.lnum) .. ' '
+      -- end
+      --
+      -- vim.o.statuscolumn = '%!v:lua.get_statuscol()'
     end,
   },
 
   -- make the statusline fold indicator more bearable
   {
     'luukvbaal/statuscol.nvim',
+    enabled = false,
     opts = function()
       local builtin = require('statuscol.builtin')
       return {

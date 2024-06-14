@@ -5,6 +5,21 @@ vim.g.maplocalleader = ' '
 -- Relative line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.numberwidth = 4
+
+-- Keep signcolumn on by default
+vim.opt.signcolumn = 'yes'
+
+-- Foldcolumn
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+-- custom statuscolumn
+vim.opt.statuscolumn = "%s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''}"
+-- vim.opt.statuscolumn = " %=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
 
 -- enable changing buffers without saving
 vim.opt.hidden = true
@@ -49,9 +64,6 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
 -- Decrease update time
 vim.opt.updatetime = 250
 
@@ -84,4 +96,4 @@ vim.opt.scrolloff = 15
 vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- Set highlight on search
--- vim.opt.hlsearch = true
+vim.opt.hlsearch = true
