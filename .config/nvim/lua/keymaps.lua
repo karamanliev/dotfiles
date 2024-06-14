@@ -14,15 +14,13 @@ vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 -- Yank filepath to clipboard
 vim.keymap.set({ 'n', 'x' }, '<leader>yf', "<cmd>let @+=expand('%:p')<CR>", { desc = 'Yank filepath' })
 
-function get_ssh_url()
+vim.keymap.set({ 'n', 'x' }, '<leader>yx', function()
   local path = vim.fn.expand('%:p')
   local ssh_url = 'sftp://macbook' .. path
 
   -- put it in system clipboard
   vim.fn.setreg('+', ssh_url)
-end
-
-vim.keymap.set({ 'n', 'x' }, '<leader>yx', get_ssh_url, { desc = 'Yank SSH filepath' })
+end, { desc = 'Yank SSH filepath' })
 
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
@@ -67,7 +65,7 @@ vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to [N]ext cursor position' 
 vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to [P]revious cursor position' })
 vim.keymap.set('n', '%', '%zz', { desc = 'Go to [M]atching bracket' })
 
--- Toggle diagnostics virtual_text, because it could be annoying
+-- Toggle diagnostics, because it could be annoying
 local diagnostics_active = true
 vim.keymap.set('n', '<leader>tx', function()
   diagnostics_active = not diagnostics_active
@@ -76,6 +74,10 @@ vim.keymap.set('n', '<leader>tx', function()
   else
     vim.diagnostic.hide()
   end
-end, { desc = 'Toggle text diagnostics' })
+end, { desc = 'Toggle diagnostics' })
 
+-- Toggle Virtual Text
+vim.keymap.set('n', '<leader>tv', '<cmd>ToggleVirtualText<cr>', { noremap = true, silent = true, desc = 'Toggle diagnostic virtual text' })
+
+-- Toggle Fold Column
 vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })

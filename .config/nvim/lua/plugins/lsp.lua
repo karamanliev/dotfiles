@@ -390,10 +390,7 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
       vim.diagnostic.config({
-        virtual_text = {
-          source = false,
-          severity = { min = vim.diagnostic.severity.WARN },
-        },
+        virtual_text = vim.g.virtual_text,
         severity_sort = true,
         update_in_insert = true,
         float = {

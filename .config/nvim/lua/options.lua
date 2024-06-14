@@ -18,7 +18,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- custom statuscolumn
-vim.opt.statuscolumn = "%s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''}"
+vim.opt.statuscolumn = "%s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''} "
 -- vim.opt.statuscolumn = " %=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
 
 -- enable changing buffers without saving
@@ -97,3 +97,9 @@ vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,term
 
 -- Set highlight on search
 vim.opt.hlsearch = true
+
+-- Diagnostic virtual text
+vim.g.virtual_text = {
+  source = false,
+  severity = { min = vim.diagnostic.severity.WARN },
+}
