@@ -11,6 +11,9 @@ vim.keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up',
 vim.keymap.set('n', 'q', '<nop>', {})
 vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 
+-- Yank filepath to clipboard
+vim.keymap.set({ 'n', 'x' }, '<leader>yf', "<cmd>let @+=expand('%:p')<CR>", { desc = 'Yank filepath' })
+
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
 
