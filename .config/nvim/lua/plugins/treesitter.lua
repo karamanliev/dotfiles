@@ -78,7 +78,7 @@ return {
               ['aC'] = { query = '@class.outer', desc = 'outer part of a class' },
               ['iC'] = { query = '@class.inner', desc = 'inner part of a class' },
 
-              ['gc'] = { query = '@comment.outer', desc = 'comment' },
+              ['/'] = { query = '@comment.outer', desc = 'comment' },
             },
           },
           move = {
