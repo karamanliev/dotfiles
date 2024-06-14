@@ -33,6 +33,8 @@ bindkey '^E' vi-end-of-line
 bindkey '^U' vi-kill-eol
 bindkey '^K' backward-kill-line
 
+bindkey '^]' clear-screen
+
 # Completion menu navigation
 bindkey '^Y' menu-complete
 bindkey -M menuselect '^Y' accept-line
