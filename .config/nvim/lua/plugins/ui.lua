@@ -135,6 +135,35 @@ return {
   {
     'petertriho/nvim-scrollbar',
     event = { 'BufReadPre', 'BufNewFile' },
+    init = function()
+      -- show buffer marks in scrollbar
+      local function get_curr_buf_marks()
+        local marks = {}
+        local current_buffer = vim.api.nvim_get_current_buf()
+        local local_marks = vim.fn.getmarklist(current_buffer)
+        local global_marks = vim.fn.getmarklist()
+
+        local function insert_marks(marks_list)
+          for _, mark in ipairs(marks_list) do
+            if mark.mark:match('%a') and mark.pos[2] > 0 then
+              table.insert(marks, {
+                text = mark.mark:gsub("'", ''),
+                line = mark.pos[2],
+                type = 'Misc',
+                level = 2,
+              })
+            end
+          end
+        end
+
+        insert_marks(local_marks)
+        insert_marks(global_marks)
+
+        return marks
+      end
+
+      require('scrollbar.handlers').register('marks', get_curr_buf_marks)
+    end,
     config = function()
       local colors = require('tokyonight.colors').setup()
 
@@ -146,13 +175,28 @@ return {
           -- highlight = "ScrollbarHandle"
         },
         marks = {
-          Search = { color = colors.orange },
-          Error = { color = colors.error },
-          Warn = { color = colors.warning },
-          Info = { color = colors.info },
-          Hint = { color = colors.hint },
-          Misc = { color = colors.purple },
-          GitAdd = { color = colors.info },
+          Search = {
+            text = { '-', '-' },
+            color = colors.orange,
+          },
+          Error = {
+            color = colors.error,
+          },
+          Warn = {
+            color = colors.warning,
+          },
+          Info = {
+            text = { '', '' },
+          },
+          Hint = {
+            text = { '', '' },
+          },
+          GitChange = { color = colors.blue0 },
+          GitDelete = { text = '┆' },
+          Misc = {
+            color = colors.fg_dark,
+            priority = 2,
+          },
         },
         handlers = {
           cursor = false,
