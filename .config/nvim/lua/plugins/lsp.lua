@@ -295,10 +295,21 @@ return {
           },
           settings = {
             typescript = {
+              format = {
+                enable = false,
+              },
+              updateImportsOnFileMove = {
+                enabled = 'always',
+              },
+              workspace = {
+                didChangeWatchedFiles = {
+                  dynamicRegistration = true,
+                },
+              },
               inlayHints = {
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all'
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayVariableTypeHints = true,
+                includeInlayParameterNameHints = 'literal', -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayVariableTypeHints = false,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayVariableTypeHintsWhenTypeMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = true,
@@ -307,16 +318,30 @@ return {
               },
             },
             javascript = {
+              format = {
+                enable = false,
+              },
+              updateImportsOnFileMove = {
+                enabled = 'always',
+              },
+              workspace = {
+                didChangeWatchedFiles = {
+                  dynamicRegistration = true,
+                },
+              },
               inlayHints = {
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all'
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayVariableTypeHints = true,
+                includeInlayParameterNameHints = 'literal', -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayVariableTypeHints = false,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayVariableTypeHintsWhenTypeMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = true,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
               },
+            },
+            flags = {
+              allow_incremental_sync = false,
             },
             completions = {
               completeFunctionCalls = true,

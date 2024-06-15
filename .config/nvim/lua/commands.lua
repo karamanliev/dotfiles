@@ -208,3 +208,13 @@ autocmd('BufEnter', {
   group = general,
   desc = 'Disable New Line Comment',
 })
+
+-- Disable eslint on node_modules
+local disable_node_modules_eslint_group = vim.api.nvim_create_augroup('DisableEslintOnNodeModules', { clear = true })
+autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = { '**/node_modules/**', 'node_modules', '/node_modules/*' },
+  callback = function()
+    vim.diagnostic.enable(false)
+  end,
+  group = disable_node_modules_eslint_group,
+})
