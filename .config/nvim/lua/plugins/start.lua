@@ -33,7 +33,7 @@ return {
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('R', '  Restore session', ':SessionRestore <CR>'),
-      button('S', '󰈞  List sessions', ':lua require("auto-session.session-lens").search_session() <CR>'),
+      button('S', '󰈞  List sessions', '<cmd>lua require("auto-session").setup_session_lens() require("auto-session.session-lens").search_session()<cr>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('g', '󰊢  Neogit', ':Neogit <CR>'),

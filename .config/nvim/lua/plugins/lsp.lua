@@ -2,26 +2,12 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = { 'VeryLazy' },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- used for completion, annotations and signatures of Neovim apis
-      {
-        'folke/lazydev.nvim',
-        ft = { 'lua' },
-        dependencies = {
-          'Bilal2453/luvit-meta',
-        },
-        opts = {
-          library = {
-            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-          },
-        },
-      },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -466,6 +452,20 @@ return {
         },
       })
     end,
+  },
+
+  -- used for completion, annotations and signatures of Neovim apis
+  {
+    'folke/lazydev.nvim',
+    ft = { 'lua' },
+    dependencies = {
+      'Bilal2453/luvit-meta',
+    },
+    opts = {
+      library = {
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
   },
 
   -- Global project lint with TSC

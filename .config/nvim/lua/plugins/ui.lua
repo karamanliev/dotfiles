@@ -361,7 +361,7 @@ return {
     dependencies = {
       'kevinhwang91/promise-async',
     },
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local alignLimitByTextWidth = true -- limit the alignment of the fold text by:

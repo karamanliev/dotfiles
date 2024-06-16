@@ -1,7 +1,10 @@
 return {
   {
     'rmagatti/auto-session',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = {
+      'BufReadPre',
+      'BufWritePre',
+    },
     cmd = { 'SessionRestore', 'SessionSave', 'SessionDelete' },
     config = function()
       require('auto-session').setup({
@@ -12,7 +15,7 @@ return {
 
         session_lens = {
           buftypes_to_ignore = {}, -- list of buffer types what should not be deleted from current session
-          load_on_setup = true,
+          load_on_setup = false,
           theme_conf = { border = true },
           previewer = false,
         },
@@ -24,7 +27,7 @@ return {
         -- },
       })
 
-      vim.keymap.set('n', '<leader>lS', require('auto-session.session-lens').search_session, {
+      vim.keymap.set('n', '<leader>lS', '<cmd>lua require("auto-session").setup_session_lens() require("auto-session.session-lens").search_session()<cr>', {
         noremap = true,
         desc = 'List [S]essions',
       })
