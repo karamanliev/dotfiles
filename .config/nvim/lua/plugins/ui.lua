@@ -137,15 +137,14 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     init = function()
       -- show buffer marks in scrollbar
-      local function get_curr_buf_marks()
+      local function get_curr_buf_marks(bufnr)
         local marks = {}
-        local current_buffer = vim.api.nvim_get_current_buf()
-        local local_marks = vim.fn.getmarklist(current_buffer)
+        local local_marks = vim.fn.getmarklist(bufnr)
         local global_marks = vim.fn.getmarklist()
 
         local function insert_marks(marks_list)
           for _, mark in ipairs(marks_list) do
-            if mark.mark:match('%a') and mark.pos[2] > 0 then
+            if mark.mark:match('%a') and mark.pos[1] == bufnr and mark.pos[2] > 0 then
               table.insert(marks, {
                 text = mark.mark:gsub("'", ''),
                 line = mark.pos[2],
@@ -202,6 +201,19 @@ return {
           cursor = false,
           search = true,
           gitsigns = true,
+        },
+        excluded_buftypes = {
+          'terminal',
+        },
+        excluded_filetypes = {
+          'cmp_docs',
+          'cmp_menu',
+          'noice',
+          'prompt',
+          'TelescopePrompt',
+          'alpha',
+          'mason',
+          'lazy',
         },
       })
     end,

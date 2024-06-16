@@ -30,6 +30,7 @@ fzf
 gamemode
 gdm
 gdm-settings
+gimp
 git
 git-delta
 gnome-backgrounds
