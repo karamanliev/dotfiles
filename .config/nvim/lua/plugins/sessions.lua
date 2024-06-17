@@ -35,8 +35,10 @@ return {
   },
   {
     'mbbill/undotree',
-    keys = '<leader>u',
-    config = function()
+    cmd = {
+      'UndotreeToggle',
+    },
+    init = function()
       vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = '[U]ndo Tree' })
       vim.g.undotree_ShortIndicators = 1
       vim.g.undotree_SplitWidth = 35
