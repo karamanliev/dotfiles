@@ -187,8 +187,8 @@ wget
 wine-staging
 wireless_tools
 wireplumber
-wl-clipboard
 wofi
+xclip
 xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
 xdg-user-dirs-gtk
