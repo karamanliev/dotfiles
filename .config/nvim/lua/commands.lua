@@ -106,6 +106,19 @@ end, {
   desc = 'Toggle diagnostic virtual text',
 })
 
+-- Open SSH file locally with xdg-open
+command('OpenSshFile', function(opts)
+  local path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
+  local ssh_host = 'mindphuq'
+  local open_cmd = 'xdg-open'
+  local ssh_url = 'sftp://macbook' .. path
+
+  vim.cmd(string.format('silent! !ssh %s -t "%s %s"', ssh_host, open_cmd, ssh_url))
+end, {
+  desc = 'Open SSH file',
+  nargs = '?',
+})
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
@@ -127,7 +140,7 @@ autocmd({ 'VimResized' }, {
 })
 
 -- Show cursor line only in active window
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
+autocmd({ 'InsertLeave', 'WinEnter' }, {
   callback = function()
     if vim.w.auto_cursorline then
       vim.wo.cursorline = true
@@ -135,7 +148,7 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
     end
   end,
 })
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
+autocmd({ 'InsertEnter', 'WinLeave' }, {
   callback = function()
     if vim.wo.cursorline then
       vim.w.auto_cursorline = true

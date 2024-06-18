@@ -12,15 +12,9 @@ vim.keymap.set('n', 'q', '<nop>', {})
 vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 
 -- Yank filepath to clipboard
-vim.keymap.set({ 'n', 'x' }, '<leader>yf', "<cmd>let @+=expand('%:p')<CR>", { desc = 'Yank filepath' })
+vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
-vim.keymap.set({ 'n', 'x' }, '<leader>yx', function()
-  local path = vim.fn.expand('%:p')
-  local ssh_url = 'sftp://macbook' .. path
-
-  -- put it in system clipboard
-  vim.fn.setreg('+', ssh_url)
-end, { desc = 'Yank SSH filepath' })
+vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
 
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })

@@ -67,6 +67,15 @@ return {
         actions.drop_all(prompt_bufnr)
       end
 
+      -- Open the selected file with OpenSshFile command
+      local open_ssh_file = function()
+        local entry = actions_state.get_selected_entry()
+        if entry then
+          local filename = from_entry.path(entry, true)
+          vim.cmd('OpenSshFile ' .. filename)
+        end
+      end
+
       require('telescope').setup({
         defaults = {
           path_display = { 'smart' },
@@ -84,10 +93,12 @@ return {
               ['<M-n>'] = 'cycle_history_next',
               ['<M-p>'] = 'cycle_history_prev',
               ['<C-s>'] = harpoon_mark,
+              ['<C-x>'] = open_ssh_file,
               -- ['<esc>'] = 'close',
             },
             n = {
               ['<C-s>'] = harpoon_mark,
+              ['<C-x>'] = open_ssh_file,
             },
           },
         },

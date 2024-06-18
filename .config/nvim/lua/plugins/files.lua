@@ -3,7 +3,8 @@ return {
     'stevearc/oil.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('oil').setup({
+      local oil = require('oil')
+      oil.setup({
         default_file_explorer = true,
         skip_confirm_for_simple_edits = true,
         view_options = {
@@ -15,6 +16,20 @@ return {
           ['<bs>'] = 'actions.parent',
           ['<c-d>'] = 'actions.preview_scroll_down',
           ['<c-u>'] = 'actions.preview_scroll_up',
+          ['<c-x>'] = {
+            desc = 'Open SSH file locally',
+            callback = function()
+              local dir = oil.get_current_dir()
+              local entry = oil.get_cursor_entry()
+
+              if not entry then
+                return
+              end
+
+              local path = dir .. entry.parsed_name
+              vim.cmd('OpenSshFile ' .. path)
+            end,
+          },
         },
       })
 
