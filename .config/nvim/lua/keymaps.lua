@@ -14,7 +14,10 @@ vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 -- Yank filepath to clipboard
 vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
-vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
+-- Open SSH file locally
+if vim.env.SSH_TTY then
+  vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
+end
 
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })

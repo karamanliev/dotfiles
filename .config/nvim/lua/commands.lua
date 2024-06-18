@@ -108,12 +108,16 @@ end, {
 
 -- Open SSH file locally with xdg-open
 command('OpenSshFile', function(opts)
-  local path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
-  local ssh_host = 'mindphuq'
-  local open_cmd = 'xdg-open'
-  local ssh_url = 'sftp://macbook' .. path
+  if vim.env.SSH_TTY then
+    local path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
+    local ssh_host = 'mindphuq'
+    local open_cmd = 'xdg-open'
+    local ssh_url = 'sftp://macbook' .. path
 
-  vim.cmd(string.format('silent! !ssh %s -t "%s %s"', ssh_host, open_cmd, ssh_url))
+    vim.cmd(string.format('silent! !ssh %s -t "%s %s"', ssh_host, open_cmd, ssh_url))
+  else
+    vim.notify('Not in SSH!')
+  end
 end, {
   desc = 'Open SSH file',
   nargs = '?',
