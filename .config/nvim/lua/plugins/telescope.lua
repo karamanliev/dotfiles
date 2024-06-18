@@ -118,9 +118,10 @@ return {
             },
           },
           buffers = {
+            sort_mru = true,
             mappings = {
               i = {
-                ['<M-x>'] = actions.delete_buffer + actions.move_to_top,
+                ['<M-d>'] = actions.delete_buffer + actions.move_to_top,
               },
             },
           },
