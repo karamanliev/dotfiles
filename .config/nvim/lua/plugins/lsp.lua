@@ -29,6 +29,39 @@ return {
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          -- Keybinds are only enabled for tsserver files
+          -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
+          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
+
+          if vim.tbl_contains(ts_ft, vim.bo.filetype) then
+            -- Go to source definition
+            map('gd', '<cmd>GoToSourceDefinition<cr>', '[G]oto Source [D]efinition')
+
+            -- Open source definition in a vertical split
+            map('gps', '<cmd>lua vim.cmd "vsplit" vim.cmd "GoToSourceDefinition"<cr>', '[G]oto Source [D]efinition (vsplit)')
+
+            -- Organize imports
+            map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
+
+            -- Remove unused imports
+            map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove [U]nused Imports')
+
+            -- Sort imports
+            map('<leader>cs', '<cmd>SortImports<cr>', '[S]ort Imports')
+
+            -- Add missing imports
+            map('<leader>ci', '<cmd>AddMissingImports<cr>', '[A]dd Missing Imports')
+
+            -- Rename file and update imports
+            map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
+
+            -- TSC
+            map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
+            map('<leader>xt', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
+          else
+            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          end
+
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
@@ -82,35 +115,6 @@ return {
               end)
             end
           end, 'Mega Hover')
-
-          -- Keybinds are only enabled for tsserver files
-          if client and (client.name == 'tsserver' or client.name == 'vtsls') then
-            -- Go to source definition
-            map('gd', '<cmd>GoToSourceDefintion<cr>', '[G]oto Source [D]efinition')
-            -- how to add vsplit here
-            map('gps', '<cmd>lua vim.cmd "vsplit" vim.cmd "GoToSourceDefintion"<cr>', '[G]oto Source [D]efinition (vsplit)')
-
-            -- Organize imports
-            map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
-
-            -- Remove unused imports
-            map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove [U]nused Imports')
-
-            -- Sort imports
-            map('<leader>cs', '<cmd>SortImports<cr>', '[S]ort Imports')
-
-            -- Add missing imports
-            map('<leader>ci', '<cmd>AddMissingImports<cr>', '[A]dd Missing Imports')
-
-            -- Rename file and update imports
-            map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
-
-            -- TSC
-            map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
-            map('<leader>xt', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
-          else
-            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          end
 
           -- Highlight references
           if client and client.server_capabilities.documentHighlightProvider then
@@ -176,7 +180,7 @@ return {
             },
 
             -- Go to Source Definition
-            GoToSourceDefintion = {
+            GoToSourceDefinition = {
               function()
                 vim.lsp.buf.execute_command({
                   command = '_typescript.goToSourceDefinition',

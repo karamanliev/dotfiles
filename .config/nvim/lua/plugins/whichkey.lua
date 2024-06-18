@@ -17,6 +17,8 @@ return {
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]ist', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['<leader>y'] = { name = '[Y]ank', _ = 'which_key_ignore' },
       })
       -- visual mode
       wk.register({
