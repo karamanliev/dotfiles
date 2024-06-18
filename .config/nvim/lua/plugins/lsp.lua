@@ -53,11 +53,11 @@ return {
             map('<leader>ci', '<cmd>AddMissingImports<cr>', '[A]dd Missing Imports')
 
             -- Rename file and update imports
-            map('<leader>cf', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
+            map('<leader>cR', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
 
             -- TSC
-            map('<leader>ct', '<cmd>TSC<cr>', '[T]ypecheck Project')
-            map('<leader>xt', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
+            map('<leader>cT', '<cmd>TSC<cr>', '[T]ypecheck Project')
+            map('<leader>ct', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
           else
             map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           end
