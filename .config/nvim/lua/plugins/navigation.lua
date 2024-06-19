@@ -1,7 +1,6 @@
 return {
   {
     'christoomey/vim-tmux-navigator',
-    lazy = true,
     cmd = {
       'TmuxNavigateLeft',
       'TmuxNavigateDown',
@@ -17,6 +16,7 @@ return {
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },
+
   {
     'ThePrimeagen/harpoon',
     event = { 'BufReadPre', 'BufNewFile' },

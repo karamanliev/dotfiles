@@ -43,7 +43,12 @@ return {
   {
     'echasnovski/mini.move',
     version = false,
-    event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      '<M-j>',
+      '<M-k>',
+      '<M-h>',
+      '<M-l>',
+    },
     config = function()
       require('mini.move').setup({
         mappings = {

@@ -48,7 +48,10 @@ return {
   -- Highlight undo/redo changes
   {
     'tzachar/highlight-undo.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      'u',
+      '<C-r>',
+    },
     config = function()
       require('highlight-undo').setup({
         duration = 650,
@@ -81,7 +84,7 @@ return {
   -- vim.input and vim.select replacement
   {
     'stevearc/dressing.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'VeryLazy' },
     opts = {},
     config = function()
       require('dressing').setup({
@@ -99,27 +102,6 @@ return {
   },
 
   -- Colorized indents
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    main = 'ibl',
-    enabled = false,
-    config = function()
-      require('ibl').setup({
-        scope = {
-          show_start = false,
-        },
-        indent = {
-          char = '┊',
-          tab_char = '┊',
-          smart_indent_cap = true,
-        },
-        whitespace = {
-          remove_blankline_trail = true,
-        },
-      })
-    end,
-  },
   {
     'nvimdev/indentmini.nvim',
     event = { 'BufReadPre', 'BufNewFile' },

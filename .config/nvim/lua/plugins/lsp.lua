@@ -443,9 +443,11 @@ return {
   -- Show diagnostics in a panel
   {
     'folke/trouble.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {},
+    cmd = {
+      'Trouble',
+      'TroubleToggle',
+    },
     keys = {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
       { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List [D]iagnostics (workspace)' },
@@ -512,7 +514,14 @@ return {
   -- Show definitions in a popup
   {
     'rmagatti/goto-preview',
-    event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      { 'gpd', desc = 'Preview definition' },
+      { 'gpD', desc = 'Preview declaration' },
+      { 'gpi', desc = 'Preview implementation' },
+      { 'gpr', desc = 'Preview references' },
+      { 'gpt', desc = 'Preview type definition' },
+      { 'gP', desc = 'Close preview windows' },
+    },
     config = function()
       require('goto-preview').setup({
         width = 120,

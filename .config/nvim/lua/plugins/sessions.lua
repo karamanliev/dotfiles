@@ -1,4 +1,5 @@
 return {
+  -- Session management
   {
     'rmagatti/auto-session',
     event = {
@@ -33,6 +34,8 @@ return {
       })
     end,
   },
+
+  -- Undo tree
   {
     'mbbill/undotree',
     cmd = {
