@@ -52,9 +52,19 @@ return {
   -- C+d from VSCode
   {
     'mg979/vim-visual-multi',
-    event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      '<C-n>',
+      '<C-Up>',
+      '<C-Down>',
+      '<S-Left>',
+      '<S-Right>',
+      { '<leader>s/', '<Plug>(VM-Start-Regex-Search)', desc = 'VM Regex search' },
+      { '<leader>s\\', '<Plug>(VM-Add-Cursor-At-Pos)', desc = 'VM Add cursor at position' },
+      { '<leader>sA', '<Plug>(VM-Select-All)', desc = 'VM Select all' },
+      { '<leader>sgS', '<Plug>(VM-Reselect-Last)', desc = 'VM Reselect last' },
+    },
     branch = 'master',
-    init = function()
+    config = function()
       local hlslens = require('hlslens')
       if hlslens then
         local overrideLens = function(render, posList, nearest, idx, relIdx)

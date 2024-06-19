@@ -240,12 +240,7 @@ return {
     'folke/noice.nvim',
     event = { 'VeryLazy' },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       'MunifTanjim/nui.nvim',
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      -- 'rcarriga/nvim-notify',
     },
     keys = {
       {
@@ -409,21 +404,6 @@ return {
           vim.opt_local.foldcolumn = '0'
         end,
       })
-
-      -- Stolen from Akinsho
-      -- local fcs = vim.opt.fillchars:get()
-      -- local function get_fold(lnum)
-      --   if vim.fn.foldlevel(lnum) <= vim.fn.foldlevel(lnum - 1) then
-      --     return ' '
-      --   end
-      --   return vim.fn.foldclosed(lnum) == -1 and fcs.foldopen or fcs.foldclose
-      -- end
-      --
-      -- _G.get_statuscol = function()
-      --   return '%s%l ' .. get_fold(vim.v.lnum) .. ' '
-      -- end
-      --
-      -- vim.o.statuscolumn = '%!v:lua.get_statuscol()'
     end,
   },
 

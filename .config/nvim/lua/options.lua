@@ -5,7 +5,7 @@ vim.g.maplocalleader = ' '
 -- Relative line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.numberwidth = 4
+vim.opt.numberwidth = 5
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
