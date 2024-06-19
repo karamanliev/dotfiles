@@ -241,10 +241,35 @@ return {
       'sindrets/diffview.nvim',
     },
     config = function()
+      local theme = {
+        layout_strategy = 'vertical',
+        layout_config = {
+          width = 0.9,
+          height = 0.9,
+          prompt_position = 'top',
+          mirror = true,
+          preview_height = 0.65,
+        },
+      }
+
       require('telescope').setup({
         extensions = {
           advanced_git_search = {
             diff_plugin = 'diffview',
+            show_builtin_git_pickers = true,
+            telescope_theme = {
+              search_log_content = theme,
+              checkout_reflog = theme,
+              diff_commit_file = theme,
+              diff_branch_file = theme,
+              diff_commit_line = theme,
+              changed_on_branch = theme,
+              search_log_content_file = theme,
+
+              show_custom_functions = {
+                layout_config = { width = 0.4, height = 0.4 },
+              },
+            },
           },
         },
       })

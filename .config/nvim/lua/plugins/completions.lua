@@ -67,7 +67,6 @@ return {
       'hrsh7th/cmp-buffer',
       'onsails/lspkind.nvim',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
       'zbirenbaum/copilot-cmp',
     },
     config = function()
@@ -186,6 +185,16 @@ return {
         --   ghost_text = true,
         -- },
       })
+    end,
+  },
+
+  -- Cmdline completion
+  {
+    'hrsh7th/cmp-cmdline',
+    event = { 'CmdlineEnter' },
+    after = 'nvim-cmp',
+    config = function()
+      local cmp = require('cmp')
 
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline({
