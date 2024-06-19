@@ -13,6 +13,7 @@ brave-bin
 btop
 btrfs-assistant
 btrfs-progs
+catimg
 celluloid
 dkms
 dunst

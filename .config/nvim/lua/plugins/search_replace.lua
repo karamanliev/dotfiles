@@ -54,6 +54,7 @@ return {
     'mg979/vim-visual-multi',
     keys = {
       '<C-n>',
+      { '<C-n>', mode = 'v' },
       '<C-Up>',
       '<C-Down>',
       '<S-Left>',
