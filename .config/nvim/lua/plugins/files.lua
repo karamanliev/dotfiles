@@ -4,6 +4,19 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local oil = require('oil')
+
+      local open_ssh = function(opts)
+        local dir = oil.get_current_dir()
+        local entry = oil.get_cursor_entry()
+
+        if not entry then
+          return
+        end
+
+        local path = opts.is_dir and dir or dir .. entry.parsed_name
+        vim.cmd('OpenSshFile ' .. path)
+      end
+
       oil.setup({
         default_file_explorer = true,
         skip_confirm_for_simple_edits = true,
@@ -35,15 +48,14 @@ return {
           ['<c-x>'] = {
             desc = 'Open SSH file locally',
             callback = function()
-              local dir = oil.get_current_dir()
-              local entry = oil.get_cursor_entry()
+              open_ssh({ is_dir = false })
+            end,
+          },
 
-              if not entry then
-                return
-              end
-
-              local path = dir .. entry.parsed_name
-              vim.cmd('OpenSshFile ' .. path)
+          ['<c-s-x>'] = {
+            desc = 'Open SSH dir locally',
+            callback = function()
+              open_ssh({ is_dir = true })
             end,
           },
         },

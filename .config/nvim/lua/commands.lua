@@ -106,13 +106,17 @@ end, {
   desc = 'Toggle diagnostic virtual text',
 })
 
--- Open SSH file locally with xdg-open
+-- Open SSH file/dir locally with xdg-open
 command('OpenSshFile', function(opts)
   if vim.env.SSH_TTY then
-    local path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
+    local file_path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
+    local dir = vim.fn.expand('%:p:h')
     local ssh_host = 'mindphuq'
     local open_cmd = 'xdg-open'
-    local ssh_url = 'sftp://macbook' .. path
+
+    -- open dir if arg dir is passed
+    local open_path = opts.args == 'dir' and dir or file_path
+    local ssh_url = 'sftp://macbook' .. open_path
 
     vim.cmd(string.format('silent! !ssh %s -t "%s %s"', ssh_host, open_cmd, ssh_url))
   else

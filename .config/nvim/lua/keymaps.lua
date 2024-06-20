@@ -17,6 +17,7 @@ vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { de
 -- Open SSH file locally
 if vim.env.SSH_TTY then
   vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>X', '<cmd>OpenSshFile dir<cr>', { desc = 'Open SSH dir' })
 end
 
 -- Don't yank on visual paste

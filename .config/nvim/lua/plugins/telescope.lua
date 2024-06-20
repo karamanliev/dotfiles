@@ -67,12 +67,15 @@ return {
         actions.drop_all(prompt_bufnr)
       end
 
-      -- Open the selected file with OpenSshFile command
-      local open_ssh_file = function()
+      -- Open the selected file/dir with OpenSshFile command
+      local open_ssh_file = function(opts)
         local entry = actions_state.get_selected_entry()
         if entry then
-          local filename = from_entry.path(entry, true)
-          vim.cmd('OpenSshFile ' .. filename)
+          local file_path = from_entry.path(entry, true)
+          local dir = file_path and file_path:match('(.*/)')
+          local path = opts.is_folder and dir or file_path
+
+          vim.cmd('OpenSshFile ' .. path)
         end
       end
 
@@ -93,12 +96,22 @@ return {
               ['<M-n>'] = 'cycle_history_next',
               ['<M-p>'] = 'cycle_history_prev',
               ['<C-s>'] = harpoon_mark,
-              ['<C-x>'] = open_ssh_file,
+              ['<C-x>'] = function()
+                open_ssh_file({ is_folder = false })
+              end,
+              ['<C-S-x>'] = function()
+                open_ssh_file({ is_folder = true })
+              end,
               -- ['<esc>'] = 'close',
             },
             n = {
               ['<C-s>'] = harpoon_mark,
-              ['<C-x>'] = open_ssh_file,
+              ['<C-x>'] = function()
+                open_ssh_file({ is_folder = false })
+              end,
+              ['<C-S-x>'] = function()
+                open_ssh_file({ is_folder = true })
+              end,
             },
           },
           preview = {
