@@ -271,7 +271,7 @@ return {
   -- Autotag
   {
     'windwp/nvim-ts-autotag',
-    ft = { 'html', 'javascriptreact', 'typescriptreact', 'svelte', 'vue' },
+    ft = { 'html', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'php' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     enabled = true,
     config = function()

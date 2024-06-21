@@ -164,6 +164,82 @@ return {
         bashls = {
           filetypes = { 'sh', 'zsh' },
         },
+        intelephense = {
+          filetypes = { 'php', 'blade' },
+          settings = {
+            intelephense = {
+              filetypes = { 'php', 'blade' },
+              files = {
+                associations = { '*php', '*.blade.php' },
+                maxSize = 5000000,
+              },
+              stubs = {
+                'bcmath',
+                'bz2',
+                'calendar',
+                'Core',
+                'curl',
+                'date',
+                'dba',
+                'dom',
+                'enchant',
+                'fileinfo',
+                'filter',
+                'ftp',
+                'gd',
+                'gettext',
+                'hash',
+                'iconv',
+                'imap',
+                'intl',
+                'json',
+                'ldap',
+                'libxml',
+                'mbstring',
+                'mcrypt',
+                'mysql',
+                'mysqli',
+                'password',
+                'pcntl',
+                'pcre',
+                'PDO',
+                'pdo_mysql',
+                'Phar',
+                'readline',
+                'recode',
+                'Reflection',
+                'regex',
+                'session',
+                'SimpleXML',
+                'soap',
+                'sockets',
+                'sodium',
+                'SPL',
+                'standard',
+                'superglobals',
+                'sysvsem',
+                'sysvshm',
+                'tokenizer',
+                'xml',
+                'xdebug',
+                'xmlreader',
+                'xmlwriter',
+                'yaml',
+                'zip',
+                'zlib',
+                'wordpress',
+                'woocommerce',
+                'acf-pro',
+                'acf-stubs',
+                'wordpress-globals',
+                'wp-cli',
+                'genesis',
+                'polylang',
+                'sbi',
+              },
+            },
+          },
+        },
         tsserver = {
           commands = {
             -- Organize Imports
@@ -372,7 +448,7 @@ return {
           },
         },
         emmet_language_server = {
-          filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+          filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'php' },
         },
         jsonls = {},
         lua_ls = {
@@ -398,7 +474,6 @@ return {
         'stylua', -- Used to format Lua code
         'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
         'eslint_d', -- Used to lint JavaScript and TypeScript
-        'stylelint', -- Used to lint CSS
         'htmlhint', -- Used to lint HTML
         'jsonlint', -- Used to lint JSON
         -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript

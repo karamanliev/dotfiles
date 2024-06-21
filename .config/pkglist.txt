@@ -71,6 +71,7 @@ gvfs-nfs
 gvfs-onedrive
 gvfs-smb
 hyprland
+inkscape
 iwd
 kitty
 lazygit
@@ -105,6 +106,7 @@ libpulse
 linux
 linux-firmware
 linux-headers
+local-by-flywheel-bin
 loupe
 lutris
 malcontent
