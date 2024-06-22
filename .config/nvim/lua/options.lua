@@ -57,6 +57,13 @@ vim.g.clipboard = vim.env.SSH_TTY
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Indentation
+vim.opt.textwidth = 80
+vim.opt.autoindent = true
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+
 -- Save undo history
 vim.opt.undofile = true
 
