@@ -58,7 +58,6 @@ vim.g.clipboard = vim.env.SSH_TTY
 vim.opt.breakindent = true
 
 -- Indentation
-vim.opt.textwidth = 80
 vim.opt.autoindent = true
 vim.opt.shiftround = true
 vim.opt.expandtab = true
