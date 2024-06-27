@@ -22,6 +22,7 @@ efibootmgr
 evince
 extension-manager
 eza
+fastfetch
 faudio
 fd
 file-roller
@@ -49,6 +50,7 @@ gnome-keyring
 gnome-logs
 gnome-menus
 gnome-remote-desktop
+gnome-screenshot
 gnome-session
 gnome-settings-daemon
 gnome-shell
@@ -115,7 +117,6 @@ mangohud
 nano
 nano-syntax-highlighting
 nautilus
-neofetch
 neovim
 network-manager-applet
 networkmanager
@@ -130,7 +131,6 @@ nvidia-utils
 obsidian
 opencl-nvidia
 openrgb
-orca
 otf-san-francisco
 otf-san-francisco-mono
 pacman-contrib
