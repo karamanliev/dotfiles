@@ -21,7 +21,8 @@ return {
       local actions = require('telescope.actions')
       local actions_state = require('telescope.actions.state')
       local from_entry = require('telescope.from_entry')
-      local harpoon = require('harpoon')
+      local harpoon = require('utils.telescope.harpoon')
+      local image = require('utils.telescope.image')
 
       -- Clone the default Telescope configuration
       local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
@@ -34,38 +35,6 @@ return {
       -- I don't want to search in the `.git` directory.
       table.insert(vimgrep_arguments, '--glob')
       table.insert(vimgrep_arguments, '!**/.git/*')
-
-      -- Add the selections to Harpoon
-      local harpoon_mark = function(prompt_bufnr)
-        local picker = actions_state.get_current_picker(prompt_bufnr)
-        local selections = {}
-        local filenames = {}
-
-        -- get the selected entries if multi or not
-        if #picker:get_multi_selection() > 0 then
-          selections = picker:get_multi_selection()
-        else
-          table.insert(selections, actions_state.get_selected_entry())
-        end
-
-        -- iterate over selections and add to harpoon
-        for _, entry in ipairs(selections) do
-          local file_path = from_entry.path(entry, false, false)
-
-          if file_path then
-            local filename = file_path:match('([^/]+)$')
-            table.insert(filenames, filename)
-
-            harpoon:list():add({ value = file_path, context = { row = 1, col = 0 } })
-          end
-        end
-
-        local filenames_str = table.concat(filenames, '\n')
-        local padded_filenames_str = '  ' .. filenames_str:gsub('\n', '\n  ')
-        vim.notify('\n  Added ' .. #filenames .. ' files to Harpoon:  \n' .. padded_filenames_str, vim.log.levels.INFO, { title = 'Telescope', timeout = 5000 })
-
-        actions.drop_all(prompt_bufnr)
-      end
 
       -- Open the selected file/dir with OpenSshFile command
       local open_ssh_file = function(opts)
@@ -95,7 +64,7 @@ return {
               ['<c-p>'] = 'move_selection_previous',
               ['<M-n>'] = 'cycle_history_next',
               ['<M-p>'] = 'cycle_history_prev',
-              ['<C-s>'] = harpoon_mark,
+              ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
                 open_ssh_file({ is_folder = false })
               end,
@@ -105,7 +74,7 @@ return {
               -- ['<esc>'] = 'close',
             },
             n = {
-              ['<C-s>'] = harpoon_mark,
+              ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
                 open_ssh_file({ is_folder = false })
               end,
@@ -115,29 +84,31 @@ return {
             },
           },
           preview = {
-            mime_hook = function(filepath, bufnr, opts)
-              local is_image = function(filepath)
-                local image_extensions = { 'png', 'jpg' } -- Supported image formats
-                local split_path = vim.split(filepath:lower(), '.', { plain = true })
-                local extension = split_path[#split_path]
-                return vim.tbl_contains(image_extensions, extension)
-              end
-              if is_image(filepath) then
-                local term = vim.api.nvim_open_term(bufnr, {})
-                local function send_output(_, data, _)
-                  for _, d in ipairs(data) do
-                    vim.api.nvim_chan_send(term, d .. '\r\n')
-                  end
-                end
-                vim.fn.jobstart({
-                  'catimg', -- Terminal image viewer command
-                  filepath,
-                }, { on_stdout = send_output, stdout_buffered = true, pty = true })
-              else
-                require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
-              end
-            end,
+            -- mime_hook = function(filepath, bufnr, opts)
+            --   local is_image = function(filepath)
+            --     local image_extensions = { 'png', 'jpg' } -- Supported image formats
+            --     local split_path = vim.split(filepath:lower(), '.', { plain = true })
+            --     local extension = split_path[#split_path]
+            --     return vim.tbl_contains(image_extensions, extension)
+            --   end
+            --   if is_image(filepath) then
+            --     local term = vim.api.nvim_open_term(bufnr, {})
+            --     local function send_output(_, data, _)
+            --       for _, d in ipairs(data) do
+            --         vim.api.nvim_chan_send(term, d .. '\r\n')
+            --       end
+            --     end
+            --     vim.fn.jobstart({
+            --       'catimg', -- Terminal image viewer command
+            --       filepath,
+            --     }, { on_stdout = send_output, stdout_buffered = true, pty = true })
+            --   else
+            --     require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
+            --   end
+            -- end,
+            filesize_limit = 5,
           },
+          buffer_previewer_maker = image.buffer_previewer_maker,
         },
         pickers = {
           lsp_references = {
