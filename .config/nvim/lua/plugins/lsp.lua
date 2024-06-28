@@ -437,7 +437,7 @@ return {
           --   client.server_capabilities.hoverProvider = false
           -- end,
           root_dir = function(fname)
-            local root_pattern = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js')
+            local root_pattern = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.mjs')
             return root_pattern(fname)
           end,
         },

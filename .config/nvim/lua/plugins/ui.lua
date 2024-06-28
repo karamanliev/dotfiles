@@ -19,10 +19,10 @@ return {
         --   c.gitSigns.delete = c.git.delete
         -- end,
         on_highlights = function(hl, c)
-          hl.DiagnosticUnderlineError = { underline = false }
-          hl.DiagnosticUnderlineWarn = { underline = false }
-          hl.DiagnosticUnderlineInfo = { underline = false }
-          hl.DiagnosticUnderlineHint = { underline = false }
+          hl.DiagnosticUnderlineError = { underline = true, sp = c.error }
+          hl.DiagnosticUnderlineWarn = { underline = true, sp = c.warning }
+          hl.DiagnosticUnderlineInfo = { underline = true, sp = c.info }
+          hl.DiagnosticUnderlineHint = { underline = true, sp = c.hint }
           hl.FoldColumn = { bg = 'none' }
           hl.SignColumn = { bg = 'none' }
           hl.Undo = { link = 'DiffDelete' }
