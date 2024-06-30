@@ -78,34 +78,6 @@ end, {
   desc = 'Toggle buffer autoformat-on-save',
 })
 
--- Toggle diagnostic virtual_text
-command('ToggleVirtualText', function()
-  local initial_virtual_text_config = vim.g.virtual_text
-
-  -- Function to check if virtual_text is enabled
-  local function is_virtual_text_enabled()
-    local current_config = vim.diagnostic.config().virtual_text
-    if type(current_config) == 'table' then
-      return true
-    end
-    return false
-  end
-
-  local function toggle_virtual_text()
-    if is_virtual_text_enabled() then
-      vim.diagnostic.config({ virtual_text = false })
-      vim.notify('Diagnostic virtual_text is now disabled', vim.log.levels.INFO)
-    else
-      vim.diagnostic.config({ virtual_text = initial_virtual_text_config })
-      vim.notify('Diagnostic virtual_text is now enabled', vim.log.levels.INFO)
-    end
-  end
-
-  return toggle_virtual_text()
-end, {
-  desc = 'Toggle diagnostic virtual text',
-})
-
 -- Open SSH file/dir locally with xdg-open
 command('OpenSshFile', function(opts)
   if vim.env.SSH_TTY then

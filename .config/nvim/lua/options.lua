@@ -103,9 +103,3 @@ vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,term
 
 -- Set highlight on search
 vim.opt.hlsearch = true
-
--- Diagnostic virtual text
-vim.g.virtual_text = {
-  source = false,
-  severity = { min = vim.diagnostic.severity.WARN },
-}

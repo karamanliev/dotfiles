@@ -74,8 +74,5 @@ vim.keymap.set('n', '<leader>tx', function()
   end
 end, { desc = 'Toggle diagnostics' })
 
--- Toggle Virtual Text
-vim.keymap.set('n', '<leader>tv', '<cmd>ToggleVirtualText<cr>', { noremap = true, silent = true, desc = 'Toggle diagnostic virtual text' })
-
 -- Toggle Fold Column
 vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })

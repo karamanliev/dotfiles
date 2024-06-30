@@ -441,12 +441,6 @@ return {
             return root_pattern(fname)
           end,
         },
-        eslint_d = {
-          settings = {
-            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-            workingDirectories = { mode = 'auto' },
-          },
-        },
         emmet_language_server = {
           filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'php' },
         },
@@ -495,7 +489,8 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
       vim.diagnostic.config({
-        virtual_text = vim.g.virtual_text,
+        virtual_text = false,
+        underline = true,
         severity_sort = true,
         update_in_insert = true,
         float = {
@@ -503,15 +498,65 @@ return {
           border = 'rounded',
           severity_sort = true,
         },
-        -- signs = {
-        --   text = {
-        --     [vim.diagnostic.severity.ERROR] = '󰅚 ',
-        --     [vim.diagnostic.severity.WARN] = '󰀪 ',
-        --     [vim.diagnostic.severity.HINT] = '󰌶 ',
-        --     [vim.diagnostic.severity.INFO] = '󰋽 ',
-        --   },
-        -- },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '■',
+            [vim.diagnostic.severity.WARN] = '■',
+            [vim.diagnostic.severity.HINT] = '■',
+            [vim.diagnostic.severity.INFO] = '■',
+          },
+        },
       })
+    end,
+  },
+
+  -- pretty diagnostic virtual text
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local colors = require('tokyonight.colors').setup()
+
+      require('tiny-inline-diagnostic').setup({
+        signs = {
+          -- left = '█',
+          -- right = '█',
+          left = '',
+          right = '',
+          diag = '■',
+          arrow = '    ',
+          up_arrow = '    ',
+          vertical = ' │',
+          vertical_end = ' └',
+        },
+        hi = {
+          error = 'DiagnosticError',
+          warn = 'DiagnosticWarn',
+          info = 'DiagnosticInfo',
+          hint = 'DiagnosticHint',
+          arrow = 'NonText',
+          background = 'CursorLine', -- Can be a highlight or a hexadecimal color (#RRGGBB)
+          mixing_color = colors.bg, -- Can be None or a hexadecimal color (#RRGGBB). Used to blend the background color with the diagnostic background color with another color.
+        },
+        blend = {
+          factor = 0.1,
+        },
+        options = {
+          -- The minimum length of the message, otherwise it will be on a new line.
+          softwrap = 15,
+
+          --- When overflow="wrap", when the message is too long, it is then displayed on multiple lines.
+          overflow = 'wrap',
+
+          --- Enable it if you want to always have message with `after` characters length.
+          break_line = {
+            enabled = false,
+            after = 30,
+          },
+        },
+      })
+
+      vim.cmd('hi TinyInlineDiagnosticVirtualTextArrow guifg=' .. colors.fg_dark)
     end,
   },
 
