@@ -519,11 +519,9 @@ return {
 
       require('tiny-inline-diagnostic').setup({
         signs = {
-          -- left = '█',
-          -- right = '█',
-          left = '',
-          right = '',
-          diag = '■',
+          left = '█',
+          right = '█',
+          diag = ' ■',
           arrow = '    ',
           up_arrow = '    ',
           vertical = ' │',
