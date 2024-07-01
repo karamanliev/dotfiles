@@ -16,7 +16,6 @@ btrfs-progs
 catimg
 celluloid
 dkms
-dunst
 dust
 efibootmgr
 evince
@@ -72,7 +71,6 @@ gvfs-mtp
 gvfs-nfs
 gvfs-onedrive
 gvfs-smb
-hyprland
 inkscape
 iwd
 kitty
@@ -143,7 +141,6 @@ polychromatic
 protonup-qt
 python-llfuse
 python-pystray
-qt5-wayland
 qt6-wayland
 reflector
 ripgrep
@@ -167,7 +164,7 @@ tecla
 telegram-desktop
 terminus-font
 tldr
-tmux
+tmux-git
 tmux-plugin-manager
 tracker3-miners
 ttf-bitstream-vera
@@ -180,6 +177,7 @@ ttf-liberation
 ttf-nerd-fonts-symbols-mono
 ttf-opensans
 ttf-victor-mono
+variety
 vim
 visual-studio-code-bin
 vkbasalt
@@ -190,10 +188,8 @@ wget
 wine-staging
 wireless_tools
 wireplumber
-wofi
 xclip
 xdg-desktop-portal-gnome
-xdg-desktop-portal-hyprland
 xdg-user-dirs-gtk
 xdg-utils
 xorg-xinit
