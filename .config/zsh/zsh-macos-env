@@ -1,3 +1,6 @@
+# Homebrew packages take precedence
+export PATH="/opt/homebrew/bin:$PATH"
+
 # Ruby 3.2.2
 export PATH="$(brew --prefix)/opt/ruby@3.2/bin:$PATH"
 
@@ -12,3 +15,6 @@ export ANDROID_AVD_HOME=$HOME/.android/avd
 
 # ADB
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Imagemagick (needed for nvim magick rock)
+export DYLD_LIBRARY_PATH="$(brew --prefix)/lib"
