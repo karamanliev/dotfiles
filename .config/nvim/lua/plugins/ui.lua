@@ -8,6 +8,11 @@ return {
         style = 'moon',
         transparent = true,
         dim_inactive = true,
+        plugins = {
+          auto = true,
+          all = false,
+          ['indent-blankline.nvim'] = true, -- needed for indentmini plugin
+        },
 
         styles = {
           keywords = { italic = true },
@@ -27,8 +32,10 @@ return {
           hl.SignColumn = { bg = 'none' }
           hl.Undo = { link = 'DiffDelete' }
           hl.Redo = { link = 'DiffAdd' }
-          hl.GitSignsChange = { fg = '#6785b8' }
-          hl.GitGutterChangeLineNr = { fg = '#6785b8' }
+          -- hl.GitSignsAdd = { fg = '#627259' }
+          -- hl.GitGutterAddLineNr = { fg = '#627259' }
+          -- hl.GitSignsChange = { fg = '#6785b8' }
+          -- hl.GitGutterChangeLineNr = { fg = '#6785b8' }
         end,
       })
 

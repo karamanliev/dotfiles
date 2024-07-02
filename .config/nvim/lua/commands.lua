@@ -177,6 +177,8 @@ autocmd('FileType', {
     'neotest-summary',
     'neotest-output-panel',
     'dbout',
+    'gitsigns.blame',
+    'git',
   },
   group = general,
   desc = 'Close some windows with <q>',

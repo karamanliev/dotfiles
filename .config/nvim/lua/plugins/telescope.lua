@@ -187,7 +187,7 @@ return {
       require('telescope').setup({
         extensions = {
           live_grep_args = {
-            auto_quoting = false,
+            auto_quoting = true,
           },
         },
       })

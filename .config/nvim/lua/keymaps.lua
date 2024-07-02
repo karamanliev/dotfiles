@@ -76,3 +76,13 @@ end, { desc = 'Toggle diagnostics' })
 
 -- Toggle Fold Column
 vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })
+
+-- Open lazygit in new tmux window
+vim.keymap.set('n', '<leader>G', '<cmd>!tmux new-window -c ' .. vim.fn.getcwd() .. ' -- lazygit <CR><CR>', { desc = 'Open Lazygit' }) -- opens lazygit in a new tmux window
+
+-- Open yazi in new tmux window
+vim.keymap.set('n', '<leader>Y', function()
+  local current_file_dir = vim.fn.expand('%:p:h')
+  local tmux_command = '!tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
+  vim.cmd(tmux_command)
+end, { desc = 'Open Yazi' }) -- opens yazi in a new tmux window
