@@ -83,7 +83,7 @@ vim.keymap.set(
   '<leader>gG',
   '<cmd>silent !tmux set -w popup-border-lines rounded; tmux popup -E -eTERM=screen-256color -xC -yC -w92\\% -h92\\% -sbg=\\#1f2335 -Sbg=\\#1f2335 -d "'
     .. vim.fn.getcwd()
-    .. '" lazygit -ucf $DOTFILES/.config/lazygit/config_nvim.yml<cr>',
+    .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml<cr>',
   { desc = 'Lazygit' }
 )
 
