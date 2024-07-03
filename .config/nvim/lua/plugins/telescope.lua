@@ -17,36 +17,10 @@ return {
       { 'nvim-tree/nvim-web-devicons' },
     },
     config = function()
-      local telescopeConfig = require('telescope.config')
       local actions = require('telescope.actions')
-      local actions_state = require('telescope.actions.state')
-      local from_entry = require('telescope.from_entry')
       local harpoon = require('utils.telescope.harpoon')
       local image = require('utils.telescope.image')
-
-      -- Clone the default Telescope configuration
-      local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
-      -- I want to search in hidden/dot files.
-      table.insert(vimgrep_arguments, '--hidden')
-
-      -- Remove indentation from results
-      table.insert(vimgrep_arguments, '--trim')
-      -- I don't want to search in the `.git` directory.
-      table.insert(vimgrep_arguments, '--glob')
-      table.insert(vimgrep_arguments, '!**/.git/*')
-
-      -- Open the selected file/dir with OpenSshFile command
-      local open_ssh_file = function(opts)
-        local entry = actions_state.get_selected_entry()
-        if entry then
-          local file_path = from_entry.path(entry, true)
-          local dir = file_path and file_path:match('(.*/)')
-          local path = opts.is_folder and dir or file_path
-
-          vim.cmd('OpenSshFile ' .. path)
-        end
-      end
+      local misc = require('utils.telescope.misc')
 
       require('telescope').setup({
         defaults = {
@@ -57,7 +31,7 @@ return {
           },
           -- `hidden = true` is not supported in text grep commands.
           dynamic_preview_title = true,
-          vimgrep_arguments = vimgrep_arguments,
+          vimgrep_arguments = misc.vimgrep_arguments,
           mappings = {
             i = {
               ['<c-n>'] = 'move_selection_next',
@@ -66,24 +40,25 @@ return {
               ['<M-p>'] = 'cycle_history_prev',
               ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
-                open_ssh_file({ is_folder = false })
+                misc.open_ssh_file({ is_folder = false })
               end,
               ['<C-S-x>'] = function()
-                open_ssh_file({ is_folder = true })
+                misc.open_ssh_file({ is_folder = true })
               end,
-              -- ['<esc>'] = 'close',
+              ['<Tab>'] = misc.focus_preview,
             },
             n = {
               ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
-                open_ssh_file({ is_folder = false })
+                misc.open_ssh_file({ is_folder = false })
               end,
               ['<C-S-x>'] = function()
-                open_ssh_file({ is_folder = true })
+                misc.open_ssh_file({ is_folder = true })
               end,
             },
           },
           preview = {
+            filesize_limit = 5,
             -- mime_hook = function(filepath, bufnr, opts)
             --   local is_image = function(filepath)
             --     local image_extensions = { 'png', 'jpg' } -- Supported image formats
@@ -106,7 +81,6 @@ return {
             --     require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
             --   end
             -- end,
-            filesize_limit = 5,
           },
           buffer_previewer_maker = image.buffer_previewer_maker,
         },
@@ -171,7 +145,7 @@ return {
       -- line wrap in telescope previewer
       vim.api.nvim_create_autocmd('User', {
         pattern = 'TelescopePreviewerLoaded',
-        callback = function(args)
+        callback = function()
           vim.wo.wrap = true
         end,
       })
