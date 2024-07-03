@@ -81,11 +81,11 @@ vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle 
 vim.keymap.set(
   'n',
   '<leader>gG',
-  ':silent !tmux set -w popup-border-lines rounded; tmux popup -E -eTERM=screen-256color -xC -yC -w92\\% -h92\\% -sbg=\\#1f2335 -Sbg=\\#1f2335 -d "'
+  '<cmd>silent !tmux set -w popup-border-lines rounded; tmux popup -E -eTERM=screen-256color -xC -yC -w92\\% -h92\\% -sbg=\\#1f2335 -Sbg=\\#1f2335 -d "'
     .. vim.fn.getcwd()
-    .. '" lazygit<CR>',
-  { desc = 'Lazygit', silent = true }
-) -- opens lazygit in a new tmux window
+    .. '" lazygit -ucf $DOTFILES/.config/lazygit/config_nvim.yml<cr>',
+  { desc = 'Lazygit' }
+)
 
 -- Open yazi in new tmux window
 vim.keymap.set('n', '<leader>Y', function()

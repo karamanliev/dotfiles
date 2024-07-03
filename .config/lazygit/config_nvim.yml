@@ -1,0 +1,36 @@
+os:
+  edit: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e {{filename}}<cr>";tmux popup -C;
+  editAtLine: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e +{{line}} {{filename}}<cr>";tmux popup -C;
+  open: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e {{filename}}<cr>";tmux popup -C;
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+gui:
+  sidePanelWidth: 0.2
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "#b4befe"
+      - bold
+    inactiveBorderColor:
+      - "#a6adc8"
+    optionsTextColor:
+      - "#89b4fa"
+    selectedLineBgColor:
+      - "#313244"
+    cherryPickedCommitBgColor:
+      - "#45475a"
+    cherryPickedCommitFgColor:
+      - "#b4befe"
+    unstagedChangesColor:
+      - "#f38ba8"
+    defaultFgColor:
+      - "#cdd6f4"
+    searchingActiveBorderColor:
+      - "#f9e2af"
+
+  authorColors:
+    "*": "#b4befe"
+promptToReturnFromSubprocess: false
+notARepository: "skip"

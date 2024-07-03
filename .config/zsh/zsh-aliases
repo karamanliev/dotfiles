@@ -30,6 +30,7 @@ alias tree='lt'
 ## Remap
 alias cat='bat'
 alias top='btop'
+alias nvim='nvim --listen /tmp/nvim-server-$(tmux display-message -p "\#{session_id}-#{window_id}-#{pane_id}").pipe'
 alias v='nvim'
 alias vim='nvim'
 alias neofetch='fastfetch'
