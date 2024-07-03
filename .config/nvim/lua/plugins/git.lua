@@ -1,7 +1,7 @@
 return {
   {
     'kdheepak/lazygit.nvim',
-    enabled = true,
+    enabled = false,
     cmd = {
       'LazyGit',
       'LazyGitConfig',
@@ -231,7 +231,7 @@ return {
     cmd = 'Neogit',
     keys = {
       { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Neo[G]it' },
-      { '<leader>gG', '<cmd>Neogit kind=vsplit<cr>', desc = 'Neo[G]it vsplit' },
+      { '<leader>gv', '<cmd>Neogit kind=vsplit<cr>', desc = 'Neo[G]it vsplit' },
       { '<leader>gl', '<cmd>Neogit log<cr>', desc = '[L]og' },
       { '<leader>gs', '<cmd>Neogit stash<cr>', desc = '[S]tash' },
       { '<leader>gf', '<cmd>Neogit fetch<cr>', desc = '[F]etch' },

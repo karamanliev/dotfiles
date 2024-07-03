@@ -78,11 +78,18 @@ end, { desc = 'Toggle diagnostics' })
 vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle [F]old [C]olumn' })
 
 -- Open lazygit in new tmux window
-vim.keymap.set('n', '<leader>G', '<cmd>!tmux new-window -c ' .. vim.fn.getcwd() .. ' -- lazygit <CR><CR>', { desc = 'Open Lazygit' }) -- opens lazygit in a new tmux window
+vim.keymap.set(
+  'n',
+  '<leader>gG',
+  ':silent !tmux set -w popup-border-lines rounded; tmux popup -E -eTERM=screen-256color -xC -yC -w92\\% -h92\\% -sbg=\\#1f2335 -Sbg=\\#1f2335 -d "'
+    .. vim.fn.getcwd()
+    .. '" lazygit<CR>',
+  { desc = 'Lazygit', silent = true }
+) -- opens lazygit in a new tmux window
 
 -- Open yazi in new tmux window
 vim.keymap.set('n', '<leader>Y', function()
   local current_file_dir = vim.fn.expand('%:p:h')
-  local tmux_command = '!tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
+  local tmux_command = 'silent !tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
   vim.cmd(tmux_command)
-end, { desc = 'Open Yazi' }) -- opens yazi in a new tmux window
+end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
