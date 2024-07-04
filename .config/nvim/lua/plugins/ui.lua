@@ -11,7 +11,6 @@ return {
         plugins = {
           auto = true,
           all = false,
-          ['indent-blankline.nvim'] = true, -- needed for indentmini plugin
         },
 
         styles = {
