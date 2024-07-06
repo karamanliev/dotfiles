@@ -59,6 +59,7 @@ gnome-system-monitor
 gnome-text-editor
 gnome-tweaks
 gnome-user-share
+gnome-weather
 goverlay
 grilo-plugins
 gst-plugin-pipewire
