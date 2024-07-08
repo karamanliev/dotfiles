@@ -47,7 +47,11 @@ return {
     'brenoprata10/nvim-highlight-colors',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      require('nvim-highlight-colors').setup({})
+      require('nvim-highlight-colors').setup({
+        exclude_filetypes = {
+          'bigfile',
+        },
+      })
     end,
   },
 
@@ -115,6 +119,9 @@ return {
     config = function()
       require('indentmini').setup({
         char = '┊',
+        exclude = {
+          'bigfile',
+        },
       })
     end,
   },
@@ -202,6 +209,7 @@ return {
           'alpha',
           'mason',
           'lazy',
+          'bigfile',
         },
       })
     end,
