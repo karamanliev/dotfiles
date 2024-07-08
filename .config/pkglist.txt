@@ -104,6 +104,7 @@ lib32-v4l-utils
 lib32-vkd3d
 libertinus-font
 libpulse
+libva-nvidia-driver
 linux
 linux-firmware
 linux-headers
