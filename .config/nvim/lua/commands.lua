@@ -80,7 +80,7 @@ end, {
 
 -- Open SSH file/dir locally with xdg-open
 command('OpenSshFile', function(opts)
-  if vim.env.SSH_TTY then
+  if vim.env.SSH_CONNECTION then
     local file_path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
     local dir = vim.fn.expand('%:p:h')
     local ssh_host = 'mindphuq'

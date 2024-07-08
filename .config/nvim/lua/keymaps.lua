@@ -15,7 +15,7 @@ vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
 -- Open SSH file locally
-if vim.env.SSH_TTY then
+if vim.env.SSH_CONNECTION then
   vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
   vim.keymap.set({ 'n', 'x' }, '<leader>X', '<cmd>OpenSshFile dir<cr>', { desc = 'Open SSH dir' })
 end

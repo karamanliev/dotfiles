@@ -40,7 +40,7 @@ vim.opt.termguicolors = true
 -- Clipboard
 -- Use OSC52 when SSH
 vim.opt.clipboard = 'unnamedplus'
-vim.g.clipboard = vim.env.SSH_TTY
+vim.g.clipboard = vim.env.SSH_CONNECTION
     and {
       name = 'OSC 52',
       copy = {
