@@ -1,6 +1,7 @@
 1password
 1password-cli
 adobe-source-sans-fonts
+adw-gtk3
 alacritty
 alsa-plugins
 amd-ucode
@@ -134,6 +135,8 @@ openrgb
 otf-san-francisco
 otf-san-francisco-mono
 pacman-contrib
+papirus-folders-catppuccin-git
+papirus-icon-theme
 pika-backup
 pipewire
 pipewire-alsa
@@ -180,6 +183,7 @@ ttf-nerd-fonts-symbols-mono
 ttf-opensans
 ttf-victor-mono
 variety
+viber
 vim
 visual-studio-code-bin
 vkbasalt
