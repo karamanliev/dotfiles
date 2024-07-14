@@ -2,6 +2,13 @@ return {
   {
     '3rd/image.nvim',
     event = { 'VeryLazy' },
+    -- Disable on Windows system
+    cond = function()
+      return vim.fn.has('win32') ~= 1
+    end,
+    dependencies = {
+      'leafo/magick',
+    },
     config = function()
       require('image').setup({
         backend = 'kitty',

@@ -19,5 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
 require('lazy').setup('plugins', {
-  change_detection = { notify = false },
+  change_detection = {
+    notify = false,
+  },
+  rocks = {
+    hererocks = true,
+  },
 })
