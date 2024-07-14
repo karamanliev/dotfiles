@@ -32,7 +32,7 @@ return {
 
       vim.keymap.set('n', '<leader>dl', function()
         lint.try_lint()
-      end, { desc = '[L]int document' })
+      end, { desc = 'Lint document' })
     end,
   },
 }

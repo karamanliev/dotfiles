@@ -35,39 +35,39 @@ return {
 
           if vim.tbl_contains(ts_ft, vim.bo.filetype) then
             -- Go to source definition
-            map('gd', '<cmd>GoToSourceDefinition<cr>', '[G]oto Source [D]efinition')
+            map('gd', '<cmd>GoToSourceDefinition<cr>', 'Goto Source Definition')
 
             -- Open source definition in a vertical split
-            map('gps', '<cmd>lua vim.cmd "vsplit" vim.cmd "GoToSourceDefinition"<cr>', '[G]oto Source [D]efinition (vsplit)')
+            map('gps', '<cmd>lua vim.cmd "vsplit" vim.cmd "GoToSourceDefinition"<cr>', 'Goto Source Definition (vsplit)')
 
             -- Organize imports
-            map('<leader>co', '<cmd>OrganizeImports<cr>', '[O]rganize Imports')
+            map('<leader>co', '<cmd>OrganizeImports<cr>', 'Organize Imports')
 
             -- Remove unused imports
-            map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove [U]nused Imports')
+            map('<leader>cu', '<cmd>RemoveUnusedImports<cr>', 'Remove Unused Imports')
 
             -- Sort imports
-            map('<leader>cs', '<cmd>SortImports<cr>', '[S]ort Imports')
+            map('<leader>cs', '<cmd>SortImports<cr>', 'Sort Imports')
 
             -- Add missing imports
-            map('<leader>ci', '<cmd>AddMissingImports<cr>', '[A]dd Missing Imports')
+            map('<leader>ci', '<cmd>AddMissingImports<cr>', 'Add Missing Imports')
 
             -- Rename file and update imports
-            map('<leader>cR', '<cmd>RenameFile<cr>', 'Rename [F]ile and Update Imports')
+            map('<leader>cR', '<cmd>RenameFile<cr>', 'Rename File and Update Imports')
 
             -- TSC
-            map('<leader>cT', '<cmd>TSC<cr>', '[T]ypecheck Project')
-            map('<leader>ct', '<cmd>TSCOpen<cr>', '[T]SC Panel Open')
+            map('<leader>cT', '<cmd>TSC<cr>', 'Typecheck Project')
+            map('<leader>ct', '<cmd>TSCOpen<cr>', 'TSC Panel Open')
           else
-            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end
 
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-          map('<leader>cr', vim.lsp.buf.rename, '[R]ename Word')
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('gr', require('telescope.builtin').lsp_references, 'Goto References')
+          map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
+          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
+          map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
+          map('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
           map('K', function()
@@ -145,7 +145,7 @@ return {
             map('<leader>th', function()
               ---@diagnostic disable-next-line: missing-parameter
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, '[T]oggle Inlay [H]ints')
+            end, 'Toggle Inlay Hints')
           end
         end,
       })
@@ -577,12 +577,12 @@ return {
     },
     keys = {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List [D]iagnostics (workspace)' },
-      { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List [D]iagnostics (buffer)' },
-      { '<leader>lL', '<cmd>Trouble loclist toggle<cr>', desc = 'List [L]ocList' },
-      { '<leader>lq', '<cmd>Trouble quickfix toggle<cr>', desc = 'List [Q]uickfix' },
-      { '<leader>lt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'List [T]odo' },
-      { '<leader>ls', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'List [S]ymbols' },
+      { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List Diagnostics (workspace)' },
+      { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List Diagnostics (buffer)' },
+      { '<leader>lL', '<cmd>Trouble loclist toggle<cr>', desc = 'List LocList' },
+      { '<leader>lq', '<cmd>Trouble quickfix toggle<cr>', desc = 'List Quickfix' },
+      { '<leader>lt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'List Todo' },
+      { '<leader>ls', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'List Symbols' },
       { ']t', '<cmd>Trouble next jump=true skip_groups=true<cr>', desc = 'Next Trouble' },
       { '[t', '<cmd>Trouble prev jump=true skip_groups=true<cr>', desc = 'Previous Trouble' },
     },

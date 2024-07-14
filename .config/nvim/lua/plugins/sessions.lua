@@ -30,7 +30,7 @@ return {
 
       vim.keymap.set('n', '<leader>lS', '<cmd>lua require("auto-session").setup_session_lens() require("auto-session.session-lens").search_session()<cr>', {
         noremap = true,
-        desc = 'List [S]essions',
+        desc = 'List Sessions',
       })
     end,
   },
@@ -42,7 +42,7 @@ return {
       'UndotreeToggle',
     },
     init = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = '[U]ndo Tree' })
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Undo Tree' })
       vim.g.undotree_ShortIndicators = 1
       vim.g.undotree_SplitWidth = 35
       vim.g.undotree_SetFocusWhenToggle = 1

@@ -50,7 +50,7 @@ return {
           else
             gitsigns.nav_hunk('next')
           end
-        end, { desc = 'Jump to next git [h]unk' })
+        end, { desc = 'Jump to next git hunk' })
 
         map('n', '[h', function()
           if vim.wo.diff then
@@ -58,7 +58,7 @@ return {
           else
             gitsigns.nav_hunk('prev')
           end
-        end, { desc = 'Jump to previous git [h]unk' })
+        end, { desc = 'Jump to previous git hunk' })
 
         -- Actions
         -- visual mode
@@ -69,23 +69,23 @@ return {
           gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'reset git hunk' })
         -- normal mode
-        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-        map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
-        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<leader>hq', gitsigns.setqflist, { desc = 'git [q]flist hunk' })
+        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git Stage buffer' })
+        map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
+        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git Reset buffer' })
+        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
+        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git blame line' })
+        map('n', '<leader>hq', gitsigns.setqflist, { desc = 'git qflist hunk' })
         map('n', '<leader>gt', gitsigns.diffthis, { desc = 'git diff against index' })
         map('n', '<leader>gT', function()
           gitsigns.diffthis('@')
         end, { desc = 'git diff against last commit' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-        map('n', '<leader>tB', gitsigns.blame, { desc = '[T]oggle [B]lame panel' })
-        map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
-        map('n', '<leader>tl', gitsigns.toggle_linehl, { desc = '[T]oggle git show [L]ine highlights' })
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggle git show blame line' })
+        map('n', '<leader>tB', gitsigns.blame, { desc = 'Toggle Blame panel' })
+        map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = 'Toggle git show Deleted' })
+        map('n', '<leader>tl', gitsigns.toggle_linehl, { desc = 'Toggle git show Line highlights' })
       end,
     },
   },
@@ -103,8 +103,8 @@ return {
       'DiffviewToggleFiles',
     },
     keys = {
-      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace [D]iff View' },
-      { '<leader>gD', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History [D]iff' },
+      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace Diff View' },
+      { '<leader>gD', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History Diff' },
     },
     config = function()
       local actions = require('diffview.actions')
@@ -230,14 +230,14 @@ return {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
     keys = {
-      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Neo[G]it' },
-      { '<leader>gv', '<cmd>Neogit kind=vsplit<cr>', desc = 'Neo[G]it vsplit' },
-      { '<leader>gl', '<cmd>Neogit log<cr>', desc = '[L]og' },
-      { '<leader>gs', '<cmd>Neogit stash<cr>', desc = '[S]tash' },
-      { '<leader>gf', '<cmd>Neogit fetch<cr>', desc = '[F]etch' },
-      { '<leader>gp', '<cmd>Neogit pull<cr>', desc = '[P]ull' },
-      { '<leader>gP', '<cmd>Neogit push<cr>', desc = '[P]ull' },
-      { '<leader>gc', '<cmd>Neogit commit<cr>', desc = '[C]ommit' },
+      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'NeoGit' },
+      { '<leader>gv', '<cmd>Neogit kind=vsplit<cr>', desc = 'NeoGit vsplit' },
+      { '<leader>gl', '<cmd>Neogit log<cr>', desc = 'Log' },
+      { '<leader>gs', '<cmd>Neogit stash<cr>', desc = 'Stash' },
+      { '<leader>gf', '<cmd>Neogit fetch<cr>', desc = 'Fetch' },
+      { '<leader>gp', '<cmd>Neogit pull<cr>', desc = 'Pull' },
+      { '<leader>gP', '<cmd>Neogit push<cr>', desc = 'Pull' },
+      { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Commit' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',

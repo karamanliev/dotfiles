@@ -260,7 +260,7 @@ return {
       {
         '<leader>ll',
         '<cmd>NoiceTelescope<CR>',
-        desc = 'List [L]ogs',
+        desc = 'List Logs',
       },
     },
     config = function()
