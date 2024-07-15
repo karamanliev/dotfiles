@@ -259,9 +259,9 @@ toggle-focus-follows-mouse:
   key: x
 
 # Automatically quit and reopen Amethyst.
-# relaunch-amethyst:
-#   mod: mod2
-#   key: z
+relaunch-amethyst:
+  mod: mod2
+  key: z
 
 # disable screen padding on builtin display
 disable-padding-on-builtin-display: false
