@@ -142,6 +142,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+plocate
 polychromatic
 protonup-qt
 python-llfuse

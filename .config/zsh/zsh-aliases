@@ -34,6 +34,7 @@ alias nvim='nvim --listen /tmp/nvim-server-$(tmux display-message -p "\#{session
 alias v='nvim'
 alias vim='nvim'
 alias neofetch='fastfetch'
+alias loc='locate'
 
 ## fzf
 ### pacman
