@@ -277,6 +277,10 @@ user_pref("browser.quitShortcut.disabled", true);
 
 // make the dropdown tab manager always visible
 user_pref("browser.tabs.tabmanager.enabled", true);
+
+// use native gnome buttons
+user_pref("widget.gtk.non-native-titlebar-buttons.enabled", false);
+
 /****************************************************************************
  * SECTION: SMOOTHFOX                                                       *
  ****************************************************************************/
