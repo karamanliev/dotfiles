@@ -36,7 +36,7 @@ return {
       button('S', '󰈞  List sessions', '<cmd>lua require("auto-session").setup_session_lens() require("auto-session.session-lens").search_session()<cr>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('g', '󰊢  Neogit', ':Neogit <CR>'),
+      button('g', '󰊢  LazyGit', '<cmd>LazyGit<cr>'),
       button('d', '  Diffview', ':DiffviewOpen <CR>'),
       button('c', '  Commits', ':Telescope git_commits <CR>'),
       button('b', '  Branches', ':Telescope git_branches <CR>'),

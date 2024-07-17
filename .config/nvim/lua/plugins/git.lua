@@ -230,7 +230,7 @@ return {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
     keys = {
-      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'NeoGit' },
+      { '<leader>gn', '<cmd>Neogit<cr>', desc = 'NeoGit' },
       { '<leader>gv', '<cmd>Neogit kind=vsplit<cr>', desc = 'NeoGit vsplit' },
       { '<leader>gl', '<cmd>Neogit log<cr>', desc = 'Log' },
       { '<leader>gs', '<cmd>Neogit stash<cr>', desc = 'Stash' },
