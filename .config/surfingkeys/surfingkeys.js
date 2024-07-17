@@ -27,18 +27,18 @@ const {
 // -----------------------------------------------------------------------------------------------------------------------
 // -- [ SETTINGS ]
 // -----------------------------------------------------------------------------------------------------------------------
-settings.defaultSearchEngine = "b"; // (b)rave, (n)eeva, etc
+settings.defaultSearchEngine = "g"; // (b)rave, (n)eeva, etc
 settings.focusAfterClosed = "right";
 settings.hintAlign = "left";
 settings.hintExplicit = true;
 settings.hintShiftNonActive = true;
 settings.richHintsForKeystroke = 1;
 settings.omnibarPosition = "middle";
-settings.focusFirstCandidate = true;
+settings.focusFirstCandidate = false;
 settings.scrollStepSize = 90;
 settings.tabsThreshold = 0;
 settings.modeAfterYank = "Normal";
-// settings.historyMUOrder = false;
+settings.historyMUOrder = false;
 // settings.tabsMRUOrder = false;
 settings.cursorAtEndOfInput = false;
 settings.nextLinkRegex = /((>|›|→|»|≫|>>|следваща|forward|more|newer|next)+)/i;
@@ -50,6 +50,14 @@ map("<Ctrl-p>", "E");
 map("h", "E");
 map("l", "R");
 
+// delete prev/next tab
+map("gxh", "gxt");
+map("gxl", "gxT");
+
+// move tab left right
+api.map("<", "<<");
+api.map(">", ">>");
+
 // history Back/Forward
 map("H", "S");
 map("L", "D");
@@ -59,6 +67,11 @@ map("F", "gf");
 
 // Open Multiple Links
 map("<Alt-f>", "cf");
+
+// Reload page without cache
+mapkey("R", "#4Reload the page without cache", function () {
+  RUNTIME("reloadTab", { nocache: true });
+});
 
 // Paste clipboard
 mapkey("p", "Open the clipboard's URL in the current tab", function () {
@@ -102,6 +115,10 @@ for (let i = 1; i <= 9; i++) {
     Normal.feedkeys(`${i}T`);
   });
 }
+
+// edit url and reload
+map("ge", ";U");
+map("gE", ";u"); // in new tab
 
 // add / remove search engines
 removeSearchAlias("b"); // baidu
@@ -207,12 +224,13 @@ addSearchAlias(
 // Tomorrow-Night
 // ---- Hints ----
 Hints.style(
-  "border: solid 2px #373B41; color:#9d7cd8; background: initial; background-color: #1D1F21;",
+  "font: JetBrains Mono; border: solid 2px #373B41; color:#9d7cd8; background: initial; background-color: #1D1F21;",
 );
 Hints.style(
-  "border: solid 2px #373B41 !important; padding: 1px !important; color: #C5C8C6 !important; background: #1D1F21 !important;",
+  "font: JetBrains Mono; border: solid 2px #373B41 !important; padding: 1px !important; color: #C5C8C6 !important; background: #1D1F21 !important;",
   "text",
 );
+
 Visual.style("marks", "background-color: #9d7cd899;");
 Visual.style("cursor", "background-color: #81A2BE;");
 
