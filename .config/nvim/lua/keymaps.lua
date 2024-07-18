@@ -37,11 +37,16 @@ end, { expr = true })
 -- Split line in normal mode
 vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
 
+-- Cycle between last two buffers like <C-6>
+vim.keymap.set('n', 'gl', '<cmd>b#<cr>', { desc = 'Go to Last buffer' })
+
 -- Goto prev/next buffer with Alt + </>
 vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
 vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 vim.keymap.set('n', '[b', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
+vim.keymap.set('n', '<C-h>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
+vim.keymap.set('n', '<C-l>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous Diagnostic message' })

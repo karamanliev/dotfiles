@@ -93,6 +93,17 @@ mapkey("P", "Open link from clipboard in new tab", function () {
   });
 });
 
+// play HTML5 video
+mapkey(";v", "Play HTML5 video", function () {
+  Hints.create("video", function (element) {
+    if (element.paused) {
+      element.play();
+    } else {
+      element.pause();
+    }
+  });
+});
+
 // use ` for marks
 map("`", "'");
 
