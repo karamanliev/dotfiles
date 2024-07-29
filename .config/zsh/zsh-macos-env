@@ -2,7 +2,7 @@
 export PATH="/opt/homebrew/bin:$PATH"
 
 # Ruby 3.2.2
-export PATH="$(brew --prefix)/opt/ruby@3.2/bin:$PATH"
+export PATH="$(brew --prefix)/opt/ruby/bin:$PATH"
 
 # Gradle 8.4
 export GRADLE_HOME=/usr/local/gradle
