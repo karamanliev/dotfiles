@@ -16,6 +16,7 @@ btrfs-assistant
 btrfs-progs
 catimg
 celluloid
+cpupower
 dkms
 dust
 efibootmgr
@@ -28,6 +29,7 @@ fd
 file-roller
 firefox
 fnm-bin
+fragments
 fzf
 gamemode
 gdm
@@ -62,6 +64,7 @@ gnome-tweaks
 gnome-user-share
 gnome-weather
 goverlay
+gpu-screen-recorder-gtk-git
 grilo-plugins
 gst-plugin-pipewire
 gvfs
