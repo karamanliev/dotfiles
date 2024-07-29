@@ -8,6 +8,9 @@ export PATH="$(brew --prefix)/opt/ruby/bin:$PATH"
 export GRADLE_HOME="$(brew --prefix)/opt/gradle"
 export PATH=$GRADLE_HOME/bin:$PATH
 
+# Java 17
+export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+
 # Android SDK
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
