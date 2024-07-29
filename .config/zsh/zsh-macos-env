@@ -1,11 +1,11 @@
 # Homebrew packages take precedence
 export PATH="/opt/homebrew/bin:$PATH"
 
-# Ruby 3.2.2
+# Ruby 3.4
 export PATH="$(brew --prefix)/opt/ruby/bin:$PATH"
 
-# Gradle 8.4
-export GRADLE_HOME=/usr/local/gradle
+# Gradle 8.9
+export GRADLE_HOME="$(brew --prefix)/opt/gradle"
 export PATH=$GRADLE_HOME/bin:$PATH
 
 # Android SDK
