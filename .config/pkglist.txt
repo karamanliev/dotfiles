@@ -169,6 +169,7 @@ steam
 stow
 stretchly-git
 sushi
+swappy
 tecla
 telegram-desktop
 terminus-font
