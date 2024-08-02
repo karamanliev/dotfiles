@@ -6,8 +6,8 @@ current_value=$(gsettings get org.gnome.mutter workspaces-only-on-primary)
 # Toggle the value
 if [ "$current_value" == "true" ]; then
 	gsettings set org.gnome.mutter workspaces-only-on-primary false
-	notify-send -a "Workspaces" -i dialog-information "Workspaces are working on all displays now."
+	notify-send --hint=int:transient:1 -a "Workspaces" -i dialog-information "Workspaces are working on all displays now."
 else
 	gsettings set org.gnome.mutter workspaces-only-on-primary true
-	notify-send -a "Workspaces" -i dialog-information "Workspaces are working only on primary display now."
+	notify-send --hint=int:transient:1 -a "Workspaces" -i dialog-information "Workspaces are working only on primary display now."
 fi
