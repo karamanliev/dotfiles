@@ -185,7 +185,7 @@ autocmd('FileType', {
     'neotest-summary',
     'neotest-output-panel',
     'dbout',
-    'gitsigns.blame',
+    'gitsigns-blame',
     'git',
   },
   group = general,
