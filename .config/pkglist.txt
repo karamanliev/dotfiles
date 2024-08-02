@@ -17,6 +17,7 @@ btrfs-progs
 catimg
 celluloid
 cpupower
+czkawka-gui-bin
 dkms
 dust
 efibootmgr
@@ -32,6 +33,7 @@ fnm-bin
 fragments
 fzf
 gamemode
+gapless
 gdm
 gdm-settings
 gimp
@@ -126,6 +128,7 @@ network-manager-applet
 networkmanager
 networkmanager-l2tp
 networkmanager-strongswan
+nicotine+
 noto-fonts
 nss-mdns
 ntfs-3g
@@ -149,12 +152,14 @@ plocate
 polychromatic
 protonup-qt
 python-llfuse
+python-pipx
 python-pystray
 qt6-wayland
 reflector
 ripgrep
 rsync
 rygel
+satty-bin
 sbctl
 seahorse
 sesh-bin
@@ -162,6 +167,7 @@ smartmontools
 snap-pac
 snapborg
 snapper
+spek
 spotify
 sshfs
 starship
@@ -169,7 +175,6 @@ steam
 stow
 stretchly-git
 sushi
-swappy
 tecla
 telegram-desktop
 terminus-font
