@@ -1,21 +1,5 @@
 return {
-  {
-    'kdheepak/lazygit.nvim',
-    enabled = false,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    keys = {
-      { '<leader>gL', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-  },
+  -- Gitsigns
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -226,6 +210,8 @@ return {
       })
     end,
   },
+
+  -- Neogit
   {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
@@ -252,6 +238,25 @@ return {
       highlight = {
         italic = false,
       },
+    },
+  },
+
+  -- LazyGit
+  {
+    'kdheepak/lazygit.nvim',
+    enabled = false,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    keys = {
+      { '<leader>gL', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
     },
   },
 }
