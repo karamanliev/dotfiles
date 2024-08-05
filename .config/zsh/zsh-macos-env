@@ -21,3 +21,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Imagemagick (needed for nvim magick rock)
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib"
+
+# Needed for Android app to build properly
+export applicationId="co.uk.altrix.edge"
