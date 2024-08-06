@@ -33,7 +33,6 @@ fnm-bin
 fragments
 fzf
 gamemode
-gapless
 gdm
 gdm-settings
 gimp
@@ -143,6 +142,7 @@ otf-san-francisco-mono
 pacman-contrib
 papirus-folders-catppuccin-git
 papirus-icon-theme
+picard
 pika-backup
 pipewire
 pipewire-alsa
@@ -167,7 +167,6 @@ smartmontools
 snap-pac
 snapborg
 snapper
-spek
 spotify
 sshfs
 starship
@@ -175,6 +174,7 @@ steam
 stow
 stretchly-git
 sushi
+tauon-music-box
 tecla
 telegram-desktop
 terminus-font
