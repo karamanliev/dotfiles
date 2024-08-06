@@ -11,6 +11,7 @@ return {
 
       -- Document existing key chains
       wk.add({
+        { '<leader>b', group = 'Bookmarks' },
         { '<leader>c', group = 'Code' },
         { '<leader>d', group = 'Document' },
         { '<leader>f', group = 'Find' },
