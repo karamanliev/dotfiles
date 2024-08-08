@@ -5,10 +5,12 @@ adw-gtk3
 alacritty
 alsa-plugins
 amd-ucode
+android-sdk-platform-tools
 baobab
 base
 base-devel
 bat
+better-adb-sync-git
 bluez-utils
 brave-bin
 btop
