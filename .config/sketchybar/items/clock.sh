@@ -3,7 +3,7 @@
 COLOR="$WHITE"
 
 sketchybar --add item clock right \
-	--set clock update_freq=60 \
+	--set clock update_freq=10 \
 	icon.padding_left=10 \
 	icon.color="$COLOR" \
 	icon="" \
