@@ -2,6 +2,11 @@ after-login-command = []
 
 after-startup-command = [
     'exec-and-forget borders active_color=0xffbb9af7 inactive_color=0xff494d64 width=5.0',
+    'exec-and-forget sketchybar'
+]
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 start-at-login = true
@@ -115,4 +120,4 @@ run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
 if.app-id = 'com.tdesktop.Telegram'
-run = "move-node-to-workspace 5"
+run = "move-node-to-workspace 6"
