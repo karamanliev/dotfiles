@@ -8,4 +8,5 @@ sketchybar --add item clock right \
 	icon.color="$COLOR" \
 	icon="" \
 	label.color="$COLOR" \
+	click_script="osascript $MAIN_DIR/open_sidebar.applescript" \
 	script="$PLUGIN_DIR/clock.sh"

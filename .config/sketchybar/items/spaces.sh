@@ -7,7 +7,7 @@ sketchybar --add event aerospace_workspace_change
 for i in $(aerospace list-workspaces --all); do
 	sid=$((i))
 	sketchybar --add space space.$sid left \
-		--subscribe space.$sid aerospace_workspace_change \
+		--subscribe space.$sid aerospace_workspace_change system_woke \
 		--set space.$sid associated_space=$sid \
 		label.drawing=off \
 		icon.padding_left=9 \
