@@ -20,4 +20,5 @@ sketchybar --add item cpu q \
 	background.padding_right=0 \
 	background.drawing=on \
 	label.padding_right=10 \
+	click_script="kitty -e 'btop'" \
 	script="$PLUGIN_DIR/cpu.sh"
