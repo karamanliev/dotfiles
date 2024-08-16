@@ -8,4 +8,5 @@ else
 fi
 
 sketchybar --set "$NAME" \
-	drawing=$VISIBLE
+	icon.drawing=$VISIBLE \
+	background.drawing=$VISIBLE

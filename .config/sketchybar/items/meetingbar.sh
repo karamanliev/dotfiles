@@ -5,7 +5,7 @@ COLOR="$MAGENTA"
 sketchybar --add alias "MeetingBar,Item-0" e \
 	--rename "MeetingBar,Item-0" meetingbar_alias \
 	--set meetingbar_alias \
-	update_freq=600 \
+	update_freq=180 \
 	alias.color="$WHITE" \
 	icon="" \
 	background.padding_left=0 \
@@ -19,7 +19,6 @@ sketchybar --add alias "MeetingBar,Item-0" e \
 	background.corner_radius="$CORNER_RADIUS" \
 	background.border_width="$BORDER_WIDTH" \
 	background.border_color="$COLOR" \
-	background.drawing=on \
 	script="$PLUGIN_DIR/meetingbar.sh" \
 	click_script="osascript $MAIN_DIR/open_meetingbar.applescript" \
 	--subscribe meetingbar_alias system_woke
