@@ -20,10 +20,12 @@ catimg
 celluloid
 cpupower
 czkawka-gui-bin
+dconf-editor
 dkms
 dust
 efibootmgr
 evince
+evolution
 extension-manager
 eza
 fastfetch
