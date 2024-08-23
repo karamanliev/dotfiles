@@ -164,6 +164,9 @@ return {
         bashls = {
           filetypes = { 'sh', 'zsh' },
         },
+        hyprls = {
+          filetypes = { 'conf', 'hyprlang' },
+        },
         intelephense = {
           filetypes = { 'php', 'blade' },
           settings = {

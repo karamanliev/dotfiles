@@ -21,6 +21,7 @@ return {
         'c',
         'diff',
         'php',
+        'hyprlang',
       },
       auto_install = true,
       highlight = {
@@ -47,6 +48,11 @@ return {
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      -- Add highlighting for hyprland configs
+      vim.filetype.add({
+        pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
+      })
     end,
   },
 
