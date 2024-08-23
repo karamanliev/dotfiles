@@ -2,10 +2,11 @@
 # Start Satty in fullscreen mode
 fullscreen = false
 # Exit directly after copy/save action
-early-exit = false
+early-exit = true
 # Select the tool on startup [possible values: pointer, crop, line, arrow, rectangle, text, marker, blur, brush]
 initial-tool = "brush"
 # Configure the command to be called on copy, for example `wl-copy`
+copy-command = "wl-copy"
 # copy-command = "xclip -selection clipboard -target image/png -i /tmp/gnome-screenshot-area.png"
 # Increase or decrease the size of the annotations
 annotation-size-factor = 2
