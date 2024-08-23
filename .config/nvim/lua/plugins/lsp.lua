@@ -581,6 +581,7 @@ return {
     keys = {
       -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
       { '<leader>lD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'List Diagnostics (workspace)' },
+      { '<leader>ll', '<cmd>Trouble lsp toggle focus=true win.position=right<cr>', desc = 'List LSP stuff' },
       { '<leader>ld', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'List Diagnostics (buffer)' },
       { '<leader>lL', '<cmd>Trouble loclist toggle<cr>', desc = 'List LocList' },
       { '<leader>lq', '<cmd>Trouble quickfix toggle<cr>', desc = 'List Quickfix' },
