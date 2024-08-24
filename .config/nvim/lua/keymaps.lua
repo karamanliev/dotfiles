@@ -49,8 +49,15 @@ vim.keymap.set('n', '<C-h>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' 
 vim.keymap.set('n', '<C-l>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 
 -- Diagnostic keymaps
+-- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous Diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next Diagnostic message' })
+vim.keymap.set('n', '[D', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = true })
+end, { desc = 'Go to previous Error message' })
+vim.keymap.set('n', ']D', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = true })
+end, { desc = 'Go to next Error message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic Error messages' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
 

@@ -138,7 +138,6 @@ return {
 
           -- Abort the completion
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<Esc>'] = cmp.mapping.abort(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
