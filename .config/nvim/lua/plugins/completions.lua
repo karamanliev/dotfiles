@@ -10,16 +10,19 @@ return {
 
       require('copilot').setup({
         panel = {
-          enabled = false,
+          enabled = true,
           keymap = {
-            -- open = '<M-p>',
+            open = '<M-p>',
           },
         },
         suggestion = {
-          enabled = false,
-          auto_trigger = false,
+          enabled = true,
+          auto_trigger = true,
           keymap = {
             accept = false,
+            next = '<M-]>',
+            prev = '<M-[>',
+            dismiss = '<C-c>',
           },
         },
         filetypes = {
@@ -30,13 +33,13 @@ return {
       })
 
       -- Enable <Tab> to indent if no suggestions are available
-      -- vim.keymap.set('i', '<Tab>', function()
-      --   if require('copilot.suggestion').is_visible() then
-      --     require('copilot.suggestion').accept()
-      --   else
-      --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
-      --   end
-      -- end, { desc = 'Super Tab', silent = true })
+      vim.keymap.set('i', '<Tab>', function()
+        if require('copilot.suggestion').is_visible() then
+          require('copilot.suggestion').accept()
+        else
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
+        end
+      end, { desc = 'Super Tab', silent = true })
     end,
   },
 
@@ -50,7 +53,7 @@ return {
       'hrsh7th/cmp-buffer',
       'onsails/lspkind.nvim',
       'hrsh7th/cmp-path',
-      'zbirenbaum/copilot-cmp',
+      -- 'zbirenbaum/copilot-cmp',
     },
     config = function()
       local cmp = require('cmp')
@@ -59,9 +62,9 @@ return {
       local lspkind = require('lspkind')
 
       -- copilot-cmp stuff
-      require('copilot_cmp').setup()
-      lspkind.presets.default.Copilot = ''
-      vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
+      -- require('copilot_cmp').setup()
+      -- lspkind.presets.default.Copilot = ''
+      -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
 
       luasnip.config.setup({})
 
@@ -71,7 +74,10 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert,preview' },
+        completion = {
+          completeopt = 'menu,menuone,noinsert,preview',
+          -- autocomplete = false,
+        },
 
         formatting = {
           format = lspkind.cmp_format({
@@ -83,7 +89,7 @@ return {
               vim_item.kind = vim_item.kind
               vim_item.menu = ({
                 nvim_lsp = '[LSP]',
-                copilot = '[AI]',
+                -- copilot = '[AI]',
                 buffer = '[BUF]',
                 path = '[PATH]',
                 luasnip = '[SNIP]',
@@ -109,7 +115,7 @@ return {
           priority_weight = 2,
           comparators = {
             -- prioritize copilot suggestions
-            require('copilot_cmp.comparators').prioritize,
+            -- require('copilot_cmp.comparators').prioritize,
 
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
@@ -132,6 +138,7 @@ return {
 
           -- Abort the completion
           ['<C-e>'] = cmp.mapping.abort(),
+          ['<Esc>'] = cmp.mapping.abort(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -158,7 +165,7 @@ return {
         }),
         sources = {
           { name = 'nvim_lsp' },
-          { name = 'copilot' },
+          -- { name = 'copilot' },
           { name = 'buffer', max_item_count = 5 },
           { name = 'luasnip', max_item_count = 3 },
           { name = 'path', max_item_count = 3 },
