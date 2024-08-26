@@ -38,6 +38,7 @@ return {
         { '\\c', '<cmd>close<CR>', desc = 'Close' },
         { '\\q', '<cmd>q<CR>', desc = 'Quit' },
         { '\\w', '<cmd>w<CR>', desc = 'Write' },
+        { '\\W', '<cmd>WriteWithoutFormat<CR>', desc = 'Write (No Autoformat)' },
         { '\\x', '<cmd>qa<CR>', desc = 'Quit all' },
         { '\\z', '<cmd>ClearBuffers<CR>', desc = 'Clear all buffers, but this one' },
       })
