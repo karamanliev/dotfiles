@@ -16,7 +16,7 @@ if hyprctl layers | grep -qi "rofi"; then
   fi
 else
   if [ "$1" = "calc" ]; then
-    rofi -show calc -no-show-match -no-sort -calc-command "echo '{result}' | wl-copy"
+    rofi -show calc -no-show-match -no-sort -kb-accept-custom "Return" -kb-accept-entry "Ctrl+Return" -calc-command "echo '{result}' | wl-copy"
   else
 
     rofi -show "$1"
