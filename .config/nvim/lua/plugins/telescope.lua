@@ -171,9 +171,9 @@ return {
 
   {
     'AckslD/nvim-neoclip.lua',
-    keys = {
-      { 'n', '<leader>fc' },
-    },
+    -- keys = {
+    --   { 'n', '<leader>fc' },
+    -- },
     config = function()
       require('neoclip').setup({
         layout_strategy = 'vertical',
