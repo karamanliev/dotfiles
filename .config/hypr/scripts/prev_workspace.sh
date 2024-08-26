@@ -5,5 +5,5 @@ if [ "$special_name" ]; then
   hyprctl dispatch togglespecialworkspace "$special_name"
 
 else
-  hyprctl dispatch workspace previous
+  hyprctl dispatch workspace previous_per_monitor
 fi
