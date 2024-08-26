@@ -1,9 +1,9 @@
 #!/bin/bash
-
-source ~/.config/hypr/scripts/hide_special_on_ws_change.sh
+special_name=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .specialWorkspace.name' | sed 's/^special://')
 
 if [ "$special_name" ]; then
-  $hide_action
+  hyprctl dispatch togglespecialworkspace "$special_name"
+
 else
   hyprctl dispatch workspace previous
 fi
