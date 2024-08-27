@@ -25,6 +25,10 @@ if [ "$1" == "next" ]; then
     fi
   fi
 
+  if [ "$2" == "move" ]; then
+    hyprctl dispatch movetoworkspace $next_ws
+  fi
+
   hyprctl dispatch moveworkspacetomonitor $next_ws $focused_monitor_name
   hyprctl dispatch workspace $next_ws
 
@@ -41,6 +45,10 @@ elif [ "$1" == "prev" ]; then
     else
       prev_ws=$workspaces
     fi
+  fi
+
+  if [ "$2" == "move" ]; then
+    hyprctl dispatch movetoworkspace $prev_ws
   fi
 
   hyprctl dispatch moveworkspacetomonitor $prev_ws $focused_monitor_name
