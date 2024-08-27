@@ -42,8 +42,10 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    background:     #15161EFF;
-    background-alt: #1A1B26FF;
+    background-main: rgba(34, 36, 54, 90%);
+    background-buttons: #C0CAF510;
+    background:     rgba(34, 36, 54, 100%);
+    background-alt: rgba(26, 27, 38, 100%);
     foreground:     #C0CAF5FF;
     selected:       #bb9af7FF;
     active:         #414868FF;
@@ -55,10 +57,10 @@ configuration {
 * {
     border-colour:               var(selected);
     handle-colour:               var(selected);
-    background-colour:           var(background);
+    background-colour:           var(background-main);
     foreground-colour:           var(foreground);
-    alternate-background:        var(background-alt);
-    normal-background:           var(background);
+    alternate-background:        var(background-main);
+    normal-background:           var(background-buttons);
     normal-foreground:           var(foreground);
     urgent-background:           var(urgent);
     urgent-foreground:           var(background);
@@ -70,7 +72,7 @@ configuration {
     selected-urgent-foreground:  var(background);
     selected-active-background:  var(urgent);
     selected-active-foreground:  var(background);
-    alternate-normal-background: var(background);
+    alternate-normal-background: var(background-buttons);
     alternate-normal-foreground: var(foreground);
     alternate-urgent-background: var(urgent);
     alternate-urgent-foreground: var(background);
