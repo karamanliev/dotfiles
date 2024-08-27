@@ -7,14 +7,11 @@ function handle {
 
     address="${args%,*}"
     floating="${args#*,}"
-
-    windowObj=$(hyprctl clients -j | jq '.[] | select(.address == "0x'$address'")')
-    echo $windowObj
-    pid=$(echo $windowObj | jq -r '.pid')
+    real_address="0x$address"
 
     if [ "$floating" = 1 ]; then
       hyprctl --batch "\
-        dispatch resizewindowpixel exact 65% 65%,pid:$pid;\
+        dispatch resizewindowpixel exact 65% 65%,address:${real_address};\
         dispatch centerwindow"
     fi
     ;;
