@@ -124,8 +124,8 @@ return {
             position = 'right',
             width = 40,
             mappings = {
-              ['\\'] = 'close_window',
-              ['P'] = { 'toggle_preview', config = { use_float = false, use_image_nvim = true } },
+              ['_'] = 'close_window',
+              ['p'] = { 'toggle_preview', config = { use_float = false, use_image_nvim = true } },
               ['<C-u>'] = { 'scroll_preview', config = { direction = 10 } },
               ['<C-d>'] = { 'scroll_preview', config = { direction = -10 } },
               -- ['f'] = 'telescope_find',
