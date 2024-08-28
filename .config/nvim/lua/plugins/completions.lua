@@ -167,7 +167,7 @@ return {
           -- { name = 'copilot' },
           { name = 'buffer', max_item_count = 5 },
           { name = 'luasnip', max_item_count = 3 },
-          { name = 'path', max_item_count = 3 },
+          { name = 'path', max_item_count = 8 },
         },
         -- experimental = {
         --   ghost_text = true,
