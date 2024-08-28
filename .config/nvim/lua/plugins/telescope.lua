@@ -155,7 +155,7 @@ return {
   {
     'nvim-telescope/telescope-live-grep-args.nvim',
     keys = {
-      { 'n', '<leader>,' },
+      { '<leader>,', '<cmd>Telescope live_grep_args<cr>' },
     },
     config = function()
       require('telescope').setup({
@@ -171,9 +171,7 @@ return {
 
   {
     'AckslD/nvim-neoclip.lua',
-    -- keys = {
-    --   { 'n', '<leader>fc' },
-    -- },
+    event = { 'VeryLazy' },
     config = function()
       require('neoclip').setup({
         layout_strategy = 'vertical',
