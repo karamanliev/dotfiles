@@ -462,6 +462,19 @@ return {
             },
           },
         },
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+                unusedwrite = true,
+                unreachable = false,
+              },
+              staticcheck = true,
+            },
+          },
+        },
       }
 
       require('mason').setup()
