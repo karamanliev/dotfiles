@@ -46,7 +46,7 @@ return {
   -- AI Panel
   {
     'yetone/avante.nvim',
-    lazy = false,
+    event = { 'VeryLazy' },
     opts = {
       provider = 'openai',
       openai = {
