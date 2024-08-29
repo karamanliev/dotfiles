@@ -43,6 +43,63 @@ return {
     end,
   },
 
+  -- AI Panel
+  {
+    'yetone/avante.nvim',
+    lazy = false,
+    opts = {
+      provider = 'openai',
+      openai = {
+        endpoint = 'https://api.openai.com/v1',
+        model = 'gpt-4o',
+        timeout = 30000,
+        temperature = 0,
+        max_tokens = 4096,
+        api_key_name = 'cmd:op read op://API/openai-nvim/api-key --no-newline',
+        ['local'] = false,
+      },
+      hints = { enabled = true },
+    },
+    keys = {
+      {
+        '<leader>aa',
+        function()
+          require('avante.api').ask()
+        end,
+        desc = 'avante: ask',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<leader>ar',
+        function()
+          require('avante.api').refresh()
+        end,
+        desc = 'avante: refresh',
+      },
+      {
+        '<leader>ae',
+        function()
+          require('avante.api').edit()
+        end,
+        desc = 'avante: edit',
+        mode = 'v',
+      },
+    },
+    dependencies = {
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons',
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'markdown', 'Avante' },
+        },
+        ft = { 'markdown', 'Avante' },
+      },
+    },
+  },
+
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
