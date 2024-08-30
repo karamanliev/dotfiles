@@ -55,7 +55,7 @@ return {
         timeout = 30000,
         temperature = 0,
         max_tokens = 4096,
-        api_key_name = 'cmd:op read op://API/openai-nvim/api-key --no-newline',
+        api_key_name = 'cmd:cat ' .. vim.env.HOME .. '/.openai_api_key',
         ['local'] = false,
       },
       hints = { enabled = true },
