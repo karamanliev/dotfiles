@@ -30,10 +30,11 @@ return {
           end
 
           -- Keybinds are only enabled for tsserver files
-          -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
+          --[[ -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
           local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
 
           if vim.tbl_contains(ts_ft, vim.bo.filetype) then
+            -- NOTE: for tsserver
             -- Go to source definition
             map('gd', '<cmd>GoToSourceDefinition<cr>', 'Goto Source Definition')
 
@@ -60,17 +61,61 @@ return {
             map('<leader>ct', '<cmd>TSCOpen<cr>', 'TSC Panel Open')
           else
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
+          end ]]
+
+          if client and client.name == 'vtsls' then
+            -- NOTE: Keybinds for vtsls
+            -- Go to source definition
+            map('gd', '<cmd>VtsExec goto_source_definition<cr>', 'Goto Source Definition')
+
+            -- Open source definition in a vertical split
+            map('gS', '<cmd>lua vim.cmd "vsplit" vim.cmd "VtsExec goto_source_definition"<cr>', 'Goto Source Definition (vsplit)')
+
+            -- Organize imports
+            map('<leader>co', '<cmd>VtsExec organize_imports<cr>', 'Organize Imports')
+
+            -- Remove unused imports
+            map('<leader>cu', '<cmd>VtsExec remove_unused_imports<cr>', 'Remove Unused Imports')
+
+            -- Remove unused imports
+            map('<leader>cU', '<cmd>VtsExec remove_unused<cr>', 'Remove Unused (Imports and Variables)')
+
+            -- Sort imports
+            map('<leader>cs', '<cmd>VtsExec sort_imports<cr>', 'Sort Imports')
+
+            -- Add missing imports
+            map('<leader>ci', '<cmd>VtsExec add_missing_imports<cr>', 'Add Missing Imports')
+
+            -- Rename file and update imports
+            map('<leader>cR', '<cmd>VtsExec rename_file<cr>', 'Rename File and Update Imports')
+
+            -- Show File References
+            map('<leader>cf', '<cmd>VtsExec file_references<cr>', 'Show File References')
+
+            --  Fix ALL
+            map('<leader>cF', '<cmd>VtsExec fix_all<cr>', 'Fix All')
+
+            -- Select TS Version
+            map('<leader>cv', '<cmd>VtsExec select_ts_version<cr>', 'Select TS Version')
+
+            -- Source Actions (same as above)
+            map('<leader>cS', '<cmd>VtsExec source_actions<cr>', 'Source Actions')
+          else
+            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end
 
+          -- map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           map('gr', require('telescope.builtin').lsp_references, 'Goto References')
           map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
+          vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
+          map('K', vim.lsp.buf.hover, 'Hover Info')
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
-          map('K', function()
+          --[[ map('K', function()
             -- TODO: having multiple clients attached to a buffer, this will not work as expected
             -- for example, if both tsserver and tailwindcss are attached it will not work
             -- because tsserver will have result and tailwindcss will not
@@ -114,7 +159,7 @@ return {
                 end
               end)
             end
-          end, 'Mega Hover')
+          end, 'Mega Hover') ]]
 
           -- Highlight references
           if client and client.server_capabilities.documentHighlightProvider then
@@ -159,6 +204,8 @@ return {
         ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
         ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
       }
+
+      require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
       local servers = {
         bashls = {
@@ -243,7 +290,64 @@ return {
             },
           },
         },
-        tsserver = {
+        vtsls = {
+          cmd = { 'vtsls', '--stdio' },
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          root_dir = function(fname)
+            return require('lspconfig.util').root_pattern('tsconfig.json', 'jsconfig.json')(fname)
+              or require('lspconfig.util').root_pattern('package.json', '.git')(fname)
+          end,
+          single_file_support = true,
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+            javascript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
+        --[[ tsserver = {
+          enabled = false,
           commands = {
             -- Organize Imports
             OrganizeImports = {
@@ -430,7 +534,7 @@ return {
               ignoredCodes = {},
             },
           },
-        },
+        }, ]]
         html = {},
         cssls = {},
         graphql = {},
@@ -522,6 +626,29 @@ return {
             [vim.diagnostic.severity.INFO] = '■',
           },
         },
+      })
+    end,
+  },
+
+  -- vtsls extras
+  {
+    'yioneko/nvim-vtsls',
+    ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+    config = function()
+      require('vtsls').config({
+        -- customize handlers for commands
+        -- handlers = {
+        --   source_definition = function(err, locations) end,
+        --   file_references = function(err, locations) end,
+        --   code_action = function(err, actions) end,
+        -- },
+        -- automatically trigger renaming of extracted symbol
+        refactor_auto_rename = true,
+        -- refactor_move_to_file = {
+        --   -- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
+        --   -- the opts for telescope picker.
+        --   telescope_opts = function(items, default) end,
+        -- },
       })
     end,
   },
@@ -644,6 +771,9 @@ return {
         auto_focus_qflist = true,
         pretty_errors = true,
       })
+
+      vim.keymap.set('n', '<leader>cT', '<cmd>TSC<cr>', { desc = 'Typecheck Project' })
+      vim.keymap.set('n', '<leader>ct', '<cmd>TSCOpen<cr>', { desc = 'TSC Panel Open' })
     end,
   },
 
