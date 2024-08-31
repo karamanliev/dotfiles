@@ -302,9 +302,29 @@ return {
     },
     keys = {
       {
-        '<leader>ll',
+        '<leader>nf',
         '<cmd>NoiceTelescope<CR>',
-        desc = 'List Logs',
+        desc = 'Noice Telescope',
+      },
+      {
+        '<leader>na',
+        '<cmd>NoiceAll<CR>',
+        desc = 'Noice All',
+      },
+      {
+        '<leader>nl',
+        '<cmd>NoiceLast<CR>',
+        desc = 'Noice Last',
+      },
+      {
+        '<leader>ne',
+        '<cmd>NoiceErrors<CR>',
+        desc = 'Noice Errors',
+      },
+      {
+        '<leader>nh',
+        '<cmd>NoiceHistory<CR>',
+        desc = 'Noice History',
       },
     },
     config = function()

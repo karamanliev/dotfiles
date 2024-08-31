@@ -21,10 +21,13 @@ return {
         { '<leader>s', group = 'Search' },
         { '<leader>t', group = 'Toggle' },
         { '<leader>y', group = 'Yank' },
+        { '<leader>n', group = 'Noice' },
+        { '<leader>i', group = 'AI' },
       })
       -- visual mode
       wk.add({
         { '<leader>h', desc = 'Git Hunk', mode = 'v' },
+        { '<leader>i', group = 'AI', mode = 'v' },
       })
 
       wk.add({
