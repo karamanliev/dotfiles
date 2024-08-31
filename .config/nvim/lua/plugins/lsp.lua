@@ -576,6 +576,10 @@ return {
             enabled = false,
             after = 30,
           },
+
+          virt_texts = {
+            priority = 100,
+          },
         },
       })
 
