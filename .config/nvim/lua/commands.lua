@@ -222,6 +222,16 @@ autocmd({ 'BufNewFile', 'BufRead' }, {
   group = disable_node_modules_eslint_group,
 })
 
+-- Refresh codelens on BufEnter
+-- INFO: found that annoying, disabled it
+-- autocmd({ 'BufEnter' }, {
+--   callback = function()
+--     vim.lsp.codelens.refresh({ bufnr = 0 })
+--   end,
+--   group = general,
+--   desc = 'Refresh codelens on BufEnter',
+-- })
+
 -- Disable LSP and TS when opening large files
 local big_file = autogroup('BigFile', { clear = true })
 vim.filetype.add({

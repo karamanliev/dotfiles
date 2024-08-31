@@ -111,6 +111,8 @@ return {
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
+          map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
+          map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
           vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
           map('K', vim.lsp.buf.hover, 'Hover Info')
 
@@ -321,6 +323,14 @@ return {
               suggest = {
                 completeFunctionCalls = true,
               },
+              referencesCodeLens = {
+                enabled = false,
+                showOnAllFunctions = true,
+              },
+              implementationsCodeLens = {
+                enabled = false,
+                showOnInterfaceMethods = true,
+              },
               inlayHints = {
                 enumMemberValues = { enabled = true },
                 functionLikeReturnTypes = { enabled = true },
@@ -344,17 +354,6 @@ return {
                 variableTypes = { enabled = false },
               },
             },
-          },
-          handlers = {
-            ['editor.action.showReferences'] = function(command, ctx)
-              local locations = command.arguments[3]
-              local client = vim.lsp.get_client_by_id(ctx.client_id)
-              if locations and #locations > 0 then
-                local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
-                vim.fn.setloclist(0, {}, ' ', { title = 'References', items = items, context = ctx })
-                vim.api.nvim_command('lopen')
-              end
-            end,
           },
         },
         --[[ tsserver = {
@@ -616,6 +615,17 @@ return {
           end,
         },
       })
+
+      -- Vtsls Codelens
+      vim.lsp.commands['editor.action.showReferences'] = function(command, ctx)
+        local locations = command.arguments[3]
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if locations and #locations > 0 then
+          local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
+          vim.fn.setloclist(0, {}, ' ', { title = 'References', items = items, context = ctx })
+          vim.api.nvim_command('lopen')
+        end
+      end
 
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
