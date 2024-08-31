@@ -529,7 +529,7 @@ return {
   -- pretty diagnostic virtual text
   {
     'rachartier/tiny-inline-diagnostic.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'VeryLazy' },
     config = function()
       local colors = require('tokyonight.colors').setup()
 
@@ -578,7 +578,7 @@ return {
           },
 
           virt_texts = {
-            priority = 100,
+            priority = 10000,
           },
         },
       })
