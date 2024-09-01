@@ -63,7 +63,8 @@ return {
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end ]]
 
-          if client and client.name == 'vtsls' then
+          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
+          if vim.tbl_contains(ts_ft, vim.bo.filetype) then
             -- NOTE: Keybinds for vtsls
             -- Go to source definition
             map('gd', '<cmd>VtsExec goto_source_definition<cr>', 'Goto Source Definition')
@@ -678,6 +679,15 @@ return {
   {
     'rachartier/tiny-inline-diagnostic.nvim',
     event = { 'VeryLazy' },
+    keys = {
+      {
+        '<leader>td',
+        function()
+          require('tiny-inline-diagnostic').toggle()
+        end,
+        desc = 'Toggle Tiny Inline Diagnostic',
+      },
+    },
     config = function()
       local colors = require('tokyonight.colors').setup()
 

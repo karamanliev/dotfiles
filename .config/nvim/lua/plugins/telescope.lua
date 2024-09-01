@@ -127,7 +127,7 @@ return {
       vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'Find Todo Comments' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
-      vim.keymap.set('n', '<leader>fc', '<cmd>Telescope neoclip theme=dropdown<cr>', { desc = 'Find clipboard contents' })
+      vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip theme=dropdown<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
       vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
 
@@ -175,12 +175,15 @@ return {
     config = function()
       require('neoclip').setup({
         layout_strategy = 'vertical',
+        default_register_macros = 'Q',
         history = 1000,
         filter = nil,
         preview = true,
         keys = {
           telescope = {
             i = {
+              paste = '<m-p>',
+              delete = '<m-d>',
               paste_behind = '<c-o>',
             },
           },
