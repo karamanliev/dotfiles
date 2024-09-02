@@ -108,13 +108,13 @@ command('LazyGit', function()
 end, { desc = 'LazyGit' })
 
 -- Highlight when yanking (copying) text
--- autocmd('TextYankPost', {
---   callback = function()
---     vim.highlight.on_yank()
---   end,
---   group = general,
---   desc = 'Highlight when yanking (copying) text',
--- })
+autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = general,
+  desc = 'Highlight when yanking (copying) text',
+})
 
 -- resize splits if window got resized
 autocmd({ 'VimResized' }, {
