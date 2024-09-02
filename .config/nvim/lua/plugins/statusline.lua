@@ -78,9 +78,23 @@ return {
         },
       },
       sections = {
-        lualine_a = { 'mode' },
+        lualine_a = { {
+          'mode',
+          fmt = function(str)
+            return str:sub(1, 1)
+          end,
+        } },
         lualine_b = {
-          { 'b:gitsigns_head', icon = ' ' },
+          {
+            'b:gitsigns_head',
+            icon = ' ',
+            fmt = function(str)
+              -- string is "feature/branch-name" or "bugfix/branch-name"
+              -- i want to remove the "feature/" or "bugfix/" part
+              local branch_name = str:gsub('^[^/]+/', '')
+              return #branch_name > 30 and branch_name:sub(1, 30) .. '...' or branch_name
+            end,
+          },
           {
             'diff',
             diff_color = {
@@ -112,7 +126,7 @@ return {
           {
             custom_fname,
             file_status = true,
-            path = 1,
+            path = 4,
             padding = {
               left = 0,
             },
