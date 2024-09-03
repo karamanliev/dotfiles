@@ -110,7 +110,7 @@ end, { desc = 'LazyGit' })
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({ timeout = 650 }) -- Highlight stays for 1000 milliseconds (1 second)
   end,
   group = general,
   desc = 'Highlight when yanking (copying) text',

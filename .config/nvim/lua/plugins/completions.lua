@@ -46,6 +46,7 @@ return {
   -- AI Panel
   {
     'yetone/avante.nvim',
+    build = ':AvanteBuild source=false',
     keys = {
       {
         '<leader>ia',
