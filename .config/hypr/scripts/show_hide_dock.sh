@@ -66,7 +66,7 @@ initial_dock_launch() {
 
 function handle {
   case $1 in
-  changefloatingmode* | workspacev2* | closewindow* | openwindow* | activespecial*)
+  changefloatingmode* | workspacev2* | moveworkspacev2* | closewindow* | openwindow* | movewindowv2* | activespecial*)
     show_hide_dock
     ;;
 
