@@ -34,3 +34,15 @@ gui:
     "*": "#b4befe"
 promptToReturnFromSubprocess: false
 notARepository: "skip"
+customCommands:
+  - key: "<c-p>" # Prune deleted remote branches
+    command: "git remote prune {{.SelectedRemote.Name}}"
+    context: "remotes"
+    loadingText: "Pruning..."
+    description: "prune deleted remote branches"
+
+  - key: "b" # Prune local merged branches
+    command: "git branch --merged main | grep -v '^[ *]*master$' | xargs -r git branch -d"
+    context: "localBranches"
+    loadingText: "Pruning..."
+    description: "prune local branches that have been merged to main"

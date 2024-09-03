@@ -21,6 +21,8 @@
 [delta]
   navigate = true
   line-numbers = true
+  tabs = true
+  hyprlinks = true
   true-color = always
   syntax-theme = tokyonight_night
   minus-style = "syntax #3b263a"

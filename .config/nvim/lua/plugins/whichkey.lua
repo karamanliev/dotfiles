@@ -16,6 +16,7 @@ return {
         { '<leader>d', group = 'Document' },
         { '<leader>f', group = 'Find' },
         { '<leader>g', group = 'Git' },
+        { '<leader>gd', group = 'Diff' },
         { '<leader>h', group = 'Git Hunk' },
         { '<leader>l', group = 'List' },
         { '<leader>s', group = 'Search' },

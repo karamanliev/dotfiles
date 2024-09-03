@@ -87,8 +87,19 @@ return {
       'DiffviewToggleFiles',
     },
     keys = {
-      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace Diff View' },
-      { '<leader>gD', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History Diff' },
+      { '<leader>gdd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace Diff' },
+      { '<leader>gdf', '<cmd>DiffviewFileHistory --follow %<cr>', desc = 'File Diff' },
+      { '<leader>gdF', '<cmd>DiffviewFileHistory .<cr>', desc = 'All Files/Commits Diff' },
+      { '<leader>gdv', "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", desc = 'Visual Selection Diff', mode = { 'v' } },
+      { '<leader>gdl', '<Cmd>.DiffviewFileHistory --follow<CR>', desc = 'Line Diff' },
+      {
+        '<leader>gdb',
+        function()
+          local user_input = vim.fn.input('Diff HEAD with Branch: ')
+          vim.cmd('DiffviewOpen origin/' .. user_input .. '..HEAD')
+        end,
+        desc = 'Diff with Branch',
+      },
     },
     config = function()
       local actions = require('diffview.actions')
