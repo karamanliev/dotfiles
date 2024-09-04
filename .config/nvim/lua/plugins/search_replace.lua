@@ -24,6 +24,12 @@ return {
         desc = 'Spectre Word',
       },
       {
+        '<Leader>ss',
+        '<esc><cmd>lua require("spectre").open_visual()<CR>',
+        desc = 'Spectre Selection',
+        mode = 'v',
+      },
+      {
         '<Leader>sf',
         function()
           require('spectre').open_file_search({ select_word = true })
