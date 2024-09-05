@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DOCK_HEIGHT=120
-INITIAL_LAUNCH_FLAGS="-notooltips -r -i 64 -w 10 -mb 6 -hd 0 -c 'rofi -show drun' -ico '/usr/share/icons/Papirus-Dark/symbolic/actions/view-app-grid-symbolic.svg'"
+INITIAL_LAUNCH_FLAGS="-notooltips -d -i 64 -w 10 -mb 6 -hd 0 -c 'rofi -show drun' -ico '/usr/share/icons/Papirus-Dark/symbolic/actions/view-app-grid-symbolic.svg'"
 HIDE_SIGNAL="pkill -37 -f nwg-dock-hyprland"
 SHOW_SIGNAL="pkill -36 -f nwg-dock-hyprland"
 
@@ -70,10 +70,10 @@ function handle {
     show_hide_dock
     ;;
 
-  focusedmon*)
-    # buggy with "-d" if you hover on the hotspot on one monitor it stops moving between monitors, works perfect with "-r"
-    toggle_dock "hide" && show_hide_dock
-    ;;
+  # focusedmon*)
+  #   # buggy with "-d" if you hover on the hotspot on one monitor it stops moving between monitors, works perfect with "-r"
+  #   toggle_dock "hide" && show_hide_dock
+  #   ;;
   esac
 }
 
