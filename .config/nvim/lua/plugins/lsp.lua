@@ -560,6 +560,7 @@ return {
           end,
         },
         emmet_language_server = {
+          enabled = false,
           filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'php' },
         },
         jsonls = {},
