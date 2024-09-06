@@ -212,7 +212,7 @@ return {
   {
     'Wansmer/treesj',
     keys = {
-      { 'J', '<cmd>TSJToggle<cr>', desc = 'Join Toggle' },
+      { '<leader>j', '<cmd>TSJToggle<cr>', desc = 'TreesJ Toggle' },
     },
     -- event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
