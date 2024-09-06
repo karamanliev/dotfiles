@@ -715,19 +715,12 @@ return {
           factor = 0.1,
         },
         options = {
-          -- The minimum length of the message, otherwise it will be on a new line.
+          show_source = false,
+          throttle = 20,
           softwrap = 15,
 
           overflow = {
-            -- Manage the overflow of the message.
-            -- - wrap: when the message is too long, it is then displayed on multiple lines.
-            -- - none: the message will not be truncated, and will be displayed on a single line.
             mode = 'wrap',
-
-            -- The position of the overflow message.
-            -- - overlay: The message is displayed on top of the line. Do not move lines forward, it writes over the text.
-            -- - eol: The message is displayed at the end of the line. Will move lines forward.
-            position = 'overlay',
           },
 
           --- Enable it if you want to always have message with `after` characters length.
@@ -738,6 +731,13 @@ return {
 
           virt_texts = {
             priority = 10000,
+          },
+
+          severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN,
+            vim.diagnostic.severity.INFO,
+            vim.diagnostic.severity.HINT,
           },
         },
       })
