@@ -45,8 +45,6 @@ vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' 
 vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 vim.keymap.set('n', '[b', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
-vim.keymap.set('n', '<C-h>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
-vim.keymap.set('n', '<C-l>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 
 -- Diagnostic keymaps
 -- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
