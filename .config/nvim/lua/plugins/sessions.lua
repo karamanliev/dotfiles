@@ -6,7 +6,7 @@ return {
       'BufReadPre',
       'BufWritePre',
     },
-    cmd = { 'SessionRestore', 'SessionSave', 'SessionDelete' },
+    cmd = { 'SessionRestore', 'SessionSave', 'SessionDelete', 'SessionSearch' },
     config = function()
       require('auto-session').setup({
         auto_session_use_git_branch = true,
@@ -28,7 +28,7 @@ return {
         -- },
       })
 
-      vim.keymap.set('n', '<leader>lS', '<cmd>lua require("auto-session").setup_session_lens() require("auto-session.session-lens").search_session()<cr>', {
+      vim.keymap.set('n', '<leader>lS', 'SessionSearch', {
         noremap = true,
         desc = 'List Sessions',
       })
