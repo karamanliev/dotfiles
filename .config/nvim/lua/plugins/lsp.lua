@@ -564,6 +564,24 @@ return {
           filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'php' },
         },
         jsonls = {},
+        yamlls = {
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+          },
+          filetypes = { 'yaml' },
+          settings = {
+            yaml = {
+              format = {
+                enable = true,
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
