@@ -883,6 +883,7 @@ return {
         'TelescopePrompt',
         'spectre_panel',
         'DiffviewFiles',
+        'DressingInput',
       },
     },
     config = function(_, opts)
