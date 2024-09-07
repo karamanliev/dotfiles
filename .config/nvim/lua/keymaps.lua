@@ -46,6 +46,12 @@ vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 vim.keymap.set('n', '[b', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 
+-- Resize splits
+vim.keymap.set('n', '<M-->', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
+vim.keymap.set('n', '<M-=>', '<cmd>vertical resize +2<cr>', { desc = 'Resize Vertical More' })
+vim.keymap.set('n', '<M-_>', '<cmd>resize -2<cr>', { desc = 'Resize Horizontal Less' })
+vim.keymap.set('n', '<M-+>', '<cmd>resize +2<cr>', { desc = 'Resize Horizontal More' })
+
 -- Diagnostic keymaps
 -- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous Diagnostic message' })
