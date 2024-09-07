@@ -5,9 +5,9 @@ os:
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never
+    pager: delta --dark --paging=never --line-numbers  --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 gui:
-  sidePanelWidth: 0.2
+  sidePanelWidth: 0.3333
   nerdFontsVersion: "3"
   theme:
     activeBorderColor:
