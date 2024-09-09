@@ -173,7 +173,7 @@ return {
 
   {
     'AckslD/nvim-neoclip.lua',
-    event = { 'VeryLazy' },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('neoclip').setup({
         layout_strategy = 'vertical',
