@@ -42,6 +42,7 @@ return {
   -- Move lines and blocks up and down
   {
     'echasnovski/mini.move',
+    event = { 'BufReadPre', 'BufNewFile' },
     version = false,
     keys = {
       '<M-j>',

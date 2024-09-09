@@ -225,6 +225,7 @@ return {
   -- Neogit
   {
     'NeogitOrg/neogit',
+    enabled = false,
     cmd = 'Neogit',
     keys = {
       { '<leader>gn', '<cmd>Neogit<cr>', desc = 'NeoGit' },

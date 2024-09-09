@@ -75,7 +75,7 @@ return {
   -- Bookmarks
   {
     'LintaoAmons/bookmarks.nvim',
-    enabled = true,
+    enabled = false,
     dependencies = {
       { 'nvim-telescope/telescope.nvim' },
       { 'stevearc/dressing.nvim' },
