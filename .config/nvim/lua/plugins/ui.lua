@@ -189,6 +189,7 @@ return {
   -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     init = function()
       -- show buffer marks in scrollbar
@@ -285,9 +286,9 @@ return {
         nearest_only = true,
 
         -- make scrollbar show the search result
-        build_position_cb = function(plist, _, _, _)
-          require('scrollbar.handlers.search').handler.show(plist.start_pos)
-        end,
+        -- build_position_cb = function(plist, _, _, _)
+        --   require('scrollbar.handlers.search').handler.show(plist.start_pos)
+        -- end,
       })
 
       local kopts = { noremap = true, silent = true }
@@ -300,12 +301,12 @@ return {
       vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
       -- hide search results in scrollbar when search is done
-      vim.cmd([[
-        augroup scrollbar_search_hide
-            autocmd!
-            autocmd CmdlineLeave : lua require('scrollbar.handlers.search').handler.hide()
-        augroup END
-      ]])
+      -- vim.cmd([[
+      --   augroup scrollbar_search_hide
+      --       autocmd!
+      --       autocmd CmdlineLeave : lua require('scrollbar.handlers.search').handler.hide()
+      --   augroup END
+      -- ]])
     end,
   },
 
