@@ -54,13 +54,17 @@ vim.keymap.set('n', '<M-+>', '<cmd>resize +2<cr>', { desc = 'Resize Horizontal M
 
 -- Diagnostic keymaps
 -- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous Diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next Diagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.goto_prev({ float = false })
+end, { desc = 'Go to previous Diagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.goto_next({ float = false })
+end, { desc = 'Go to next Diagnostic message' })
 vim.keymap.set('n', '[e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = true })
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = false })
 end, { desc = 'Go to previous Error message' })
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = true })
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = false })
 end, { desc = 'Go to next Error message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic Error messages' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
