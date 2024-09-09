@@ -200,6 +200,11 @@ return {
 
       -- Enhance LSP capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- add border to hover and signature help
@@ -565,14 +570,6 @@ return {
         },
         jsonls = {},
         yamlls = {
-          capabilities = {
-            textDocument = {
-              foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-              },
-            },
-          },
           filetypes = { 'yaml' },
           settings = {
             yaml = {
@@ -697,7 +694,7 @@ return {
   -- pretty diagnostic virtual text
   {
     'rachartier/tiny-inline-diagnostic.nvim',
-    event = { 'VeryLazy' },
+    event = { 'LspAttach' },
     keys = {
       {
         '<leader>td',
