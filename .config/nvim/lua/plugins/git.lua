@@ -218,6 +218,26 @@ return {
             },
           },
         },
+        view = {
+          default = {
+            layout = 'diff2_horizontal',
+            winbar_info = true,
+          },
+          merge_tool = {
+            layout = 'diff3_mixed',
+            disable_diagnostics = true,
+            winbar_info = true,
+          },
+          file_history = {
+            layout = 'diff2_horizontal',
+            winbar_info = true,
+          },
+
+          file_panel = {
+            win_config = 'right',
+            width = 35,
+          },
+        },
       })
     end,
   },
