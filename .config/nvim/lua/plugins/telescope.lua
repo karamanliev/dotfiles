@@ -21,6 +21,8 @@ return {
       local harpoon = require('utils.telescope.harpoon')
       local image = require('utils.telescope.image')
       local misc = require('utils.telescope.misc')
+      local open_with_trouble = require('trouble.sources.telescope').open
+      local add_to_trouble = require('trouble.sources.telescope').add
 
       require('telescope').setup({
         defaults = {
@@ -34,6 +36,8 @@ return {
           vimgrep_arguments = misc.vimgrep_arguments,
           mappings = {
             i = {
+              ['<c-q>'] = open_with_trouble,
+              ['<m-q>'] = add_to_trouble,
               ['<c-n>'] = 'move_selection_next',
               ['<c-p>'] = 'move_selection_previous',
               ['<M-n>'] = 'cycle_history_next',
@@ -48,6 +52,8 @@ return {
               ['<Tab>'] = misc.focus_preview,
             },
             n = {
+              ['<c-q>'] = open_with_trouble,
+              ['<m-q>'] = add_to_trouble,
               ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
                 misc.open_ssh_file({ is_folder = false })

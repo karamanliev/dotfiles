@@ -650,7 +650,7 @@ return {
         virtual_text = false,
         underline = true,
         severity_sort = true,
-        update_in_insert = false,
+        update_in_insert = true,
         float = {
           source = true,
           border = 'rounded',
@@ -687,6 +687,18 @@ return {
         --   -- the opts for telescope picker.
         --   telescope_opts = function(items, default) end,
         -- },
+      })
+
+      -- Opens trouble instead of qflist when multiple source definitions
+      vim.api.nvim_create_autocmd('BufRead', {
+        callback = function(ev)
+          if vim.bo[ev.buf].buftype == 'quickfix' then
+            vim.schedule(function()
+              vim.cmd([[cclose]])
+              vim.cmd([[Trouble qflist open]])
+            end)
+          end
+        end,
       })
     end,
   },
@@ -778,6 +790,8 @@ return {
       { '<leader>qq', '<cmd>Trouble quickfix toggle<cr>', desc = 'Quickfix' },
       { '<leader>qt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'Todo' },
       { '<leader>qs', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'Symbols' },
+      { '<leader>qf', '<cmd>Trouble telescope_files toggle focus=true<cr>', desc = 'Telescope Files' },
+      { '<leader>qF', '<cmd>Trouble telescope toggle focus=true<cr>', desc = 'Telescope' },
       { ']q', '<cmd>Trouble next jump=true skip_groups=true<cr>', desc = 'Next Trouble' },
       { '[q', '<cmd>Trouble prev jump=true skip_groups=true<cr>', desc = 'Previous Trouble' },
     },
