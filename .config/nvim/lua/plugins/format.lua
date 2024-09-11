@@ -44,7 +44,7 @@ return {
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, markdown = true }
         if vim.b.dont_format_on_write or vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
@@ -63,7 +63,6 @@ return {
         html = { 'prettierd' },
         json = { 'prettierd' },
         yaml = { 'prettierd' },
-        markdown = { 'prettierd' },
         graphql = { 'prettierd' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
