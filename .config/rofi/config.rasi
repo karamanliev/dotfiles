@@ -56,9 +56,8 @@ configuration {
   kb-mode-complete: "Control+o";
   kb-accept-custom: "Control+Return";
   kb-delete-entry: "Shift+Delete,Control+d";
-  kb-element-next: "";
-  kb-mode-next: "Tab,bracketright";
-  kb-mode-previous: "Control+Tab,bracketleft";
+  kb-mode-next: "bracketright";
+  kb-mode-previous: "bracketleft";
 }
 
 @theme "/home/ico/.config/rofi/theme.rasi"
