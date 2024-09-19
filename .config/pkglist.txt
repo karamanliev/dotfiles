@@ -25,6 +25,7 @@ czkawka-gui-bin
 dart-sass
 dconf-editor
 dkms
+dosfstools
 dust
 efibootmgr
 evince
@@ -90,7 +91,6 @@ hypridle
 hyprland
 hyprpicker
 hyprshot-git
-ianny-git
 inkscape
 iwd
 kitty
@@ -128,6 +128,7 @@ linux
 linux-firmware
 linux-headers
 local-by-flywheel-bin
+localsearch
 loupe
 lutris
 malcontent
@@ -203,7 +204,6 @@ terminus-font
 tldr
 tmux-git
 tmux-plugin-manager
-tracker3-miners
 ttf-bitstream-vera
 ttf-dejavu
 ttf-fira-code
@@ -223,6 +223,7 @@ vkd3d
 vlc-git
 vulkan-tools
 waypaper-engine-git
+wev
 wezterm
 wget
 wine-staging
@@ -236,7 +237,6 @@ xdg-user-dirs-gtk
 xdg-utils
 xorg-xinit
 yay
-yay-debug
 yazi
 zoxide
 zram-generator
