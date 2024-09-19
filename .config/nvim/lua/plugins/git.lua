@@ -222,15 +222,17 @@ return {
           default = {
             layout = 'diff2_horizontal',
             winbar_info = true,
+            disable_diagnostics = false,
           },
           merge_tool = {
             layout = 'diff3_mixed',
-            disable_diagnostics = true,
+            disable_diagnostics = false,
             winbar_info = true,
           },
           file_history = {
             layout = 'diff2_horizontal',
             winbar_info = true,
+            disable_diagnostics = false,
           },
 
           file_panel = {
