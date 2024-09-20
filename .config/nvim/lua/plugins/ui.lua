@@ -31,6 +31,9 @@ return {
           hl.SignColumn = { bg = 'none' }
           hl.Undo = { link = 'DiffDelete' }
           hl.Redo = { link = 'DiffAdd' }
+          hl.PackageInfoOutdatedVersion = { fg = c.magenta }
+          hl.PackageInfoInvalidVersion = { fg = c.red }
+          hl.PackageInfoUpToDateVersion = { fg = c.green1 }
           -- hl.GitSignsAdd = { fg = '#627259' }
           -- hl.GitGutterAddLineNr = { fg = '#627259' }
           -- hl.GitSignsChange = { fg = '#6785b8' }
@@ -116,7 +119,7 @@ return {
       require('dressing').setup({
         select = {
           get_config = function(opts)
-            if opts.kind == 'codeaction' then
+            if opts.kind == 'codeaction' or 'Package Info' then
               return {
                 backend = 'builtin',
               }

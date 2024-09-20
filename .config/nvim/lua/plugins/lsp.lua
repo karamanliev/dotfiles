@@ -877,6 +877,98 @@ return {
     end,
   },
 
+  -- NPM package info
+  {
+    'vuki656/package-info.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    event = 'BufRead package.json',
+    config = function()
+      local colors = require('tokyonight.colors').setup()
+      require('package-info').setup({
+        colors = {
+          up_to_date = colors.green1,
+          outdated = colors.magenta,
+          invalid = colors.red,
+        },
+        icons = {
+          enable = true,
+          style = {
+            up_to_date = '|  ',
+            outdated = '|  ',
+            invalid = '|  ',
+          },
+        },
+        autostart = true,
+        hide_up_to_date = true,
+        hide_unstable_versions = true,
+        package_manager = 'yarn',
+      })
+
+      -- add keymap with ui select for package.json
+      local augroup = vim.api.nvim_create_augroup('package-info', { clear = true })
+      local wk = require('which-key')
+      vim.api.nvim_create_autocmd('BufReadPre', {
+        pattern = 'package.json',
+        callback = function()
+          wk.add({
+            '<leader>cp',
+            function()
+              local actions = {
+                { label = 'Change Package Version', func = require('package-info').change_version },
+                { label = 'Update Package', func = require('package-info').update },
+                { label = 'Delete Package', func = require('package-info').delete },
+                { label = 'Install New Package', func = require('package-info').install },
+                {
+                  label = 'Reload Plugin',
+                  func = function()
+                    require('package-info').show({ force = true })
+                  end,
+                },
+              }
+
+              local options = vim.tbl_map(function(item)
+                return item.label
+              end, actions)
+
+              vim.ui.select(options, { prompt = 'Package Info' }, function(_, index)
+                if index then
+                  actions[index].func()
+                end
+              end)
+            end,
+            buffer = 0,
+            icon = ' ',
+            mode = 'n',
+            desc = 'package.json',
+          })
+        end,
+        group = augroup,
+        desc = 'Load package-info keys',
+      })
+
+      -- add package.json status to lualine
+      local lualine_config = require('lualine').get_config()
+      local extended_lualine_x = vim.deepcopy(lualine_config.sections.lualine_x) -- Make a copy to avoid modifying the original config
+      table.insert(extended_lualine_x, 1, {
+        function()
+          local pi_status = require('package-info.ui.generic.loading-status')
+          local spinner = require('noice.util.spinners').spin('bouncingBar')
+
+          return spinner .. ' ' .. pi_status.get()
+        end,
+        cond = function()
+          return require('package-info').get_status() ~= ''
+        end,
+        color = { fg = colors.magenta },
+      })
+      require('lualine').setup(vim.tbl_deep_extend('force', lualine_config, {
+        sections = {
+          lualine_x = extended_lualine_x,
+        },
+      }))
+    end,
+  },
+
   -- Illuminate the current word under the cursor
   {
     'RRethy/vim-illuminate',
