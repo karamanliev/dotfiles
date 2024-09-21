@@ -121,7 +121,6 @@ lib32-opencl-nvidia
 lib32-sqlite
 lib32-v4l-utils
 lib32-vkd3d
-libertinus-font
 libpulse
 libva-nvidia-driver
 linux
@@ -153,6 +152,7 @@ nwg-dock-hyprland
 obsidian
 opencl-nvidia
 openrgb
+otf-libertinus
 otf-san-francisco
 otf-san-francisco-mono
 pacman-contrib
