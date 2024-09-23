@@ -362,6 +362,11 @@ return {
             },
           },
         },
+        eslint = {
+          settings = {
+            workingDirectories = { mode = 'auto' },
+          },
+        },
         --[[ tsserver = {
           enabled = false,
           commands = {
@@ -614,9 +619,9 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
-        'eslint_d', -- Used to lint JavaScript and TypeScript
-        'htmlhint', -- Used to lint HTML
-        'jsonlint', -- Used to lint JSON
+        -- 'eslint_d', -- Used to lint JavaScript and TypeScript
+        -- 'htmlhint', -- Used to lint HTML
+        -- 'jsonlint', -- Used to lint JSON
         -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
         'shfmt', -- Used to format shell scripts
       })

@@ -2,6 +2,7 @@ return {
   -- Linting
   {
     'mfussenegger/nvim-lint',
+    enabled = false,
     event = { 'BufEnter', 'BufWritePost', 'InsertLeave' },
     config = function()
       local lint = require('lint')
