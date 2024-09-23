@@ -365,7 +365,15 @@ return {
         eslint = {
           settings = {
             workingDirectories = { mode = 'auto' },
+            rulesCustomizations = {
+              { rule = 'prettier/prettier', severity = 'off' },
+              { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
+            },
           },
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
         },
         --[[ tsserver = {
           enabled = false,
@@ -619,6 +627,7 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
+        'stylelint', -- Used to lint CSS
         -- 'eslint_d', -- Used to lint JavaScript and TypeScript
         -- 'htmlhint', -- Used to lint HTML
         -- 'jsonlint', -- Used to lint JSON
