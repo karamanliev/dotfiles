@@ -373,11 +373,8 @@ return {
               { rule = 'prettier/prettier', severity = 'off' },
               { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
             },
+            format = false,
           },
-          on_attach = function(client, bufnr)
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
         },
         --[[ tsserver = {
           enabled = false,
