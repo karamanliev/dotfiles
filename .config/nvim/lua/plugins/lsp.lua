@@ -1030,4 +1030,48 @@ return {
       { '[[', desc = 'Prev Reference' },
     },
   },
+
+  -- Code Actions Lightbulb
+  {
+    'kosayoda/nvim-lightbulb',
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-lightbulb').setup({
+        autocmd = {
+          enabled = true,
+          updatetime = 200,
+          events = { 'CursorHold', 'CursorHoldI' },
+          pattern = { '*' },
+        },
+        sign = {
+          enabled = true,
+          text = '💡',
+          hl = 'LightBulbSign',
+        },
+        status_text = {
+          enabled = false,
+          text = '💡',
+          text_unavailable = '',
+        },
+        number = {
+          enabled = false,
+          hl = 'LightBulbNumber',
+        },
+        line = {
+          enabled = false,
+          hl = 'LightBulbLine',
+        },
+        ignore = {
+          -- LSP client names to ignore.
+          -- Example: {"null-ls", "lua_ls"}
+          clients = {},
+          -- Filetypes to ignore.
+          -- Example: {"neo-tree", "lua"}
+          ft = {},
+          -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
+          actions_without_kind = false,
+        },
+      })
+    end,
+  },
 }
