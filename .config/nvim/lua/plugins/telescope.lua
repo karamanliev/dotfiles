@@ -30,6 +30,15 @@ return {
           sorting_strategy = 'ascending',
           layout_config = {
             prompt_position = 'top',
+            horizontal = {
+              anchor = 'CENTER',
+              mirror = false,
+            },
+            vertical = {
+              anchor = 'CENTER',
+              mirror = true,
+              preview_height = 0.65,
+            },
           },
           -- `hidden = true` is not supported in text grep commands.
           dynamic_preview_title = true,
@@ -135,7 +144,7 @@ return {
       vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'Find Todo Comments' })
       vim.keymap.set({ 'n', 'v' }, '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
-      vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip theme=dropdown<cr>', { desc = 'Neoclip' })
+      vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
       vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
 
@@ -182,7 +191,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('neoclip').setup({
-        layout_strategy = 'vertical',
         default_register_macros = 'Q',
         history = 1000,
         filter = nil,
@@ -223,13 +231,12 @@ return {
           entry_format = 'state #$ID, $STAT, $TIME',
           time_format = '',
           saved_only = false,
+          initial_mode = 'normal',
           layout_strategy = 'vertical',
           layout_config = {
             width = 0.9,
             height = 0.9,
-            preview_height = 0.65,
             prompt_position = 'top',
-            mirror = true,
           },
         },
       },
@@ -254,7 +261,6 @@ return {
           height = 0.9,
           prompt_position = 'top',
           mirror = true,
-          preview_height = 0.65,
         },
       }
 
