@@ -2,6 +2,7 @@ return {
   -- Copilot
   {
     'zbirenbaum/copilot.lua',
+    enabled = true,
     cmd = 'Copilot',
     event = { 'InsertEnter' },
     config = function()
@@ -40,6 +41,33 @@ return {
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
         end
       end, { desc = 'Super Tab', silent = true })
+    end,
+  },
+  -- TODO: Try paid supermaven subscription when copilot subscription expires
+  {
+    'supermaven-inc/supermaven-nvim',
+    enabled = false,
+    config = function()
+      local colors = require('tokyonight.colors').setup()
+      require('supermaven-nvim').setup({
+        keymaps = {
+          accept_suggestion = '<Tab>',
+          clear_suggestion = '<C-c>',
+          accept_word = '<C-j>',
+        },
+        ignore_filetypes = { cpp = true }, -- or { "cpp", }
+        color = {
+          suggestion_color = colors.fg_dark,
+          cterm = 244,
+          override = true,
+        },
+        log_level = 'off', -- set to "off" to disable logging completely
+        disable_inline_completion = false, -- disables inline completion for use with cmp
+        disable_keymaps = false, -- disables built in keymaps for more manual control
+        condition = function()
+          return false
+        end, -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+      })
     end,
   },
 
