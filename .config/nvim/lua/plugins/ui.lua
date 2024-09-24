@@ -34,6 +34,9 @@ return {
           hl.PackageInfoOutdatedVersion = { fg = c.magenta }
           hl.PackageInfoInvalidVersion = { fg = c.red }
           hl.PackageInfoUpToDateVersion = { fg = c.green1 }
+          -- hl.IlluminatedWordRead = { underline = true }
+          -- hl.IlluminatedWordText = { underline = true }
+          -- hl.IlluminatedWordWrite = { underline = true }
           -- hl.GitSignsAdd = { fg = '#627259' }
           -- hl.GitGutterAddLineNr = { fg = '#627259' }
           -- hl.GitSignsChange = { fg = '#6785b8' }
