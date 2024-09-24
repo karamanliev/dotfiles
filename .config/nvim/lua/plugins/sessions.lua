@@ -38,6 +38,7 @@ return {
   -- Undo tree
   {
     'mbbill/undotree',
+    enabled = false,
     cmd = {
       'UndotreeToggle',
     },

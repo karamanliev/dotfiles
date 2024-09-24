@@ -203,6 +203,44 @@ return {
   },
 
   {
+    'debugloop/telescope-undo.nvim',
+    keys = {
+      {
+        '<leader>u',
+        '<cmd>Telescope undo<cr>',
+        desc = 'Undo',
+      },
+    },
+    opts = {
+      extensions = {
+        undo = {
+          use_delta = true,
+          use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
+          side_by_side = true,
+          vim_diff_opts = {
+            ctxlen = vim.o.scrolloff,
+          },
+          entry_format = 'state #$ID, $STAT, $TIME',
+          time_format = '',
+          saved_only = false,
+          layout_strategy = 'vertical',
+          layout_config = {
+            width = 0.9,
+            height = 0.9,
+            preview_height = 0.65,
+            prompt_position = 'top',
+            mirror = true,
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      require('telescope').setup(opts)
+      require('telescope').load_extension('undo')
+    end,
+  },
+
+  {
     'aaronhallaert/advanced-git-search.nvim',
     cmd = { 'AdvancedGitSearch' },
     dependencies = {
