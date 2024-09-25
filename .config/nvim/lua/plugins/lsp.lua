@@ -112,8 +112,8 @@ return {
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action')
-          map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
-          map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
+          -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
+          -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
           vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
           map('K', vim.lsp.buf.hover, 'Hover Info')
 
@@ -1071,6 +1071,36 @@ return {
           -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
           actions_without_kind = false,
         },
+      })
+    end,
+  },
+
+  -- Turbo console.log
+  {
+    'gaelph/logsitter.nvim',
+    ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'lua', 'go' },
+    config = function()
+      require('logsitter').setup({
+        path_format = 'fileonly',
+        prefix = '🚀 ->',
+        separator = '->',
+      })
+
+      vim.api.nvim_create_augroup('LogSitter', { clear = true })
+      vim.api.nvim_create_autocmd('FileType', {
+        group = 'LogSitter',
+        pattern = 'javascript,typescript,typescriptreact,javascriptreact,go,lua',
+        callback = function()
+          vim.keymap.set('n', '<leader>cl', function()
+            require('logsitter').log()
+          end, { desc = 'Console Log' })
+
+          vim.keymap.set('x', '<leader>cl', function()
+            require('logsitter').log_visual()
+          end, { desc = 'Console Log' })
+
+          vim.keymap.set({ 'n', 'x' }, '<leader>cL', '<cmd>LogsitterClearBuf<cr>', { desc = 'Clear Logs' })
+        end,
       })
     end,
   },
