@@ -34,6 +34,7 @@ return {
           hl.PackageInfoOutdatedVersion = { fg = c.magenta }
           hl.PackageInfoInvalidVersion = { fg = c.red }
           hl.PackageInfoUpToDateVersion = { fg = c.green1 }
+          hl.MatchParen = { bold = true, fg = '#ff966c', bg = '#3b4261' }
           -- hl.IlluminatedWordRead = { underline = true }
           -- hl.IlluminatedWordText = { underline = true }
           -- hl.IlluminatedWordWrite = { underline = true }
