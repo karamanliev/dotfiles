@@ -425,6 +425,7 @@ return {
                 { find = '%d fewer lines' },
                 { find = '%d more lines' },
                 { find = 'written' },
+                { find = 'Agent service not initialized' },
               },
             },
             opts = { skip = true },
