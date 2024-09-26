@@ -3,6 +3,8 @@
 HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
 
 if [ "$HYPRGAMEMODE" = 1 ]; then
+  ags --quit
+  pkill -f "python.*bluetooth\.py"
   hyprctl --batch "\
         keyword animations:enabled 0;\
         keyword decoration:drop_shadow 0;\
@@ -14,3 +16,4 @@ if [ "$HYPRGAMEMODE" = 1 ]; then
   exit
 fi
 hyprctl reload
+ags
