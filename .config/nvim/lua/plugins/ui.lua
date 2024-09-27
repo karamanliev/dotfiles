@@ -354,8 +354,9 @@ return {
     config = function()
       require('noice').setup({
         cmdline = {
+          view = 'cmdline_popup', -- change to 'cmdline_popup' for previous style
           format = {
-            cmdline = { icon = '>' },
+            cmdline = { icon = '' },
             search_down = { icon = ' ⌄' },
             search_up = { icon = ' ⌃' },
             filter = { icon = '$' },
@@ -364,6 +365,11 @@ return {
           },
         },
         views = {
+          cmdline = {
+            position = {
+              row = -1,
+            },
+          },
           cmdline_popup = {
             border = {
               style = 'rounded',
