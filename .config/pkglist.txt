@@ -24,6 +24,7 @@ cpupower
 czkawka-gui-bin
 dart-sass
 dconf-editor
+discord
 dkms
 dosfstools
 dust
