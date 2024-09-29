@@ -417,6 +417,17 @@ return {
         routes = {
           {
             filter = {
+              event = 'lsp',
+              kind = 'progress',
+              cond = function(message)
+                local client = vim.tbl_get(message.opts, 'progress', 'client')
+                return client == 'lua_ls' -- skip lua lsp progress
+              end,
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
               event = 'msg_show',
               kind = 'search_count',
             },
