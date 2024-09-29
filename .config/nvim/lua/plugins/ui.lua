@@ -356,12 +356,13 @@ return {
         cmdline = {
           view = 'cmdline_popup', -- change to 'cmdline_popup' for previous style
           format = {
-            cmdline = { icon = '' },
-            search_down = { icon = ' ⌄' },
-            search_up = { icon = ' ⌃' },
-            filter = { icon = '$' },
-            -- lua = { icon = '☾' },
-            help = { icon = '?' },
+            cmdline = { icon = '', title = '' },
+            search_down = { icon = ' ⌄', title = '' },
+            search_up = { icon = ' ⌃', title = '' },
+            filter = { icon = '$', title = '' },
+            lua = { title = '' },
+            help = { icon = '?', title = '' },
+            input = { title = '' },
           },
         },
         views = {
