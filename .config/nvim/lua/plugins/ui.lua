@@ -29,8 +29,9 @@ return {
           hl.DiagnosticUnderlineHint = { underline = true, sp = c.hint }
           hl.FoldColumn = { bg = 'none' }
           hl.SignColumn = { bg = 'none' }
-          hl.Undo = { link = 'DiffDelete' }
-          hl.Redo = { link = 'DiffAdd' }
+          hl.Undo = { link = 'DiffText' }
+          hl.Redo = { link = 'DiffText' }
+          hl.Paste = { link = 'DiffAdd' }
           hl.PackageInfoOutdatedVersion = { fg = c.magenta }
           hl.PackageInfoInvalidVersion = { fg = c.red }
           hl.PackageInfoUpToDateVersion = { fg = c.green1 }
@@ -68,23 +69,37 @@ return {
     keys = {
       'u',
       '<C-r>',
+      'p',
+      'P',
     },
     config = function()
       require('highlight-undo').setup({
         duration = 650,
-        undo = {
-          hlgroup = 'Undo',
-          mode = 'n',
-          lhs = 'u',
-          map = 'undo',
-          opts = {},
-        },
-        redo = {
-          hlgroup = 'Redo',
-          mode = 'n',
-          lhs = '<C-r>',
-          map = 'redo',
-          opts = {},
+        keymaps = {
+          undo = {
+            desc = 'Undo',
+            hlgroup = 'Undo',
+            mode = 'n',
+            lhs = 'u',
+            rhs = 'u',
+            opts = {},
+          },
+          redo = {
+            desc = 'Redo',
+            hlgroup = 'Redo',
+            mode = 'n',
+            lhs = '<C-r>',
+            rhs = '<C-r>',
+            opts = {},
+          },
+          paste = {
+            desc = 'Paste',
+            hlgroup = 'Paste',
+            mode = 'n',
+            lhs = 'p',
+            rhs = 'p',
+            opts = {},
+          },
         },
       })
     end,
