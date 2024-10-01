@@ -6,10 +6,10 @@ after-startup-command = [
 ]
 
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
 
-start-at-login = true
+start-at-login = false
 
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -23,6 +23,7 @@ key-mapping.preset = 'qwerty'
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # on-focus-changed = "move-mouse window-lazy-center"
+# on-focus-changed = 'exec-on-workspace-change sketchybar --trigger aerospace_workspace_change "FOCUSED_WORKSPACE=$(list-workspaces --focused)"'
 
 [gaps]
 inner.horizontal = 10
