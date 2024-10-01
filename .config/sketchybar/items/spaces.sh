@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-SPACE_ICONS=("1" "2" "3" "4" "5" "6")
-
 sketchybar --add event aerospace_workspace_change
 
 for i in $(aerospace list-workspaces --all); do
