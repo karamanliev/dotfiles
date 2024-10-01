@@ -26,6 +26,7 @@ source $ZSH_MODULES/zsh-aliases
 source $ZSH_MODULES/zsh-functions
 
 if $IS_MACOS; then
+	setopt INTERACTIVE_COMMENTS
 	source $ZSH_MODULES/zsh-macos-env
 	source $ZSH_MODULES/zsh-macos-aliases
 	source $ZSH_MODULES/zsh-macos-functions
