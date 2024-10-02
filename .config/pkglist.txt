@@ -19,6 +19,7 @@ btrfs-assistant
 btrfs-progs
 bun-bin
 catimg
+celluloid
 cliphist
 cpupower
 czkawka-gui-bin
@@ -221,7 +222,6 @@ vim
 visual-studio-code-bin
 vkbasalt
 vkd3d
-vlc-git
 vulkan-tools
 waypaper-engine-git
 wev
