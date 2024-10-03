@@ -6,8 +6,8 @@ return {
     init = function()
       require('tokyonight').setup({
         style = 'moon',
-        transparent = true,
-        dim_inactive = true,
+        transparent = false,
+        dim_inactive = false,
         plugins = {
           auto = true,
           all = false,
