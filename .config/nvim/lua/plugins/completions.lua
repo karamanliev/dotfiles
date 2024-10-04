@@ -166,30 +166,39 @@ return {
         },
 
         formatting = {
-          format = lspkind.cmp_format({
-            mode = 'text',
-            maxwidth = 50,
-            ellipsis_char = '...',
+          format = function(entry, item)
+            local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
+            item = lspkind.cmp_format({
+              mode = 'text',
+              maxwidth = 50,
+              ellipsis_char = '...',
 
-            before = function(entry, vim_item)
-              vim_item.kind = vim_item.kind
-              vim_item.menu = ({
-                nvim_lsp = '[LSP]',
-                -- copilot = '[AI]',
-                buffer = '[BUF]',
-                path = '[PATH]',
-                luasnip = '[SNIP]',
-              })[entry.source.name]
+              before = function(vim_entry, vim_item)
+                vim_item.kind = vim_item.kind
+                vim_item.menu = ({
+                  nvim_lsp = '[LSP]',
+                  -- copilot = '[AI]',
+                  buffer = '[BUF]',
+                  path = '[PATH]',
+                  luasnip = '[SNIP]',
+                })[vim_entry.source.name]
 
-              if vim_item ~= nil then
-                local kind = lspkind.presets.default[vim_item.kind] or ''
-                local abbr = vim_item.abbr or ''
-                vim_item.abbr = kind .. '  ' .. abbr
-              end
+                if vim_item ~= nil then
+                  local kind = lspkind.presets.default[vim_item.kind] or ''
+                  local abbr = vim_item.abbr or ''
+                  vim_item.abbr = kind .. '  ' .. abbr
+                end
 
-              return vim_item
-            end,
-          }),
+                return vim_item
+              end,
+            })(entry, item)
+
+            if color_item.abbr_hl_group then
+              item.kind_hl_group = color_item.abbr_hl_group
+              item.kind = color_item.abbr .. ' ' .. item.kind
+            end
+            return item
+          end,
         },
 
         window = {
