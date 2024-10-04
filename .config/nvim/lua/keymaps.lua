@@ -83,6 +83,10 @@ vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to Next cursor position' })
 vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to Previous cursor position' })
 vim.keymap.set('n', '%', '%zz', { desc = 'Go to Matching bracket' })
 
+-- Open Notes/Todos file
+vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
+vim.keymap.set('n', '<leader>ot', '<cmd>vsplit ~/Documents/todo.md<cr>', { desc = 'Open Todos' })
+
 -- Toggle diagnostics, because it could be annoying
 local diagnostics_active = true
 vim.keymap.set('n', '<leader>tx', function()

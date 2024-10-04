@@ -24,6 +24,7 @@ return {
         { '<leader>t', group = 'Toggle' },
         { '<leader>y', group = 'Yank' },
         { '<leader>n', group = 'Noice' },
+        { '<leader>o', group = 'Open' },
         { '<leader>i', group = 'AI' },
       })
       -- visual mode
