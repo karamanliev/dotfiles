@@ -50,4 +50,23 @@ M.focus_preview = function(prompt_bufnr)
   -- api.nvim_set_current_win(winid)
 end
 
+M.set_colorscheme = function(prompt_bufnr)
+  local colorscheme = actions_state.get_selected_entry()
+  if colorscheme then
+    require('telescope.actions').close(prompt_bufnr)
+    local init_path = vim.fn.stdpath('config') .. '/init.lua'
+    local lines = vim.fn.readfile(init_path)
+
+    for i, line in ipairs(lines) do
+      if line:match('vim%.cmd%.colorscheme%(.+%)') then
+        lines[i] = string.format("vim.cmd.colorscheme('%s')", colorscheme.value)
+        break
+      end
+    end
+
+    vim.fn.writefile(lines, init_path)
+    vim.fn.system('nvim-sync-colors.sh')
+  end
+end
+
 return M
