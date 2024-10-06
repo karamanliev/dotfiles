@@ -116,6 +116,7 @@ return {
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
           vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
           map('K', vim.lsp.buf.hover, 'Hover Info')
+          map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
           --[[ map('K', function()
