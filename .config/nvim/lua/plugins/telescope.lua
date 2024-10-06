@@ -123,6 +123,17 @@ return {
               },
             },
           },
+          colorscheme = {
+            enable_preview = true,
+            mappings = {
+              i = {
+                ['<CR>'] = misc.set_colorscheme,
+              },
+              n = {
+                ['<CR>'] = misc.set_colorscheme,
+              },
+            },
+          },
         },
         extensions = {},
       })
@@ -147,6 +158,7 @@ return {
       vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
       vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
+      vim.keymap.set('n', '<leader>tt', '<cmd>Telescope colorscheme<cr>', { desc = 'Toggle Theme' })
 
       vim.keymap.set('n', '<leader>f/', function()
         builtin.live_grep({

@@ -54,6 +54,7 @@ M.set_colorscheme = function(prompt_bufnr)
   local colorscheme = actions_state.get_selected_entry()
   if colorscheme then
     require('telescope.actions').close(prompt_bufnr)
+    vim.cmd('colorscheme ' .. colorscheme.value)
     local init_path = vim.fn.stdpath('config') .. '/init.lua'
     local lines = vim.fn.readfile(init_path)
 

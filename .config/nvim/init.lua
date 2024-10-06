@@ -26,3 +26,6 @@ require('lazy').setup('plugins', {
     hererocks = true,
   },
 })
+
+-- Load colorscheme
+vim.cmd.colorscheme('tokyobones')

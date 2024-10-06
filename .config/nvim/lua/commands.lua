@@ -244,7 +244,7 @@ vim.filetype.add({
   },
 })
 
-vim.api.nvim_create_autocmd({ 'FileType' }, {
+autocmd({ 'FileType' }, {
   group = big_file,
   pattern = 'bigfile',
   callback = function(ev)

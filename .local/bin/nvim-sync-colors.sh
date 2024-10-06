@@ -28,10 +28,18 @@ echo "FG Color: $fg_color_hex"
 kitty_colorscheme=$(get_kitty_color)
 echo "Kitty Colorscheme: $kitty_colorscheme"
 
+kitty_themes_dir="$HOME/.config/kitty/themes"
+if [ -f "$kitty_themes_dir/$kitty_colorscheme.conf" ]; then
+    kitty_theme="$kitty_colorscheme.conf"
+else
+    echo "Theme $kitty_colorscheme.conf not found. Using default.conf"
+    kitty_theme="default.conf"
+fi
+
 # Replace colors in tmux config
 sed -i "s/^bg_color=.*/bg_color=$bg_color_hex/" ~/dotfiles/.config/tmux/theme.conf
 sed -i "s/^fg_color=.*/fg_color=$fg_color_hex/" ~/dotfiles/.config/tmux/theme.conf
-sed -i "s/^include .*/include $kitty_colorscheme.conf/" ~/dotfiles/.config/kitty/kitty.conf
+sed -i "s|^include themes/.*|include themes/$kitty_theme|" ~/dotfiles/.config/kitty/kitty.conf
 
 # Reload tmux configuration
 tmux source-file ~/dotfiles/.config/tmux/tmux.conf

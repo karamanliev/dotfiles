@@ -10,6 +10,9 @@ vim.opt.numberwidth = 5
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- Set dark background
+vim.opt.background = 'dark'
+
 -- Foldcolumn
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.foldcolumn = '0' -- '0' is not bad
