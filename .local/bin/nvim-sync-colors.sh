@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Function to get color and convert to hex
+get_tmux_color() {
+    local color_type=$1
+    local color=$(nvim --headless -c "redir => output | echo nvim_get_hl_by_name('StatusLine', v:true)['$color_type'] | redir END | echo output | quit" 2>&1)
+
+    color=$(echo "$color" | head -n1 | sed 's/[^0-9]*//g')
+
+    printf "#%06x" "$color"
+}
+
+get_kitty_color() {
+    local colorscheme=$(nvim --headless -c "redir => output | colo | redir END | echo output | quit" 2>&1)
+
+    printf "$colorscheme" | head -n1 | sed 's/[^a-zA-Z0-9._-]//g'
+}
+
+# Get background color
+bg_color_hex=$(get_tmux_color "background")
+echo "BG Color: $bg_color_hex"
+
+# Get foreground color
+fg_color_hex=$(get_tmux_color "foreground")
+echo "FG Color: $fg_color_hex"
+
+# Get Kitty colorscheme
+kitty_colorscheme=$(get_kitty_color)
+echo "Kitty Colorscheme: $kitty_colorscheme"
+
+# Replace colors in tmux config
+sed -i "s/^bg_color=.*/bg_color=$bg_color_hex/" ~/dotfiles/.config/tmux/theme.conf
+sed -i "s/^fg_color=.*/fg_color=$fg_color_hex/" ~/dotfiles/.config/tmux/theme.conf
+sed -i "s/^include .*/include $kitty_colorscheme.conf/" ~/dotfiles/.config/kitty/kitty.conf
+
+# Reload tmux configuration
+tmux source-file ~/dotfiles/.config/tmux/tmux.conf
+# Reload kitty configuration
+kitty @ load-config
