@@ -58,16 +58,6 @@ return {
   },
 
   {
-    'e-q/okcolors.nvim',
-    name = 'okcolors',
-    config = function()
-      require('okcolors').setup({
-        variant = 'smooth', -- "smooth" or "sharp", defaults to "smooth"
-      })
-    end,
-  },
-
-  {
     'nyoom-engineering/oxocarbon.nvim',
     priority = 1000,
   },
