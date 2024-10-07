@@ -1,55 +1,4 @@
 return {
-  -- Theme
-  {
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      require('tokyonight').setup({
-        style = 'moon',
-        transparent = false,
-        dim_inactive = false,
-        plugins = {
-          auto = true,
-          all = false,
-        },
-
-        styles = {
-          keywords = { italic = true },
-          comments = { italic = true },
-        },
-        -- on_colors = function(c)
-        --   c.gitSigns.add = c.git.add
-        --   c.gitSigns.change = c.git.change
-        --   c.gitSigns.delete = c.git.delete
-        -- end,
-        on_highlights = function(hl, c)
-          hl.DiagnosticUnderlineError = { underline = true, sp = c.error }
-          hl.DiagnosticUnderlineWarn = { underline = true, sp = c.warning }
-          hl.DiagnosticUnderlineInfo = { underline = true, sp = c.info }
-          hl.DiagnosticUnderlineHint = { underline = true, sp = c.hint }
-          hl.FoldColumn = { bg = 'none' }
-          hl.SignColumn = { bg = 'none' }
-          hl.Undo = { link = 'DiffText' }
-          hl.Redo = { link = 'DiffText' }
-          hl.Paste = { link = 'DiffAdd' }
-          hl.PackageInfoOutdatedVersion = { fg = c.magenta }
-          hl.PackageInfoInvalidVersion = { fg = c.red }
-          hl.PackageInfoUpToDateVersion = { fg = c.green1 }
-          hl.MatchParen = { bold = true, fg = '#ff966c', bg = '#3b4261' }
-          -- hl.IlluminatedWordRead = { underline = true }
-          -- hl.IlluminatedWordText = { underline = true }
-          -- hl.IlluminatedWordWrite = { underline = true }
-          -- hl.GitSignsAdd = { fg = '#627259' }
-          -- hl.GitGutterAddLineNr = { fg = '#627259' }
-          -- hl.GitSignsChange = { fg = '#6785b8' }
-          -- hl.GitGutterChangeLineNr = { fg = '#6785b8' }
-        end,
-      })
-
-      vim.cmd.colorscheme('tokyonight')
-    end,
-  },
-
   -- Highlight colors HEX/RGB/HSV/HSL
   {
     'brenoprata10/nvim-highlight-colors',
@@ -168,14 +117,13 @@ return {
     'shellRaining/hlchunk.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      local colors = require('tokyonight.colors').setup()
       require('hlchunk').setup({
         chunk = {
           enable = true,
           priority = 15,
           style = {
-            { fg = '#806d9c' }, -- TODO: maybe magenta?
-            { fg = colors.error },
+            { fg = '#806d9c' }, -- TODO: link to some highlight?
+            { link = 'Error' },
           },
           use_treesitter = true,
           chars = {
@@ -336,6 +284,7 @@ return {
   {
     'folke/noice.nvim',
     event = { 'VeryLazy' },
+    enabled = false,
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
