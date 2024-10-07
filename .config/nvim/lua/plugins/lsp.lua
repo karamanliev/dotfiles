@@ -967,13 +967,17 @@ return {
 
       -- add package.json to statusline
       local statusline_modules = require('modules.statusline').custom_modules
+      local bg = require('utils.misc').get_statusline_bg().bg
+      local fg = require('utils.misc').get_hl_color('DiagnosticSignHint', 'fg#')
+      vim.api.nvim_set_hl(0, 'PackageInfoOutdatedVersionStatusLine', { fg = fg, bg = bg })
+
       statusline_modules.package_info = function()
         local loading_status = require('package-info.ui.generic.loading-status')
         local spinner = loading_status and loading_status.state.current_spinner or ''
         local status = require('package-info').get_status() or ''
 
         if loading_status and loading_status.state.is_running then
-          return table.concat({ spinner, ' ', status })
+          return table.concat({ '%#PackageInfoOutdatedVersionStatusLine#' .. spinner, ' ', status })
         end
 
         return ''
