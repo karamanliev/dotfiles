@@ -225,7 +225,11 @@ Statusline.active = function()
   local custom_modules = {}
 
   for _, func in pairs(M.custom_modules) do
-    table.insert(custom_modules, func())
+    local result = func()
+
+    if result and result ~= '' then
+      table.insert(custom_modules, result)
+    end
   end
 
   return table.concat({

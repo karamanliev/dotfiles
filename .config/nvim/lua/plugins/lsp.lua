@@ -969,18 +969,14 @@ return {
       local statusline_modules = require('modules.statusline').custom_modules
       statusline_modules.package_info = function()
         local loading_status = require('package-info.ui.generic.loading-status')
-        local spinner = loading_status.state.current_spinner
-        local status = require('package-info').get_status()
+        local spinner = loading_status and loading_status.state.current_spinner or ''
+        local status = require('package-info').get_status() or ''
 
-        if not loading_status.state.is_running then
-          return ''
+        if loading_status and loading_status.state.is_running then
+          return table.concat({ spinner, ' ', status })
         end
 
-        return table.concat({
-          spinner,
-          ' ',
-          status,
-        })
+        return ''
       end
     end,
   },
