@@ -51,6 +51,10 @@ return {
           },
         },
       })
+
+      vim.cmd('hi! link Undo DiffChange')
+      vim.cmd('hi! link Redo DiffChange')
+      vim.cmd('hi! link Paste DiffAdd')
     end,
   },
 
