@@ -7,7 +7,10 @@ return {
       numhl = true,
       signcolumn = true,
       preview_config = {
-        border = 'rounded',
+        border = 'single',
+        style = 'minimal',
+        row = 1,
+        col = 1,
       },
       signs = {
         add = { text = '┃' },

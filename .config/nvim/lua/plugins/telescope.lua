@@ -183,6 +183,19 @@ return {
           vim.wo.wrap = true
         end,
       })
+
+      -- Set borderless highlights
+      local border = require('utils.misc').get_statusline_bg()
+      local fg = require('utils.misc').get_fg_color()
+      local cursorline = require('utils.misc').get_cursorline_bg()
+      vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = fg, bg = border.bg })
+      vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = border.bg, bg = border.bg })
+      vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = cursorline })
+      vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = cursorline, bg = cursorline })
+      vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { link = 'TodoBgNOTE' })
+      vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { link = 'TodoBgTODO' })
+      vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = border.bg, bg = border.bg })
+      vim.api.nvim_set_hl(0, 'TelescopeSelection', { link = 'CursorLine' })
     end,
   },
 

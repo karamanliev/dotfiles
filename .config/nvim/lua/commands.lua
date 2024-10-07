@@ -100,8 +100,13 @@ end, {
 })
 
 command('LazyGit', function()
+  local statusline = require('utils.misc').get_statusline_bg().bg
   vim.cmd(
-    'silent !tmux set -w popup-border-lines rounded; tmux popup -E -eTERM=screen-256color -xC -yS -w100\\% -h99\\%  -d "'
+    'silent !tmux set -w popup-border-lines none; tmux popup -E -eTERM=screen-256color -xC -yS -w100\\% -h99\\% -sbg=\\'
+      .. statusline
+      .. ' -Sbg=\\'
+      .. statusline
+      .. ' -d "'
       .. vim.fn.getcwd()
       .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml'
   )

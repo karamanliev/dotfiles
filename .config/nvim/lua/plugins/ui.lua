@@ -5,6 +5,9 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-highlight-colors').setup({
+        render = 'virtual',
+        virtual_symbol = '■',
+        enable_tailwind = true,
         exclude_filetypes = {
           'bigfile',
         },
@@ -343,7 +346,7 @@ return {
           },
           cmdline_popup = {
             border = {
-              style = 'rounded',
+              style = 'none',
               padding = { 0, 1 },
             },
             position = {
@@ -470,7 +473,8 @@ return {
         open_fold_hl_timeout = 150,
         preview = {
           win_config = {
-            border = 'rounded',
+            border = 'single',
+            winhighlight = 'Normal:NormalFloat',
             winblend = 0,
           },
           mappings = {

@@ -8,7 +8,7 @@ return {
       wk.setup({
         preset = 'helix',
         win = {
-          border = 'single',
+          border = 'none',
           padding = { 1, 2 },
         },
       })

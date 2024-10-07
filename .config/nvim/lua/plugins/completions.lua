@@ -143,7 +143,6 @@ return {
     },
     config = function()
       local cmp = require('cmp')
-      local cmp_window = require('cmp.config.window')
       local luasnip = require('luasnip')
       local lspkind = require('lspkind')
 
@@ -151,6 +150,13 @@ return {
       -- require('copilot_cmp').setup()
       -- lspkind.presets.default.Copilot = ''
       -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
+      local border_color = require('utils.misc').get_statusline_bg()
+      local cursorline = require('utils.misc').get_cursorline_bg()
+
+      vim.api.nvim_set_hl(0, 'CmpBorder', { fg = border_color.bg, bg = border_color.bg })
+      vim.api.nvim_set_hl(0, 'CmpNormal', { bg = border_color.bg })
+      vim.api.nvim_set_hl(0, 'CmpDocBorder', { bg = cursorline, fg = cursorline })
+      vim.api.nvim_set_hl(0, 'CmpDoc', { bg = cursorline })
 
       luasnip.config.setup({})
 
@@ -168,42 +174,41 @@ return {
         formatting = {
           format = function(entry, item)
             local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
-            item = lspkind.cmp_format({
-              mode = 'text',
-              maxwidth = 50,
-              ellipsis_char = '...',
+            local icons = lspkind.symbol_map
+            item.menu = item.kind
+            item.menu_hl_group = 'CmpItemKind' .. (item.kind or '')
 
-              before = function(vim_entry, vim_item)
-                vim_item.kind = vim_item.kind
-                vim_item.menu = ({
-                  nvim_lsp = '[LSP]',
-                  -- copilot = '[AI]',
-                  buffer = '[BUF]',
-                  path = '[PATH]',
-                  luasnip = '[SNIP]',
-                })[vim_entry.source.name]
+            item.kind = item.kind and icons[item.kind] .. ' ' or ''
+            item.menu = ' ' .. item.menu
 
-                if vim_item ~= nil then
-                  local kind = lspkind.presets.default[vim_item.kind] or ''
-                  local abbr = vim_item.abbr or ''
-                  vim_item.abbr = kind .. '  ' .. abbr
-                end
-
-                return vim_item
-              end,
-            })(entry, item)
+            -- if cmp_ui.format_colors.tailwind then
+            --   format_kk.tailwind(entry, item)
+            -- end
 
             if color_item.abbr_hl_group then
               item.kind_hl_group = color_item.abbr_hl_group
-              item.kind = color_item.abbr .. ' ' .. item.kind
+              item.menu_hl_group = color_item.abbr_hl_group
+              item.kind = color_item.abbr
             end
+
             return item
           end,
+
+          fields = { 'kind', 'abbr', 'menu' },
         },
 
         window = {
-          completion = cmp_window.bordered(),
-          documentation = cmp_window.bordered(),
+          completion = {
+            scrollbar = false,
+            side_padding = 0,
+            winhighlight = 'Normal:CmpNormal,CursorLine:CursorLine,FloatBorder:CmpBorder',
+            border = 'single',
+          },
+
+          documentation = {
+            border = 'single',
+            winhighlight = 'Normal:CmpDoc,FloatBorder:CmpDocBorder',
+          },
         },
 
         sorting = {

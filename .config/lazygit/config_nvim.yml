@@ -9,6 +9,7 @@ git:
 gui:
   sidePanelWidth: 0.3333
   nerdFontsVersion: "3"
+  border: "single"
   theme:
     activeBorderColor:
       - "#b4befe"

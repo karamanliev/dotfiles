@@ -115,7 +115,12 @@ return {
           -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
           vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
-          map('K', vim.lsp.buf.hover, 'Hover Info')
+          map('K', function()
+            local winid = require('ufo').peekFoldedLinesUnderCursor()
+            if not winid then
+              vim.lsp.buf.hover()
+            end
+          end, 'Hover Info / Fold Peek')
           map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'i' })
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
@@ -210,8 +215,8 @@ return {
 
       -- add border to hover and signature help
       local default_handlers = {
-        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
-        ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' }),
+        ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' }),
       }
 
       require('lspconfig.configs').vtsls = require('vtsls').lspconfig
@@ -660,7 +665,7 @@ return {
         end
       end
 
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
+      require('lspconfig.ui.windows').default_options.border = 'single'
 
       vim.diagnostic.config({
         virtual_text = false,
@@ -669,7 +674,7 @@ return {
         update_in_insert = true,
         float = {
           source = true,
-          border = 'rounded',
+          border = 'single',
           severity_sort = true,
         },
         signs = {
@@ -681,6 +686,10 @@ return {
           },
         },
       })
+
+      -- set border for gitsigns preview, hover and signature help, diagnostics and so on
+      local floatborder = require('utils.misc').get_statusline_bg().bg
+      vim.api.nvim_set_hl(0, 'FloatBorder', { fg = floatborder, bg = floatborder })
     end,
   },
 
