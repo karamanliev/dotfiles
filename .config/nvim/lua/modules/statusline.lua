@@ -31,7 +31,7 @@ local function mode()
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_name = modes[current_mode] or 'UNKNOWN'
 
-  return string.format(' %s', mode_name:sub(1, 1)):upper()
+  return string.format('%s', mode_name:sub(1, 2)):upper()
 end
 
 local function update_mode_colors()
@@ -42,20 +42,20 @@ local function update_mode_colors()
   local c3 = get_hl_color('DiagnosticSignInfo', 'fg#')
   local c4 = get_hl_color('DiagnosticSignWarn', 'fg#')
 
-  vim.api.nvim_set_hl(0, 'StatusLineAccentElement', { bg = fg, fg = 'NONE' })
   vim.api.nvim_set_hl(0, 'StatusLineAccent', { bg = bg, fg = fg, bold = true })
+  vim.api.nvim_set_hl(0, 'StatusLineAccentElement', { bg = bg, fg = fg })
 
   vim.api.nvim_set_hl(0, 'StatuslineInsertAccent', { bg = bg, fg = c1, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineInsertAccentElement', { bg = c1, fg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineInsertAccentElement', { bg = bg, fg = c1 })
 
   vim.api.nvim_set_hl(0, 'StatuslineVisualAccent', { bg = bg, fg = c2, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineVisualAccentElement', { bg = c2, fg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineVisualAccentElement', { bg = bg, fg = c2 })
 
   vim.api.nvim_set_hl(0, 'StatuslineReplaceAccent', { bg = bg, fg = c3, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineReplaceAccentElement', { bg = c3, fg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineReplaceAccentElement', { bg = bg, fg = c3 })
 
   vim.api.nvim_set_hl(0, 'StatuslineCmdLineAccent', { bg = bg, fg = c4, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineCmdLineAccentElement', { bg = c4, fg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'StatusLineCmdLineAccentElement', { bg = bg, fg = c4 })
 
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_color = '%#StatusLineAccent#'
@@ -78,15 +78,15 @@ local function update_mode_colors()
     element_color = '%#StatusLineCmdLineAccentElement#'
   end
 
-  return element_color .. ' ' .. mode_color
+  return element_color .. '▌' .. mode_color
 end
 
 local function filename()
-  local modified_fg = get_hl_color('@attribute', 'fg#')
+  local inactive_fg = get_hl_color('LineNr', 'fg#')
   local statusline_bg = get_hl_color('StatusLine', 'bg#')
-  vim.api.nvim_set_hl(0, 'StatusLineModified', { fg = modified_fg, bg = statusline_bg })
+  vim.api.nvim_set_hl(0, 'StatusLineNoChanges', { fg = inactive_fg, bg = statusline_bg })
 
-  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.:h')
+  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:h')
   if path == '' or path == '.' or path == '/' then
     path = ' '
   end
@@ -105,10 +105,12 @@ local function filename()
   end
 
   local msymbol = vim.bo.modified and ' [+]' or ''
-  local mhl = vim.bo.modified and '%#StatusLineModified#' or ''
+  local mhl = vim.bo.modified and '%#StatusLine#' or '%#StatusLineNoChanges#'
 
-  return mhl --[[ ficon .. ]]
+  return mhl
+    -- .. ficon
     .. fpath
+    .. '%#StatusLine#'
     .. fname
     .. msymbol
 end
@@ -191,10 +193,14 @@ local function lsp()
 end
 
 local function lineinfo()
+  local inactive_fg = get_hl_color('LineNr', 'fg#')
+  local statusline_bg = get_hl_color('StatusLine', 'bg#')
+  vim.api.nvim_set_hl(0, 'LineInfo', { fg = inactive_fg, bg = statusline_bg })
+
   if vim.bo.filetype == 'alpha' then
     return ''
   end
-  return ' %P %l:%c '
+  return '%#LineInfo#' .. ' %P %l:%c ' .. '%#StatusLine#'
 end
 
 local function branch()
@@ -239,7 +245,15 @@ Statusline.active = function()
 end
 
 function Statusline.inactive()
-  return ' %F'
+  return table.concat({
+    update_mode_colors(),
+    mode(),
+    '%#StatusLine#',
+    filename(),
+    '%=',
+    branch(),
+    ' ',
+  })
 end
 
 function Statusline.short()
@@ -251,7 +265,10 @@ local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   group = augroup,
   pattern = '*',
-  command = 'setlocal statusline=%!v:lua.Statusline.active()',
+  callback = function()
+    vim.o.laststatus = 2
+    vim.o.statusline = '%!v:lua.Statusline.active()'
+  end,
 })
 
 vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
@@ -261,10 +278,13 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
 })
 
 --
--- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
---   group = augroup,
---   pattern = 'NvimTree',
---   command = 'setlocal statusline=%!v:lua.Statusline.short()',
--- })
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
+  group = augroup,
+  pattern = { 'alpha' },
+  callback = function()
+    vim.o.laststatus = 0
+    vim.o.statusline = '%!v:lua.Statusline.short()'
+  end,
+})
 
 return M
