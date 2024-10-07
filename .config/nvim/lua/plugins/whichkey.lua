@@ -6,7 +6,11 @@ return {
     config = function()
       local wk = require('which-key')
       wk.setup({
-        preset = 'modern',
+        preset = 'helix',
+        win = {
+          border = 'single',
+          padding = { 1, 2 },
+        },
       })
 
       -- Document existing key chains
