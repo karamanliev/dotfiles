@@ -60,15 +60,15 @@ return {
 
       button('g', '󰊢  LazyGit', '<cmd>LazyGit<cr>'),
       button('d', '  Diffview', ':DiffviewOpen <CR>'),
-      button('c', '  Commits', ':Telescope git_commits <CR>'),
-      button('b', '  Branches', ':Telescope git_branches <CR>'),
+      -- button('c', '  Commits', ':Telescope git_commits <CR>'),
+      -- button('b', '  Branches', ':Telescope git_branches <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('t', '  TODO', ':e ~/Documents/todo.md<CR>'),
       button('n', '  NOTES', ':e ~/Documents/note.md<CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
+      -- button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
       button('l', '󰒲  Lazy', ':Lazy <CR>'),
       button('m', '󱥒  Mason', ':Mason <CR>'),
       button('q', '  Quit', ':qa<CR>'),
