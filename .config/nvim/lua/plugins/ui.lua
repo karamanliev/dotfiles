@@ -147,7 +147,9 @@ return {
         indent = {
           enable = true,
           priority = 10,
-          style = { vim.api.nvim_get_hl(0, { name = 'Whitespace' }) },
+          style = {
+            { link = 'Whitespace' },
+          },
           use_treesitter = false,
           chars = { '┊' },
           ahead_lines = 5,
