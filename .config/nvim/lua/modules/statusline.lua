@@ -86,7 +86,7 @@ local function filename()
   local statusline_bg = get_hl_color('StatusLine', 'bg#')
   vim.api.nvim_set_hl(0, 'StatusLineNoChanges', { fg = inactive_fg, bg = statusline_bg })
 
-  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:h')
+  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.:h')
   if path == '' or path == '.' or path == '/' then
     path = ' '
   end
