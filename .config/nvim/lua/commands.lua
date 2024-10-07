@@ -257,3 +257,18 @@ autocmd({ 'FileType' }, {
     end)
   end,
 })
+
+-- Open signature help automatically
+autocmd('LspAttach', {
+  group = autogroup('LspSignatureHelp', { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client then
+      local signatureProvider = client.server_capabilities.signatureHelpProvider
+      if signatureProvider and signatureProvider.triggerCharacters then
+        require('utils.lsp').setup(client, args.buf)
+      end
+    end
+  end,
+})
