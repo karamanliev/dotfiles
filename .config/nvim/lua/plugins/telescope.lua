@@ -158,7 +158,12 @@ return {
       vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
       vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
-      vim.keymap.set('n', '<leader>tt', '<cmd>Telescope colorscheme<cr>', { desc = 'Toggle Theme' })
+      vim.keymap.set(
+        'n',
+        '<leader>tt',
+        '<cmd>Telescope colorscheme previewer=false layout_config={height=100,width=25,anchor="NE"}<cr>',
+        { desc = 'Toggle Theme' }
+      )
 
       vim.keymap.set('n', '<leader>f/', function()
         builtin.live_grep({
