@@ -1,6 +1,7 @@
 require('options')
 require('commands')
 require('keymaps')
+require('modules.statusline')
 
 -- Lazy and plugins load
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'

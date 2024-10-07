@@ -954,27 +954,25 @@ return {
         desc = 'Load package-info keys',
       })
 
-      -- add package.json status to lualine
-      local lualine_config = require('lualine').get_config()
-      local extended_lualine_x = vim.deepcopy(lualine_config.sections.lualine_x) -- Make a copy to avoid modifying the original config
-      table.insert(extended_lualine_x, 1, {
-        function()
-          local pi_status = require('package-info.ui.generic.loading-status')
-          local spinner = require('noice.util.spinners').spin('bouncingBar')
       vim.cmd('hi! link PackageInfoOutdatedVersion DiagnosticHint')
 
-          return spinner .. ' ' .. pi_status.get()
-        end,
-        cond = function()
-          return require('package-info').get_status() ~= ''
-        end,
-        color = { fg = colors.magenta },
-      })
-      require('lualine').setup(vim.tbl_deep_extend('force', lualine_config, {
-        sections = {
-          lualine_x = extended_lualine_x,
-        },
-      }))
+      -- add package.json to statusline
+      local statusline_modules = require('modules.statusline').custom_modules
+      statusline_modules.package_info = function()
+        local loading_status = require('package-info.ui.generic.loading-status')
+        local spinner = loading_status.state.current_spinner
+        local status = require('package-info').get_status()
+
+        if not loading_status.state.is_running then
+          return ''
+        end
+
+        return table.concat({
+          spinner,
+          ' ',
+          status,
+        })
+      end
     end,
   },
 
