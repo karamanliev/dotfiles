@@ -92,6 +92,9 @@ local function filename()
   end
 
   local fpath = string.format(' %%<%s/', path)
+  if #fpath > 50 then
+    fpath = ' ...' .. fpath:sub(-47) -- Keep the last 47 characters and add '...'
+  end
 
   local fname = vim.fn.expand('%:t')
   if fname == '' then
