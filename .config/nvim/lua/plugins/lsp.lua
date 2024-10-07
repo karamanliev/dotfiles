@@ -733,7 +733,7 @@ return {
       },
     },
     config = function()
-      local colors = require('tokyonight.colors').setup()
+      local bg = require('utils.misc').get_bg_color()
 
       require('tiny-inline-diagnostic').setup({
         signs = {
@@ -752,7 +752,7 @@ return {
           hint = 'DiagnosticHint',
           arrow = 'NonText',
           background = 'CursorLine', -- Can be a highlight or a hexadecimal color (#RRGGBB)
-          mixing_color = colors.bg, -- Can be None or a hexadecimal color (#RRGGBB). Used to blend the background color with the diagnostic background color with another color.
+          mixing_color = bg,
         },
         blend = {
           factor = 0.1,
@@ -784,8 +784,6 @@ return {
           },
         },
       })
-
-      vim.cmd('hi TinyInlineDiagnosticVirtualTextArrow guifg=' .. colors.fg_dark)
     end,
   },
 
@@ -899,13 +897,7 @@ return {
     dependencies = { 'MunifTanjim/nui.nvim' },
     event = 'BufRead package.json',
     config = function()
-      local colors = require('tokyonight.colors').setup()
       require('package-info').setup({
-        colors = {
-          up_to_date = colors.green1,
-          outdated = colors.magenta,
-          invalid = colors.red,
-        },
         icons = {
           enable = true,
           style = {
@@ -969,6 +961,7 @@ return {
         function()
           local pi_status = require('package-info.ui.generic.loading-status')
           local spinner = require('noice.util.spinners').spin('bouncingBar')
+      vim.cmd('hi! link PackageInfoOutdatedVersion DiagnosticHint')
 
           return spinner .. ' ' .. pi_status.get()
         end,

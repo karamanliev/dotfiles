@@ -6,8 +6,8 @@ return {
     cmd = 'Copilot',
     event = { 'InsertEnter' },
     config = function()
-      local colors = require('tokyonight.colors').setup()
-      vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
+      -- local colors = require('tokyonight.colors').setup()
+      -- vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
 
       require('copilot').setup({
         panel = {
@@ -48,7 +48,7 @@ return {
     'supermaven-inc/supermaven-nvim',
     enabled = false,
     config = function()
-      local colors = require('tokyonight.colors').setup()
+      -- local colors = require('tokyonight.colors').setup()
       require('supermaven-nvim').setup({
         keymaps = {
           accept_suggestion = '<Tab>',
@@ -57,7 +57,7 @@ return {
         },
         ignore_filetypes = { cpp = true }, -- or { "cpp", }
         color = {
-          suggestion_color = colors.fg_dark,
+          -- suggestion_color = colors.fg_dark,
           cterm = 244,
           override = true,
         },
