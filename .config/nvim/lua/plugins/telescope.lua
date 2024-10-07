@@ -57,7 +57,7 @@ return {
               ['<C-S-x>'] = function()
                 misc.open_ssh_file({ is_folder = true })
               end,
-              ['<Tab>'] = misc.focus_preview,
+              ['<C-f>'] = misc.focus_preview,
             },
             n = {
               ['<c-q>'] = open_with_trouble,
