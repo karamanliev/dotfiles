@@ -23,7 +23,7 @@ vim.o.foldenable = true
 -- custom statuscolumn
 vim.opt.statuscolumn = " %s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''} "
 -- vim.opt.statuscolumn = " %=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
-vim.opt.laststatus = 0
+-- vim.opt.laststatus = 0
 
 -- enable changing buffers without saving
 vim.opt.hidden = true
