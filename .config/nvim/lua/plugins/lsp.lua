@@ -25,8 +25,8 @@ return {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          local map = function(keys, func, desc, mode)
+            vim.keymap.set(mode and mode or 'n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
           -- Keybinds are only enabled for tsserver files
@@ -116,7 +116,7 @@ return {
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
           vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
           map('K', vim.lsp.buf.hover, 'Hover Info')
-          map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
+          map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'i' })
 
           -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
           --[[ map('K', function()
