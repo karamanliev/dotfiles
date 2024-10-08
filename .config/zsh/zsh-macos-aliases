@@ -19,3 +19,6 @@ alias ios='react-native run-ios --device'
 alias ioss='react-native run-ios --simulator "iPhone SE (2nd generation)"'
 alias droid='react-native run-android --deviceId adb-84a9125d-WK5YNe._adb-tls-connect._tcp.'
 alias yalcp='yalc push'
+
+# App aliases
+alias sed='gsed'
