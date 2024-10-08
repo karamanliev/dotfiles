@@ -34,4 +34,24 @@ M.get_hl_color = function(group, attr)
   return vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(group)), attr)
 end
 
+M.theme_switch_kb = {
+  {
+    '<leader>tt',
+    function()
+      local target = vim.fn.getcompletion
+
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.fn.getcompletion = function()
+        return vim.tbl_filter(function(color)
+          return not vim.tbl_contains({ 'randombones' }, color)
+        end, target('', 'color'))
+      end
+
+      vim.cmd('Telescope colorscheme previewer=false layout_config={height=100,width=25,anchor="NE"}')
+      vim.fn.getcompletion = target
+    end,
+    desc = 'Toggle Theme',
+  },
+}
+
 return M

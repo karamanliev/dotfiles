@@ -3,7 +3,7 @@ return {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     lazy = true,
-    keys = { '<leader>tt' },
+    keys = require('utils.misc').theme_switch_kb,
     config = function()
       require('tokyonight').setup({
         style = 'moon',
@@ -54,7 +54,7 @@ return {
     'zenbones-theme/zenbones.nvim',
     priority = 1000,
     lazy = true,
-    keys = { '<leader>tt' },
+    keys = require('utils.misc').theme_switch_kb,
     config = function()
       vim.g.bones_compat = 1
       -- vim.cmd.colorscheme('tokyobones')
@@ -65,14 +65,14 @@ return {
     'nyoom-engineering/oxocarbon.nvim',
     priority = 1000,
     lazy = true,
-    keys = { '<leader>tt' },
+    keys = require('utils.misc').theme_switch_kb,
   },
 
   {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
-    keys = { '<leader>tt' },
+    keys = require('utils.misc').theme_switch_kb,
     config = function()
       require('poimandres').setup({
         bold_vert_split = false, -- use bold vertical separators
@@ -88,7 +88,7 @@ return {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = true,
-    keys = { '<leader>tt' },
+    keys = require('utils.misc').theme_switch_kb,
     priority = 1000,
     config = function()
       require('rose-pine').setup({
