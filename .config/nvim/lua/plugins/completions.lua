@@ -327,7 +327,7 @@ return {
         }),
 
         sources = {
-          { name = 'buffer' },
+          { name = 'buffer', max_item_count = 5 },
         },
       })
 
