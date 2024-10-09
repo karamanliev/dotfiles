@@ -53,8 +53,14 @@
         {
           "active": false,
           "label": "󰕧",
-          "type": "toggle",
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && screen-record start DP-3 || screen-record stop'"
+          "type": "button",
+          "command": "screen-record start DP-3"
+        },
+        {
+          "active": false,
+          "label": "S",
+          "type": "button",
+          "command": "screen-record stop"
         },
         {
           "active": false,
@@ -81,5 +87,5 @@
     }
   },
 
-  "widgets": ["title", "notifications", "dnd", "buttons-grid", "inhibitors"]
+  "widgets": ["title", "notifications", "dnd", "inhibitors"]
 }
