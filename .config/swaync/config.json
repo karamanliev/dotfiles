@@ -52,15 +52,15 @@
         },
         {
           "active": false,
-          "command": "obs",
           "label": "󰕧",
-          "type": "button"
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && screen-record start DP-3 || screen-record stop'"
         },
         {
           "active": false,
-          "command": "swaync-client -t",
+          "command": "ags -t powermenu",
           "label": "",
-          "type": "toggle"
+          "type": "button"
         }
       ]
     },
