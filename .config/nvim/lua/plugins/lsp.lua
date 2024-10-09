@@ -588,14 +588,23 @@ return {
           enabled = false,
           filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'php' },
         },
-        jsonls = {},
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas({}),
+              validate = { enable = true },
+            },
+          },
+        },
         yamlls = {
           filetypes = { 'yaml' },
           settings = {
             yaml = {
-              format = {
-                enable = true,
+              schemaStore = {
+                enable = false,
+                url = '',
               },
+              schemas = require('schemastore').yaml.schemas(),
             },
           },
         },
@@ -1104,5 +1113,10 @@ return {
         end,
       })
     end,
+  },
+
+  {
+    'b0o/schemastore.nvim',
+    ft = { 'json', 'yaml', 'yml' },
   },
 }
