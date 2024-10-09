@@ -198,6 +198,7 @@ steam
 stow
 stretchly-git
 sushi
+swaync
 swww
 tauon-music-box
 tecla
