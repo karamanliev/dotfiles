@@ -144,6 +144,7 @@ networkmanager
 networkmanager-l2tp
 networkmanager-strongswan
 nicotine+
+notify-send.sh
 noto-fonts
 nss-mdns
 ntfs-3g
