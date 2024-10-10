@@ -20,11 +20,32 @@ return {
   -- Harpoon
   {
     'ThePrimeagen/harpoon',
-    event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      -- Add to Harpoon
+      { '<leader>a', desc = 'Add to Harpoon' },
+
+      -- Toggle Harpoon
+      { '<C-e>' },
+      { '<M-1>' },
+      { '<M-2>' },
+      { '<M-3>' },
+      { '<M-4>' },
+
+      -- Replace Harpoon slots
+      { '<leader><M-1>' },
+      { '<leader><M-2>' },
+      { '<leader><M-3>' },
+      { '<leader><M-4>' },
+
+      -- Navigate between Harpoon buffers
+      { '<C-S-p>' },
+      { '<C-S-n>' },
+    },
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local harpoon = require('harpoon')
+      local harpoon_util = require('utils.telescope.harpoon')
 
       harpoon:setup()
 
@@ -69,6 +90,19 @@ return {
       vim.keymap.set('n', '<C-S-n>', function()
         harpoon:list():next({ ui_nav_wrap = true })
       end, { desc = 'Next Harpoon' })
+
+      require('telescope').setup({
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-s>'] = harpoon_util.mark,
+            },
+            n = {
+              ['<C-s>'] = harpoon_util.mark,
+            },
+          },
+        },
+      })
     end,
   },
 

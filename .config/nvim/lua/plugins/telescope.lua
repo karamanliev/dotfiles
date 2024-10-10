@@ -17,7 +17,6 @@ return {
     },
     config = function()
       local actions = require('telescope.actions')
-      local harpoon = require('utils.telescope.harpoon')
       local image = require('utils.telescope.image')
       local misc = require('utils.telescope.misc')
       local open_with_trouble = require('trouble.sources.telescope').open
@@ -50,7 +49,6 @@ return {
               ['<c-p>'] = 'move_selection_previous',
               ['<M-n>'] = 'cycle_history_next',
               ['<M-p>'] = 'cycle_history_prev',
-              ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
                 misc.open_ssh_file({ is_folder = false })
               end,
@@ -62,7 +60,6 @@ return {
             n = {
               ['<c-q>'] = open_with_trouble,
               ['<m-q>'] = add_to_trouble,
-              ['<C-s>'] = harpoon.mark,
               ['<C-x>'] = function()
                 misc.open_ssh_file({ is_folder = false })
               end,
