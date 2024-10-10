@@ -65,6 +65,7 @@ alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
+alt-c = "exec-and-forget bash -c 'if [ \"$(aerospace list-workspaces --focused)\" = \"C\" ]; then aerospace workspace-back-and-forth; else aerospace workspace C; fi'"
 
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
@@ -72,6 +73,7 @@ alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-c = 'move-node-to-workspace C'
 
 alt-n = 'workspace next --wrap-around'
 alt-p = 'workspace prev --wrap-around'
@@ -116,13 +118,21 @@ if.app-id = 'com.brave.Browser'
 run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = "move-node-to-workspace 2"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace 4"
+run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace 6"
+run = "move-node-to-workspace C"
 
 [[on-window-detected]]
 if.app-id = 'com.tdesktop.Telegram'
-run = "move-node-to-workspace 6"
+run = "move-node-to-workspace C"

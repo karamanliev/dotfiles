@@ -2,17 +2,16 @@
 
 sketchybar --add event aerospace_workspace_change
 
-for i in $(aerospace list-workspaces --all); do
-	sid=$((i))
-	sketchybar --add space space.$sid left \
-		--subscribe space.$sid aerospace_workspace_change system_woke \
-		--set space.$sid associated_space=$sid \
+for i in $(aerospace list-workspaces --monitor all); do
+	sketchybar --add space space.$i left \
+		--subscribe space.$i aerospace_workspace_change system_woke \
+		--set space.$i associated_space=$i \
 		label.drawing=off \
 		icon.padding_left=9 \
 		icon.padding_right=9 \
 		background.padding_left=2 \
 		background.padding_right=2 \
-		background.color=0x22ffffff \
+		background.color=0x24ffffff \
 		background.corner_radius=4 \
 		background.height=22 \
 		background.drawing=off \
@@ -26,4 +25,4 @@ sketchybar --add item separator left \
 	background.padding_right=0 \
 	label.drawing=off \
 	associated_display=active \
-	icon.color="$YELLOW"
+	icon.color="$MAGENTA"
