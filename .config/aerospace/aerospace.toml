@@ -65,7 +65,7 @@ alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
-alt-c = "exec-and-forget bash -c 'if [ \"$(aerospace list-workspaces --focused)\" = \"C\" ]; then aerospace workspace-back-and-forth; else aerospace workspace C; fi'"
+alt-c = "exec-and-forget bash -c 'if [ \"$(aerospace list-workspaces --focused)\" = \"7\" ]; then aerospace workspace-back-and-forth; else aerospace workspace 7; fi'"
 
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
@@ -73,7 +73,7 @@ alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-c = 'move-node-to-workspace C'
+alt-shift-c = 'move-node-to-workspace 7'
 
 alt-n = 'workspace next --wrap-around'
 alt-p = 'workspace prev --wrap-around'
@@ -82,9 +82,14 @@ alt-tab = 'workspace-back-and-forth'
 alt-r = 'mode resize'
 alt-shift-semicolon = 'mode service'
 
+alt-period = 'resize width +50'
+alt-comma = 'resize width -50'
+alt-shift-period = 'resize height +50'
+alt-shift-comma = 'resize height -50'
+
 # App launch
 alt-e = 'exec-and-forget osascript -e "tell application \"Finder\" to make new Finder window to HOME"'
-alt-s = 'exec-and-forget open -n /Applications/kitty.app'
+# alt-s = 'exec-and-forget open -n /Applications/kitty.app'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
@@ -111,6 +116,10 @@ run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.iCal'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
 run = ['layout floating']
 
 [[on-window-detected]]
