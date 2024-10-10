@@ -40,8 +40,9 @@ source "$ITEM_DIR/front_app.sh"
 
 # Center (of notch)
 source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/memory.sh"
 source "$ITEM_DIR/vpn.sh"
-source "$ITEM_DIR/spotify.sh"
+# source "$ITEM_DIR/spotify.sh"
 
 # Right
 source "$ITEM_DIR/clock.sh"
