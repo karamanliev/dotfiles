@@ -131,7 +131,8 @@ return {
 
   -- Autocompletion
   {
-    'hrsh7th/nvim-cmp',
+    'iguanacucumber/magazine.nvim',
+    name = 'nvim-cmp',
     event = { 'InsertEnter' },
     dependencies = {
       'saadparwaiz1/cmp_luasnip',
@@ -364,7 +365,6 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
       require('nvim-autopairs').setup({})
       -- If you want to automatically add `(` after selecting a function or method
