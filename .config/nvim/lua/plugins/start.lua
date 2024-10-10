@@ -69,7 +69,10 @@ return {
       { type = 'padding', val = 1 }, -- This adds a new line
 
       -- button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
-      button('l', '󰒲  Lazy', ':Lazy <CR>'),
+      ---@diagnostic disable-next-line: param-type-mismatch
+      button('l', '󰒲  Lazy', function()
+        require('lazy').home()
+      end),
       button('m', '󱥒  Mason', ':Mason <CR>'),
       button('q', '  Quit', ':qa<CR>'),
     }
