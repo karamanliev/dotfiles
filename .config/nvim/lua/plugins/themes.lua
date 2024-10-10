@@ -215,7 +215,7 @@ return {
         terminalColors = true,
         commentStyle = { italic = true },
         functionStyle = { italic = false },
-        keywordStyle = { italic = false, bold = false },
+        keywordStyle = { italic = true, bold = true },
         statementStyle = { italic = false, bold = false },
         typeStyle = { italic = false },
         colors = { theme = {}, palette = {} }, -- override default palette and theme colors
