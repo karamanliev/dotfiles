@@ -110,3 +110,5 @@ vim.keymap.set('n', '<leader>Y', function()
   local tmux_command = 'silent !tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
   vim.cmd(tmux_command)
 end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
+
+vim.keymap.set('n', 'gs', '<nop>', { desc = 'Remap useless gs whic blocked everything for 1s' })
