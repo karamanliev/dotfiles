@@ -5,8 +5,8 @@ after-startup-command = [
     'exec-and-forget sketchybar'
 ]
 
-exec-on-workspace-change = ['/bin/bash', '-c',
-    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+    exec-on-workspace-change = ['/bin/bash', '-c',
+    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE EMPTY_WORKSPACES="$(aerospace list-workspaces --monitor all --empty | tr "\n" " ")"',
 ]
 
 start-at-login = true
@@ -50,6 +50,7 @@ alt-l = 'focus right'
 alt-f = 'fullscreen'
 alt-q = 'close'
 alt-shift-r = 'reload-config'
+alt-ctrl-r = "exec-and-forget bash -c 'sketchybar --reload'"
 
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'

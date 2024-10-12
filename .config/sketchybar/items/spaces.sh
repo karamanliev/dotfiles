@@ -2,11 +2,16 @@
 
 sketchybar --add event aerospace_workspace_change
 
-for i in $(aerospace list-workspaces --monitor all); do
-	sketchybar --add space space.$i left \
-		--subscribe space.$i aerospace_workspace_change system_woke \
-		--set space.$i associated_space=$i \
+ICONS=("1" "2" "3" "4" "5" "6" "C")
+
+for sid in $(aerospace list-workspaces --all); do
+
+	sketchybar --add item space.$sid left \
+		--subscribe space.$sid aerospace_workspace_change \
+		--set space.$sid \
+		--animate tanh 5 \
 		label.drawing=off \
+		icon="${ICONS[$sid - 1]}" \
 		icon.padding_left=9 \
 		icon.padding_right=9 \
 		background.padding_left=2 \
@@ -15,7 +20,8 @@ for i in $(aerospace list-workspaces --monitor all); do
 		background.corner_radius=4 \
 		background.height=22 \
 		background.drawing=off \
-		script="$PLUGIN_DIR/space.sh"
+		click_script="aerospace workspace $sid" \
+		script="$PLUGIN_DIR/space.sh $sid"
 done
 
 sketchybar --add item separator left \
