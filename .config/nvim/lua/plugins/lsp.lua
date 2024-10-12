@@ -699,6 +699,7 @@ return {
       -- set border for gitsigns preview, hover and signature help, diagnostics and so on
       local floatborder = require('utils.misc').get_statusline_bg().bg
       vim.api.nvim_set_hl(0, 'FloatBorder', { fg = floatborder, bg = floatborder })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = floatborder })
     end,
   },
 
