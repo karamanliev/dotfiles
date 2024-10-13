@@ -56,7 +56,6 @@ M.set_colorscheme = function(prompt_bufnr)
     require('telescope.actions').close(prompt_bufnr)
     vim.cmd('colorscheme ' .. colorscheme.value)
     local colorscheme_path = vim.fn.stdpath('config') .. '/lua/colors/colorscheme.lua'
-    local highlights_path = vim.fn.stdpath('config') .. '/lua/colors/highlights.lua'
     local lines = vim.fn.readfile(colorscheme_path)
 
     for i, line in ipairs(lines) do
@@ -66,7 +65,6 @@ M.set_colorscheme = function(prompt_bufnr)
       end
     end
 
-    vim.cmd('source' .. highlights_path)
     vim.fn.writefile(lines, colorscheme_path)
     vim.fn.system('nvim-sync-colors.sh')
   end

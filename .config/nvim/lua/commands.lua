@@ -277,3 +277,12 @@ autocmd('LspAttach', {
     end
   end,
 })
+
+autocmd({ 'ColorScheme', 'ColorSchemePre' }, {
+  pattern = '*',
+  group = general,
+  callback = function()
+    vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/colors/highlights.lua')
+  end,
+  desc = 'Source highlights.lua',
+})
