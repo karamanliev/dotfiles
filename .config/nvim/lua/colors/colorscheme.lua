@@ -1,1 +1,1 @@
-vim.cmd.colorscheme('kanagawa-paper')
+vim.cmd.colorscheme('tokyonight-storm')
