@@ -241,6 +241,7 @@ xdg-utils
 xorg-xinit
 yay
 yazi
+zen-browser-avx2-bin
 zoxide
 zram-generator
 zsh
