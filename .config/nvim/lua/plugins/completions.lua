@@ -46,9 +46,8 @@ return {
   -- TODO: Try paid supermaven subscription when copilot subscription expires
   {
     'supermaven-inc/supermaven-nvim',
-    enabled = false,
+    enabled = true,
     config = function()
-      -- local colors = require('tokyonight.colors').setup()
       require('supermaven-nvim').setup({
         keymaps = {
           accept_suggestion = '<Tab>',
@@ -56,17 +55,16 @@ return {
           accept_word = '<C-j>',
         },
         ignore_filetypes = { cpp = true }, -- or { "cpp", }
-        color = {
-          -- suggestion_color = colors.fg_dark,
-          cterm = 244,
-          override = true,
-        },
-        log_level = 'off', -- set to "off" to disable logging completely
-        disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false, -- disables built in keymaps for more manual control
+        -- color = {
+        --   suggestion_color = "#FFFFFF",
+        --   cterm = 244,
+        -- },
+        log_level = 'off',
+        disable_inline_completion = false,
+        disable_keymaps = false,
         condition = function()
-          return false
-        end, -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+          return string.match(vim.fn.expand('%:t'), '.env')
+        end,
       })
     end,
   },
