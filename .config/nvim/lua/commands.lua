@@ -282,7 +282,7 @@ autocmd({ 'ColorScheme', 'ColorSchemePre' }, {
   pattern = '*',
   group = general,
   callback = function()
-    vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/colors/highlights.lua')
+    vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/custom/highlights.lua')
   end,
   desc = 'Source highlights.lua',
 })
