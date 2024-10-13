@@ -2,6 +2,6 @@
 .config/tmux/sessions
 .config/tmux/plugins
 .config/nvim/lazy-lock.json
+.config/nvim/lua/custom/colorscheme.lua
 .config/kitty/colorscheme.conf
-.config/nvim/lua/colors/colorscheme.lua
 .config/tmux/dynamic_colors.conf
