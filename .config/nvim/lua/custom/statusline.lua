@@ -30,7 +30,7 @@ local function mode()
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_name = modes[current_mode] or 'UNKNOWN'
 
-  return string.format('%s', mode_name:sub(1, 2)):upper()
+  return string.format('%s', mode_name:sub(1, 1)):upper()
 end
 
 local function update_mode_colors()
