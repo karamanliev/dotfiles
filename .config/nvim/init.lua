@@ -31,3 +31,4 @@ require('lazy').setup('plugins', {
 
 -- Load colorscheme
 vim.cmd.colorscheme('poimandres')
+require('highlights')

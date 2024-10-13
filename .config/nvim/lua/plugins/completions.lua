@@ -149,13 +149,6 @@ return {
       -- require('copilot_cmp').setup()
       -- lspkind.presets.default.Copilot = ''
       -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
-      local border_color = require('utils.misc').get_statusline_bg()
-      local cursorline = require('utils.misc').get_cursorline_bg()
-
-      vim.api.nvim_set_hl(0, 'CmpBorder', { fg = border_color.bg, bg = border_color.bg })
-      vim.api.nvim_set_hl(0, 'CmpNormal', { bg = border_color.bg })
-      vim.api.nvim_set_hl(0, 'CmpDocBorder', { bg = cursorline, fg = cursorline })
-      vim.api.nvim_set_hl(0, 'CmpDoc', { bg = cursorline })
 
       luasnip.config.setup({})
 

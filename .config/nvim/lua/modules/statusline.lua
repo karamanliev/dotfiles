@@ -1,5 +1,4 @@
 local M = {}
-local get_hl_color = require('utils.misc').get_hl_color
 
 M.custom_modules = {}
 Statusline = {}
@@ -35,28 +34,6 @@ local function mode()
 end
 
 local function update_mode_colors()
-  local fg = get_hl_color('StatusLine', 'fg#')
-  local bg = get_hl_color('StatusLine', 'bg#')
-  local c1 = get_hl_color('DiagnosticSignOk', 'fg#')
-  local c2 = get_hl_color('DiagnosticSignHint', 'fg#')
-  local c3 = get_hl_color('DiagnosticSignInfo', 'fg#')
-  local c4 = get_hl_color('DiagnosticSignWarn', 'fg#')
-
-  vim.api.nvim_set_hl(0, 'StatusLineAccent', { bg = bg, fg = fg, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineAccentElement', { bg = bg, fg = fg })
-
-  vim.api.nvim_set_hl(0, 'StatuslineInsertAccent', { bg = bg, fg = c1, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineInsertAccentElement', { bg = bg, fg = c1 })
-
-  vim.api.nvim_set_hl(0, 'StatuslineVisualAccent', { bg = bg, fg = c2, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineVisualAccentElement', { bg = bg, fg = c2 })
-
-  vim.api.nvim_set_hl(0, 'StatuslineReplaceAccent', { bg = bg, fg = c3, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineReplaceAccentElement', { bg = bg, fg = c3 })
-
-  vim.api.nvim_set_hl(0, 'StatuslineCmdLineAccent', { bg = bg, fg = c4, bold = true })
-  vim.api.nvim_set_hl(0, 'StatusLineCmdLineAccentElement', { bg = bg, fg = c4 })
-
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_color = '%#StatusLineAccent#'
   local element_color = '%#StatusLineAccentElement#'
@@ -82,10 +59,6 @@ local function update_mode_colors()
 end
 
 local function filename()
-  local inactive_fg = get_hl_color('LineNr', 'fg#')
-  local statusline_bg = get_hl_color('StatusLine', 'bg#')
-  vim.api.nvim_set_hl(0, 'StatusLineNoChanges', { fg = inactive_fg, bg = statusline_bg })
-
   local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.:h')
   if path == '' or path == '.' or path == '/' then
     path = ' '
@@ -119,13 +92,6 @@ local function filename()
 end
 
 local function git_changes()
-  for _, sign in ipairs({ 'Add', 'Change', 'Delete' }) do
-    local git_fg = get_hl_color('GitSigns' .. sign, 'fg#')
-    local statusline_bg = get_hl_color('StatusLine', 'bg#')
-
-    vim.api.nvim_set_hl(0, 'StatusLineGitSigns' .. sign, { fg = git_fg, bg = statusline_bg })
-  end
-
   local git_info = vim.b.gitsigns_status_dict
   if not git_info or git_info.head == '' then
     return ''
@@ -155,13 +121,6 @@ local function git_changes()
 end
 
 local function lsp()
-  for _, level in ipairs({ 'Error', 'Warn', 'Hint', 'Info' }) do
-    local diag_fg = get_hl_color('Diagnostic' .. level, 'fg#')
-    local statusline_bg = get_hl_color('StatusLine', 'bg#')
-
-    vim.api.nvim_set_hl(0, 'StatusLineDiagnostic' .. level, { fg = diag_fg, bg = statusline_bg })
-  end
-
   local count = {}
   local levels = {
     errors = 'Error',
@@ -196,10 +155,6 @@ local function lsp()
 end
 
 local function lineinfo()
-  local inactive_fg = get_hl_color('LineNr', 'fg#')
-  local statusline_bg = get_hl_color('StatusLine', 'bg#')
-  vim.api.nvim_set_hl(0, 'LineInfo', { fg = inactive_fg, bg = statusline_bg })
-
   if vim.bo.filetype == 'alpha' then
     return ''
   end

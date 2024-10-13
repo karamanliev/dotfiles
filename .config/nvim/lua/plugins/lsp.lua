@@ -695,11 +695,6 @@ return {
           },
         },
       })
-
-      -- set border for gitsigns preview, hover and signature help, diagnostics and so on
-      local floatborder = require('utils.misc').get_statusline_bg().bg
-      vim.api.nvim_set_hl(0, 'FloatBorder', { fg = floatborder, bg = floatborder })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = floatborder })
     end,
   },
 
@@ -977,9 +972,6 @@ return {
 
       -- add package.json to statusline
       local statusline_modules = require('modules.statusline').custom_modules
-      local bg = require('utils.misc').get_statusline_bg().bg
-      local fg = require('utils.misc').get_hl_color('DiagnosticSignHint', 'fg#')
-      vim.api.nvim_set_hl(0, 'PackageInfoOutdatedVersionStatusLine', { fg = fg, bg = bg })
 
       statusline_modules.package_info = function()
         local loading_status = require('package-info.ui.generic.loading-status')
