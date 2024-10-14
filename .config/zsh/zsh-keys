@@ -1,9 +1,11 @@
 # Open hist_delete_fzf
-zle -N hist_delete_fzf
 bindkey '^[r' hist_delete_fzf
 
+bindkey '^[t' change_terminal_colorscheme
+
 # edit in vim buffer
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey -M vicmd "^v" edit-command-line
 
 # Use vim keys in tab complete menu

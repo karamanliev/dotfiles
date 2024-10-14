@@ -16,3 +16,9 @@ hist_delete_fzf() {
   	echo "nothing deleted from history"
   fi
 }
+zle -N hist_delete_fzf
+
+change_terminal_colorscheme() {
+	zsh-sync-colors.sh
+}
+zle -N change_terminal_colorscheme
