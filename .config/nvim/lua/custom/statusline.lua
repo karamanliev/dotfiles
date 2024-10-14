@@ -65,8 +65,12 @@ local function filename()
   end
 
   local fpath = string.format(' %%<%s/', path)
-  if #fpath > 50 then
-    fpath = ' ...' .. fpath:sub(-47) -- Keep the last 47 characters and add '...'
+  if #fpath > 60 then
+    fpath = ' ...' .. fpath:sub(-47) -- Keep the last 57 characters and add '...'
+  end
+
+  if vim.o.columns < 80 then
+    fpath = ' '
   end
 
   local fname = vim.fn.expand('%:t')
@@ -176,6 +180,28 @@ local function branch()
   return ' ' .. branch_name
 end
 
+local function lsp_msg()
+  local msg = vim.lsp.status()
+
+  if #msg == 0 or vim.o.columns < 120 then
+    return ''
+  end
+
+  local spinners = { '', '󰪞', '󰪟', '󰪠', '󰪢', '󰪣', '󰪤', '󰪥' }
+  local ms = vim.uv.hrtime() / 1e6
+  local frame = math.floor(ms / 100) % #spinners
+
+  return '%#StatusLineNoChanges#' .. spinners[frame + 1] .. ' ' .. msg
+end
+
+local hide_when_small = function(module)
+  if vim.o.columns < 120 then
+    return ''
+  else
+    return module
+  end
+end
+
 Statusline.active = function()
   local custom_modules = {}
 
@@ -188,8 +214,8 @@ Statusline.active = function()
   end
 
   return table.concat({
-    update_mode_colors(),
-    mode(),
+    hide_when_small(update_mode_colors()),
+    hide_when_small(mode()),
     '%#StatusLine#',
     filename(),
     ' %#StatusLine#',
@@ -197,9 +223,10 @@ Statusline.active = function()
     '%=%#StatusLine#',
     table.concat(custom_modules, ' '),
     ' %#StatusLine#',
+    hide_when_small(lsp_msg()),
     diagnostics(),
     ' %#StatusLine#',
-    lineinfo(),
+    hide_when_small(lineinfo()),
     ' ',
     branch(),
     ' ',
@@ -239,13 +266,23 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
   command = 'setlocal statusline=%!v:lua.Statusline.inactive()',
 })
 
---
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
   group = augroup,
   pattern = { 'alpha' },
   callback = function()
     vim.o.laststatus = 0
     vim.o.statusline = '%!v:lua.Statusline.short()'
+  end,
+})
+
+-- Redraw statusline when LSP progress is done
+vim.api.nvim_create_autocmd('LspProgress', {
+  callback = function(args)
+    if string.find(args.match, 'end') then
+      vim.cmd('redrawstatus')
+    end
+
+    vim.cmd('redrawstatus')
   end,
 })
 
