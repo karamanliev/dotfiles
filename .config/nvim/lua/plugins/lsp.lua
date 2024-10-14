@@ -971,7 +971,7 @@ return {
       vim.cmd('hi! link PackageInfoOutdatedVersion DiagnosticHint')
 
       -- add package.json to statusline
-      local statusline_modules = require('modules.statusline').custom_modules
+      local statusline_modules = require('custom.statusline').custom_modules
 
       statusline_modules.package_info = function()
         local loading_status = require('package-info.ui.generic.loading-status')
