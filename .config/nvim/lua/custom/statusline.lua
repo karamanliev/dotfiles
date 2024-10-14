@@ -120,7 +120,7 @@ local function git_changes()
   })
 end
 
-local function lsp()
+local function diagnostics()
   local count = {}
   local levels = {
     errors = 'Error',
@@ -197,7 +197,7 @@ Statusline.active = function()
     '%=%#StatusLine#',
     table.concat(custom_modules, ' '),
     ' %#StatusLine#',
-    lsp(),
+    diagnostics(),
     ' %#StatusLine#',
     lineinfo(),
     ' ',
