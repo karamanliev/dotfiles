@@ -234,19 +234,11 @@ Statusline.active = function()
 end
 
 function Statusline.inactive()
-  return table.concat({
-    update_mode_colors(),
-    mode(),
-    '%#StatusLine#',
-    filename(),
-    '%=',
-    branch(),
-    ' ',
-  })
+  return ' %F'
 end
 
 function Statusline.short()
-  return '%#StatusLineNC#   NvimTree'
+  return '%#StatusLineNC#   Alpha'
 end
 
 local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
@@ -254,10 +246,7 @@ local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   group = augroup,
   pattern = '*',
-  callback = function()
-    vim.o.laststatus = 2
-    vim.o.statusline = '%!v:lua.Statusline.active()'
-  end,
+  command = 'setlocal statusline=%!v:lua.Statusline.active()',
 })
 
 vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
@@ -269,10 +258,7 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
   group = augroup,
   pattern = { 'alpha' },
-  callback = function()
-    vim.o.laststatus = 0
-    vim.o.statusline = '%!v:lua.Statusline.short()'
-  end,
+  command = 'setlocal statusline=%!v:lua.Statusline.short()',
 })
 
 -- Redraw statusline when LSP progress is done
