@@ -2,8 +2,6 @@
 
 sketchybar --add event aerospace_workspace_change
 
-ICONS=("1" "2" "3" "4" "5" "6" "C")
-
 for sid in $(aerospace list-workspaces --all); do
 
 	sketchybar --add item space.$sid left \
@@ -11,7 +9,7 @@ for sid in $(aerospace list-workspaces --all); do
 		--set space.$sid \
 		--animate tanh 5 \
 		label.drawing=off \
-		icon="${ICONS[$sid - 1]}" \
+		icon="$sid" \
 		icon.padding_left=9 \
 		icon.padding_right=9 \
 		background.padding_left=2 \
