@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_focus_change
 
 for sid in $(aerospace list-workspaces --all); do
-
 	sketchybar --add item space.$sid left \
-		--subscribe space.$sid aerospace_workspace_change \
+		--subscribe space.$sid aerospace_focus_change \
 		--set space.$sid \
 		--animate tanh 5 \
 		label.drawing=off \

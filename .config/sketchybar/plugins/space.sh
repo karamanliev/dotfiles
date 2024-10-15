@@ -7,8 +7,6 @@ else
 	ICON_COLOR="$WHITE"
 fi
 
-echo "FOCUSED_WORKSPACE: $FOCUSED_WORKSPACE"
-
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
 	sketchybar --set $NAME \
 		background.drawing=on \
