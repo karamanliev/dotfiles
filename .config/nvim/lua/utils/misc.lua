@@ -54,4 +54,28 @@ M.theme_switch_kb = {
   },
 }
 
+M.adjust_hex_brightness = function(hex, mode, percent)
+  -- Convert hex to RGB
+  local r = tonumber(hex:sub(2, 3), 16)
+  local g = tonumber(hex:sub(4, 5), 16)
+  local b = tonumber(hex:sub(6, 7), 16)
+
+  -- Calculate the adjustment factor based on mode
+  local factor
+  if mode == 'lighten' then
+    factor = 1 + (percent / 100)
+  elseif mode == 'darken' then
+    factor = 1 - (percent / 100)
+  else
+    error("Mode must be either 'lighten' or 'darken'")
+  end
+
+  -- Adjust each color channel and clamp between 0 and 255
+  r = math.max(0, math.min(255, math.floor(r * factor)))
+  g = math.max(0, math.min(255, math.floor(g * factor)))
+  b = math.max(0, math.min(255, math.floor(b * factor)))
+
+  -- Convert back to hex and return
+  return string.format('#%02x%02x%02x', r, g, b)
+end
 return M
