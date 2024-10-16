@@ -112,6 +112,7 @@ return {
           },
           buffers = {
             ignore_current_buffer = true,
+            initial_mode = 'normal',
             sort_mru = true,
             mappings = {
               i = {
@@ -122,6 +123,7 @@ return {
           colorscheme = {
             enable_preview = true,
             ignore_builtins = true,
+            initial_mode = 'normal',
             mappings = {
               i = {
                 ['<CR>'] = misc.set_colorscheme,
