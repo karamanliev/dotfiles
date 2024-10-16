@@ -228,7 +228,7 @@ return {
 
   {
     'catppuccin/nvim',
-    lazy = 'true',
+    lazy = true,
     name = 'catppuccin',
     priority = 1000,
     keys = require('utils.misc').theme_switch_kb,
@@ -279,6 +279,27 @@ return {
             indentscope_color = '',
           },
           -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        },
+      })
+    end,
+  },
+
+  {
+    'EdenEast/nightfox.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = require('utils.misc').theme_switch_kb,
+    config = function()
+      require('nightfox').setup({
+        options = {
+          styles = {
+            comments = 'italic',
+            keywords = 'bold',
+            types = 'italic,bold',
+          },
+          colorblind = {
+            simulate_only = true,
+          },
         },
       })
     end,
