@@ -2,13 +2,14 @@ local function set_hl(group, colors)
   vim.api.nvim_set_hl(0, group, colors)
 end
 local get_hl_color = require('utils.misc').get_hl_color
+local adjust_hex = require('utils.misc').adjust_hex_brightness
 local statusline_fg = get_hl_color('StatusLine', 'fg#')
 local statusline_bg = get_hl_color('StatusLine', 'bg#')
 
 local lineNr_fg = get_hl_color('LineNr', 'fg#')
 local cursorline_bg = require('utils.misc').get_cursorline_bg()
 local text_fg = require('utils.misc').get_fg_color()
-local comment_fg = require('utils.misc').get_hl_color('@comment', 'fg')
+local comment_fg = get_hl_color('@comment', 'fg')
 
 local diagnosticSignOk_fg = get_hl_color('DiagnosticSignOk', 'fg#')
 local diagnosticSignHint_fg = get_hl_color('DiagnosticSignHint', 'fg#')
@@ -46,15 +47,16 @@ set_hl('CmpDocBorder', { bg = cursorline_bg, fg = cursorline_bg })
 set_hl('CmpDoc', { bg = cursorline_bg })
 
 -- Telescope
+local prompt_bg = adjust_hex(cursorline_bg, 'lighten', 15)
 set_hl('TelescopeNormal', { fg = text_fg, bg = statusline_bg })
 set_hl('TelescopeBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('TelescopeResultsNormal', { fg = text_fg, bg = statusline_bg })
 set_hl('TelescopeResultsBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('TelescopePreviewNormal', { fg = text_fg, bg = cursorline_bg })
 set_hl('TelescopePreviewBorder', { fg = cursorline_bg, bg = cursorline_bg })
-set_hl('TelescopePromptNormal', { bg = comment_fg, fg = cursorline_bg, bold = true })
-set_hl('TelescopePromptBorder', { fg = comment_fg, bg = comment_fg })
-set_hl('TelescopePromptCounter', { fg = cursorline_bg, bold = true })
+set_hl('TelescopePromptNormal', { bg = prompt_bg, fg = text_fg, bold = true })
+set_hl('TelescopePromptBorder', { fg = prompt_bg, bg = prompt_bg })
+set_hl('TelescopePromptCounter', { fg = comment_fg, bold = true })
 set_hl('TelescopePromptTitle', { link = 'TodoBgNOTE' })
 set_hl('TelescopePreviewTitle', { link = 'TodoBgTODO' })
 set_hl('TelescopeResultsTitle', { fg = statusline_bg, bg = statusline_bg })
