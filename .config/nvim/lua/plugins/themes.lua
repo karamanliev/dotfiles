@@ -1,9 +1,11 @@
+local keys = require('utils.misc').theme_switch_kb
+
 return {
   {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('tokyonight').setup({
         style = 'moon',
@@ -54,7 +56,7 @@ return {
     'zenbones-theme/zenbones.nvim',
     priority = 1000,
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       vim.g.bones_compat = 1
       -- vim.cmd.colorscheme('tokyobones')
@@ -65,14 +67,14 @@ return {
     'nyoom-engineering/oxocarbon.nvim',
     priority = 1000,
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
   },
 
   {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('poimandres').setup({
         bold_vert_split = false, -- use bold vertical separators
@@ -88,7 +90,7 @@ return {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     priority = 1000,
     config = function()
       require('rose-pine').setup({
@@ -172,7 +174,7 @@ return {
     'rebelot/kanagawa.nvim',
     lazy = true,
     priority = 1000,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('kanagawa').setup({
         compile = false, -- enable compiling the colorscheme
@@ -205,7 +207,7 @@ return {
     'sho-87/kanagawa-paper.nvim',
     lazy = true,
     priority = 1000,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('kanagawa-paper').setup({
         undercurl = true,
@@ -231,7 +233,7 @@ return {
     lazy = true,
     name = 'catppuccin',
     priority = 1000,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('catppuccin').setup({
         flavour = 'auto', -- latte, frappe, macchiato, mocha
@@ -288,7 +290,7 @@ return {
     'EdenEast/nightfox.nvim',
     priority = 1000,
     lazy = true,
-    keys = require('utils.misc').theme_switch_kb,
+    keys = keys,
     config = function()
       require('nightfox').setup({
         options = {
@@ -296,9 +298,6 @@ return {
             comments = 'italic',
             keywords = 'bold',
             types = 'italic,bold',
-          },
-          colorblind = {
-            simulate_only = true,
           },
         },
       })
