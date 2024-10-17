@@ -489,6 +489,9 @@ return {
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
       vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+      vim.keymap.set('n', 'zm', function()
+        require('ufo').closeFoldsWith(1)
+      end)
 
       -- disable ufo and fold column for Neogit and etc
       vim.api.nvim_create_autocmd('FileType', {
