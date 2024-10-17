@@ -286,3 +286,12 @@ autocmd({ 'ColorScheme', 'ColorSchemePre' }, {
   end,
   desc = 'Source highlights.lua',
 })
+
+autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.bmp' },
+  group = general,
+  callback = function()
+    vim.bo.filetype = 'image'
+  end,
+  desc = 'Set filetype to image',
+})

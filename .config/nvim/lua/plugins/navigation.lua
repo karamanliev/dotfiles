@@ -2,6 +2,12 @@ return {
   -- Tmux Navigator
   {
     'alexghergh/nvim-tmux-navigation',
+    keys = {
+      { '<C-h>', '<cmd>NvimTmuxNavigateLeft<cr>', desc = 'Nvim Tmux Navigate Left' },
+      { '<C-j>', '<cmd>NvimTmuxNavigateDown<cr>', desc = 'Nvim Tmux Navigate Down' },
+      { '<C-k>', '<cmd>NvimTmuxNavigateUp<cr>', desc = 'Nvim Tmux Navigate Up' },
+      { '<C-l>', '<cmd>NvimTmuxNavigateRight<cr>', desc = 'Nvim Tmux Navigate Right' },
+    },
     config = function()
       local nvim_tmux_nav = require('nvim-tmux-navigation')
 

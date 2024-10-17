@@ -591,6 +591,7 @@ return {
         jsonls = {
           settings = {
             json = {
+              filetypes = { 'json' },
               schemas = require('schemastore').json.schemas({}),
               validate = { enable = true },
             },
@@ -600,6 +601,7 @@ return {
           filetypes = { 'yaml' },
           settings = {
             yaml = {
+              filetypes = { 'yaml', 'yml' },
               schemaStore = {
                 enable = false,
                 url = '',
@@ -824,11 +826,29 @@ return {
       { '[q', '<cmd>Trouble prev jump=true skip_groups=true<cr>', desc = 'Previous Trouble' },
     },
     config = function()
+      local open_with_trouble = require('trouble.sources.telescope').open
+      local add_to_trouble = require('trouble.sources.telescope').add
+
       require('trouble').setup({
         win = {
           size = {
             width = 50,
             height = 10,
+          },
+        },
+      })
+
+      require('telescope').setup({
+        defaults = {
+          keymaps = {
+            i = {
+              ['<c-q>'] = open_with_trouble,
+              ['<m-q>'] = add_to_trouble,
+            },
+            n = {
+              ['<c-q>'] = open_with_trouble,
+              ['<m-q>'] = add_to_trouble,
+            },
           },
         },
       })
@@ -1037,7 +1057,7 @@ return {
   -- Code Actions Lightbulb
   {
     'kosayoda/nvim-lightbulb',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-lightbulb').setup({
         autocmd = {

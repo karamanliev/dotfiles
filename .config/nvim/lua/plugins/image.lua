@@ -1,13 +1,13 @@
 return {
   {
     '3rd/image.nvim',
-    event = { 'VeryLazy' },
+    ft = { 'image' },
     -- Disable on Windows system
     cond = function()
       return vim.fn.has('win32') ~= 1
     end,
     dependencies = {
-      'leafo/magick',
+      { 'leafo/magick', ft = { 'image' } },
     },
     config = function()
       require('image').setup({
@@ -43,6 +43,13 @@ return {
         editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
         tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
         hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.JPEG', '*.JPG', '*.gif', '*.webp', '*.avif' }, -- render image files as images when opened
+      })
+
+      local image_utils = require('utils.telescope.image')
+      require('telescope').setup({
+        defaults = {
+          buffer_previewer_maker = image_utils.buffer_previewer_maker,
+        },
       })
     end,
   },
