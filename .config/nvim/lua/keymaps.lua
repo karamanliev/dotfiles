@@ -41,16 +41,16 @@ vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
 vim.keymap.set('n', 'gl', '<cmd>b#<cr>', { desc = 'Go to Last buffer' })
 
 -- Goto prev/next buffer with Alt + </>
-vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
-vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
+-- vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
+-- vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 vim.keymap.set('n', '[b', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
 
 -- Resize splits
-vim.keymap.set('n', '<M-->', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
-vim.keymap.set('n', '<M-=>', '<cmd>vertical resize +2<cr>', { desc = 'Resize Vertical More' })
-vim.keymap.set('n', '<M-_>', '<cmd>resize -2<cr>', { desc = 'Resize Horizontal Less' })
-vim.keymap.set('n', '<M-+>', '<cmd>resize +2<cr>', { desc = 'Resize Horizontal More' })
+vim.keymap.set('n', '<M-,>', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
+vim.keymap.set('n', '<M-.>', '<cmd>vertical resize +2<cr>', { desc = 'Resize Vertical More' })
+vim.keymap.set('n', '<M-S-,>', '<cmd>resize -2<cr>', { desc = 'Resize Horizontal Less' })
+vim.keymap.set('n', '<M-S.>', '<cmd>resize +2<cr>', { desc = 'Resize Horizontal More' })
 
 -- Diagnostic keymaps
 -- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
