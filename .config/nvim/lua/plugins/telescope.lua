@@ -120,6 +120,11 @@ return {
               },
             },
           },
+          marks = {
+            initial_mode = 'normal',
+            layout_strategy = 'vertical',
+            mark_type = 'all',
+          },
           colorscheme = {
             enable_preview = true,
             ignore_builtins = true,
@@ -163,6 +168,7 @@ return {
           prompt_title = 'Live Grep in Open Files',
         })
       end, { desc = 'Grep in active buffers' })
+      vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find Marks' })
 
       vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files({ cwd = vim.fn.stdpath('config') })
