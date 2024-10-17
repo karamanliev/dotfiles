@@ -18,6 +18,7 @@ return {
   -- Highlight undo/redo changes
   {
     'tzachar/highlight-undo.nvim',
+    enabled = false,
     keys = {
       'u',
       '<C-r>',
