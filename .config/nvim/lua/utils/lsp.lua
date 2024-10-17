@@ -2,10 +2,16 @@ local M = {}
 local api = vim.api
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = 'single',
-  focusable = false,
+  border = 'none',
+  focusable = true,
   silent = true,
-  max_height = 7,
+  max_height = 20,
+})
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'none',
+  focusable = true,
+  max_height = 20,
 })
 
 local function check_triggeredChars(triggerChars)

@@ -214,10 +214,10 @@ return {
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- add border to hover and signature help
-      local default_handlers = {
-        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' }),
-        ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' }),
-      }
+      -- local default_handlers = {
+      --   ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' }),
+      --   ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' }),
+      -- }
 
       require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
@@ -657,7 +657,7 @@ return {
           function(server_name)
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
+            -- server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
