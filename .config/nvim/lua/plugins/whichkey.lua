@@ -6,7 +6,7 @@ return {
     config = function()
       local wk = require('which-key')
       wk.setup({
-        preset = 'helix',
+        preset = 'modern',
         win = {
           border = 'none',
           padding = { 1, 2 },
