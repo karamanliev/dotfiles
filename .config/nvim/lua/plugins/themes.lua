@@ -303,4 +303,10 @@ return {
       })
     end,
   },
+  {
+    'bettervim/yugen.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+  },
 }
