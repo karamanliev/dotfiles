@@ -181,7 +181,8 @@ return {
             if color_item.abbr_hl_group then
               item.kind_hl_group = color_item.abbr_hl_group
               item.menu_hl_group = color_item.abbr_hl_group
-              item.kind = color_item.abbr
+              -- item.kind = color_item.abbr
+              item.kind = ' '
             end
 
             return item
