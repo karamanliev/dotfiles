@@ -303,4 +303,20 @@ return {
       })
     end,
   },
+  {
+    'bettervim/yugen.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+    config = function()
+      local palette = require('yugen.palette')
+
+      require('yugen').setup({
+        highlight_groups = {
+          ['@comment'] = { fg = palette.color500, style = 'italic' },
+          -- ['@string'] = { fg = palette.primary },
+        },
+      })
+    end,
+  },
 }
