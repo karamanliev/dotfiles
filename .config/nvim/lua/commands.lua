@@ -279,11 +279,12 @@ autocmd('LspAttach', {
   end,
 })
 
-autocmd({ 'ColorScheme', 'ColorSchemePre' }, {
+autocmd({ 'ColorScheme' }, {
   pattern = '*',
   group = general,
   callback = function()
     vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/custom/highlights.lua')
+    vim.cmd('set background=dark')
   end,
   desc = 'Source highlights.lua',
 })
