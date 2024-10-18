@@ -64,8 +64,8 @@ return {
       -- button('b', '  Branches', ':Telescope git_branches <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('t', '  TODO', ':e ~/Documents/todo.md<CR>'),
-      button('n', '  NOTES', ':e ~/Documents/note.md<CR>'),
+      button('T', '  TODO', ':e ~/Documents/todo.md<CR>'),
+      button('N', '  NOTES', ':e ~/Documents/note.md<CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       -- button('h', '󰋗  Help', ':Telescope help_tags <CR>'),
@@ -74,6 +74,20 @@ return {
         require('lazy').home()
       end),
       button('m', '󱥒  Mason', ':Mason <CR>'),
+      ---@diagnostic disable-next-line: param-type-mismatch
+      button('t', '  Themes', function()
+        local target = vim.fn.getcompletion
+
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.fn.getcompletion = function()
+          return vim.tbl_filter(function(color)
+            return not vim.tbl_contains({ 'randombones' }, color)
+          end, target('', 'color'))
+        end
+
+        vim.cmd('Telescope colorscheme previewer=false layout_config={height=100,width=25,anchor="NE"}')
+        vim.fn.getcompletion = target
+      end),
       button('q', '  Quit', ':qa<CR>'),
     }
 
