@@ -18,13 +18,7 @@ return {
   -- Highlight undo/redo changes
   {
     'tzachar/highlight-undo.nvim',
-    enabled = false,
-    keys = {
-      'u',
-      '<C-r>',
-      'p',
-      'P',
-    },
+    enabled = true,
     config = function()
       require('highlight-undo').setup({
         duration = 650,
@@ -51,6 +45,14 @@ return {
             mode = 'n',
             lhs = 'p',
             rhs = 'p',
+            opts = {},
+          },
+          Paste = {
+            desc = 'Paste',
+            hlgroup = 'Paste',
+            mode = 'n',
+            lhs = 'P',
+            rhs = 'P',
             opts = {},
           },
         },
