@@ -107,3 +107,7 @@ vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,term
 
 -- Set highlight on search
 vim.opt.hlsearch = true
+
+-- Make it possible to use vim motions when using bulgarian keyboard layout
+vim.opt.langmap =
+  'яq,вw,еe,рr,тt,ъy,уu,иi,оo,пp,ш[,щ],аa,сs,дd,фf,гg,хh,йj,кk,лl,зz,ьx,цc,жv,бb,нn,мm,ч`,ЯQ,ВB,ЕE,РR,ТT,ЪY,УU,ИI,ОO,Ш{,Щ},АA,СS,ДD,ФF,ГG,ХH,ЙJ,КK,ЛL,ЗZ,ѝX,ЦC,ЖV,БB,НN,МM,Ч~'
