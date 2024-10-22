@@ -19,6 +19,12 @@ return {
   {
     'tzachar/highlight-undo.nvim',
     enabled = true,
+    keys = {
+      'u',
+      '<C-r>',
+      'p',
+      'P',
+    },
     config = function()
       require('highlight-undo').setup({
         duration = 650,
