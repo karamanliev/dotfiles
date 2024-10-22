@@ -26,6 +26,7 @@ return {
   -- Harpoon
   {
     'ThePrimeagen/harpoon',
+    enabled = false,
     keys = {
       -- Add to Harpoon
       { '<leader>a', desc = 'Add to Harpoon' },
