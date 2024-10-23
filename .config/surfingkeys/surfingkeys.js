@@ -47,6 +47,8 @@ settings.prevLinkRegex = /((<|‹|←|«|≪|<<|предишна|back|older|prev
 // previous/next tab
 map("<Ctrl-n>", "R");
 map("<Ctrl-p>", "E");
+map("K", "E");
+map("J", "R");
 map("h", "E");
 map("l", "R");
 
@@ -187,6 +189,7 @@ addSearchAlias(
   },
 );
 addSearchAlias("pdb", "proton", "https://www.protondb.com/search?q=", "s");
+addSearchAlias("sdb", "steamdb", "https://steamdb.info/search/?a=all&q=", "s");
 addSearchAlias(
   "r",
   "reddit",
@@ -243,7 +246,7 @@ Hints.style(
 );
 
 Visual.style("marks", "background-color: #9d7cd899;");
-Visual.style("cursor", "background-color: #81A2BE;");
+Visual.style("cursor", "background-color: #FFFF00;");
 
 settings.theme = `
 :root {
