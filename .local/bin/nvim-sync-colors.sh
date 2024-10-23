@@ -17,7 +17,13 @@ get_tmux_color() {
 }
 
 get_kitty_color() {
-    local colorscheme=$(nvim --headless -c "redir => output | colo | redir END | echo output | quit" 2>&1)
+    local colorscheme
+
+    if [ -n "$1" ]; then
+        colorscheme="$1"
+    else
+        colorscheme=$(nvim --headless -c "redir => output | colo | redir END | echo output | quit" 2>&1)
+    fi
 
     printf "$colorscheme" | head -n1 | sed 's/[^a-zA-Z0-9._-]//g'
 }
@@ -31,7 +37,7 @@ fg_color_hex=$(get_tmux_color "foreground")
 echo "FG Color: $fg_color_hex"
 
 # Get Kitty colorscheme
-kitty_colorscheme=$(get_kitty_color)
+kitty_colorscheme=$(get_kitty_color $1)
 echo "Kitty Colorscheme: $kitty_colorscheme"
 
 kitty_themes_dir="$HOME/.config/kitty/themes"

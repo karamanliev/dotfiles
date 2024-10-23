@@ -66,7 +66,7 @@ M.set_colorscheme = function(prompt_bufnr)
     end
 
     vim.fn.writefile(lines, colorscheme_path)
-    vim.fn.system('nvim-sync-colors.sh')
+    vim.fn.system('nvim-sync-colors.sh ' .. colorscheme.value)
   end
 end
 
