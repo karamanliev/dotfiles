@@ -43,7 +43,24 @@ M.theme_switch_kb = {
       ---@diagnostic disable-next-line: duplicate-set-field
       vim.fn.getcompletion = function()
         return vim.tbl_filter(function(color)
-          return not vim.tbl_contains({ 'randombones', 'rose-pine', 'kanagawa', 'daylight' }, color)
+          return not vim.tbl_contains({
+            -- returns error because of dependency missing
+            'randombones',
+            -- main themes
+            'catppuccin',
+            'rose-pine',
+            'kanagawa',
+            'tokyonight',
+            -- light themes
+            'kanagawa-lotus',
+            'daylight',
+            'catppuccin-latte',
+            'dawnfox',
+            'dayfox',
+            'vimbones',
+            'tokyonight-day',
+            'rose-pine-dawn',
+          }, color)
         end, target('', 'color'))
       end
 

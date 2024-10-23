@@ -48,9 +48,12 @@ set_hl('CmpDoc', { bg = cursorline_bg })
 
 -- Telescope
 local prompt_bg = adjust_hex(cursorline_bg, 'lighten', 15)
+local selection_carret_fg = get_hl_color('TelescopeSelectionCaret', 'fg#')
+
 set_hl('TelescopeNormal', { fg = text_fg, bg = statusline_bg })
 set_hl('TelescopeBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('TelescopeResultsNormal', { fg = text_fg, bg = statusline_bg })
+set_hl('TelescopeSelectionCaret', { fg = selection_carret_fg, bg = cursorline_bg })
 set_hl('TelescopeResultsBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('TelescopePreviewNormal', { fg = text_fg, bg = cursorline_bg })
 set_hl('TelescopePreviewBorder', { fg = cursorline_bg, bg = cursorline_bg })
