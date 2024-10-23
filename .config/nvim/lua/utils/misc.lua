@@ -43,7 +43,7 @@ M.theme_switch_kb = {
       ---@diagnostic disable-next-line: duplicate-set-field
       vim.fn.getcompletion = function()
         return vim.tbl_filter(function(color)
-          return not vim.tbl_contains({ 'randombones', 'rose-pine', 'kanagawa' }, color)
+          return not vim.tbl_contains({ 'randombones', 'rose-pine', 'kanagawa', 'daylight' }, color)
         end, target('', 'color'))
       end
 

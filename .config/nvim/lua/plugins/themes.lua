@@ -319,4 +319,37 @@ return {
       })
     end,
   },
+  {
+    'cdmill/neomodern.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+    config = function()
+      local c = require('neomodern.palette')[vim.g.neomodern_config and vim.g.neomodern_config.style or 'roseprime'].line
+      local line = require('utils.misc').adjust_hex_brightness(c, 'lighten', 35)
+
+      require('neomodern').setup({
+        plain_float = false,
+        -- The following table accepts values the same as the `gui` option for normal
+        -- highlights. For example, `bold`, `italic`, `underline`, `none`.
+        code_style = {
+          comments = 'italic',
+          conditionals = 'none',
+          functions = 'none',
+          keywords = 'none',
+          -- Markdown headings
+          headings = 'bold',
+          operators = 'none',
+          keyword_return = 'none',
+          strings = 'none',
+          variables = 'none',
+        },
+        highlights = {
+          CursorLine = { bg = line },
+          CursorLineSign = { bg = line },
+          CursorLineNr = { bg = line },
+        },
+      })
+    end,
+  },
 }
