@@ -1,9 +1,3 @@
-# Theme
-import = [ "~/.config/alacritty/tokyonight_moon.toml" ]
-
-shell = "/bin/zsh"
-live_config_reload = true
-
 [env]
 TERM = "xterm-256color"
 
@@ -30,6 +24,8 @@ history = 15000
 [terminal]
 osc52 = "OnlyCopy"
 
+shell = "/bin/zsh"
+
 [selection]
 save_to_clipboard = true
 
@@ -52,3 +48,8 @@ bindings = [
 	# remove alacritty search
 	{ key = "F", mods = "Control|Shift", action = "ReceiveChar" },
 ]
+
+[general]
+live_config_reload = true
+# Theme
+import = [ "~/.config/alacritty/tokyonight_moon.toml" ]
