@@ -238,7 +238,7 @@ function Statusline.inactive()
 end
 
 function Statusline.short()
-  return '%#StatusLineNC#   Alpha'
+  return '%#StatusLineNC#   ' .. vim.fn.getcwd()
 end
 
 local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
