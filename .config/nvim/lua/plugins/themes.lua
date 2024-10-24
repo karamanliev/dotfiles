@@ -310,6 +310,7 @@ return {
       })
     end,
   },
+
   {
     'bettervim/yugen.nvim',
     priority = 1000,
@@ -326,6 +327,7 @@ return {
       })
     end,
   },
+
   {
     'cdmill/neomodern.nvim',
     priority = 1000,
@@ -355,6 +357,78 @@ return {
           CursorLine = { bg = line },
           CursorLineSign = { bg = line },
           CursorLineNr = { bg = line },
+        },
+      })
+    end,
+  },
+
+  {
+    'Yazeed1s/minimal.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+    config = function()
+      vim.g.minimal_italic_keywords = true
+      vim.g.minimal_italic_functions = true
+      vim.g.minimal_italic_booleans = true
+      vim.g.minimal_italic_comments = true
+      vim.g.minimal_italic_variables = true
+    end,
+  },
+
+  {
+    'ramojus/mellifluous.nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+    config = function()
+      require('mellifluous').setup({
+        dim_inactive = false,
+        colorset = 'mellifluous',
+        styles = { -- see :h attr-list for options. set {} for NONE, { option = true } for option
+          main_keywords = { italic = true },
+          other_keywords = { italic = true },
+          types = {},
+          operators = {},
+          strings = {},
+          functions = { italic = true },
+          constants = {},
+          comments = { italic = true },
+          markup = {
+            headings = { bold = true },
+          },
+          folds = {},
+        },
+        transparent_background = {
+          enabled = false,
+          floating_windows = true,
+          telescope = true,
+          file_tree = true,
+          cursor_line = true,
+          status_line = false,
+        },
+        flat_background = {
+          line_numbers = true,
+          floating_windows = true,
+          file_tree = true,
+          cursor_line_number = true,
+        },
+        plugins = {
+          cmp = true,
+          gitsigns = true,
+          indent_blankline = true,
+          nvim_tree = {
+            enabled = true,
+            show_root = false,
+          },
+          neo_tree = {
+            enabled = true,
+          },
+          telescope = {
+            enabled = true,
+            nvchad_like = true,
+          },
+          startify = true,
         },
       })
     end,
