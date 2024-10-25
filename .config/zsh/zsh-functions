@@ -22,3 +22,23 @@ change_terminal_colorscheme() {
 	zsh-sync-colors.sh
 }
 zle -N change_terminal_colorscheme
+
+
+list_oldfiles() {
+  #local files=($(find . -type d \( -name ".git" -o -name "node_modules" \) -prune -o -type f -print | \
+  local files=($(nvim -u NONE --headless +'lua io.write(table.concat(vim.v.oldfiles, "\n") .. "\n")' +qa | \
+    grep -v "oil://" | \
+    grep -v "diffview://" | \
+    grep -v "\[Preview\]" | \
+    grep -Ev '(^.*\.(tmp|swp|swo)$|~$|/tmp/)' | \
+    fzf --multi \
+        --preview 'bat --style=numbers --color=always --line-range=:500 {}' \
+        --preview-window=right:50%:wrap \
+        --height=65% \
+        --layout=reverse \
+        --border=none))
+
+  [[ ${#files[@]} -gt 0 ]] && nvim "${files[@]}"
+}
+
+zle -N list_oldfiles
