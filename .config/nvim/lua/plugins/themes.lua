@@ -433,4 +433,17 @@ return {
       })
     end,
   },
+
+  {
+    'RRethy/base16-nvim',
+    priority = 1000,
+    lazy = true,
+    keys = keys,
+    config = function()
+      require('base16-colorscheme').with_config({
+        telescope = false,
+        cmp = false,
+      })
+    end,
+  },
 }
