@@ -536,4 +536,13 @@ return {
       }
     end,
   },
+
+  -- Make cursorline span to the signcolumn
+  {
+    'jake-stewart/force-cul.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('force-cul').setup()
+    end,
+  },
 }

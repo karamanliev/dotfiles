@@ -4,7 +4,7 @@ return {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {
-      numhl = true,
+      numhl = false,
       signcolumn = true,
       preview_config = {
         border = 'single',

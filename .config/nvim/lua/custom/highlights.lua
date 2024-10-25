@@ -1,6 +1,5 @@
-local function set_hl(group, colors)
-  vim.api.nvim_set_hl(0, group, colors)
-end
+local set_hl = require('utils.misc').set_hl
+local link_hl = require('utils.misc').link_hl
 local get_hl_color = require('utils.misc').get_hl_color
 local adjust_hex = require('utils.misc').adjust_hex_brightness
 local statusline_fg = get_hl_color('StatusLine', 'fg#')
@@ -15,6 +14,11 @@ local diagnosticSignOk_fg = get_hl_color('DiagnosticSignOk', 'fg#')
 local diagnosticSignHint_fg = get_hl_color('DiagnosticSignHint', 'fg#')
 local diagnosticSignInfo_fg = get_hl_color('DiagnosticSignInfo', 'fg#')
 local diagnosticSignWarn_fg = get_hl_color('DiagnosticSignWarn', 'fg#')
+
+-- CursorLine (spans across linenr and signcolumn)
+set_hl('CursorLineNr', { fg = 'none', bg = cursorline_bg, bold = true })
+link_hl('CursorLineSign', 'CursorLineNr')
+link_hl('CursorLineFold', 'CursorLineNr')
 
 -- Statusline
 set_hl('StatusLineAccent', { bg = statusline_bg, fg = statusline_fg, bold = true })

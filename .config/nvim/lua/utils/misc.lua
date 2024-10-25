@@ -1,5 +1,13 @@
 local M = {}
 
+M.set_hl = function(group, colors)
+  vim.api.nvim_set_hl(0, group, colors)
+end
+
+M.link_hl = function(from, to)
+  vim.api.nvim_set_hl(0, from, { link = to })
+end
+
 M.get_bg_color = function()
   local bg = vim.api.nvim_get_hl(0, { name = 'Normal' }).bg
   local bgHex = string.format('#%06x', bg)
