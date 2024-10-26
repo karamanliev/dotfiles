@@ -446,4 +446,23 @@ return {
       })
     end,
   },
+
+  {
+    'mellow-theme/mellow.nvim',
+    lazy = true,
+    priority = 1000,
+    keys = keys,
+    config = function()
+      local adjust_hex = require('utils.misc').adjust_hex_brightness
+
+      vim.g.mellow_italic_comments = true
+      vim.g.mellow_italic_functions = true
+      vim.g.mellow_italic_booleans = false
+      vim.g.mellow_italic_variables = false
+      vim.g.mellow_italic_keywords = true
+      vim.g.mellow_highlight_overrides = {
+        ['CursorLine'] = { bg = adjust_hex('#1b1b1b', 'lighten', 35) },
+      }
+    end,
+  },
 }
