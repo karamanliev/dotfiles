@@ -141,7 +141,7 @@ return {
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Keymaps' })
-      vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
+      -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
       vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
       vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
@@ -295,6 +295,29 @@ return {
       })
 
       require('telescope').load_extension('advanced_git_search')
+    end,
+  },
+
+  {
+    'danielfalk/smart-open.nvim',
+    dependencies = {
+      'kkharji/sqlite.lua',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    },
+    keys = {
+      { '<leader>.', ':Telescope smart_open<cr>' },
+    },
+    config = function()
+      local telescope = require('telescope')
+
+      telescope.setup({
+        extensions = {
+          smart_open = {
+            match_algorithm = 'fzf',
+          },
+        },
+      })
+      telescope.load_extension('smart_open')
     end,
   },
 }
