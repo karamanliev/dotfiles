@@ -56,4 +56,4 @@ sed -i "s|^include themes/.*|include themes/$kitty_theme|" ~/dotfiles/.config/ki
 # Reload tmux configuration
 tmux source-file ~/dotfiles/.config/tmux/tmux.conf
 # Reload kitty configuration
-kitty @ load-config
+kitty @ --to unix:/tmp/kitty_remote_control load-config

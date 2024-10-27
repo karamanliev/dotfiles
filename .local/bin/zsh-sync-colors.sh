@@ -19,14 +19,14 @@ get_tmux_color() {
 echo "$colors" | fzf \
     --prompt "Colorscheme: " \
     --layout=reverse \
-    --preview "kitty @ set-color ~/dotfiles/.config/kitty/themes/{}.conf" \
+    --preview "kitty @ --to unix:/tmp/kitty_remote_control set-color ~/dotfiles/.config/kitty/themes/{}.conf" \
     --preview-window right:70%:wrap:nohidden \
     --exit-0 --expect=ctrl-q,ctrl-c,esc | {
     read -r key
     read -r selection
     if [[ -n "$key" ]]; then
         current_theme=$(cat ~/dotfiles/.config/nvim/lua/custom/colorscheme.lua | grep 'vim.cmd.colorscheme' | sed -n "s/.*'\\(.*\\)'.*/\\1/p")
-        kitty @ set-colors ~/dotfiles/.config/kitty/themes/"$current_theme".conf
+        kitty @ --to unix:/tmp/kitty_remote_control set-colors ~/dotfiles/.config/kitty/themes/"$current_theme".conf
     elif [[ -n "$selection" ]]; then
         sed -i "s/vim.cmd.colorscheme('\(.*\)')/vim.cmd.colorscheme('$selection')/" ~/dotfiles/.config/nvim/lua/custom/colorscheme.lua
 
