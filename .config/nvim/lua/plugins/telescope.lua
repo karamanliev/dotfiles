@@ -21,7 +21,7 @@ return {
 
       require('telescope').setup({
         defaults = {
-          path_display = { 'smart' },
+          path_display = { 'filename_first' },
           sorting_strategy = 'ascending',
           layout_strategy = 'vertical',
           layout_config = {
