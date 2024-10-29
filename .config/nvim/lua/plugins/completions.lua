@@ -73,7 +73,7 @@ return {
   -- AI Panel
   {
     'yetone/avante.nvim',
-    build = ':AvanteBuild source=false',
+    build = 'make',
     keys = {
       {
         '<leader>ia',
@@ -117,7 +117,7 @@ return {
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
       'nvim-tree/nvim-web-devicons',
-      'zbirenbaum/copilot.lua',
+      -- 'zbirenbaum/copilot.lua',
       {
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
