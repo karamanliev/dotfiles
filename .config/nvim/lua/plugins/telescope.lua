@@ -90,7 +90,11 @@ return {
         },
         pickers = {
           lsp_references = {
+            initial_mode = 'normal',
             show_line = false,
+          },
+          lsp_definitions = {
+            initial_mode = 'normal',
           },
           find_files = {
             -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
@@ -141,7 +145,7 @@ return {
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Keymaps' })
-      -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
+      vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
       vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
       vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
@@ -151,8 +155,8 @@ return {
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Find Resume' })
       vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'Find Todo Comments' })
-      -- vim.keymap.set({ 'n', 'v' }, '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
-      vim.keymap.set({ 'n', 'v' }, '<leader><leader>', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', { desc = 'Fuzzy find current buffer' })
+      vim.keymap.set({ 'n', 'v' }, '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', { desc = 'Fuzzy find current buffer' })
       vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
       vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
@@ -296,29 +300,6 @@ return {
       })
 
       require('telescope').load_extension('advanced_git_search')
-    end,
-  },
-
-  {
-    'danielfalk/smart-open.nvim',
-    dependencies = {
-      'kkharji/sqlite.lua',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    },
-    keys = {
-      { '<leader>.', ':Telescope smart_open<cr>' },
-    },
-    config = function()
-      local telescope = require('telescope')
-
-      telescope.setup({
-        extensions = {
-          smart_open = {
-            match_algorithm = 'fzf',
-          },
-        },
-      })
-      telescope.load_extension('smart_open')
     end,
   },
 }

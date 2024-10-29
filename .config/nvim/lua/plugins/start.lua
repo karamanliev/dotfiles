@@ -49,17 +49,17 @@ return {
     -- Define the new buttons
     local buttons = {
       -- button('e', '  New file', ':ene <BAR> startinsert <CR>'),
-      button('.', '󰈞  Find files', ':Telescope smart_open<CR>'),
-      button(',', '  Live grep', ':Telescope live_grep_args <CR>'),
-      button('r', '  Recent files', ':Telescope oldfiles <CR>'),
+      button('.', '󰈞  Find files', ':Telescope find_files<CR>'),
+      button(',', '  Live grep', ':Telescope live_grep_args<CR>'),
+      button('r', '  Recent files', ':Telescope oldfiles<CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
-      button('R', '  Restore session', ':SessionRestore <CR>'),
+      button('R', '  Restore session', ':SessionRestore<CR>'),
       button('S', '󰈞  List sessions', '<cmd>lua require("auto-session.session-lens").search_session()<cr>'),
       { type = 'padding', val = 1 }, -- This adds a new line
 
       button('g', '󰊢  LazyGit', '<cmd>LazyGit<cr>'),
-      button('d', '  Diffview', ':DiffviewOpen <CR>'),
+      button('d', '  Diffview', ':DiffviewOpen<CR>'),
       -- button('c', '  Commits', ':Telescope git_commits <CR>'),
       -- button('b', '  Branches', ':Telescope git_branches <CR>'),
       { type = 'padding', val = 1 }, -- This adds a new line
@@ -73,7 +73,7 @@ return {
       button('l', '󰒲  Lazy', function()
         require('lazy').home()
       end),
-      button('m', '󱥒  Mason', ':Mason <CR>'),
+      button('m', '󱥒  Mason', ':Mason<CR>'),
       ---@diagnostic disable-next-line: param-type-mismatch
       button('t', '  Themes', function()
         local target = vim.fn.getcompletion
