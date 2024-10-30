@@ -2,7 +2,7 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    event = { 'VeryLazy' },
+    cmd = 'Telescope',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
