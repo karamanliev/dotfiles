@@ -452,4 +452,14 @@ return {
       }
     end,
   },
+
+  {
+    'eddyekofo94/gruvbox-flat.nvim',
+    lazy = true,
+    priority = 1000,
+    keys = keys,
+    config = function()
+      vim.g.gruvbox_flat_style = 'dark'
+    end,
+  },
 }
