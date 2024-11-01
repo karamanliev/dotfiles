@@ -460,6 +460,10 @@ return {
     keys = keys,
     config = function()
       vim.g.gruvbox_flat_style = 'dark'
+      vim.g.gruvbox_theme = {
+        WhichKeyDesc = { fg = 'fg' },
+        WhichKeyGroup = { fg = 'fg' },
+      }
     end,
   },
 }
