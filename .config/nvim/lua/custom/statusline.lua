@@ -162,7 +162,8 @@ local function lineinfo()
   if vim.bo.filetype == 'alpha' then
     return ''
   end
-  return '%#LineInfo#' .. ' %P %l:%c ' .. '%#StatusLine#'
+
+  return '%#LineInfo#' .. ' %7(%l/%3L%):%2c %P ' .. '%#StatusLine#'
 end
 
 local function branch()
