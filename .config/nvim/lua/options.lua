@@ -41,6 +41,9 @@ vim.g.loaded_netrwPlugin = 1
 -- Enable true color support
 vim.opt.termguicolors = true
 
+-- Increase the size of cmdwinheight
+vim.opt.cmdwinheight = 20
+
 -- Clipboard
 -- Use OSC52 when SSH
 vim.opt.clipboard = 'unnamedplus'
