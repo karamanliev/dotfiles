@@ -2,16 +2,10 @@ return {
   {
     '3rd/image.nvim',
     ft = { 'image' },
-    -- Disable on Windows system
-    cond = function()
-      return vim.fn.has('win32') ~= 1
-    end,
-    dependencies = {
-      { 'leafo/magick', ft = { 'image' } },
-    },
     config = function()
       require('image').setup({
         backend = 'kitty',
+        processor = 'magick_cli',
         integrations = {
           markdown = {
             enabled = true,
@@ -21,11 +15,7 @@ return {
             filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
           },
           neorg = {
-            enabled = true,
-            clear_in_insert_mode = false,
-            download_remote_images = true,
-            only_render_image_at_cursor = false,
-            filetypes = { 'norg' },
+            enabled = false,
           },
           html = {
             enabled = true,
