@@ -93,6 +93,10 @@ M.theme_switch_kb = {
             'vimbones',
             'tokyonight-day',
             'rose-pine-dawn',
+            -- monoglow variants
+            'monoglow-z',
+            'monoglow-lack',
+            'monoglow-void',
           }
 
           if vim.tbl_contains(not_allowed, color) then
