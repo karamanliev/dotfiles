@@ -9,20 +9,13 @@ right_format = """$time $battery"""
 # Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 100
 
-palette = 'custom'
-
-# Define custom colors
-[palettes.custom]
-green = '#4fd6be'
-yellow = '#ffc777'
-
 [env_var]
 variable = 'SHELL'
 format = "$symbol"
 disabled = false
 
 [os]
-format = '[$symbol](bold white)'   
+format = '[$symbol](bold white)'
 disabled = false
 
 [os.symbols]
@@ -31,7 +24,7 @@ Arch = '󰣇 '
 Macos = '󰀵 '
 
 [aws]
-style = "bold #ffb86c"
+style = "bold yellow"
 
 [character]
 format = "$symbol"
@@ -40,10 +33,10 @@ error_symbol = "[✗](bold red)"
 vicmd_symbol = "[❮](bold purple)"
 
 [cmd_duration]
-style = "bold #f1fa8c"
+style = "bold yellow"
 
 [directory]
-style = "bold #bb9af7"
+style = "bold purple"
 read_only = ' 🔒'
 truncation_length = 8
 truncation_symbol = "…/"
