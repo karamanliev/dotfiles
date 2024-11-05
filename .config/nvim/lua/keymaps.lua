@@ -72,6 +72,14 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 -- Don't move cursor when using J
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines J' })
 
+-- Move lines and blocks up and down
+vim.keymap.set('n', '<M-j>', '<cmd>m .+1<cr>==', { desc = 'Move line down' })
+vim.keymap.set('n', '<M-k>', '<cmd>m .-2<cr>==', { desc = 'Move line up' })
+vim.keymap.set('i', '<M-j>', '<Esc>:m .+1<cr>==gi', { desc = 'Move line down (insert)' })
+vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move line up (insert)' })
+vim.keymap.set('v', '<M-j>', ":'<,'>m '>+1<cr>gv=gv", { desc = 'Move block down' })
+vim.keymap.set('v', '<M-k>', ":'<,'>m '<-2<cr>gv=gv", { desc = 'Move block up' })
+
 -- Center buffer while navigating
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll Up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll Down' })
