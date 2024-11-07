@@ -145,7 +145,7 @@ return {
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Keymaps' })
-      vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
+      -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
       vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
       vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
@@ -300,6 +300,30 @@ return {
       })
 
       require('telescope').load_extension('advanced_git_search')
+    end,
+  },
+
+  {
+    'nvim-telescope/telescope-frecency.nvim',
+    keys = {
+      { '<leader>.', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Find files' },
+    },
+    config = function()
+      require('telescope').load_extension('frecency')
+      require('frecency.config').setup({
+        matcher = 'fuzzy',
+        default_workspace = 'CWD',
+        disable_devicons = false,
+        enable_prompt_mappings = true,
+        hide_current_buffer = false,
+        show_filter_column = false,
+        show_scores = false,
+        -- workspaces = {
+        --   ['conf'] = '~/.config',
+        --   ['dots'] = '~/dotfiles',
+        --   ['projects'] = '~/Projects',
+        -- },
+      })
     end,
   },
 }
