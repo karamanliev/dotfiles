@@ -311,7 +311,6 @@ return {
     config = function()
       require('telescope').load_extension('frecency')
       require('frecency.config').setup({
-        matcher = 'fuzzy',
         default_workspace = 'CWD',
         disable_devicons = false,
         enable_prompt_mappings = true,
