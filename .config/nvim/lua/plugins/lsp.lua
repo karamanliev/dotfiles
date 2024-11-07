@@ -738,7 +738,7 @@ return {
   -- pretty diagnostic virtual text
   {
     'rachartier/tiny-inline-diagnostic.nvim',
-    event = { 'LspAttach' },
+    lazy = false,
     keys = {
       {
         '<leader>td',
