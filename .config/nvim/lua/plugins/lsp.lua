@@ -1057,6 +1057,7 @@ return {
   -- Code Actions Lightbulb
   {
     'kosayoda/nvim-lightbulb',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-lightbulb').setup({
