@@ -63,7 +63,7 @@ return {
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end ]]
 
-          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
+          --[[ local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
           if vim.tbl_contains(ts_ft, vim.bo.filetype) then
             -- NOTE: Keybinds for vtsls
             -- Go to source definition
@@ -102,6 +102,11 @@ return {
             -- Source Actions (same as above)
             map('<leader>cS', '<cmd>VtsExec source_actions<cr>', 'Source Actions')
           else
+            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
+          end ]]
+
+          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
+          if not vim.tbl_contains(ts_ft, vim.bo.filetype) then
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end
 
@@ -219,7 +224,7 @@ return {
       --   ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' }),
       -- }
 
-      require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+      -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
       local servers = {
         bashls = {
@@ -304,7 +309,7 @@ return {
             },
           },
         },
-        vtsls = {
+        --[[ vtsls = {
           cmd = { 'vtsls', '--stdio' },
           filetypes = {
             'javascript',
@@ -371,17 +376,17 @@ return {
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
           end,
-        },
-        eslint = {
-          settings = {
-            workingDirectories = { mode = 'auto' },
-            rulesCustomizations = {
-              { rule = 'prettier/prettier', severity = 'off' },
-              { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
-            },
-            format = false,
-          },
-        },
+        }, ]]
+        -- eslint = {
+        --   settings = {
+        --     workingDirectories = { mode = 'auto' },
+        --     rulesCustomizations = {
+        --       { rule = 'prettier/prettier', severity = 'off' },
+        --       { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
+        --     },
+        --     format = false,
+        --   },
+        -- },
         --[[ tsserver = {
           enabled = false,
           commands = {
@@ -646,7 +651,7 @@ return {
         'stylua', -- Used to format Lua code
         'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
         'stylelint', -- Used to lint CSS
-        -- 'eslint_d', -- Used to lint JavaScript and TypeScript
+        'eslint_d', -- Used to lint JavaScript and TypeScript
         -- 'htmlhint', -- Used to lint HTML
         -- 'jsonlint', -- Used to lint JSON
         -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
@@ -666,15 +671,15 @@ return {
       })
 
       -- Vtsls Codelens
-      vim.lsp.commands['editor.action.showReferences'] = function(command, ctx)
-        local locations = command.arguments[3]
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-        if client and locations and #locations > 0 then
-          local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
-          vim.fn.setloclist(0, {}, ' ', { title = 'References', items = items, context = ctx })
-          vim.api.nvim_command('lopen')
-        end
-      end
+      -- vim.lsp.commands['editor.action.showReferences'] = function(command, ctx)
+      --   local locations = command.arguments[3]
+      --   local client = vim.lsp.get_client_by_id(ctx.client_id)
+      --   if client and locations and #locations > 0 then
+      --     local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
+      --     vim.fn.setloclist(0, {}, ' ', { title = 'References', items = items, context = ctx })
+      --     vim.api.nvim_command('lopen')
+      --   end
+      -- end
 
       require('lspconfig.ui.windows').default_options.border = 'single'
 
@@ -703,6 +708,7 @@ return {
   -- vtsls extras
   {
     'yioneko/nvim-vtsls',
+    enabled = false,
     ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
     config = function()
       require('vtsls').config({
@@ -731,6 +737,79 @@ return {
             end)
           end
         end,
+      })
+    end,
+  },
+
+  -- ts-tools
+  {
+    'pmizio/typescript-tools.nvim',
+    ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    keys = {
+      { 'gd', '<cmd>TSToolsGoToSourceDefinition<cr>', desc = 'Goto Source Definition' },
+      { 'gS', ' <cmd>lua vim.cmd "vsplit" vim.cmd "TSToolsGoToSourceDefinition"<cr>', desc = 'Goto Source Definition (vsplit)' },
+      { '<leader>co', '<cmd>TSToolsOrganizeImports<cr>', desc = 'Organize Imports' },
+      { '<leader>cu', '<cmd>TSToolsRemoveUnused<cr>', desc = 'Remove Unused Imports' },
+      { '<leader>cs', '<cmd>TSToolsSortImports<cr>', desc = 'Sort Imports' },
+      { '<leader>ci', '<cmd>TSToolsAddMissingImports<cr>', desc = 'Add Missing Imports' },
+      { '<leader>cR', '<cmd>TSToolsRenameFile<cr>', desc = 'Rename File and Update Imports' },
+      { '<leader>cf', '<cmd>TSToolsFileReferences<cr>', desc = 'Show File References' },
+      { '<leader>cF', '<cmd>TSToolsFixAll<cr>', desc = 'Fix All' },
+    },
+    config = function()
+      require('typescript-tools').setup({
+        on_attach = function(client, _)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+        handlers = {},
+
+        settings = {
+          -- spawn additional tsserver instance to calculate diagnostics on it
+          separate_diagnostic_server = true,
+          -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+          publish_diagnostic_on = 'change',
+          -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+          -- "remove_unused_imports"|"organize_imports") -- or string "all"
+          -- to include all supported code actions
+          -- specify commands exposed as code_actions
+          expose_as_code_action = {},
+          -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+          -- not exists then standard path resolution strategy is applied
+          tsserver_path = nil,
+          -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+          -- (see 💅 `styled-components` support section)
+          tsserver_plugins = {
+            '@styled/typescript-styled-plugin',
+          },
+          -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+          -- memory limit in megabytes or "auto"(basically no limit)
+          tsserver_max_memory = 'auto',
+          -- described below
+          tsserver_format_options = {},
+          tsserver_file_preferences = {},
+          -- locale of all tsserver messages, supported locales you can find here:
+          -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+          tsserver_locale = 'en',
+          -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+          complete_function_calls = false,
+          include_completions_with_insert_text = true,
+          -- CodeLens
+          -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+          -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+          code_lens = 'off',
+          -- by default code lenses are displayed on all referencable values and for some of you it can
+          -- be too much this option reduce count of them by removing member references from lenses
+          disable_member_code_lens = true,
+          -- JSXCloseTag
+          -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-ts-autotag,
+          -- that maybe have a conflict if enable this feature. )
+          jsx_close_tag = {
+            enable = false,
+            filetypes = { 'javascriptreact', 'typescriptreact' },
+          },
+        },
       })
     end,
   },
