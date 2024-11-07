@@ -52,8 +52,8 @@ alt-l = 'focus right'
 
 alt-f = 'fullscreen'
 alt-q = 'close'
-alt-shift-r = 'reload-config'
-alt-ctrl-r = "exec-and-forget bash -c 'sketchybar --reload'"
+alt-f11 = 'reload-config'
+alt-f12 = "exec-and-forget bash -c 'sketchybar --reload'"
 
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
