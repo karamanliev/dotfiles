@@ -139,7 +139,7 @@ return {
           priority = 15,
           style = {
             { fg = '#806d9c' }, -- TODO: link to some highlight?
-            { link = 'Error' },
+            { link = 'DiagnosticSignError' },
           },
           use_treesitter = true,
           chars = {

@@ -30,10 +30,10 @@ return {
           end
 
           -- Keybinds are only enabled for tsserver files
-          --[[ -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
+          -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
           local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
 
-          if vim.tbl_contains(ts_ft, vim.bo.filetype) then
+          --[[ if vim.tbl_contains(ts_ft, vim.bo.filetype) and client and client.name == 'ts_ls' then
             -- NOTE: for tsserver
             -- Go to source definition
             map('gd', '<cmd>GoToSourceDefinition<cr>', 'Goto Source Definition')
@@ -59,12 +59,9 @@ return {
             -- TSC
             map('<leader>cT', '<cmd>TSC<cr>', 'Typecheck Project')
             map('<leader>ct', '<cmd>TSCOpen<cr>', 'TSC Panel Open')
-          else
-            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end ]]
 
-          --[[ local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
-          if vim.tbl_contains(ts_ft, vim.bo.filetype) then
+          --[[ if vim.tbl_contains(ts_ft, vim.bo.filetype) and client and client.name == 'vtsls' then
             -- NOTE: Keybinds for vtsls
             -- Go to source definition
             map('gd', '<cmd>VtsExec goto_source_definition<cr>', 'Goto Source Definition')
@@ -101,11 +98,8 @@ return {
 
             -- Source Actions (same as above)
             map('<leader>cS', '<cmd>VtsExec source_actions<cr>', 'Source Actions')
-          else
-            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end ]]
 
-          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
           if not vim.tbl_contains(ts_ft, vim.bo.filetype) then
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end
@@ -127,77 +121,6 @@ return {
             end
           end, 'Hover Info / Fold Peek')
           map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'i' })
-
-          -- Mega K hover info: if no hover info is available, show git hunk preview, if folded show fold preview
-          --[[ map('K', function()
-            -- TODO: having multiple clients attached to a buffer, this will not work as expected
-            -- for example, if both tsserver and tailwindcss are attached it will not work
-            -- because tsserver will have result and tailwindcss will not
-            -- https://www.reddit.com/r/neovim/comments/170ykc0/tailwind_lsp_hover_documentation_multiple_lsps/
-            -- -- Function to check if any predefined clients are attached and only then show hover info
-            -- local function is_accepted_client()
-            --   -- Define the list of predefined LSP clients
-            --   local accepted_clients = {
-            --     'tsserver',
-            --     'lua_ls',
-            --   }
-            --
-            --   for _, client_name in pairs(accepted_clients) do
-            --     local clients = vim.lsp.get_clients({ bufnr = 0, name = client_name })
-            --     if clients and #clients > 0 then
-            --       return true
-            --     end
-            --   end
-            --
-            --   return false
-            -- end
-
-            local previewFold = require('ufo').peekFoldedLinesUnderCursor()
-            local gitsigns = require('gitsigns')
-            local params = vim.lsp.util.make_position_params()
-
-            if not previewFold then
-              vim.lsp.buf_request(0, 'textDocument/hover', params, function(_, result, _, _)
-                -- Check if hover value returns number followed by a space and then "byte" or "bytes"
-                -- this prevents showing hover info for byte values in the code
-                local pattern = '%d%s+byte[s]*'
-                local isRealHoverInfo = result and result.contents and not string.match(result.contents.value, pattern)
-
-                if isRealHoverInfo then
-                  vim.lsp.buf.hover()
-                else
-                  local previewHunk = gitsigns.preview_hunk()
-                  if not previewHunk then
-                    vim.notify('No hover info available!', vim.log.levels.INFO)
-                  end
-                end
-              end)
-            end
-          end, 'Mega Hover') ]]
-
-          -- Highlight references
-          --[[ if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-              callback = function(event)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event.buf })
-              end,
-            })
-          end ]]
 
           -- Toggle inlay hints
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
@@ -223,8 +146,6 @@ return {
       --   ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' }),
       --   ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' }),
       -- }
-
-      -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
       local servers = {
         bashls = {
@@ -309,7 +230,8 @@ return {
             },
           },
         },
-        --[[ vtsls = {
+        vtsls = {
+          enabled = false,
           cmd = { 'vtsls', '--stdio' },
           filetypes = {
             'javascript',
@@ -376,18 +298,19 @@ return {
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
           end,
-        }, ]]
-        -- eslint = {
-        --   settings = {
-        --     workingDirectories = { mode = 'auto' },
-        --     rulesCustomizations = {
-        --       { rule = 'prettier/prettier', severity = 'off' },
-        --       { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
-        --     },
-        --     format = false,
-        --   },
-        -- },
-        --[[ tsserver = {
+        },
+        eslint = {
+          enabled = false,
+          settings = {
+            workingDirectories = { mode = 'auto' },
+            rulesCustomizations = {
+              { rule = 'prettier/prettier', severity = 'off' },
+              { rule = '@typescript-eslint/no-unused-vars', severity = 'off' },
+            },
+            format = false,
+          },
+        },
+        ts_ls = {
           enabled = false,
           commands = {
             -- Organize Imports
@@ -575,7 +498,7 @@ return {
               ignoredCodes = {},
             },
           },
-        }, ]]
+        },
         html = {},
         cssls = {},
         graphql = {},
@@ -662,6 +585,11 @@ return {
       require('mason-lspconfig').setup({
         handlers = {
           function(server_name)
+            local disabled_servers = { 'ts_ls', 'vtsls', 'esling', 'emmet_language_server' }
+            if vim.tbl_contains(disabled_servers, server_name) then
+              return
+            end
+
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             -- server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
@@ -788,12 +716,21 @@ return {
           tsserver_max_memory = 'auto',
           -- described below
           tsserver_format_options = {},
-          tsserver_file_preferences = {},
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = 'none',
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = false,
+            includeInlayVariableTypeHints = false,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+            includeInlayPropertyDeclarationTypeHints = false,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
           -- locale of all tsserver messages, supported locales you can find here:
           -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
           tsserver_locale = 'en',
           -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-          complete_function_calls = false,
+          complete_function_calls = true,
           include_completions_with_insert_text = true,
           -- CodeLens
           -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
@@ -818,6 +755,7 @@ return {
   {
     'rachartier/tiny-inline-diagnostic.nvim',
     lazy = false,
+    priority = 1000,
     keys = {
       {
         '<leader>td',
@@ -832,8 +770,10 @@ return {
 
       require('tiny-inline-diagnostic').setup({
         signs = {
-          left = '█',
-          right = '█',
+          -- left = '█',
+          left = '',
+          -- right = '█',
+          right = '',
           diag = ' ■',
           arrow = '    ',
           up_arrow = '    ',
@@ -853,13 +793,18 @@ return {
           factor = 0.1,
         },
         options = {
-          show_source = false,
+          show_source = true,
           throttle = 20,
           softwrap = 15,
+          multiple_diag_under_cursor = false,
+          multilines = false,
+          show_all_diags_on_cursorline = false,
+          enable_on_insert = false,
 
           overflow = {
             mode = 'wrap',
           },
+          format = nil,
 
           --- Enable it if you want to always have message with `after` characters length.
           break_line = {
@@ -1086,7 +1031,7 @@ return {
     end,
   },
 
-  -- Illuminate the current word under the cursor
+  -- Illuminate the current word under the cursor and next/prev reference
   {
     'RRethy/vim-illuminate',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
@@ -1208,6 +1153,7 @@ return {
     end,
   },
 
+  -- JSON/YAML Schemas definitions
   {
     'b0o/schemastore.nvim',
     ft = { 'json', 'yaml', 'yml' },
