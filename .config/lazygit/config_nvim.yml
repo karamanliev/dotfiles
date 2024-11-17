@@ -36,6 +36,20 @@ gui:
 promptToReturnFromSubprocess: false
 notARepository: "skip"
 customCommands:
+  - key: "<c-a>" # Generate AI commit
+    description: "Pick AI commit"
+    command: 'echo "{{.Form.Msg}}" > .git/COMMIT_EDITMSG && nvim .git/COMMIT_EDITMSG && [ -s .git/COMMIT_EDITMSG ] && git commit -F .git/COMMIT_EDITMSG || echo "Commit message is empty, commit aborted."'
+    context: "files"
+    subprocess: true
+    prompts:
+      - type: "menuFromCommand"
+        title: "AI Commits"
+        key: "Msg"
+        command: "bunx @m7medvision/lazycommit@latest"
+        filter: '^(?P<number>\d+)\.\s(?P<message>.+)$'
+        valueFormat: "{{ .message }}"
+        labelFormat: "{{ .number }}: {{ .message | green }}"
+
   - key: "<c-p>" # Prune deleted remote branches
     command: "git remote prune {{.SelectedRemote.Name}}"
     context: "remotes"
