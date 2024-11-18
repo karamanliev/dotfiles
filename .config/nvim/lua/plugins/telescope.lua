@@ -190,10 +190,21 @@ return {
       { '<leader>,', '<cmd>Telescope live_grep_args<cr>' },
     },
     config = function()
+      local lga_actions = require('telescope-live-grep-args.actions')
+      local actions = require('telescope.actions')
+
       require('telescope').setup({
         extensions = {
           live_grep_args = {
             auto_quoting = true,
+            mappings = {
+              i = {
+                ['<C-k>'] = lga_actions.quote_prompt(),
+                ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+                -- freeze the current list and start a fuzzy search in the frozen list
+                ['<C-space>'] = actions.to_fuzzy_refine,
+              },
+            },
           },
         },
       })
