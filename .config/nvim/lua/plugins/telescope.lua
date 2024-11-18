@@ -111,6 +111,8 @@ return {
             ignore_current_buffer = true,
             initial_mode = 'normal',
             sort_mru = true,
+            previewer = false,
+            theme = 'dropdown',
             mappings = {
               i = {
                 ['<M-d>'] = actions.delete_buffer + actions.move_to_top,
