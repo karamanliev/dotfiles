@@ -130,8 +130,7 @@ return {
 
   -- Autocompletion
   {
-    'iguanacucumber/magazine.nvim',
-    name = 'nvim-cmp',
+    'hrsh7th/nvim-cmp',
     event = { 'InsertEnter' },
     dependencies = {
       'saadparwaiz1/cmp_luasnip',
