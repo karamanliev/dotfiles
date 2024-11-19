@@ -115,7 +115,10 @@ return {
             theme = 'dropdown',
             mappings = {
               i = {
-                ['<M-d>'] = actions.delete_buffer + actions.move_to_top,
+                ['<C-d>'] = actions.delete_buffer,
+              },
+              n = {
+                ['<C-d>'] = actions.delete_buffer,
               },
             },
           },
