@@ -110,10 +110,9 @@ return {
           map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
-          map('<leader>cc', vim.lsp.buf.code_action, 'Code Action')
+          map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
           -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
-          vim.keymap.set('v', '<leader>c', vim.lsp.buf.code_action, { desc = 'Code Action' })
           map('K', function()
             local winid = require('ufo').peekFoldedLinesUnderCursor()
             if not winid then
