@@ -2,6 +2,9 @@
   editor = nvim
   pager = delta --features=interactive
 
+[fetch]
+  prune = true
+
 [difftool]
   prompt = false
 
