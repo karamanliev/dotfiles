@@ -153,9 +153,9 @@ return {
       -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
       vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
-      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
+      -- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
       vim.keymap.set('n', '<leader>,', '<cmd>Telescope live_grep_args<cr>', { desc = 'Find by Grep' })
-      vim.keymap.set('v', '<leader>,', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })
+      -- vim.keymap.set('v', '<leader>,', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Find Diagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Find Resume' })
       vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
@@ -191,6 +191,21 @@ return {
     'nvim-telescope/telescope-live-grep-args.nvim',
     keys = {
       { '<leader>,', '<cmd>Telescope live_grep_args<cr>' },
+      {
+        '<leader>fw',
+        function()
+          require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()
+        end,
+        desc = 'Find current Word',
+      },
+      {
+        '<leader>,',
+        function()
+          require('telescope-live-grep-args.shortcuts').grep_visual_selection()
+        end,
+        desc = 'Find by Grep (Visual)',
+        mode = 'v',
+      },
     },
     config = function()
       local lga_actions = require('telescope-live-grep-args.actions')
@@ -203,6 +218,7 @@ return {
             mappings = {
               i = {
                 ['<C-k>'] = lga_actions.quote_prompt(),
+                ['<C-o>'] = lga_actions.quote_prompt({ postfix = ' -F ' }),
                 ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
                 -- freeze the current list and start a fuzzy search in the frozen list
                 ['<C-space>'] = actions.to_fuzzy_refine,

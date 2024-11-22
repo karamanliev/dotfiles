@@ -12,6 +12,9 @@ local get_vimgrep_args = function()
   -- I want to search in hidden/dot files.
   table.insert(vimgrep_arguments, '--hidden')
 
+  -- Interpret the search pattern literally and not as a regex.
+  table.insert(vimgrep_arguments, '-F')
+
   -- Remove indentation from results
   table.insert(vimgrep_arguments, '--trim')
   -- I don't want to search in the `.git` directory.
