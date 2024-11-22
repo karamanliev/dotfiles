@@ -1,7 +1,7 @@
 return {
   {
     '3rd/image.nvim',
-    ft = { 'image' },
+    event = { 'VeryLazy' },
     config = function()
       require('image').setup({
         backend = 'kitty',
