@@ -5,7 +5,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-highlight-colors').setup({
-        render = 'virtual',
+        -- render = 'virtual',
         virtual_symbol = '■',
         enable_tailwind = true,
         exclude_filetypes = {
