@@ -18,6 +18,7 @@ return {
     config = function()
       local actions = require('telescope.actions')
       local misc = require('utils.telescope.misc')
+      local image_utils = require('utils.telescope.image')
 
       require('telescope').setup({
         defaults = {
@@ -87,6 +88,7 @@ return {
             --   end
             -- end,
           },
+          buffer_previewer_maker = image_utils.buffer_previewer_maker,
         },
         pickers = {
           lsp_references = {
