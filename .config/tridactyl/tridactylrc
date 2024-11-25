@@ -1,0 +1,31 @@
+sanitize tridactyllocal tridactylsync
+
+" General Settings
+set theme default
+set keyboardlayoutforce true
+set hintdelay 100
+set smoothscroll true
+set modeindicator false
+
+" Binds
+bind J tabnext
+bind K tabprev
+bind x composite tabprev; tabclose #
+
+bind j scrollline 5
+bind k scrollline -5
+
+unbind <C-f>
+bind <Escape> composite mode normal; hidecmdline; nohlsearch
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+
+bind --mode=ex <C-n> ex.next_completion
+bind --mode=ex <C-p> ex.prev_completion
+bind --mode=ex <C-y> ex.insert_completion
+
+" Aliases
+alias tabcloseallbykeyword jsb -p browser.tabs.query({}).then(tabs => tabs.forEach( t => { if(t.url.includes(JS_ARG)) browser.tabs.remove(t.id) }))
+alias tabsort jsb browser.tabs.query({}).then(tabs => tabs.sort((t1, t2) => t1.url.localeCompare(t2.url)).forEach((tab, index) => browser.tabs.move(tab.id, {index})))
