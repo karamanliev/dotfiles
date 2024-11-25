@@ -29,3 +29,14 @@ bind --mode=ex <C-y> ex.insert_completion
 " Aliases
 alias tabcloseallbykeyword jsb -p browser.tabs.query({}).then(tabs => tabs.forEach( t => { if(t.url.includes(JS_ARG)) browser.tabs.remove(t.id) }))
 alias tabsort jsb browser.tabs.query({}).then(tabs => tabs.sort((t1, t2) => t1.url.localeCompare(t2.url)).forEach((tab, index) => browser.tabs.move(tab.id, {index})))
+
+" Search engines
+set searchurls.y https://www.youtube.com/results?search_query=%s
+set searchurls.mdn https://developer.mozilla.org/en-US/search?q=%s&topic=api&topic=js
+set searchurls.imdb https://www.imdb.com/find?q=%s
+set searchurls.i https://www.google.com/search?q=%s&tbm=isch
+set searchurls.gh https://github.com/search?utf8=%E2%9C%93&q=%s&ref=simplesearch
+set searchurls.pdb https://www.protondb.com/search?q=%s
+set searchurls.sdb https://www.steamdb.info/search/?q=%s
+set searchurls.steam https://store.steampowered.com/search/?term=%s
+
