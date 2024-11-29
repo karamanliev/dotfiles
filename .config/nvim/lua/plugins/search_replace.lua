@@ -40,11 +40,6 @@ return {
     config = function()
       require('spectre').setup({
         mapping = {
-          ['esc'] = {
-            map = '<esc>',
-            cmd = "<cmd>lua require('spectre').close()<cr>",
-            desc = 'Close',
-          },
           ['q'] = {
             map = 'q',
             cmd = "<cmd>lua require('spectre').close()<cr>",
