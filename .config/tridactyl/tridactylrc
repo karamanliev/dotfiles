@@ -15,8 +15,8 @@ unbind d
 unbind D
 bind J tabnext
 bind K tabprev
-bind <C-n> tabnext
-bind <C-p> tabprev
+" bind <C-n> tabnext
+" bind <C-p> tabprev
 bind x composite tabprev; tabclose #
 bind X undo
 bind gl tab #
@@ -34,6 +34,10 @@ bind N findnext -1
 unbind gf
 unbind gF
 bind gf hint -qb
+
+bind --mode=browser <C-j> escapehatch
+bind --mode=browser <C-n> tabnext
+bind --mode=browser <C-p> tabprev
 
 bind --mode=insert <C-i> editor_rm
 bind --mode=input <C-i> editor_rm
@@ -58,6 +62,7 @@ alias editor_rm composite editor | jsb -p tri.native.run(`rm -f '${JS_ARG[0]}'`)
 set searchengine g
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.g https://www.google.com/search?q=%s
+set searchurls.r https://www.reddit.com/r/%s
 set searchurls.map https://www.google.com/maps/search/%s
 set searchurls.y https://www.youtube.com/results?search_query=%s
 set searchurls.mdn https://developer.mozilla.org/en-US/search?q=%s&topic=api&topic=js
@@ -69,3 +74,8 @@ set searchurls.sdb https://www.steamdb.info/search/?q=%s
 set searchurls.steam https://store.steampowered.com/search/?term=%s
 set searchurls.amazon https://amazon.de/s?k=%s
 set searchurls.keepa https://keepa.com/#!search/3-%s
+
+" Site specific
+" Reddit
+bindurl reddit.com ;c hint -Jc [aria-label*="Toggle Comment Thread"]
+bindurl reddit.com gu urlparent 3
