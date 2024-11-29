@@ -93,6 +93,7 @@ gvfs-onedrive
 gvfs-smb
 hypridle
 hyprland
+hyprpaper
 hyprpicker
 hyprshot-git
 inkscape
@@ -184,6 +185,7 @@ rofi-calc-git
 rofi-emoji-git
 rofi-lbonn-wayland-git
 rsync
+rwpspread-git
 rygel
 satty
 sbctl
@@ -193,6 +195,7 @@ smartmontools
 snap-pac
 snapborg
 snapper
+socat
 spotify
 sshfs
 starship
@@ -201,7 +204,6 @@ stow
 stretchly-git
 sushi
 swaync
-swww
 tauon-music-box
 tealdeer
 tecla
@@ -226,7 +228,6 @@ visual-studio-code-bin
 vkbasalt
 vkd3d
 vulkan-tools
-waypaper-engine-git
 wev
 wezterm
 wget
