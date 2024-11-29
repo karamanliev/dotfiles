@@ -203,10 +203,10 @@ sushi
 swaync
 swww
 tauon-music-box
+tealdeer
 tecla
 telegram-desktop
 terminus-font
-tldr
 tmux-git
 tmux-plugin-manager
 ttf-bitstream-vera
