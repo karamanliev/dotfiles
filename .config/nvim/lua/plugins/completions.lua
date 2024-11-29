@@ -108,7 +108,6 @@ return {
         temperature = 0,
         max_tokens = 4096,
         api_key_name = 'cmd:cat ' .. vim.env.HOME .. '/.openai_api_key',
-        ['local'] = false,
       },
       hints = { enabled = false },
     },
