@@ -53,6 +53,7 @@ return {
                 misc.open_ssh_file({ is_folder = true })
               end,
               ['<C-f>'] = misc.focus_preview,
+              ['<C-q>'] = require('trouble.sources.telescope').open,
             },
             n = {
               ['<C-x>'] = function()
@@ -61,6 +62,7 @@ return {
               ['<C-S-x>'] = function()
                 misc.open_ssh_file({ is_folder = true })
               end,
+              ['<C-q>'] = require('trouble.sources.telescope').open,
             },
           },
           preview = {
