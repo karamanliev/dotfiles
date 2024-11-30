@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WP_FOLDER="$HOME/Pictures/Wallpapers/Ultrawide"
+WP_FOLDER="$HOME/Pictures/Wallpapers"
 WP_INDEX_FILE="$HOME/.cache/rwpspread/current_wallpaper_index"
 
 if [ ! -f "$WP_INDEX_FILE" ]; then
@@ -8,7 +8,7 @@ if [ ! -f "$WP_INDEX_FILE" ]; then
 fi
 
 load_wallpapers() {
-  readarray -t WALLPAPERS_ARR < <(ls -1 "$WP_FOLDER")
+  readarray -t WALLPAPERS_ARR < <(find "$WP_FOLDER" -type f)
   WALLPAPERS_COUNT=${#WALLPAPERS_ARR[@]}
 }
 
@@ -19,10 +19,10 @@ get_current_wallpaper() {
 
 get_wallpaper_index_by_path() {
   local file_path="$1"
-  local file_name=$(basename "$file_path")
+  # local file_name=$(basename "$file_path")
 
   for i in "${!WALLPAPERS_ARR[@]}"; do
-    if [ "${WALLPAPERS_ARR[$i]}" = "$file_name" ]; then
+    if [ "${WALLPAPERS_ARR[$i]}" = "$file_path" ]; then
       echo "$i"
       return 0
     fi
@@ -38,7 +38,7 @@ if [ "$1" = "daemon" ]; then
   load_wallpapers
   get_current_wallpaper
 
-  rwpspread -b hyprpaper -di "$WP_FOLDER/$CURRENT_WALLPAPER"
+  rwpspread -b hyprpaper -di "$CURRENT_WALLPAPER"
 else
   load_wallpapers
 
@@ -72,5 +72,5 @@ else
   echo "$CURRENT_INDEX" >"$WP_INDEX_FILE"
 
   CURRENT_WALLPAPER="${WALLPAPERS_ARR[$CURRENT_INDEX]}"
-  rwpspread -b hyprpaper -i "$WP_FOLDER/$CURRENT_WALLPAPER"
+  rwpspread -b hyprpaper -i "$CURRENT_WALLPAPER"
 fi

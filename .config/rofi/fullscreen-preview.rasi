@@ -1,0 +1,104 @@
+* {
+	background-color: transparent;
+	text-color:       white;
+}
+
+window {
+	fullscreen:       true;
+	background-color: rgba(34, 36, 54, 65%);
+	padding:          4em;
+	children:         [wrap, listview-split];
+	spacing:          1em;
+}
+
+
+listview-split {
+  orientation: horizontal;
+  spacing: 0.4em;
+  children: [listview, icon-current-entry];
+}
+
+wrap {
+	expand: false;
+	orientation: vertical;
+	children: [ inputbar, message ];
+/**
+	background-image: linear-gradient(white/5%, white/40%);
+	border-color: lightblue;
+	border: 1px;
+*/
+	border-radius: 0.4em;
+}
+
+icon-ib {
+	expand: false;
+	filename: "system-search";
+	vertical-align: 0.5;
+	horizontal-align: 0.5;
+	size: 1em;
+}
+inputbar {
+	spacing: 0.4em;
+	padding: 0.4em;
+	children: [ icon-ib, entry ];
+}
+entry {
+	placeholder: "Search";
+	placeholder-color: grey;
+}
+message {
+/**
+	background-color: white/20%;
+	border-color: lightblue;
+	border: 3px 0px 0px 0px;
+ */
+	padding: 0.4em;
+	spacing: 0.4em;
+}
+
+listview {
+	flow: horizontal;
+	fixed-columns: true;
+	columns: 4;
+	lines: 5;
+	spacing: 1.0em;
+}
+
+element {
+	orientation: vertical;
+	padding: 0.1em;
+
+/**
+	background-image: linear-gradient(white/5%, white/20%);
+	border-color: lightblue /15%;
+	border: 3px;
+	border-radius: 0.4em;
+
+*/
+
+  children: [element-icon, element-text ];
+}
+element-icon {
+	size: calc(100% / 5);
+	horizontal-align: 0.5;
+	vertical-align: 0.5;
+}
+element-text {
+	horizontal-align: 0.5;
+	vertical-align: 0.5;
+  padding: 0.5em;
+}
+
+element selected {
+	background-image: linear-gradient(white/25%, white/10%);
+/**
+	border-color: lightblue;
+	border: 3px;
+ */
+	border-radius: 0.4em;
+}
+
+icon-current-entry {
+    expand:          true;
+    size:            80%;
+}
