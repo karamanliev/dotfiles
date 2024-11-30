@@ -45,9 +45,11 @@ vim.opt.termguicolors = true
 vim.opt.cmdwinheight = 20
 
 -- Clipboard
--- Use OSC52 when SSH
-vim.opt.clipboard = 'unnamedplus'
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
+-- Use OSC52 when SSH
 local function paste()
   return {
     vim.fn.split(vim.fn.getreg(''), '\n'),
