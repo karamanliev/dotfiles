@@ -38,7 +38,8 @@ if [ "$1" = "daemon" ]; then
   load_wallpapers
   get_current_wallpaper
 
-  rwpspread -b hyprpaper -di "$CURRENT_WALLPAPER"
+  rwpspread -b hyprpaper -di "$CURRENT_WALLPAPER" &
+  disown
 else
   load_wallpapers
 
