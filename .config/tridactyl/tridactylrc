@@ -74,6 +74,7 @@ set searchurls.sdb https://www.steamdb.info/search/?q=%s
 set searchurls.steam https://store.steampowered.com/search/?term=%s
 set searchurls.amazon https://amazon.de/s?k=%s
 set searchurls.keepa https://keepa.com/#!search/3-%s
+set searchurls.pazaruvaj https://www.pazaruvaj.com/s/?q=%s
 
 " Site specific
 " Reddit
