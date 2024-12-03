@@ -49,6 +49,7 @@ alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man
 
 ## Misc
 alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
+alias reboot-bios='sudo systemctl reboot --firmware-setup'
 ### Kitty imgcat
 alias icat='kitten icat'
 ### Zotify
