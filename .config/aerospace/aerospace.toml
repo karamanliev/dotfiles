@@ -127,6 +127,10 @@ if.app-id = 'com.apple.finder'
 run = ['layout floating']
 
 [[on-window-detected]]
+if.window-title-regex-substring = '^tridactyl$'
+run = ['layout floating', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
 run = "move-node-to-workspace 1"
 
