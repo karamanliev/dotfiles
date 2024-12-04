@@ -4,7 +4,7 @@ COLOR="$WHITE"
 
 sketchybar --add item battery right \
 	--set battery \
-	update_freq=60 \
+	update_freq=120 \
 	icon.color="$COLOR" \
 	icon.padding_left=10 \
 	label.padding_right=2 \
