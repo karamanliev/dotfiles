@@ -476,4 +476,17 @@ return {
       require('monoglow').setup({})
     end,
   },
+
+  {
+    'cpwrs/americano.nvim',
+    lazy = true,
+    priority = 1000,
+    keys = keys,
+    config = function()
+      require('americano').setup({
+        terminal = true,
+        overrides = {},
+      })
+    end,
+  },
 }
