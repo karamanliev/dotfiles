@@ -485,7 +485,11 @@ return {
     config = function()
       require('americano').setup({
         terminal = true,
-        overrides = {},
+        overrides = {
+          ['@tag.tsx'] = { link = '@constant' },
+          ['@tag.builtin.tsx'] = { link = '@constant' },
+          ['@tag.delimiter.tsx'] = { link = 'Delimiter' },
+        },
       })
     end,
   },
