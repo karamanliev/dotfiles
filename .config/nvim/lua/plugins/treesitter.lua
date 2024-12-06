@@ -131,7 +131,9 @@ return {
     enabled = true,
     config = function()
       require('various-textobjs').setup({
-        useDefaultKeymaps = false,
+        keymaps = {
+          useDefaults = false,
+        },
       })
 
       vim.keymap.set({ 'o', 'x' }, 'ii', "<cmd>lua require('various-textobjs').indentation('inner', 'inner')<CR>", { desc = 'Inner indentation' })
