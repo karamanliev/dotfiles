@@ -5,12 +5,12 @@ after-startup-command = [
     'exec-and-forget sketchybar'
 ]
 
-# exec-on-workspace-change = ['/bin/bash', '-c',
-#     '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE EMPTY_WORKSPACES="$(aerospace list-workspaces --monitor all --empty | tr "\n" " ")"',
-# ]
+exec-on-workspace-change = ['/bin/bash', '-c',
+    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 
 # trigger on focus change, so I get immediate feedback when ws is empty or not
-on-focus-changed = "exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_focus_change FOCUSED_WORKSPACE=\"$(aerospace list-workspaces --focused)\" EMPTY_WORKSPACES=\"$(aerospace list-workspaces --monitor all --empty | tr '\n' ' ')\""
+# on-focus-changed = "exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_focus_change FOCUSED_WORKSPACE=\"$(aerospace list-workspaces --focused)\" EMPTY_WORKSPACES=\"$(aerospace list-workspaces --monitor all --empty | tr '\n' ' ')\""
 
 start-at-login = true
 
