@@ -15,6 +15,7 @@ alias vpnd='networksetup -disconnectpppoeservice "Despark VPN"'
 
 # React Native aliases
 alias rns='react-native start --reset-cache'
+alias rnsl='FORCE_COLOR=1 rns | tee /tmp/watcher.log'
 alias ios='react-native run-ios --device'
 alias ioss='react-native run-ios --simulator "iPhone SE (2nd generation)"'
 alias droid='react-native run-android --deviceId adb-84a9125d-WK5YNe._adb-tls-connect._tcp.'
