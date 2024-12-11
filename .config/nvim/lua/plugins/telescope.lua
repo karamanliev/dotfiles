@@ -156,7 +156,7 @@ return {
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Keymaps' })
       -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
       vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
-      vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
+      -- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
       -- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
       vim.keymap.set('n', '<leader>,', '<cmd>Telescope live_grep_args<cr>', { desc = 'Find by Grep' })
       -- vim.keymap.set('v', '<leader>,', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })

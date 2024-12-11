@@ -28,7 +28,7 @@ return {
         -- },
       })
 
-      vim.keymap.set('n', '<leader>lS', 'SessionSearch', {
+      vim.keymap.set('n', '<leader>fs', 'SessionSearch', {
         noremap = true,
         desc = 'List Sessions',
       })

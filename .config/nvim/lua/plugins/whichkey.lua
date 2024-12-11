@@ -22,7 +22,7 @@ return {
         { '<leader>g', group = 'Git' },
         { '<leader>gd', group = 'Diff' },
         { '<leader>h', group = 'Git Hunk' },
-        { '<leader>l', group = 'List' },
+        -- { '<leader>l', group = 'List' },
         { '<leader>q', group = 'Trouble' },
         { '<leader>s', group = 'Search' },
         { '<leader>t', group = 'Toggle' },
