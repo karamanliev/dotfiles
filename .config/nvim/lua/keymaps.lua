@@ -38,7 +38,7 @@ end, { expr = true })
 vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
 
 -- Cycle between last two buffers like <C-6>
-vim.keymap.set('n', 'gl', '<cmd>b#<cr>', { desc = 'Go to Last buffer' })
+-- vim.keymap.set('n', 'gl', '<cmd>b#<cr>', { desc = 'Go to Last buffer' })
 
 -- Goto prev/next buffer with Alt + </>
 -- vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })

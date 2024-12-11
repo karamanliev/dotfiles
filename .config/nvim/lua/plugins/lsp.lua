@@ -1125,6 +1125,7 @@ return {
   -- Turbo console.log
   {
     'gaelph/logsitter.nvim',
+    enabled = false,
     ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'lua', 'go' },
     config = function()
       require('logsitter').setup({
@@ -1149,6 +1150,114 @@ return {
           vim.keymap.set({ 'n', 'x' }, '<leader>cL', '<cmd>LogsitterClearBuf<cr>', { desc = 'Clear Logs' })
         end,
       })
+    end,
+  },
+
+  {
+    'Goose97/timber.nvim',
+    keys = {
+      'gl',
+    },
+    config = function()
+      require('timber').setup({
+        log_templates = {
+          watcher = {
+            javascript = [[console.log('%watcher_marker_start', JSON.stringify(%log_target, null, 2), '%watcher_marker_end')]],
+            typescript = [[console.log('%watcher_marker_start', JSON.stringify(%log_target, null, 2), '%watcher_marker_end')]],
+            jsx = [[console.log('%watcher_marker_start', JSON.stringify(%log_target, null, 2), '%watcher_marker_end')]],
+            tsx = [[console.log('%watcher_marker_start', JSON.stringify(%log_target, null, 2), '%watcher_marker_end')]],
+          },
+          default = {
+            javascript = [[console.log('%log_marker%log_target', %log_target)]],
+            typescript = [[console.log('%log_marker%log_target', %log_target)]],
+            jsx = [[console.log('%log_marker%log_target', %log_target)]],
+            tsx = [[console.log('%log_marker%log_target', %log_target)]],
+          },
+          json = {
+            javascript = [[console.log('%log_marker%log_target', JSON.stringify(%log_target, null, 2))]],
+            typescript = [[console.log('%log_marker%log_target', JSON.stringify(%log_target, null, 2))]],
+            jsx = [[console.log('%log_marker%log_target', JSON.stringify(%log_target, null, 2))]],
+            tsx = [[console.log('%log_marker%log_target', JSON.stringify(%log_target, null, 2))]],
+          },
+        },
+        log_watcher = {
+          enabled = true,
+          sources = {
+            ts = {
+              type = 'filesystem',
+              name = 'Log file',
+              path = '/tmp/watcher.log',
+              buffer = {
+                syntax = 'javascript',
+              },
+            },
+          },
+          preview_snippet_length = 64,
+        },
+        keymaps = {
+          insert_log_below = 'glo',
+          insert_log_above = 'glO',
+          insert_plain_log_below = false,
+          insert_plain_log_above = false,
+          insert_batch_log = 'glb',
+          add_log_targets_to_batch = 'gla',
+          insert_log_below_operator = 'g<S-l>o',
+          insert_log_above_operator = 'g<S-l>O',
+          insert_batch_log_operator = 'g<S-l>b',
+          add_log_targets_to_batch_operator = 'g<S-l>a',
+        },
+        default_keymaps_enabled = true,
+      })
+
+      vim.keymap.set('n', 'glj', function()
+        return require('timber.actions').insert_log({ position = 'below', template = 'json' })
+      end, {
+        desc = 'Log JSON (below)',
+      })
+
+      vim.keymap.set('n', 'glJ', function()
+        return require('timber.actions').insert_log({ position = 'above', template = 'json' })
+      end, {
+        desc = 'Log JSON (above)',
+      })
+
+      vim.keymap.set('n', 'gls', function()
+        require('timber.actions').insert_log({
+          templates = { before = 'default', after = 'default' },
+          position = 'surround',
+        })
+      end, { desc = 'Log Surround' })
+
+      vim.keymap.set('n', 'glf', function()
+        return require('timber.buffers').open_float()
+      end, { desc = 'Open log float' })
+
+      vim.keymap.set('n', 'glc', function()
+        return require('timber.actions').clear_log_statements({ global = false })
+      end, {
+        desc = 'Clear logs',
+      })
+
+      vim.keymap.set('n', 'glC', function()
+        return require('timber.actions').clear_log_statements({ global = true })
+      end, {
+        desc = 'Clear logs (global)',
+      })
+
+      vim.keymap.set('n', 'gll', function()
+        return require('timber.actions').insert_log({ position = 'below', operator = true }) .. '_'
+      end, {
+        desc = 'Line log statement',
+        expr = true,
+      })
+
+      vim.keymap.set('n', 'glw', function()
+        require('timber.actions').insert_log({ template = 'watcher', position = 'below' })
+      end, { desc = 'Log watcher (JS)' })
+
+      vim.keymap.set('n', 'glW', function()
+        require('timber.actions').insert_log({ template = 'watcher', position = 'above' })
+      end, { desc = 'Log watcher (JS)' })
     end,
   },
 
