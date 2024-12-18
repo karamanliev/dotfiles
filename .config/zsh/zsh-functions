@@ -42,3 +42,9 @@ list_oldfiles() {
 }
 
 zle -N list_oldfiles
+
+fg_widget() {
+  fg
+}
+
+zle -N fg_widget
