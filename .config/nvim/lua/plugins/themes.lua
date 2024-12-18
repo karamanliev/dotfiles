@@ -475,6 +475,7 @@ return {
           ['@tag.tsx'] = { link = '@constant' },
           ['@tag.builtin.tsx'] = { link = '@constant' },
           ['@tag.delimiter.tsx'] = { link = 'Delimiter' },
+          ['DiagnosticUnnecessary'] = { link = '@markup.strikethrough' },
         },
       })
     end,
