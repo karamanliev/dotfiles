@@ -1207,6 +1207,11 @@ return {
           add_log_targets_to_batch_operator = 'g<S-l>a',
         },
         default_keymaps_enabled = true,
+        log_summary = {
+          win = {
+            position = 'right',
+          },
+        },
       })
 
       vim.keymap.set('n', 'glj', function()
