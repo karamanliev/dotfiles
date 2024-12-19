@@ -1258,6 +1258,10 @@ return {
       vim.keymap.set('n', 'glW', function()
         require('timber.actions').insert_log({ template = 'watcher', position = 'above' })
       end, { desc = 'Log watcher (JS)' })
+
+      vim.keymap.set('n', 'glS', function()
+        require('timber.summary').open({ focus = true })
+      end, { desc = 'Log Summary' })
     end,
   },
 
