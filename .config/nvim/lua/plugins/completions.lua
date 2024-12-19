@@ -43,7 +43,7 @@ return {
       end, { desc = 'Super Tab', silent = true })
     end,
   },
-  -- TODO: Try paid supermaven subscription when copilot subscription expires
+
   {
     'supermaven-inc/supermaven-nvim',
     enabled = true,
@@ -61,8 +61,8 @@ return {
         --   cterm = 244,
         -- },
         log_level = 'off',
-        disable_inline_completion = false,
-        disable_keymaps = false,
+        disable_inline_completion = true,
+        disable_keymaps = true,
         condition = function()
           return string.match(vim.fn.expand('%:t'), '.env')
         end,
@@ -137,7 +137,7 @@ return {
       'hrsh7th/cmp-buffer',
       'onsails/lspkind.nvim',
       'hrsh7th/cmp-path',
-      -- 'zbirenbaum/copilot-cmp',
+      'supermaven-inc/supermaven-nvim',
     },
     config = function()
       local cmp = require('cmp')
@@ -147,6 +147,8 @@ return {
       -- copilot-cmp stuff
       -- require('copilot_cmp').setup()
       -- lspkind.presets.default.Copilot = ''
+      lspkind.presets.default.Supermaven = ''
+      vim.api.nvim_set_hl(0, 'CmpItemKindSupermaven', { fg = '#6CC644' })
       -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#A48CF2' })
 
       luasnip.config.setup({})
@@ -256,10 +258,10 @@ return {
         }),
         sources = {
           { name = 'nvim_lsp' },
-          -- { name = 'copilot' },
           { name = 'buffer', max_item_count = 5 },
           { name = 'luasnip', max_item_count = 3 },
           { name = 'path', max_item_count = 8 },
+          { name = 'supermaven' },
         },
         -- experimental = {
         --   ghost_text = true,
