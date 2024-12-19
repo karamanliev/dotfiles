@@ -1234,7 +1234,7 @@ return {
       end, { desc = 'Log Surround' })
 
       vim.keymap.set('n', 'glf', function()
-        return require('timber.buffers').open_float()
+        return require('timber.buffers').open_float({ sort = 'newest_first' })
       end, { desc = 'Open log float' })
 
       vim.keymap.set('n', 'glc', function()
