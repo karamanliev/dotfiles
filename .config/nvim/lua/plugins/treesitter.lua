@@ -224,4 +224,35 @@ return {
       max_join_length = 160,
     },
   },
+
+  {
+    'briangwaltney/paren-hint.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('paren-hint').setup({
+        include_paren = true,
+        anywhere_on_line = true,
+        show_same_line_opening = false,
+        highlight = 'Delimiter',
+
+        excluded_filetypes = {
+          'lspinfo',
+          'packer',
+          'checkhealth',
+          'help',
+          'man',
+          'gitcommit',
+          'TelescopePrompt',
+          'TelescopeResults',
+          '',
+        },
+        excluded_buftypes = {
+          'terminal',
+          'nofile',
+          'quickfix',
+          'prompt',
+        },
+      })
+    end,
+  },
 }
