@@ -40,7 +40,7 @@ faudio
 fd
 file-roller
 firefox
-firefox-tridactyl-native-bin
+firefox-tridactyl-native
 fnm-bin
 fragments
 fzf
@@ -80,6 +80,7 @@ gnome-weather
 go
 goverlay
 gpu-screen-recorder
+gpu-screen-recorder-gtk
 grilo-plugins
 gst-plugin-pipewire
 gvfs
@@ -93,6 +94,7 @@ gvfs-onedrive
 gvfs-smb
 hypridle
 hyprland
+hyprland-qtutils-git
 hyprpaper
 hyprpicker
 hyprshot-git
