@@ -18,7 +18,7 @@ bind K tabprev
 " bind <C-n> tabnext
 " bind <C-p> tabprev
 bind x composite tabprev; tabclose #
-bind X undo
+bind X tabclose
 bind gl tab #
 
 bind j scrollline 5
