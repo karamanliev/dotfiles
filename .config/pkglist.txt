@@ -94,7 +94,6 @@ gvfs-onedrive
 gvfs-smb
 hypridle
 hyprland
-hyprland-qtutils-git
 hyprpaper
 hyprpicker
 hyprshot-git
