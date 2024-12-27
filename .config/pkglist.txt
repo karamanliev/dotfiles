@@ -21,6 +21,7 @@ bun-bin
 catimg
 celluloid
 cliphist
+cpio
 cpupower
 czkawka-gui-bin
 dart-sass
@@ -244,7 +245,7 @@ xdg-utils
 xorg-xinit
 yay
 yazi
-zen-browser-avx2-bin
+zen-browser-bin
 zoxide
 zram-generator
 zsh
