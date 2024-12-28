@@ -37,7 +37,6 @@ evolution
 extension-manager
 eza
 fastfetch
-faudio
 fd
 file-roller
 firefox
@@ -104,7 +103,6 @@ kitty
 lazygit
 lib32-alsa-lib
 lib32-alsa-plugins
-lib32-faudio
 lib32-gamemode
 lib32-giflib
 lib32-gnutls
