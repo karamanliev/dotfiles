@@ -170,6 +170,24 @@ autocmd('FileType', {
   desc = 'Open help in vertical split',
 })
 
+autocmd('BufReadPre', {
+  callback = function(ev)
+    local last_buf = vim.fn.bufnr('#')
+
+    if last_buf > 0 then
+      vim.bo.bufhidden = 'unload'
+      vim.cmd('vsplit ' .. ev.file)
+
+      vim.cmd.wincmd('p') -- focus last window
+      vim.cmd('buffer #')
+      vim.cmd.wincmd('p')
+    end
+  end,
+  pattern = { '*.png', '*.jpg', '*.jpeg', '*.JPEG', '*.JPG', '*.gif', '*.webp', '*.avif' },
+  group = general,
+  desc = 'Open images in vsplit',
+})
+
 -- close Some windows with <q>
 autocmd('FileType', {
   callback = function(event)
@@ -192,6 +210,7 @@ autocmd('FileType', {
     'dbout',
     'gitsigns-blame',
     'git',
+    'image_nvim',
   },
   group = general,
   desc = 'Close some windows with <q>',
