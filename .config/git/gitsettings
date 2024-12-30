@@ -16,7 +16,14 @@
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [merge]
-  conflictstyle = diff3
+  tool = diffview
+
+[mergetool]
+  prompt = false
+  keepBackup = false
+
+[mergetool "diffview"]
+  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 
 [interactive]
   diffFilter = delta
