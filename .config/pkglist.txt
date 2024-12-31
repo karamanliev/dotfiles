@@ -185,7 +185,7 @@ rofi-calc-git
 rofi-emoji-git
 rofi-lbonn-wayland-git
 rsync
-rwpspread-git
+rwpspread
 rygel
 satty
 sbctl
@@ -235,6 +235,7 @@ wine-staging
 wireless_tools
 wireplumber
 wl-clipboard
+wlsunset
 xclip
 xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
