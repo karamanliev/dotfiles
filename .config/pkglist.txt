@@ -44,7 +44,6 @@ firefox-tridactyl-native
 fnm-bin
 fragments
 fzf
-gamemode
 gdm
 gdm-settings
 gimp
@@ -81,6 +80,7 @@ go
 goverlay
 gpu-screen-recorder
 gpu-screen-recorder-gtk
+gpu-screen-recorder-ui
 grilo-plugins
 gst-plugin-pipewire
 gvfs
