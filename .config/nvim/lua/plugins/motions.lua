@@ -39,6 +39,7 @@ return {
     end,
   },
 
+  -- Press tab to jump in/out of quotes/parentheses/brackets
   {
     'abecodes/tabout.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
