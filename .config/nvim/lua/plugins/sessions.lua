@@ -34,19 +34,4 @@ return {
       })
     end,
   },
-
-  -- Undo tree
-  {
-    'mbbill/undotree',
-    enabled = false,
-    cmd = {
-      'UndotreeToggle',
-    },
-    init = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Undo Tree' })
-      vim.g.undotree_ShortIndicators = 1
-      vim.g.undotree_SplitWidth = 35
-      vim.g.undotree_SetFocusWhenToggle = 1
-    end,
-  },
 }

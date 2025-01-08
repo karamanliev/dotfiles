@@ -190,26 +190,6 @@ return {
     end,
   },
 
-  -- Context
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    enabled = false,
-    config = function()
-      local context = require('treesitter-context')
-
-      context.setup({
-        enable = true,
-        max_lines = 1,
-      })
-
-      vim.keymap.set('n', 'gC', function()
-        context.go_to_context(vim.v.count1)
-      end, { silent = true })
-    end,
-  },
-
   -- Smart split/join
   {
     'Wansmer/treesj',
