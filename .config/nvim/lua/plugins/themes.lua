@@ -64,13 +64,6 @@ return {
   },
 
   {
-    'nyoom-engineering/oxocarbon.nvim',
-    priority = 1000,
-    lazy = true,
-    keys = keys,
-  },
-
-  {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
