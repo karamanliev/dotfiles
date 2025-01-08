@@ -1,49 +1,5 @@
 return {
-  -- Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    enabled = false,
-    cmd = 'Copilot',
-    event = { 'InsertEnter' },
-    config = function()
-      -- local colors = require('tokyonight.colors').setup()
-      -- vim.api.nvim_set_hl(0, 'CopilotSuggestion', { fg = colors.fg_dark })
-
-      require('copilot').setup({
-        panel = {
-          enabled = true,
-          keymap = {
-            open = '<M-p>',
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          keymap = {
-            accept = false,
-            next = '<M-]>',
-            prev = '<M-[>',
-            dismiss = '<C-c>',
-          },
-        },
-        filetypes = {
-          yaml = true,
-          markdown = true,
-          ['.'] = true,
-        },
-      })
-
-      -- Enable <Tab> to indent if no suggestions are available
-      vim.keymap.set('i', '<Tab>', function()
-        if require('copilot.suggestion').is_visible() then
-          require('copilot.suggestion').accept()
-        else
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
-        end
-      end, { desc = 'Super Tab', silent = true })
-    end,
-  },
-
+  -- AI completion
   {
     'supermaven-inc/supermaven-nvim',
     enabled = true,
