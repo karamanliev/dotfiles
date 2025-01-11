@@ -28,7 +28,7 @@ vim.keymap.set('n', '<C-n>', function()
 end)
 
 -- Same as above but for visual mode selection
-vim.keymap.set('x', '<C-n>', '"zy<Esc>:%s/<C-R>z//gI<Left><Left><Left>')
+vim.keymap.set('x', '<C-n>', '"zy<Esc>:%s/<C-R>z//gcI<Left><Left><Left><Left>')
 
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
@@ -119,9 +119,6 @@ vim.keymap.set('n', '<leader>tx', function()
     vim.diagnostic.hide()
   end
 end, { desc = 'Toggle diagnostics' })
-
--- Toggle Fold Column
-vim.keymap.set('n', '<leader>tc', '<cmd>ToggleFoldColumn<cr>', { desc = 'Toggle Fold Column' })
 
 -- Open lazygit in new tmux window
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
