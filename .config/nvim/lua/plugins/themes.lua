@@ -447,16 +447,6 @@ return {
   },
 
   {
-    'wnkz/monoglow.nvim',
-    lazy = true,
-    priority = 1000,
-    keys = keys,
-    config = function()
-      require('monoglow').setup({})
-    end,
-  },
-
-  {
     'cpwrs/americano.nvim',
     lazy = true,
     priority = 1000,
