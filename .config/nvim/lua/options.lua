@@ -13,15 +13,35 @@ vim.opt.signcolumn = 'yes'
 -- Set dark background
 vim.opt.background = 'dark'
 
--- Foldcolumn
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldcolumn = '0' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
+-- Folding
+function Foldexpr()
+  local buf = vim.api.nvim_get_current_buf()
+  if vim.b[buf].ts_folds == nil then
+    -- as long as we don't have a filetype, don't bother
+    -- checking if treesitter is available (it won't)
+    if vim.bo[buf].filetype == '' then
+      return '0'
+    end
+    if vim.bo[buf].filetype:find('dashboard') then
+      vim.b[buf].ts_folds = false
+    else
+      vim.b[buf].ts_folds = pcall(vim.treesitter.get_parser, buf)
+    end
+  end
+  return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or '0'
+end
+
+-- use tree-sitter for folding. If needed to use normal folding, run :set foldmethod=syntax
 vim.o.foldenable = true
--- works almost the same as nvim-ufo
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldmethod = 'expr'
+if vim.fn.has('nvim-0.10') == 1 then
+  vim.opt.foldexpr = 'v:lua.Foldexpr()'
+else
+  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+end
+vim.o.foldcolumn = '0'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
 
 -- custom statuscolumn
 vim.opt.statuscolumn = " %s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''} "

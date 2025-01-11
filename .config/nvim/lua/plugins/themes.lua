@@ -469,6 +469,7 @@ return {
           ['@tag.builtin.tsx'] = { link = '@constant' },
           ['@tag.delimiter.tsx'] = { link = 'Delimiter' },
           ['DiagnosticUnnecessary'] = { link = '@markup.strikethrough' },
+          ['Folded'] = { link = 'DevIconAdaBody' },
         },
       })
     end,

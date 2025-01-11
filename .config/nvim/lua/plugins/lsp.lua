@@ -113,12 +113,13 @@ return {
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
           -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
-          map('K', function()
-            local winid = require('ufo').peekFoldedLinesUnderCursor()
-            if not winid then
-              vim.lsp.buf.hover()
-            end
-          end, 'Hover Info / Fold Peek')
+          -- map('K', function()
+          --   local winid = require('ufo').peekFoldedLinesUnderCursor()
+          --   if not winid then
+          --     vim.lsp.buf.hover()
+          --   end
+          -- end, 'Hover Info / Fold Peek')
+          map('K', vim.lsp.buf.hover, 'Hover Info')
           map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'i' })
 
           -- Toggle inlay hints
