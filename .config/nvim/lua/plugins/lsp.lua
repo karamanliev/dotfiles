@@ -656,16 +656,16 @@ return {
       })
 
       -- Opens trouble instead of qflist when multiple source definitions
-      vim.api.nvim_create_autocmd('BufRead', {
-        callback = function(ev)
-          if vim.bo[ev.buf].buftype == 'quickfix' then
-            vim.schedule(function()
-              vim.cmd([[cclose]])
-              vim.cmd([[Trouble qflist open]])
-            end)
-          end
-        end,
-      })
+      -- vim.api.nvim_create_autocmd('BufRead', {
+      --   callback = function(ev)
+      --     if vim.bo[ev.buf].buftype == 'quickfix' then
+      --       vim.schedule(function()
+      --         vim.cmd([[cclose]])
+      --         vim.cmd([[Trouble qflist open]])
+      --       end)
+      --     end
+      --   end,
+      -- })
     end,
   },
 
@@ -830,6 +830,7 @@ return {
   -- Show diagnostics in a panel
   {
     'folke/trouble.nvim',
+    enabled = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cmd = {
       'Trouble',
@@ -899,7 +900,7 @@ return {
     ft = { 'typescript', 'typescriptreact' },
     config = function()
       require('tsc').setup({
-        use_trouble_qflist = true,
+        use_trouble_qflist = false,
         auto_open_qflist = true,
         auto_focus_qflist = true,
         pretty_errors = true,
