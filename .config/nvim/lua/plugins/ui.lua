@@ -18,7 +18,7 @@ return {
   -- Highlight undo/redo changes
   {
     'tzachar/highlight-undo.nvim',
-    enabled = true,
+    enabled = false,
     keys = {
       'u',
       '<C-r>',
@@ -164,6 +164,7 @@ return {
   -- Highlight search results
   {
     'kevinhwang91/nvim-hlslens',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('hlslens').setup({
