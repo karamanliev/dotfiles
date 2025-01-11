@@ -21,14 +21,6 @@ switch_to_pc() {
   switch_audio_output "onyx"
 }
 
-launch_steam() {
-  if pgrep -x "steam" >/dev/null; then
-    ps aux | grep -i "steam" | awk '{print $2}' | xargs kill -9
-    sleep 1
-  fi
-  steam -gamepadui &
-}
-
 # Check if HDMI is not connected then setup TV mode
 monitors=$(hyprctl monitors)
 if echo "$monitors" | grep -i "hdmi"; then
@@ -40,5 +32,5 @@ else
   sleep 2
   $HOME/.config/hypr/scripts/gamemode.sh on
   hyprctl dispatch workspace 9
-  # launch_steam
+  steam-bigpicture.sh
 fi
