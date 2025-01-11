@@ -2,6 +2,7 @@ return {
   -- Comment motions
   {
     'numToStr/Comment.nvim',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     config = function()
@@ -42,6 +43,7 @@ return {
   -- Press tab to jump in/out of quotes/parentheses/brackets
   {
     'abecodes/tabout.nvim',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('tabout').setup({
