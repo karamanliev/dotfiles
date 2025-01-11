@@ -20,6 +20,16 @@ if vim.env.SSH_CONNECTION then
   vim.keymap.set({ 'n', 'x' }, '<leader>X', '<cmd>OpenSshFile dir<cr>', { desc = 'Open SSH dir' })
 end
 
+-- Press 'C-n' for quick find/replace for the word under the cursor
+vim.keymap.set('n', '<C-n>', function()
+  local cmd = ':%s/<C-r><C-w>//gcI<Left><Left><Left><Left>'
+  local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
+end)
+
+-- Same as above but for visual mode selection
+vim.keymap.set('x', '<C-n>', '"zy<Esc>:%s/<C-R>z//gI<Left><Left><Left>')
+
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
 
