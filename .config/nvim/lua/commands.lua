@@ -16,31 +16,6 @@ command('ClearBuffers', function(args)
   vim.cmd(current_line .. 'norm! zz')
 end, { bang = true, desc = 'Close all buffers, but the active one' })
 
--- Show current buffer CWD for 5 seconds
-command('BufCWD', function()
-  local function print_buffer_cwd()
-    local cwd = vim.fn.expand('%:p:h')
-    local padded_cwd = cwd .. string.rep(' ', 2) -- Adding 2 spaces of padding
-    vim.notify('Current Buffer CWD: ' .. padded_cwd, vim.log.levels.INFO, { ttl = 10000 })
-  end
-
-  print_buffer_cwd()
-end, {})
-
-command('ToggleFoldColumn', function()
-  local foldcolumn = vim.wo.foldcolumn
-  vim.wo.foldcolumn = foldcolumn == '0' and '1' or '0'
-
-  vim.notify('Fold column ' .. (foldcolumn == '1' and 'disabled' or 'enabled'), vim.log.levels.INFO)
-end, {
-  desc = 'Toggle fold column',
-})
-
--- Copy current buffer file path to clipboard
-command('CopyFilePathToClipboard', function()
-  vim.fn.setreg('+', vim.fn.expand('%:p'))
-end, {})
-
 -- Write current buffer without auto-formatting
 command('WriteWithoutFormat', function()
   vim.b.dont_format_on_write = true
@@ -170,6 +145,7 @@ autocmd('FileType', {
   desc = 'Open help in vertical split',
 })
 
+-- Open images in vsplit
 autocmd('BufReadPre', {
   callback = function(ev)
     local last_buf = vim.fn.bufnr('#')
@@ -246,16 +222,6 @@ autocmd('BufEnter', {
 --   group = disable_node_modules_eslint_group,
 -- })
 
--- Refresh codelens on BufEnter
--- INFO: found that annoying, disabled it
--- autocmd({ 'BufEnter' }, {
---   callback = function()
---     vim.lsp.codelens.refresh({ bufnr = 0 })
---   end,
---   group = general,
---   desc = 'Refresh codelens on BufEnter',
--- })
-
 -- Disable LSP and TS when opening large files
 local big_file = autogroup('BigFile', { clear = true })
 vim.filetype.add({
@@ -298,6 +264,7 @@ autocmd('LspAttach', {
   end,
 })
 
+-- Refresh colorscheme highlights on change
 autocmd({ 'ColorScheme' }, {
   pattern = '*',
   group = general,
@@ -308,6 +275,7 @@ autocmd({ 'ColorScheme' }, {
   desc = 'Source highlights.lua',
 })
 
+-- Set filetype to image
 autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.bmp' },
   group = general,
