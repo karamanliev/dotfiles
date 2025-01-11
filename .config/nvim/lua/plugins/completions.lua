@@ -29,6 +29,7 @@ return {
   -- AI Panel
   {
     'yetone/avante.nvim',
+    enabled = false,
     build = 'make',
     keys = {
       {
