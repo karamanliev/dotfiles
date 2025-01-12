@@ -166,9 +166,9 @@ return {
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'Find Todo Comments' })
       vim.keymap.set({ 'n', 'v' }, '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
       vim.keymap.set({ 'n', 'v' }, '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', { desc = 'Fuzzy find current buffer' })
-      vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
+      -- vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
       vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
-      vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
+      -- vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
       vim.keymap.set('n', '<leader>f/', function()
         builtin.live_grep({
           grep_open_files = true,
@@ -237,6 +237,7 @@ return {
 
   {
     'AckslD/nvim-neoclip.lua',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('neoclip').setup({
@@ -261,6 +262,7 @@ return {
 
   {
     'debugloop/telescope-undo.nvim',
+    enabled = false,
     keys = {
       {
         '<leader>u',
@@ -298,6 +300,7 @@ return {
 
   {
     'aaronhallaert/advanced-git-search.nvim',
+    enabled = false,
     cmd = { 'AdvancedGitSearch' },
     dependencies = {
       'sindrets/diffview.nvim',
