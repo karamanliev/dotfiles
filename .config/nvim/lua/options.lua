@@ -31,14 +31,10 @@ function Foldexpr()
   return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or '0'
 end
 
--- use tree-sitter for folding. If needed to use normal folding, run :set foldmethod=syntax
 vim.o.foldenable = true
 vim.opt.foldmethod = 'expr'
-if vim.fn.has('nvim-0.10') == 1 then
-  vim.opt.foldexpr = 'v:lua.Foldexpr()'
-else
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-end
+vim.opt.foldexpr = 'v:lua.Foldexpr()'
+vim.opt.foldtext = ''
 vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
