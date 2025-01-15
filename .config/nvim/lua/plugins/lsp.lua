@@ -1219,6 +1219,10 @@ return {
       vim.keymap.set('n', 'glS', function()
         require('timber.summary').open({ focus = true })
       end, { desc = 'Log Summary' })
+
+      vim.keymap.set('n', 'glt', function()
+        require('timber.actions').search_log_statements()
+      end, { desc = 'Search Logs (Telescope)' })
     end,
   },
 
