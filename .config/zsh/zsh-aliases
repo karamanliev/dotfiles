@@ -13,7 +13,6 @@ alias ......='../../../../..'
 alias ff='git pull --ff-only'
 alias gs='git status'
 alias gco='git checkout'
-alias lazygit='env TERM=screen-256color lazygit'
 alias lg='lazygit'
 
 ## eza
