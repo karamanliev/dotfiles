@@ -14,6 +14,12 @@ return {
     end,
   },
 
+  {
+    'folke/ts-comments.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
+  },
+
   -- Surround motions
   {
     'kylechui/nvim-surround',
