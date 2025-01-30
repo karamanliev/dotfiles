@@ -506,6 +506,7 @@ return {
         },
         highlight_overrides = {
           CursorLine = { bg = adjust_hex('#1b1b1c', 'lighten', 25) },
+          Folded = { bg = adjust_hex('#1b1b1c', 'lighten', 10) },
         },
       })
     end,
