@@ -1140,7 +1140,7 @@ return {
               name = 'Log file',
               path = '/tmp/watcher.log',
               buffer = {
-                syntax = 'javascript',
+                syntax = 'json',
               },
             },
           },
