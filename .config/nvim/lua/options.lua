@@ -150,3 +150,10 @@ vim.opt.langmap =
 -- Set ttimeoutlen to 0 to disable timeouts
 vim.opt.ttimeoutlen = 0
 vim.opt.ttimeout = false
+
+-- Add filetype for http files
+vim.filetype.add({
+  extension = {
+    ['http'] = 'http',
+  },
+})

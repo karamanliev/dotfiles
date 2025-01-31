@@ -22,6 +22,7 @@ return {
         'diff',
         'php',
         'hyprlang',
+        'http',
       },
       auto_install = true,
       highlight = {
