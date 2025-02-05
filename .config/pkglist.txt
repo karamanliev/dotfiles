@@ -154,6 +154,7 @@ ntfs-3g
 nvidia-dkms
 nvidia-settings
 nvidia-utils
+nwg-dock-hyprland
 obsidian
 opencl-nvidia
 openrgb
