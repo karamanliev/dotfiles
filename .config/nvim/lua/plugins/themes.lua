@@ -474,7 +474,7 @@ return {
       local adjust_hex = require('utils.misc').adjust_hex_brightness
 
       require('oldworld').setup({
-        variants = 'default', -- default, oled, cooler
+        variant = 'default', -- default, oled, cooler
         highlight_overrides = {
           CursorLine = { bg = adjust_hex('#1b1b1c', 'lighten', 25) },
           Folded = { bg = adjust_hex('#1b1b1c', 'lighten', 10) },
