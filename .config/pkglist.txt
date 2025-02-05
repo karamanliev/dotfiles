@@ -249,7 +249,7 @@ zen-browser-bin
 zoxide
 zram-generator
 zsh
-zsh-autocomplete-git
+zsh-autocomplete
 zsh-autosuggestions
 zsh-completions
 zsh-fast-syntax-highlighting-git

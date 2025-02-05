@@ -18,6 +18,10 @@ setopt NOMATCH
 setopt NOTIFY
 unsetopt beep
 
+# zsh-autocomplete fix
+# https://github.com/marlonrichert/zsh-autocomplete/issues/761
+setopt INTERACTIVE_COMMENTS
+
 source $ZSH_MODULES/zsh-vim-mode
 source $ZSH_MODULES/zsh-plugins
 source $ZSH_MODULES/zsh-tmux
@@ -26,8 +30,7 @@ source $ZSH_MODULES/zsh-aliases
 source $ZSH_MODULES/zsh-functions
 
 if $IS_MACOS; then
-	setopt INTERACTIVE_COMMENTS
-	source $ZSH_MODULES/zsh-macos-env
-	source $ZSH_MODULES/zsh-macos-aliases
-	source $ZSH_MODULES/zsh-macos-functions
+  source $ZSH_MODULES/zsh-macos-env
+  source $ZSH_MODULES/zsh-macos-aliases
+  source $ZSH_MODULES/zsh-macos-functions
 fi
