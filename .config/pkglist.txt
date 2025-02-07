@@ -202,7 +202,6 @@ sshfs
 starship
 steam
 stow
-stretchly-git
 sushi
 swaync
 tauon-music-box
