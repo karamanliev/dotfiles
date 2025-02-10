@@ -15,6 +15,9 @@ alias gs='git status'
 alias gco='git checkout'
 alias lg='lazygit'
 
+## DOCKER
+alias ld='lazydocker'
+
 ## eza
 alias ls='eza -F --icons --color=always --group-directories-first'
 alias ll='eza -algF --icons --color=always --group-directories-first'

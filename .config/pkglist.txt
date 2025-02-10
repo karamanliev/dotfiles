@@ -29,6 +29,8 @@ dconf-editor
 ddcutil
 discord
 dkms
+docker
+docker-compose
 dosfstools
 dust
 efibootmgr
@@ -100,6 +102,7 @@ hyprshot-git
 inkscape
 iwd
 kitty
+lazydocker
 lazygit
 lib32-alsa-lib
 lib32-alsa-plugins
