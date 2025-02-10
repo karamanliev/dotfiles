@@ -100,6 +100,7 @@ hyprpaper
 hyprpicker
 hyprshot-git
 inkscape
+interception-caps2esc
 iwd
 kitty
 lazydocker
