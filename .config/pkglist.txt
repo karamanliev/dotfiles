@@ -100,7 +100,6 @@ hyprpaper
 hyprpicker
 hyprshot-git
 inkscape
-interception-caps2esc
 iwd
 kitty
 lazydocker
@@ -182,6 +181,7 @@ protonup-qt-bin
 python-llfuse
 python-pipx
 python-pystray
+qmk
 qt5-wayland
 qt6-wayland
 reflector
