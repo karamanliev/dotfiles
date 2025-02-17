@@ -21,6 +21,9 @@ bind x composite tabprev; tabclose #
 bind X tabclose
 bind gl tab #
 
+# Hard reload (clear cache)
+bind <C-r> js window.location.reload(true)
+
 bind j scrollline 5
 bind k scrollline -5
 
