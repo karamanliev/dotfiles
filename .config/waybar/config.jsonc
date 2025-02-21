@@ -1,0 +1,130 @@
+{
+  "layer": "top",
+  "spacing": 0,
+  "height": 32,
+  "margin-top": 8,
+  "margin-right": 16,
+  "margin-bottom": 0,
+  "margin-left": 16,
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/agenda"
+  ],
+  "modules-center": [
+    "custom/weather",
+    "clock"
+  ],
+  "modules-right": [
+    "cpu_text",
+    "cpu",
+    "memory",
+    "battery",
+    "network",
+    "pulseaudio",
+    "tray",
+    "custom/notification"
+  ],
+  "custom/agenda": {
+    "format": "󰨲  {}",
+    "exec": "${HOME}/.config/waybar/scripts/nextmeeting.py --max-title-length 100 --notify-min-before-events 10 --waybar",
+    "on-middle-click": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
+    "on-click": "kitty -- /bin/bash -c \"echo;gcalcli calw;read;\";",
+    "on-click-right": "kitty -- /bin/bash -c \"echo;${HOME}/.config/waybar/scripts/nextmeeting.py;read;\";",
+    "interval": 59,
+    "return-type": "json",
+    "tooltip": "true"
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}  {0}",
+    "format-icons": {
+      "notification": "<span font_size='x-large'>󰂚</span>",
+      "none": "<span size='x-large'>󰂚</span>",
+      "dnd-notification": "<span size='x-large'>󰂛</span>",
+      "dnd-none": "<span size='x-large'>󰂛</span>",
+      "inhibited-notification": "<span size='x-large'></span>",
+      "inhibited-none": "<span size='x-large'></span>",
+      "dnd-inhibited-notification": "<span size='x-large' foreground='red'>󰂛</span>",
+      "dnd-inhibited-none": "<span size='x-large' foreground='red'>󰂛</span>"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb | jq --unbuffered --compact-output 'if .text == \"0\" then .text = \"\" else . end'",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "hyprland/workspaces": {
+    "on-click-right": "hyprctl dispatch togglespecialworkspace",
+    "on-double-click": "hyprctl dispatch togglespecialworkspace",
+    "disable-scroll": true,
+    "tooltip": false,
+    "icon-size": 32,
+    "all-outputs": true,
+    "show-special": true,
+    "special-visible-only": false,
+    "move-to-monitor": true,
+    "persistent-workspaces": {
+      "*": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "clock": {
+    "format": "{:%I:%M %p - %a, %d %b %Y}",
+    "tooltip": false,
+    "locale": "en_GB.UTF-8"
+  },
+  "cpu": {
+    "format": "cpu {usage}%",
+    "interval": 2,
+    "states": {
+      "critical": 90
+    }
+  },
+  "memory": {
+    "format": "mem {percentage}%",
+    "interval": 2,
+    "states": {
+      "critical": 80
+    }
+  },
+  "battery": {
+    "format": "bat {capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "max-volume": 100,
+    "format": "vol {volume}%",
+    "format-bluetooth": "vol {volume}%",
+    "nospacing": 1,
+    "on-click": "pavucontrol",
+    "tooltip": false
+  },
+  "custom/weather": {
+    "format": "{}°      ",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "${HOME}/.config/waybar/scripts/weather.sh Varna+Bulgaria",
+    "return-type": "json"
+  }
+}
