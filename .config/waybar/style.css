@@ -45,25 +45,17 @@ tooltip label {
   color: @content_main;
 }
 
-#custom-os_button {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 24px;
-  padding-left: 12px;
-  padding-right: 20px;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#custom-os_button:hover {
-  background: @bg_hover;
-  color: @content_main;
-}
-
 #workspaces {
   color: transparent;
-  margin-right: 1.5px;
-  margin-left: 1.5px;
+  margin-right: 0px;
+  margin-left: 6px;
 }
 #workspaces button {
-  padding: 3px;
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-right: 4px;
   color: @content_main;
   transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -74,134 +66,107 @@ tooltip label {
 
 #workspaces button.active {
   color: @content_main;
-  border-bottom: 3px solid white;
 }
+
 #workspaces button.focused {
   color: @bg_active;
 }
-#workspaces button.urgent {
-  background: rgba(255, 200, 0, 0.35);
-  border-bottom: 3px dashed @warning_color;
-  color: @warning_color;
-}
+
+/* #workspaces button.urgent { */
+/*   background: rgba(255, 200, 0, 0.35); */
+/*   border-bottom: 3px dashed @warning_color; */
+/*   color: @warning_color; */
+/* } */
+
 #workspaces button:hover {
   background: @bg_hover;
   color: @content_main;
 }
 
 #workspaces button.active {
-  background: rgba(255, 2, 100, 0.5);
+  background: rgba(187, 154, 247, 0.6);
 }
 
 #workspaces button.visible:not(.active) {
-  background: rgba(50, 150, 100, 0.5);
-}
-
-#taskbar {
-}
-
-#taskbar button {
-  min-width: 130px;
-  border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-  margin-left: 2px;
-  margin-right: 2px;
-  padding-left: 8px;
-  padding-right: 8px;
-  color: white;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-#taskbar button.active {
-  border-bottom: 3px solid white;
-  background: @bg_active;
-}
-
-#taskbar button:hover {
-  border-bottom: 3px solid white;
-  background: @bg_hover;
-  color: @content_main;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 #cpu,
 #disk,
-#memory {
+#memory,
+#temperature {
   padding: 3px;
 }
 
-#temperature {
-  color: transparent;
-  font-size: 0px;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#temperature.critical {
-  padding-right: 3px;
-  color: @warning_color;
-  font-size: initial;
-  border-bottom: 3px dashed @warning_color;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-#window {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
 #tray {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 6px 0;
+  padding: 0 8px;
 }
-#tray > .passive {
-  border-bottom: none;
-}
-#tray > .active {
-  border-bottom: 3px solid white;
-}
+
 #tray > .needs-attention {
   border-bottom: 3px solid @warning_color;
 }
+
 #tray > widget {
+  padding: 0 8px;
+  border-radius: 4px;
   transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
 #tray > widget:hover {
   background: @bg_hover;
 }
 
 #pulseaudio {
-  font-family: "JetBrainsMono Nerd Font";
-  padding-left: 3px;
-  padding-right: 3px;
+  margin: 6px 0;
+  padding: 0 8px;
+  border-radius: 4px;
   transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
 #pulseaudio:hover {
   background: @bg_hover;
 }
 
-#network {
-  padding-left: 3px;
-  padding-right: 3px;
+#custom-vpn {
+  margin: 6px 0;
+  padding: 0 8px;
+  border-radius: 4px;
+}
+
+#custom-vpn:hover {
+  background: @bg_hover;
 }
 
 #language {
-  padding-left: 5px;
-  padding-right: 5px;
+  margin: 6px 0;
+  padding: 0 8px;
+  border-radius: 4px;
+}
+
+#language:hover {
+  background: @bg_hover;
 }
 
 #clock {
-  padding-right: 5px;
-  padding-left: 5px;
+  margin: 6px 0;
+  padding: 0 8px;
+  border-radius: 4px;
   transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 #clock:hover {
   background: @bg_hover;
 }
 
-#custom-notification {
-  margin: 4px 0 4px 8px;
-  padding: 0 12px;
+#custom-notification,
+#custom-agenda {
+  margin: 6px 0;
+  padding: 0 8px;
   border-radius: 4px;
 }
 
-#custom-notification:hover {
+#custom-notification:hover,
+#custom-agenda:hover {
   background: @bg_hover;
 }
 
