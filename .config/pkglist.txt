@@ -6,7 +6,6 @@ alacritty
 alsa-plugins
 amd-ucode
 android-sdk-platform-tools
-aylurs-gtk-shell-git
 baobab
 base
 base-devel
@@ -17,14 +16,12 @@ brave-bin
 btop
 btrfs-assistant
 btrfs-progs
-bun-bin
 catimg
 celluloid
 cliphist
 cpio
 cpupower
 czkawka-gui-bin
-dart-sass
 dconf-editor
 ddcutil
 discord
@@ -46,6 +43,7 @@ firefox-tridactyl-native
 fnm-bin
 fragments
 fzf
+gcalcli
 gdm
 gdm-settings
 gimp
@@ -65,7 +63,6 @@ gnome-font-viewer
 gnome-keyring
 gnome-logs
 gnome-menus
-gnome-next-meeting-applet
 gnome-remote-desktop
 gnome-screenshot
 gnome-session
@@ -196,7 +193,6 @@ satty
 sbctl
 seahorse
 sesh-bin
-smartmontools
 snap-pac
 snapborg
 snapper
@@ -232,6 +228,7 @@ visual-studio-code-bin
 vkbasalt
 vkd3d
 vulkan-tools
+waybar
 wev
 wezterm
 wget
