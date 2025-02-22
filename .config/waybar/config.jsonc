@@ -145,11 +145,11 @@
     "on-click": "hyprctl switchxkblayout current next"
   },
   "custom/vpn": {
-    "interval": 3,
+    "interval": 60,
+    "signal": 3,
     "format": "{}",
     "exec": "${HOME}/.config/waybar/scripts/vpn.sh",
-    "max-length": "100",
-    "on-click": "[[ $(nmcli connection show --active | grep -qi vpn; echo $?) -eq 0 ]] && nmcli connection down Despark || nmcli connection up Despark",
+    "on-click": "${HOME}/.config/waybar/scripts/toggle_vpn.sh",
     "tooltip": false
   },
   "pulseaudio": {
