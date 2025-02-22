@@ -26,7 +26,7 @@ monitors=$(hyprctl monitors)
 if echo "$monitors" | grep -i "hdmi"; then
   switch_to_pc
   hyprctl reload
-  ags &
+  waybar &
 else
   switch_to_tv
   sleep 2
