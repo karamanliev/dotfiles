@@ -6,7 +6,7 @@ set browser zen-browser
 set keyboardlayoutforce true
 set hintdelay 100
 set smoothscroll true
-set modeindicator false
+set modeindicator true
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
 

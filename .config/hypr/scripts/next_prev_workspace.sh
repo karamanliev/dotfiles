@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/.config/hypr/scripts/hide_special_on_ws_change.sh
-
 focused_monitor_name=$(hyprctl monitors -j | jq -r '.[] | select (.focused == true) | .name')
 focused_monitor_active_ws=$(hyprctl monitors -j | jq -r '.[] | select (.focused == true) | .activeWorkspace.id')
 

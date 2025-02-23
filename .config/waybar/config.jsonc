@@ -71,8 +71,7 @@
     "escape": true
   },
   "hyprland/workspaces": {
-    "on-click-right": "hyprctl dispatch togglespecialworkspace",
-    "on-double-click": "hyprctl dispatch togglespecialworkspace",
+    "on-double-click": "${HOME}/.config/hypr/scripts/hide_special_on_ws_change.sh",
     "disable-scroll": true,
     "tooltip": false,
     "icon-size": 32,
@@ -93,6 +92,14 @@
         9,
         10
       ]
+    },
+    "format": "{icon}",
+    "format-icons": {
+      "9": "G",
+      "10": "M",
+      "chat": "<sub>CHAT</sub>",
+      "ai": "<sub>AI</sub>",
+      "minimized": "<sub>MINIMIZED</sub>"
     }
   },
   "clock": {
