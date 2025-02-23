@@ -30,6 +30,7 @@
     "hyprland/language",
     "custom/separator",
     "tray",
+    "custom/wlsunset",
     "custom/separator",
     "custom/notification"
   ],
@@ -180,5 +181,18 @@
     "interval": 3600,
     "exec": "${HOME}/.config/waybar/scripts/weather.sh Varna+Bulgaria",
     "return-type": "json"
+  },
+  "custom/wlsunset": {
+    "interval": "once",
+    "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
+    "on-click": "sh /home/ico/.config/waybar/scripts/wlsunset.sh",
+    "signal": 1, // SIGRTMIN+1 or 35
+    "return-type": "json",
+    "format": "<span font_size='x-large'>{icon}</span>",
+    "tooltip-format": "wlsunset: {alt}",
+    "format-icons": {
+      "off": "",
+      "on": ""
+    }
   }
 }
