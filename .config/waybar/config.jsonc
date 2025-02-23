@@ -23,8 +23,6 @@
     "custom/separator",
     "memory",
     "custom/separator",
-    "custom/vpn",
-    "custom/separator",
     "pulseaudio",
     "custom/separator",
     "hyprland/language",
@@ -36,7 +34,7 @@
     "custom/notification"
   ],
   "custom/separator": {
-    "format": "       "
+    "format": "       "
   },
   "custom/agenda": {
     "format": "<span font_size='large'>󰨲</span>  {0}",
@@ -159,14 +157,6 @@
     "format-en": "EN",
     "format-bg": "BG",
     "on-click": "hyprctl switchxkblayout current next"
-  },
-  "custom/vpn": {
-    "interval": 60,
-    "signal": 3,
-    "format": "{}",
-    "exec": "${HOME}/.config/waybar/scripts/vpn.sh",
-    "on-click": "${HOME}/.config/waybar/scripts/toggle_vpn.sh",
-    "tooltip": false
   },
   "pulseaudio": {
     "scroll-step": 5,
