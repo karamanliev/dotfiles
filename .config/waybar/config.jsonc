@@ -161,9 +161,10 @@
   "pulseaudio": {
     "scroll-step": 5,
     "max-volume": 100,
-    "format": "<span font_size='large'>{icon}</span> {volume}%",
-    "format-muted": "󰝟  0%",
-    "format-bluetooth": "󰂯 {volume}%",
+    "format": "<span font_size='large'>{icon}</span> {volume}%    {format_source}",
+    "format-muted": "<span font_size='large'>󰝟 </span> 0%     {format_source}",
+    "format-source-muted": "<span font_size='large'>󰍭 </span> 0%",
+    "format-source": "<span font_size='large'>󰍬 </span> {volume}%",
     "format-icons": {
       "default": [
         "󰕿 ",
@@ -172,6 +173,8 @@
       ]
     },
     "on-click": "[[ $(pgrep -x pavucontrol) ]] && pkill -x pavucontrol || pavucontrol",
+    "on-click-middle": "pactl set-sink-mute $(pactl get-default-sink) toggle",
+    "on-click-right": "pactl set-source-mute $(pactl get-default-source) toggle",
     "tooltip": false
   },
   "custom/weather": {
