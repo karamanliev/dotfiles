@@ -38,10 +38,11 @@
     "format": "       "
   },
   "custom/agenda": {
-    "format": "󰨲  {}",
+    "format": "<span font_size='large'>󰨲</span>  {0}",
     "exec": "${HOME}/.config/waybar/scripts/nextmeeting.py --max-title-length 100 --notify-min-before-events 10 --waybar",
     "on-middle-click": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
-    "on-click": "kitty -- /bin/bash -c \"echo;gcalcli calw;read;\";",
+    // "on-click": "kitty -- /bin/bash -c \"echo;gcalcli calw;read;\";",
+    "on-click": "gnome-calendar",
     "on-click-right": "kitty -- /bin/bash -c \"echo;${HOME}/.config/waybar/scripts/nextmeeting.py;read;\";",
     "interval": 59,
     "return-type": "json",
@@ -146,7 +147,7 @@
     }
   },
   "hyprland/language": {
-    "format": "󰌌  {}",
+    "format": "<span font_size='large'>󰌌</span>  {}",
     "format-en": "EN",
     "format-bg": "BG",
     "on-click": "hyprctl switchxkblayout current next"
@@ -162,7 +163,7 @@
   "pulseaudio": {
     "scroll-step": 5,
     "max-volume": 100,
-    "format": "{icon} {volume}%",
+    "format": "<span font_size='large'>{icon}</span> {volume}%",
     "format-muted": "󰝟  0%",
     "format-bluetooth": "󰂯 {volume}%",
     "format-icons": {
@@ -180,6 +181,7 @@
     "tooltip": true,
     "interval": 3600,
     "exec": "${HOME}/.config/waybar/scripts/weather.sh Varna+Bulgaria",
+    "on-click": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
     "return-type": "json"
   },
   "custom/wlsunset": {
