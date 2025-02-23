@@ -1,5 +1,7 @@
 if pgrep wlsunset >/dev/null 2>&1; then
   killall -9 wlsunset >/dev/null 2>&1
+  ddcutil --noverify --bus 1 setvcp 10 100 &
+  ddcutil --noverify --bus 4 setvcp 10 100 &
 else
   RETRIES=30
   counter=0
@@ -18,5 +20,7 @@ else
   longitude=$(echo $CONTENT | jq .lon)
   latitude=$(echo $CONTENT | jq .lat)
   wlsunset -l $latitude -L $longitude >/dev/null 2>&1 &
+  ddcutil --noverify --bus 1 setvcp 10 70 &
+  ddcutil --noverify --bus 4 setvcp 10 70 &
 fi
 pkill -35 waybar
