@@ -71,7 +71,6 @@
     "escape": true
   },
   "hyprland/workspaces": {
-    "on-double-click": "${HOME}/.config/hypr/scripts/hide_special_on_ws_change.sh",
     "disable-scroll": true,
     "tooltip": false,
     "icon-size": 32,
@@ -172,7 +171,7 @@
         "󰕾 "
       ]
     },
-    "on-click": "pavucontrol",
+    "on-click": "[[ $(pgrep -x pavucontrol) ]] && pkill -x pavucontrol || pavucontrol",
     "tooltip": false
   },
   "custom/weather": {

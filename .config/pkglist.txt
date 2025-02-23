@@ -164,6 +164,7 @@ otf-san-francisco-mono
 pacman-contrib
 papirus-folders-catppuccin-git
 papirus-icon-theme
+pavucontrol
 picard
 pika-backup
 pipewire
