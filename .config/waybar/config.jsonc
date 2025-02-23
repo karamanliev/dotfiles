@@ -39,7 +39,7 @@
   "custom/agenda": {
     "format": "<span font_size='large'>󰨲</span>  {0}",
     "exec": "${HOME}/.config/waybar/scripts/nextmeeting.py --max-title-length 100 --notify-min-before-events 10 --waybar",
-    "on-middle-click": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
+    "on-click-middle": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
     // "on-click": "kitty -- /bin/bash -c \"echo;gcalcli calw;read;\";",
     "on-click": "gnome-calendar",
     "on-click-right": "kitty -- /bin/bash -c \"echo;${HOME}/.config/waybar/scripts/nextmeeting.py;read;\";",

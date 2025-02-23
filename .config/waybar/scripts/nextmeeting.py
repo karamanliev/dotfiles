@@ -50,7 +50,6 @@ import shutil
 import subprocess
 import sys
 import typing
-import webbrowser
 
 import dateutil.parser as dtparse
 import dateutil.relativedelta as dtrel
@@ -80,7 +79,7 @@ def elipsis(string: str, length: int) -> str:
 
 
 def open_url(url: str):
-    webbrowser.open_new_tab(url)
+    subprocess.run(["brave", "--profile-directory=Work", url], check=False)
 
 
 def pretty_date(
@@ -90,10 +89,10 @@ def pretty_date(
     s = ""
     if date.day != today.day:
         if deltad.days == 0:
-            s = "Tomorrow"
+            s = "> tomorrow"
         else:
             s = f"{date.strftime('%a %d')}"
-        s += " at %02dh%02d" % (
+        s += " at %02d:%02d" % (
             date.hour,
             date.minute,
         )  # pylint: disable=consider-using-f-string
