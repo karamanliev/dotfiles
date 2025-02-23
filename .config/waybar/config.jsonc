@@ -30,6 +30,7 @@
     "hyprland/language",
     "custom/separator",
     "tray",
+    "idle_inhibitor",
     "custom/wlsunset",
     "custom/separator",
     "custom/notification"
@@ -51,6 +52,13 @@
   "tray": {
     "icon-size": 18,
     "spacing": 10
+  },
+  "idle_inhibitor": {
+    "format": "<span font_size='large'>{icon}</span>",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   },
   "custom/notification": {
     "tooltip": false,

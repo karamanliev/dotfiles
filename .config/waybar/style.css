@@ -169,7 +169,8 @@ tooltip label {
 #custom-notification:hover,
 #custom-agenda:hover,
 #custom-wlsunset:hover,
-#custom-weather:hover {
+#custom-weather:hover,
+#idle_inhibitor:hover {
   background: @bg_hover;
 }
 
@@ -177,9 +178,15 @@ tooltip label {
   background: @bg_hover;
 }
 
-#custom-wlsunset {
+#custom-wlsunset,
+#idle_inhibitor {
   margin: 6px 0;
   margin-top: 8px;
   padding: 0px;
   border-radius: 4px;
+}
+
+#idle_inhibitor {
+  margin-left: 2px;
+  margin-right: 10px;
 }
