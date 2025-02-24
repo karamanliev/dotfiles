@@ -51,6 +51,7 @@ import subprocess
 import sys
 import typing
 
+from collections import defaultdict
 import dateutil.parser as dtparse
 import dateutil.relativedelta as dtrel
 
@@ -158,7 +159,7 @@ def gcalcli_output(args: argparse.Namespace) -> list[re.Match]:
 
 def ret_events(
     lines: list[re.Match], args: argparse.Namespace, hyperlink: bool = False
-) -> typing.Tuple[list[str], str]:
+) -> typing.Tuple[list[dict], str]:
     ret = []
     cssclass = ""
     for match in lines:
@@ -176,6 +177,15 @@ def ret_events(
             and dtrel.relativedelta(enddate, startdate).days >= 1
         ):
             continue
+
+        event_info = {
+            "title": title,
+            "startdate": startdate,
+            "enddate": enddate,
+            "calendar_url": match.group("calendar_url"),
+            "meet_url": match.group("meet_url"),
+        }
+
         if datetime.datetime.now() > startdate:
             cssclass = "current"
             timetofinish = dtrel.relativedelta(enddate, datetime.datetime.now())
@@ -188,7 +198,8 @@ def ret_events(
                 thetime = f"{thetime: <17}"
             if hyperlink:
                 thetime = make_hyperlink(match.group("calendar_url"), thetime)
-            ret.append(f"{title} > {thetime}")
+            event_info["time_str"] = thetime
+            event_info["display"] = f"{title} > {thetime}"
         else:
             timeuntilstarting = dtrel.relativedelta(
                 startdate + datetime.timedelta(minutes=1), datetime.datetime.now()
@@ -212,7 +223,10 @@ def ret_events(
                     replace_domain_url(args.google_domain, match.group("calendar_url")),
                     thetime,
                 )
-            ret.append(f"{title} {thetime}")
+            event_info["time_str"] = thetime
+            event_info["display"] = f"{title} {thetime}"
+
+        ret.append(event_info)
     return ret, cssclass
 
 
@@ -342,40 +356,58 @@ def replace_domain_url(domain, url: str) -> str:
     )
 
 
-def bulletize(rets: list[str]) -> str:
-    return "• " + "\n• ".join(rets)
+def group_events_by_date(events: list[dict]) -> str:
+    """Group events by date in the requested format with styled date headers."""
+    if not events:
+        return "No events"
+
+    # Group events by date
+    grouped_events = defaultdict(list)
+    for event in events:
+        date_key = event["startdate"].strftime("%a %d")
+        event_time = event["startdate"].strftime("%H:%M")
+        grouped_events[date_key].append(f"{event['title']} at <span color='#c4bed1'>{event_time}</span>")
+
+    # Format the output with styled date headers
+    result = []
+    for date, events_list in grouped_events.items():
+        # Apply styling to date headers - make them bigger and purple
+        styled_date = f"<span font_size='12pt' color='#d8c5fa'>{date}</span>"
+        result.append(styled_date)
+        for event in events_list:
+            result.append(f"<span font_size='10pt'>• {event}</span>")
+        result.append("")  # Empty line between date groups
+
+    return "\n".join(result).strip()
 
 
 def get_next_non_all_day_meeting(
-    matches: list[re.Match], rets: list[str], all_day_meeting_hours: int
-) -> None | str:
-    for m in matches:
-        start_date = dtparse.parse("%s %s" % (m["startdate"], m["starthour"]))
-        end_date = dtparse.parse("%s %s" % (m["enddate"], m["endhour"]))
+    events: list[dict], all_day_meeting_hours: int
+) -> None | dict:
+    for event in events:
+        start_date = event["startdate"]
+        end_date = event["enddate"]
         if end_date > (start_date + datetime.timedelta(hours=all_day_meeting_hours)):
             continue
-        return rets[matches.index(m)]
+        return event
     return None
-
-
-def open_meet_url(rets, matches: list[re.Match], args: argparse.Namespace):
+def open_meet_url(events, args: argparse.Namespace):
     url = ""
-    if not rets:
+    if not events:
         print("No meeting 🏖️")
         return
-    for match in matches:
-        startdate = dtparse.parse(
-            f"{match.group('startdate')} {match.group('starthour')}"
-        )
-        enddate = dtparse.parse(f"{match.group('enddate')} {match.group('endhour')}")
+
+    for event in events:
+        startdate = event["startdate"]
+        enddate = event["enddate"]
         if (
             args.skip_all_day_meeting
             and dtrel.relativedelta(enddate, startdate).days >= 1
         ):
             continue
-        url = match.group("meet_url")
+        url = event["meet_url"]
         if not url:
-            url = match.group("calendar_url")
+            url = event["calendar_url"]
             # TODO: go over the description and detect zoom and other stuff
             # gnome-next-meeting-applet has a huge amount of regexp for that already we can reuse
             # Maybe show a dialog with the description and the user can click on the link with some gtk
@@ -393,33 +425,39 @@ def main():
     args = parse_args()
     args.cache_dir.mkdir(parents=True, exist_ok=True)
     matches = gcalcli_output(args)
-    rets, cssclass = ret_events(matches, args)
+    events, cssclass = ret_events(matches, args)
+
     if args.open_meet_url:
-        open_meet_url(rets, matches, args)
+        open_meet_url(events, args)
         return
 
     elif args.waybar:
-        if not rets:
+        if not events:
             ret = {"text": "No meeting 🏖️"}
         else:
             if args.waybar_show_all_day_meeting:
-                coming_up_next = rets[0]
+                coming_up_next = events[0]
             else:
                 coming_up_next = get_next_non_all_day_meeting(
-                    matches, rets, int(args.all_day_meeting_hours)
+                    events, int(args.all_day_meeting_hours)
                 )
                 if not coming_up_next:  # only all days meeting
-                    coming_up_next = rets[0]
+                    coming_up_next = events[0]
+
+            # Format tooltip with grouped and styled events
+            tooltip = group_events_by_date(events)
+
             ret = {
-                "text": elipsis(coming_up_next, args.max_title_length),
-                "tooltip": bulletize(rets),
+                "text": elipsis(coming_up_next["display"], args.max_title_length),
+                "tooltip": tooltip,
+                "tooltip-markup": True  # Enable markup in tooltip for styling
             }
             if cssclass:
                 ret["class"] = cssclass
         json.dump(ret, sys.stdout)
     else:
-        rets, _ = ret_events(matches, args, hyperlink=True)
-        print(bulletize(rets))
+        # For non-waybar output, we'll still show the grouped format
+        print(group_events_by_date(events))
 
 
 if __name__ == "__main__":

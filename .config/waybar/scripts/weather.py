@@ -37,10 +37,10 @@ LATITUDE  = os.getenv("OPENWEATHER_LAT")
 LONGITUDE = os.getenv("OPENWEATHER_LONG")
 
 # waybar colors
-GRAY   = '#859289'
+GRAY   = '#d9d9d9'
 DARK   = '#5a6772'
-GREEN  = '#a7c080'
-YELLOW = '#dbbc7f'
+GREEN  = '#d8c5fa'
+YELLOW = '#c4bed1'
 ORANGE = '#e69875'
 RED    = '#e67e80'
 PURPLE = '#d699b6'
@@ -504,8 +504,8 @@ def waybar():
     widget = waybar_widget(current_data)
     current = waybar_current(current_data)
     forecast = waybar_forecast(forecast_data)
-    tooltip = colorize('current weather', GREEN) + '\n' + current + '\n' + \
-              colorize('forecast', GREEN) + '\n' + forecast
+    tooltip = colorize('<span font_size="large">current weather</span>', GREEN) + '\n' + current + '\n' + \
+              colorize('<span font_size="large">forecast</span>', GREEN) + '\n' + forecast
 
     print(json.dumps({
         'text': widget,
