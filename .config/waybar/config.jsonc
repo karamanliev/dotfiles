@@ -178,11 +178,12 @@
     "tooltip": false
   },
   "custom/weather": {
-    "format": "{}°",
+    "format": "{}",
     "tooltip": true,
-    "interval": 3600,
-    "exec": "${HOME}/.config/waybar/scripts/weather.sh Varna+Bulgaria",
-    "on-click": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
+    "restart-interval": 900,
+    "exec": "${HOME}/.config/waybar/scripts/weather.py waybar",
+    "on-click": "xdg-open https://openweathermap.org/city/726050",
+    "on-click-right": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
     "return-type": "json"
   },
   "custom/wlsunset": {

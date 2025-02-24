@@ -5,3 +5,4 @@
 .config/nvim/lua/custom/colorscheme.lua
 .config/kitty/colorscheme.conf
 .config/tmux/dynamic_colors.conf
+.env
