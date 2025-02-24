@@ -1,2 +1,17 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:smart-enter", rev = "71c4fc2" }, { use = "yazi-rs/plugins:full-border", rev = "71c4fc2" }, { use = "iynaix/time-travel", rev = "85baafd" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "71c4fc2"
+hash = "c1a2739e9ef2d837030ccb4267be3ed1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "71c4fc2"
+hash = "a61bb2d21a08bf1d18f0a549e5eb1475"
+
+[[plugin.deps]]
+use = "iynaix/time-travel"
+rev = "85baafd"
+hash = ""
+
+[flavor]
+deps = []
