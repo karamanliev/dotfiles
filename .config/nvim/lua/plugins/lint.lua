@@ -3,7 +3,7 @@ return {
   {
     'mfussenegger/nvim-lint',
     enabled = true,
-    event = { 'BufEnter', 'BufWritePost', 'InsertLeave' },
+    event = { 'BufReadPre', 'BufWritePost', 'InsertLeave' },
     config = function()
       local lint = require('lint')
       local eslint_d = require('lint').linters.eslint_d

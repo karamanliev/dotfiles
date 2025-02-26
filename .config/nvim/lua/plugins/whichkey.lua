@@ -24,7 +24,7 @@ return {
         { '<leader>h', group = 'Git Hunk' },
         -- { '<leader>l', group = 'List' },
         -- { '<leader>q', group = 'Trouble' },
-        { '<leader>s', group = 'Search' },
+        { '<leader>s', group = 'Session' },
         { '<leader>t', group = 'Toggle' },
         { '<leader>y', group = 'Yank' },
         -- { '<leader>n', group = 'Noice' },
