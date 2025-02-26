@@ -6,9 +6,13 @@ set browser zen-browser
 set keyboardlayoutforce true
 set hintdelay 100
 set smoothscroll true
-set modeindicator true
+set modeindicator false
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
+
+autocmd DocStart karamanliev.com mode ignore
+autocmd DocStart 192.168.100.* mode ignore
+autocmd DocStart 127.0.0.1 mode ignore
 
 " Binds
 unbind d
