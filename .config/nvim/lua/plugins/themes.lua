@@ -447,25 +447,6 @@ return {
   },
 
   {
-    'cpwrs/americano.nvim',
-    lazy = true,
-    priority = 1000,
-    keys = keys,
-    config = function()
-      require('americano').setup({
-        terminal = true,
-        overrides = {
-          ['@tag.tsx'] = { link = '@constant' },
-          ['@tag.builtin.tsx'] = { link = '@constant' },
-          ['@tag.delimiter.tsx'] = { link = 'Delimiter' },
-          ['DiagnosticUnnecessary'] = { link = '@markup.strikethrough' },
-          ['Folded'] = { link = 'DevIconAdaBody' },
-        },
-      })
-    end,
-  },
-
-  {
     'dgox16/oldworld.nvim',
     lazy = true,
     priority = 1000,
