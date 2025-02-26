@@ -14,6 +14,9 @@ vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
 -- Yank filepath to clipboard
 vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
+-- Reselect last yanked/pasted text
+vim.keymap.set('n', 'gV', '`[v`]', { desc = 'Reselect last yanked/pasted text' })
+
 -- Open SSH file locally
 if vim.env.SSH_CONNECTION then
   vim.keymap.set({ 'n', 'x' }, '<leader>x', '<cmd>OpenSshFile<cr>', { desc = 'Open SSH file' })
@@ -29,6 +32,9 @@ end)
 
 -- Same as above but for visual mode selection
 vim.keymap.set('x', '<C-n>', '"zy<Esc>:%s/<C-R>z//gcI<Left><Left><Left><Left>')
+
+-- Search in visual selection
+vim.keymap.set('x', 'g/', '<Esc>/\\%V', { desc = 'Search in visual selection' })
 
 -- Don't yank on visual paste
 vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
