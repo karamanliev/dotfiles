@@ -150,7 +150,10 @@ tooltip label {
 
 #custom-notification,
 #custom-agenda,
-#custom-weather {
+#custom-weather,
+#cpu,
+#temperature,
+#memory {
   margin: 6px 0;
   padding: 0 8px;
   border-radius: 4px;
@@ -160,7 +163,10 @@ tooltip label {
 #custom-agenda:hover,
 #custom-wlsunset:hover,
 #custom-weather:hover,
-#idle_inhibitor:hover {
+#idle_inhibitor:hover,
+#cpu:hover,
+#temperature:hover,
+#memory:hover {
   background: @bg_hover;
 }
 

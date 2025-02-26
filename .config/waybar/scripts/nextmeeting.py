@@ -366,7 +366,7 @@ def group_events_by_date(events: list[dict]) -> str:
     for event in events:
         date_key = event["startdate"].strftime("%a %d")
         event_time = event["startdate"].strftime("%H:%M")
-        grouped_events[date_key].append(f"{event['title']} at <span color='#c4bed1'>{event_time}</span>")
+        grouped_events[date_key].append(f"<span color='#c4bed1'>{event_time}</span> {event['title']}")
 
     # Format the output with styled date headers
     result = []
@@ -375,7 +375,7 @@ def group_events_by_date(events: list[dict]) -> str:
         styled_date = f"<span font_size='12pt' color='#d8c5fa'>{date}</span>"
         result.append(styled_date)
         for event in events_list:
-            result.append(f"<span font_size='10pt'>• {event}</span>")
+            result.append(f"<span font_size='10pt' line_height='1.3'>{event}</span>")
         result.append("")  # Empty line between date groups
 
     return "\n".join(result).strip()

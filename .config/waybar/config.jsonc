@@ -132,19 +132,22 @@
     "interval": 2,
     "states": {
       "critical": 90
-    }
+    },
+    "on-click": "kitty --app-id=system_monitor_btop --single-instance -e btop"
   },
   "temperature": {
     "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
     "input-filename": "temp1_input",
-    "format": "TEMP {temperatureC}°C"
+    "format": "TEMP {temperatureC}°C",
+    "on-click": "kitty --app-id=system_monitor_btop --single-instance -e btop"
   },
   "memory": {
     "format": "MEM {percentage}%",
     "interval": 2,
     "states": {
       "critical": 80
-    }
+    },
+    "on-click": "kitty --app-id=system_monitor_btop --single-instance -e btop"
   },
   "hyprland/language": {
     "format": "<span font_size='large'>󰌌</span>  {}",
