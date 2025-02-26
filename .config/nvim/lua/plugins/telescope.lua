@@ -3,6 +3,86 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
+    keys = {
+      {
+        '<leader>fh',
+        function()
+          require('telescope.builtin').help_tags()
+        end,
+        desc = 'Find Help',
+      },
+      {
+        '<leader>fk',
+        function()
+          require('telescope.builtin').keymaps()
+        end,
+        desc = 'Find Keymaps',
+      },
+      { '<leader>.', "zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", mode = 'v', desc = 'Find Files (Visual)' },
+      { '<leader>,', '<cmd>Telescope live_grep_args<cr>', desc = 'Find by Grep' },
+      {
+        '<leader>fd',
+        function()
+          require('telescope.builtin').diagnostics()
+        end,
+        desc = 'Find Diagnostics',
+      },
+      {
+        '<leader>;',
+        function()
+          require('telescope.builtin').resume()
+        end,
+        desc = 'Find Resume',
+      },
+      {
+        '<leader>>',
+        function()
+          require('telescope.builtin').oldfiles()
+        end,
+        desc = 'Find Recent Files ("." for repeat)',
+      },
+      { '<leader>ft', '<cmd>TodoTelescope<cr>', desc = 'Find Todo Comments' },
+      {
+        '<leader><leader>',
+        function()
+          require('telescope.builtin').buffers()
+        end,
+        mode = { 'n', 'v' },
+        desc = 'Opened buffers',
+      },
+      { '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', mode = { 'n', 'v' }, desc = 'Fuzzy find current buffer' },
+      { '<leader>gb', '<cmd>Telescope git_branches<cr>', desc = 'Git Branches' },
+      {
+        '<leader><',
+        function()
+          require('telescope.builtin').live_grep({
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          })
+        end,
+        desc = 'Grep in active buffers',
+      },
+      {
+        '<leader>fm',
+        function()
+          require('telescope.builtin').marks()
+        end,
+        desc = 'Find Marks',
+      },
+      {
+        '<leader>fn',
+        function()
+          require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
+        end,
+        desc = 'Find Neovim files',
+      },
+      -- { '<leader>.', function() require('telescope.builtin').find_files() end, desc = 'Find Files' },
+      -- { '<leader>fs', function() require('telescope.builtin').builtin() end, desc = 'Find Select Telescope' },
+      -- { '<leader>fw', function() require('telescope.builtin').grep_string() end, desc = 'Find current Word' },
+      -- { '<leader>,', "zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", mode = 'v', desc = 'Find by Grep (Visual)' },
+      -- { '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', desc = 'Neoclip' },
+      -- { '<leader>fg', '<cmd>AdvancedGitSearch<cr>', desc = 'AdvancedGitSearch' },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -150,36 +230,6 @@ return {
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
-
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
-      vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Keymaps' })
-      -- vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find Files' })
-      vim.keymap.set('v', '<leader>.', "\"zy<cmd>exec 'Telescope find_files default_text=' . escape(@z, ' ')<cr>", { desc = 'Find Files (Visual)' })
-      -- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = 'Find Select Telescope' })
-      -- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find current Word' })
-      vim.keymap.set('n', '<leader>,', '<cmd>Telescope live_grep_args<cr>', { desc = 'Find by Grep' })
-      -- vim.keymap.set('v', '<leader>,', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })
-      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Find Diagnostics' })
-      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Find Resume' })
-      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'Find Todo Comments' })
-      vim.keymap.set({ 'n', 'v' }, '<leader><leader>', builtin.buffers, { desc = 'Opened buffers' })
-      vim.keymap.set({ 'n', 'v' }, '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', { desc = 'Fuzzy find current buffer' })
-      -- vim.keymap.set('n', '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', { desc = 'Neoclip' })
-      vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = 'Git Branches' })
-      -- vim.keymap.set('n', '<leader>fg', '<cmd>AdvancedGitSearch<cr>', { desc = 'AdvancedGitSearch' })
-      vim.keymap.set('n', '<leader>f/', function()
-        builtin.live_grep({
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        })
-      end, { desc = 'Grep in active buffers' })
-      vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find Marks' })
-
-      vim.keymap.set('n', '<leader>fn', function()
-        builtin.find_files({ cwd = vim.fn.stdpath('config') })
-      end, { desc = 'Find Neovim files' })
 
       -- line wrap in telescope previewer
       vim.api.nvim_create_autocmd('User', {
