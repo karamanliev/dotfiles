@@ -37,7 +37,7 @@ vim.keymap.set('x', '<C-n>', '"zy<Esc>:%s/<C-R>z//gcI<Left><Left><Left><Left>')
 vim.keymap.set('x', 'g/', '<Esc>/\\%V', { desc = 'Search in visual selection' })
 
 -- Don't yank on visual paste
-vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
+-- vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste' })
 
 -- Yank in visual without moving cursor
 vim.keymap.set('v', 'y', 'y`]', { desc = 'Yank' })

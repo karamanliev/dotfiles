@@ -145,7 +145,7 @@ return {
         { desc = 'Outer indentation and lines above/below' }
       )
       vim.keymap.set({ 'o', 'x' }, 'R', "<cmd>lua require('various-textobjs').restOfIndentation()<CR>", { desc = 'Rest of indentation' })
-      vim.keymap.set({ 'o', 'x' }, 'P', "<cmd>lua require('various-textobjs').restOfParagraph()<CR>", { desc = 'Rest of paragraph' })
+      -- vim.keymap.set({ 'o', 'x' }, 'P', "<cmd>lua require('various-textobjs').restOfParagraph()<CR>", { desc = 'Rest of paragraph' })
       vim.keymap.set({ 'o', 'x' }, 'ie', "<cmd>lua require('various-textobjs').subword('inner')<CR>", { desc = 'Inner subword' })
       vim.keymap.set({ 'o', 'x' }, 'ae', "<cmd>lua require('various-textobjs').subword('outer')<CR>", { desc = 'Outer subword' })
       vim.keymap.set({ 'o', 'x' }, 'O', "<cmd>lua require('various-textobjs').toNextClosingBracket()<CR>", { desc = 'To next closing bracket' })
