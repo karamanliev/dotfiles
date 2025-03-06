@@ -25,7 +25,7 @@
     "custom/separator",
     "tray",
     "idle_inhibitor",
-    "custom/wlsunset",
+    "custom/wlsunset_brightness",
     "custom/separator",
     "hyprland/language",
     "custom/separator",
@@ -184,11 +184,10 @@
     "on-click-right": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
     "return-type": "json"
   },
-  "custom/wlsunset": {
-    "exec": "if pgrep wlsunset >/dev/null 2>&1; then BRIGHTNESS=$(ddcutil -b 1 --skip-ddc-checks getvcp 10 -t | perl -nE 'if (/ C (\\d+) /) { say $1; }'); stdbuf -oL printf '{\"alt\": \"on\", \"text\": \"'$BRIGHTNESS'\"}'; else BRIGHTNESS=$(ddcutil -b 1 --skip-ddc-checks getvcp 10 -t | perl -nE 'if (/ C (\\d+) /) { say $1; }'); stdbuf -oL printf '{\"alt\": \"off\", \"text\": \"'$BRIGHTNESS'\"}'; fi",
+  "custom/wlsunset_brightness": {
+    "exec": "${HOME}/.config/waybar/scripts/brightness.sh status",
     "format": "<span font_size='x-large'>{icon}</span>  <span font_scale='small-caps' baseline_shift='2pt'>{text}%</span>",
     "interval": "once",
-    "on-click": "sh /home/ico/.config/waybar/scripts/wlsunset.sh",
     "signal": 1,
     "return-type": "json",
     "tooltip-format": "wlsunset: {alt}\nbrightness: {text}%",
@@ -196,8 +195,9 @@
       "off": "",
       "on": ""
     },
+    "on-click": "${HOME}/.config/waybar/scripts/brightness.sh toggle",
     // tmp file is for debouncing/throttling
-    "on-scroll-up": "if [ ! -f /tmp/brightness_throttle ]; then touch /tmp/brightness_throttle; ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 + 10 & ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 + 10 & wait; sleep 0.2; rm /tmp/brightness_throttle; fi",
-    "on-scroll-down": "if [ ! -f /tmp/brightness_throttle ]; then touch /tmp/brightness_throttle; ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 - 10 & ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 - 10 & wait; sleep 0.2; rm /tmp/brightness_throttle; fi"
+    "on-scroll-up": "${HOME}/.config/waybar/scripts/brightness.sh up",
+    "on-scroll-down": "${HOME}/.config/waybar/scripts/brightness.sh down"
   }
 }
