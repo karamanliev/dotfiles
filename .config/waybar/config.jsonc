@@ -70,6 +70,7 @@
     "exec": "swaync-client -swb | jq --unbuffered --compact-output 'if .text == \"0\" then .text = \"\" else .text = \"  \" + .text end'",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
+    "on-click-middle": "${HOME}/.config/hypr/scripts/show_desktop.sh",
     "escape": true
   },
   "hyprland/workspaces": {
