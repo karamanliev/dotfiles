@@ -225,7 +225,6 @@ ttf-victor-mono
 variety
 viber
 vim
-visual-studio-code-bin
 vkbasalt
 vkd3d
 vulkan-tools
