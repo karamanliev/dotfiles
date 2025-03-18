@@ -107,6 +107,8 @@
   "clock": {
     "format": "{:%a %d %b    %H:%M}",
     "tooltip-format": "<tt>{calendar}</tt>",
+    "on-click": "gnome-calendar",
+    "on-click-right": "xdg-open https://calendar.google.com/",
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
