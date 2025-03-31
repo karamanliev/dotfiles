@@ -156,14 +156,6 @@ return {
         end,
       })
 
-      -- Enhance LSP capabilities
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- add border to hover and signature help
       -- local default_handlers = {
@@ -615,7 +607,10 @@ return {
             end
 
             local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+            local blink_capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
+
+            server.capabilities = vim.tbl_deep_extend('force', {}, blink_capabilities or {})
             -- server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
             require('lspconfig')[server_name].setup(server)
           end,

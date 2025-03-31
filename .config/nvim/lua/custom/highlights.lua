@@ -49,6 +49,7 @@ set_hl('CmpBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('CmpNormal', { bg = statusline_bg })
 set_hl('CmpDocBorder', { bg = cursorline_bg, fg = cursorline_bg })
 set_hl('CmpDoc', { bg = cursorline_bg })
+set_hl('BlinkCmpDocSeparator', { bg = cursorline_bg })
 
 -- Telescope
 local prompt_bg = adjust_hex(cursorline_bg, 'lighten', 15)
