@@ -53,15 +53,6 @@ end, { expr = true })
 -- Split line in normal mode
 vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
 
--- Cycle between last two buffers like <C-6>
--- vim.keymap.set('n', 'gl', '<cmd>b#<cr>', { desc = 'Go to Last buffer' })
-
--- Goto prev/next buffer with Alt + </>
--- vim.keymap.set('n', '<M-,>', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
--- vim.keymap.set('n', '<M-.>', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
-vim.keymap.set('n', '[b', '<cmd>bprev<cr>', { desc = 'Go to Previous buffer' })
-vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Go to Next buffer' })
-
 -- Resize splits
 vim.keymap.set('n', '<M-,>', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
 vim.keymap.set('n', '<M-.>', '<cmd>vertical resize +2<cr>', { desc = 'Resize Vertical More' })
@@ -69,21 +60,14 @@ vim.keymap.set('n', '<M-S-,>', '<cmd>resize -2<cr>', { desc = 'Resize Horizontal
 vim.keymap.set('n', '<M-S.>', '<cmd>resize +2<cr>', { desc = 'Resize Horizontal More' })
 
 -- Diagnostic keymaps
--- TODO: Switch to vim.diagnostic.jump() in neovim 0.11.0
-vim.keymap.set('n', '[d', function()
-  vim.diagnostic.goto_prev({ float = false })
-end, { desc = 'Go to previous Diagnostic message' })
-vim.keymap.set('n', ']d', function()
-  vim.diagnostic.goto_next({ float = false })
-end, { desc = 'Go to next Diagnostic message' })
 vim.keymap.set('n', '[e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = false })
+  vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, float = false, count = -1 })
 end, { desc = 'Go to previous Error message' })
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = false })
+  vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, float = false, count = 1 })
 end, { desc = 'Go to next Error message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic Error messages' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
 
 -- Don't move cursor when using J
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines J' })
@@ -106,10 +90,6 @@ vim.keymap.set('n', '}', '}zz', { desc = 'Go to Next paragraph' })
 vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to Next cursor position' })
 vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to Previous cursor position' })
 vim.keymap.set('n', '%', '%zz', { desc = 'Go to Matching bracket' })
-
--- cnext/cprev
-vim.keymap.set('n', ']q', '<cmd>cnext<cr>', { desc = 'cnext' })
-vim.keymap.set('n', '[q', '<cmd>cprev<cr>', { desc = 'cprev' })
 
 -- Open Notes/Todos file
 vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
@@ -136,4 +116,4 @@ vim.keymap.set('n', '<leader>Y', function()
   vim.cmd(tmux_command)
 end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
 
-vim.keymap.set('n', 'gs', '<nop>', { desc = 'Remap useless gs whic blocked everything for 1s' })
+vim.keymap.set('n', 'gs', '<nop>', { desc = 'Remap useless gs which blocked everything for 1s' })
