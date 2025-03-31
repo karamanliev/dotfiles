@@ -13,6 +13,31 @@ vim.opt.signcolumn = 'yes'
 -- Set dark background
 vim.opt.background = 'dark'
 
+-- Diagnostics
+vim.diagnostic.config({
+  virtual_text = {
+    current_line = true,
+    prefix = '■',
+    source = 'if_many',
+  },
+  underline = true,
+  severity_sort = true,
+  update_in_insert = true,
+  float = {
+    source = true,
+    border = 'single',
+    severity_sort = true,
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '■',
+      [vim.diagnostic.severity.WARN] = '■',
+      [vim.diagnostic.severity.HINT] = '■',
+      [vim.diagnostic.severity.INFO] = '■',
+    },
+  },
+})
+
 -- Folding
 vim.o.foldenable = true
 vim.opt.foldtext = ''
