@@ -636,7 +636,14 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'single'
 
       vim.diagnostic.config({
-        virtual_text = false,
+        virtual_text = {
+          current_line = true,
+          prefix = '■',
+          source = 'if_many',
+          -- severity = {
+          --   min = vim.diagnostic.severity.WARN,
+          -- },
+        },
         underline = true,
         severity_sort = true,
         update_in_insert = true,
@@ -778,6 +785,7 @@ return {
   -- pretty diagnostic virtual text
   {
     'rachartier/tiny-inline-diagnostic.nvim',
+    enabled = false,
     event = 'LspAttach',
     priority = 1000,
     keys = {
