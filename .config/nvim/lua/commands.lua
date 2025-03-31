@@ -212,16 +212,6 @@ autocmd('BufEnter', {
   desc = 'Disable New Line Comment',
 })
 
--- Disable eslint on node_modules
--- local disable_node_modules_eslint_group = vim.api.nvim_create_augroup('DisableEslintOnNodeModules', { clear = true })
--- autocmd({ 'BufNewFile', 'BufRead' }, {
---   pattern = { '**/node_modules/**', 'node_modules', '/node_modules/*' },
---   callback = function()
---     vim.diagnostic.enable(false)
---   end,
---   group = disable_node_modules_eslint_group,
--- })
-
 -- Disable LSP and TS when opening large files
 local big_file = autogroup('BigFile', { clear = true })
 vim.filetype.add({
@@ -250,19 +240,19 @@ autocmd({ 'FileType' }, {
 })
 
 -- Open signature help automatically
-autocmd('LspAttach', {
-  group = autogroup('LspSignatureHelp', { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    if client then
-      local signatureProvider = client.server_capabilities.signatureHelpProvider
-      if signatureProvider and signatureProvider.triggerCharacters then
-        require('utils.lsp').setup(client, args.buf)
-      end
-    end
-  end,
-})
+-- autocmd('LspAttach', {
+--   group = autogroup('LspSignatureHelp', { clear = true }),
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--
+--     if client then
+--       local signatureProvider = client.server_capabilities.signatureHelpProvider
+--       if signatureProvider and signatureProvider.triggerCharacters then
+--         require('utils.lsp').setup(client, args.buf)
+--       end
+--     end
+--   end,
+-- })
 
 -- Refresh colorscheme highlights on change
 autocmd({ 'ColorScheme' }, {
