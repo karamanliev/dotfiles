@@ -59,7 +59,7 @@ command('OpenSshFile', function(opts)
     local file_path = opts.args ~= '' and opts.args or vim.fn.expand('%:p')
     local dir = vim.fn.expand('%:p:h')
     local ssh_host = 'mindphuq'
-    local open_cmd = 'xdg-open'
+    local open_cmd = 'gio open'
 
     -- open dir if arg dir is passed
     local open_path = opts.args == 'dir' and dir or file_path
