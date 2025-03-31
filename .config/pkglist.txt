@@ -31,6 +31,7 @@ docker-compose
 dosfstools
 dust
 efibootmgr
+ethtool
 evince
 evolution
 extension-manager
@@ -151,6 +152,7 @@ notify-send.sh
 noto-fonts
 nss-mdns
 ntfs-3g
+nvidia-container-toolkit
 nvidia-dkms
 nvidia-settings
 nvidia-utils
@@ -229,6 +231,7 @@ vkbasalt
 vkd3d
 vulkan-tools
 waybar
+wayvnc
 wev
 wezterm
 wget
