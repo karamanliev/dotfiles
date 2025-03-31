@@ -14,30 +14,24 @@ vim.opt.signcolumn = 'yes'
 vim.opt.background = 'dark'
 
 -- Folding
-function Foldexpr()
-  local buf = vim.api.nvim_get_current_buf()
-  if vim.b[buf].ts_folds == nil then
-    -- as long as we don't have a filetype, don't bother
-    -- checking if treesitter is available (it won't)
-    if vim.bo[buf].filetype == '' then
-      return '0'
-    end
-    if vim.bo[buf].filetype:find('dashboard') then
-      vim.b[buf].ts_folds = false
-    else
-      vim.b[buf].ts_folds = pcall(vim.treesitter.get_parser, buf)
-    end
-  end
-  return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or '0'
-end
-
 vim.o.foldenable = true
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'v:lua.Foldexpr()'
 vim.opt.foldtext = ''
 vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
+vim.o.foldmethod = 'expr'
+-- Default to treesitter folding
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client:supports_method('textDocument/foldingRange') then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    end
+  end,
+})
 
 -- custom statuscolumn
 vim.opt.statuscolumn = " %s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''} "
