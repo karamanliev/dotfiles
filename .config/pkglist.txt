@@ -139,6 +139,7 @@ lutris
 malcontent
 man-db
 mangohud
+moonlight-qt
 nano
 nano-syntax-highlighting
 nautilus
@@ -205,6 +206,7 @@ sshfs
 starship
 steam
 stow
+sunshine
 sushi
 swaync
 tauon-music-box
