@@ -459,6 +459,11 @@ return {
         highlight_overrides = {
           CursorLine = { bg = adjust_hex('#1b1b1c', 'lighten', 25) },
           Folded = { bg = adjust_hex('#1b1b1c', 'lighten', 10) },
+          DiagnosticUnderlineError = { sp = '#ea83a5', undercurl = true },
+          DiagnosticUnderlineWarn = { sp = '#e6b99d', undercurl = true },
+          DiagnosticUnderlineInfo = { sp = '#aca1cf', undercurl = true },
+          DiagnosticUnderlineHint = { sp = '#85b5ba', undercurl = true },
+          DiagnosticUnderlineOk = { sp = 'NvimLightGreen', undercurl = true },
         },
       })
     end,
