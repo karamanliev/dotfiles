@@ -26,6 +26,97 @@ return {
     end,
   },
 
+  -- Blink autocompletion engine
+  {
+    'saghen/blink.cmp',
+    version = '1.*',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      -- 'huijiro/blink-cmp-supermaven',
+      -- 'onsails/lspkind.nvim',
+      'supermaven-inc/supermaven-nvim',
+      {
+        'saghen/blink.compat',
+        version = '*',
+        lazy = true,
+        opts = {
+          impersonate_nvim_cmp = false,
+        },
+      },
+    },
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = 'default',
+        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+      },
+      snippets = {
+        preset = 'default',
+      },
+      appearance = {
+        nerd_font_variant = 'mono',
+        use_nvim_cmp_as_default = true,
+      },
+      completion = {
+        menu = {
+          border = 'single',
+          winhighlight = 'Normal:CmpNormal,CursorLine:CursorLine,FloatBorder:CmpBorder',
+          scrollbar = false,
+          draw = {
+            columns = { { 'kind_icon' }, { 'label', 'label_description' }, { 'source_name' } },
+            gap = 2,
+          },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 0,
+          window = {
+            border = 'single',
+            winhighlight = 'Normal:CmpDoc,FloatBorder:CmpDocBorder',
+          },
+        },
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'supermaven', 'buffer' },
+        providers = {
+          supermaven = {
+            name = 'supermaven',
+            module = 'blink.compat.source',
+            async = true,
+
+            transform_items = function(ctx, items)
+              for _, item in ipairs(items) do
+                item.kind_icon = ''
+                item.kind_name = 'Supermaven'
+                item.source_name = 'AI'
+                item.kind_hl = 'BlinkCmpKindEnum'
+              end
+              return items
+            end,
+          },
+        },
+      },
+      cmdline = {
+        completion = {
+          menu = { auto_show = true },
+        },
+      },
+      signature = {
+        enabled = true,
+        window = {
+          border = 'single',
+          show_documentation = false,
+        },
+      },
+
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
+    },
+    opts_extend = { 'sources.default' },
+  },
+
   -- AI Panel
   {
     'yetone/avante.nvim',
@@ -231,7 +322,7 @@ return {
   -- snippets
   {
     'L3MON4D3/LuaSnip',
-    enabled = false,
+    enabled = true,
     event = { 'InsertEnter' },
     build = (function()
       if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
@@ -312,84 +403,6 @@ return {
         }),
       })
     end,
-  },
-
-  {
-    'saghen/blink.cmp',
-    version = '1.*',
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      'huijiro/blink-cmp-supermaven',
-      -- 'onsails/lspkind.nvim',
-    },
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      keymap = {
-        preset = 'default',
-        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-        ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
-      },
-      appearance = {
-        nerd_font_variant = 'mono',
-        use_nvim_cmp_as_default = true,
-      },
-      completion = {
-        menu = {
-          border = 'single',
-          winhighlight = 'Normal:CmpNormal,CursorLine:CursorLine,FloatBorder:CmpBorder',
-          scrollbar = false,
-          draw = {
-            columns = { { 'kind_icon' }, { 'label', 'label_description' }, { 'source_name' } },
-            gap = 2,
-          },
-        },
-        documentation = {
-          auto_show = true,
-          auto_show_delay_ms = 0,
-          window = {
-            border = 'single',
-            winhighlight = 'Normal:CmpDoc,FloatBorder:CmpDocBorder',
-          },
-        },
-      },
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'supermaven', 'buffer' },
-        providers = {
-          supermaven = {
-            name = 'supermaven',
-            module = 'blink-cmp-supermaven',
-            async = true,
-
-            transform_items = function(ctx, items)
-              for _, item in ipairs(items) do
-                item.kind_icon = ''
-                item.kind_name = 'Supermaven'
-                item.source_name = 'AI'
-                item.kind_hl = 'BlinkCmpKindEnum'
-              end
-              return items
-            end,
-          },
-        },
-      },
-      cmdline = {
-        completion = {
-          menu = { auto_show = true },
-        },
-      },
-      signature = {
-        enabled = true,
-        window = {
-          border = 'single',
-          show_documentation = false,
-        },
-      },
-
-      fuzzy = { implementation = 'prefer_rust_with_warning' },
-    },
-    opts_extend = { 'sources.default' },
   },
 
   -- Autopairs
