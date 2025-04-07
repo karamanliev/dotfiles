@@ -152,7 +152,7 @@ vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 15
+-- vim.opt.scrolloff = 15
 
 -- Set what is saved by `:mksession`
 vim.opt.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
