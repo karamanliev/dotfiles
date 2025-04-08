@@ -197,6 +197,7 @@ satty
 sbctl
 seahorse
 sesh-bin
+slack-desktop
 snap-pac
 snapborg
 snapper
@@ -209,6 +210,7 @@ stow
 sunshine
 sushi
 swaync
+sweethome3d
 tauon-music-box
 tealdeer
 tecla
