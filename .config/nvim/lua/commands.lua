@@ -87,6 +87,12 @@ command('LazyGit', function()
   )
 end, { desc = 'LazyGit' })
 
+command('Search', function(o)
+  local escaped = vim.uri_encode(o.args)
+  local url = ('https://duckduckgo.com/?q=%s'):format(escaped)
+  vim.ui.open(url)
+end, { nargs = 1, desc = 'search in browser' })
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
