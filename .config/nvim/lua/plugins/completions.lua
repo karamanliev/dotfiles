@@ -32,11 +32,12 @@ return {
     version = '1.*',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      -- 'huijiro/blink-cmp-supermaven',
+      'huijiro/blink-cmp-supermaven',
       -- 'onsails/lspkind.nvim',
       'supermaven-inc/supermaven-nvim',
       {
         'saghen/blink.compat',
+        enabled = false,
         version = '*',
         lazy = true,
         opts = {
@@ -84,7 +85,7 @@ return {
         providers = {
           supermaven = {
             name = 'supermaven',
-            module = 'blink.compat.source',
+            module = 'blink-cmp-supermaven',
             async = true,
 
             transform_items = function(ctx, items)
