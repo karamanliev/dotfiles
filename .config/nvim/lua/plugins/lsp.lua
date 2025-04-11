@@ -53,8 +53,16 @@ return {
           -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
           -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
 
-          map('K', vim.lsp.buf.hover, 'Hover Info')
-          map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'i' })
+          map('K', function()
+            vim.lsp.buf.hover({
+              border = 'single',
+            })
+          end, 'Hover Info')
+          map('<C-s>', function()
+            vim.lsp.buf.signature_help({
+              border = 'single',
+            })
+          end, 'Signature Help', { 'n', 'i' })
 
           -- Toggle inlay hints
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
