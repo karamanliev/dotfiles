@@ -17,8 +17,8 @@ return {
         --   cterm = 244,
         -- },
         log_level = 'off',
-        disable_inline_completion = true,
-        disable_keymaps = true,
+        disable_inline_completion = false,
+        disable_keymaps = false,
         condition = function()
           return string.match(vim.fn.expand('%:t'), '.env')
         end,
@@ -32,18 +32,18 @@ return {
     version = '1.*',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      'huijiro/blink-cmp-supermaven',
+      -- 'huijiro/blink-cmp-supermaven',
       -- 'onsails/lspkind.nvim',
-      'supermaven-inc/supermaven-nvim',
-      {
-        'saghen/blink.compat',
-        enabled = false,
-        version = '*',
-        lazy = true,
-        opts = {
-          impersonate_nvim_cmp = false,
-        },
-      },
+      -- 'supermaven-inc/supermaven-nvim',
+      -- {
+      --   'saghen/blink.compat',
+      --   enabled = false,
+      --   version = '*',
+      --   lazy = true,
+      --   opts = {
+      --     impersonate_nvim_cmp = false,
+      --   },
+      -- },
     },
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -53,6 +53,8 @@ return {
         ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
         ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ['<C-l>'] = { 'snippet_forward', 'fallback' },
+        ['<C-h>'] = { 'snippet_backward', 'fallback' },
       },
       snippets = {
         preset = 'default',
@@ -81,23 +83,23 @@ return {
         },
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'supermaven', 'buffer' },
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
-          supermaven = {
-            name = 'supermaven',
-            module = 'blink-cmp-supermaven',
-            async = true,
-
-            transform_items = function(ctx, items)
-              for _, item in ipairs(items) do
-                item.kind_icon = ''
-                item.kind_name = 'Supermaven'
-                item.source_name = 'AI'
-                item.kind_hl = 'BlinkCmpKindEnum'
-              end
-              return items
-            end,
-          },
+          -- supermaven = {
+          --   name = 'supermaven',
+          --   module = 'blink-cmp-supermaven',
+          --   async = true,
+          --
+          --   transform_items = function(ctx, items)
+          --     for _, item in ipairs(items) do
+          --       item.kind_icon = ''
+          --       item.kind_name = 'Supermaven'
+          --       item.source_name = 'AI'
+          --       item.kind_hl = 'BlinkCmpKindEnum'
+          --     end
+          --     return items
+          --   end,
+          -- },
         },
       },
       cmdline = {
