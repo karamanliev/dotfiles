@@ -53,17 +53,6 @@ return {
   },
 
   {
-    'zenbones-theme/zenbones.nvim',
-    priority = 1000,
-    lazy = true,
-    keys = keys,
-    config = function()
-      vim.g.bones_compat = 1
-      -- vim.cmd.colorscheme('tokyobones')
-    end,
-  },
-
-  {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
@@ -305,23 +294,6 @@ return {
   },
 
   {
-    'bettervim/yugen.nvim',
-    priority = 1000,
-    lazy = true,
-    keys = keys,
-    config = function()
-      local palette = require('yugen.palette')
-
-      require('yugen').setup({
-        highlight_groups = {
-          ['@comment'] = { fg = palette.color500, style = 'italic' },
-          -- ['@string'] = { fg = palette.primary },
-        },
-      })
-    end,
-  },
-
-  {
     'cdmill/neomodern.nvim',
     priority = 1000,
     lazy = true,
@@ -352,6 +324,7 @@ return {
           CursorLineNr = { bg = line },
         },
       })
+      require('neomodern').load()
     end,
   },
 
@@ -414,45 +387,15 @@ return {
   },
 
   {
-    'mellow-theme/mellow.nvim',
-    lazy = true,
-    priority = 1000,
-    keys = keys,
-    config = function()
-      local adjust_hex = require('utils.misc').adjust_hex_brightness
-
-      vim.g.mellow_italic_comments = true
-      vim.g.mellow_italic_functions = true
-      vim.g.mellow_italic_booleans = false
-      vim.g.mellow_italic_variables = false
-      vim.g.mellow_italic_keywords = true
-      vim.g.mellow_highlight_overrides = {
-        ['CursorLine'] = { bg = adjust_hex('#1b1b1b', 'lighten', 35) },
-      }
-    end,
-  },
-
-  {
-    'eddyekofo94/gruvbox-flat.nvim',
-    lazy = true,
-    priority = 1000,
-    keys = keys,
-    config = function()
-      vim.g.gruvbox_flat_style = 'dark'
-      vim.g.gruvbox_theme = {
-        WhichKeyDesc = { fg = 'fg' },
-        WhichKeyGroup = { fg = 'fg' },
-      }
-    end,
-  },
-
-  {
     'dgox16/oldworld.nvim',
     lazy = true,
     priority = 1000,
     keys = keys,
     config = function()
       local adjust_hex = require('utils.misc').adjust_hex_brightness
+      local p = require('oldworld.palette')
+      local u = require('oldworld.utils.color_utils')
+      local DARKEN_AMOUNT = 0.20
 
       require('oldworld').setup({
         variant = 'default', -- default, oled, cooler
@@ -464,6 +407,10 @@ return {
           DiagnosticUnderlineInfo = { sp = '#aca1cf', undercurl = true },
           DiagnosticUnderlineHint = { sp = '#85b5ba', undercurl = true },
           DiagnosticUnderlineOk = { sp = 'NvimLightGreen', undercurl = true },
+          DiffAdd = { bg = u.darken(p.green, DARKEN_AMOUNT, p.bg) },
+          DiffChange = { bg = u.darken(p.blue, DARKEN_AMOUNT, p.bg) },
+          DiffDelete = { bg = u.darken(p.red, DARKEN_AMOUNT, p.bg) },
+          DiffText = { bg = u.darken(p.blue, 0.50, p.bg) },
         },
       })
     end,
