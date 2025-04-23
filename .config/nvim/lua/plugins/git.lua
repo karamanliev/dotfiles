@@ -205,6 +205,12 @@ return {
               '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
               { desc = 'Close the diffview' },
             },
+            {
+              'n',
+              'o',
+              actions.goto_file_edit,
+              desc = 'Open the file in a new tab',
+            },
           },
           file_history_panel = {
             {
