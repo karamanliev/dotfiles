@@ -153,12 +153,12 @@ notify-send.sh
 noto-fonts
 nss-mdns
 ntfs-3g
-nvidia-container-toolkit
 nvidia-dkms
 nvidia-settings
 nvidia-utils
 nwg-dock-hyprland
 obsidian
+ollama-cuda
 opencl-nvidia
 openrgb
 otf-libertinus
