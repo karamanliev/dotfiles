@@ -8,7 +8,7 @@ return {
         processor = 'magick_cli',
         integrations = {
           markdown = {
-            enabled = true,
+            enabled = false,
             clear_in_insert_mode = false,
             download_remote_images = true,
             only_render_image_at_cursor = true,
@@ -18,10 +18,12 @@ return {
             enabled = false,
           },
           html = {
-            enabled = true,
+            enabled = false,
+            only_render_image_at_cursor = true,
+            clear_in_insert_mode = true,
           },
           css = {
-            enabled = true,
+            enabled = false,
           },
         },
         max_width = nil,
