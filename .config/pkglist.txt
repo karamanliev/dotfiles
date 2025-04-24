@@ -157,7 +157,6 @@ nvidia-dkms
 nvidia-settings
 nvidia-utils
 nwg-dock-hyprland
-obsidian
 ollama-cuda
 opencl-nvidia
 openrgb
