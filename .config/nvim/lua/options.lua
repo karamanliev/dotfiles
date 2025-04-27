@@ -165,8 +165,8 @@ vim.opt.langmap =
   'яq,вw,еe,рr,тt,ъy,уu,иi,оo,пp,ш[,щ],аa,сs,дd,фf,гg,хh,йj,кk,лl,зz,ьx,цc,жv,бb,нn,мm,ч`,ЯQ,ВB,ЕE,РR,ТT,ЪY,УU,ИI,ОO,Ш{,Щ},АA,СS,ДD,ФF,ГG,ХH,ЙJ,КK,ЛL,ЗZ,ѝX,ЦC,ЖV,БB,НN,МM,Ч~'
 
 -- Set ttimeoutlen to 0 to disable timeouts
-vim.opt.ttimeoutlen = 0
-vim.opt.ttimeout = false
+-- vim.opt.ttimeoutlen = 0
+-- vim.opt.ttimeout = false
 
 -- Add filetype for http files
 vim.filetype.add({
