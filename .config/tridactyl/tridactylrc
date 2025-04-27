@@ -31,6 +31,9 @@ bind <C-r> js window.location.reload(true)
 bind j scrollline 5
 bind k scrollline -5
 
+unbind <C-e>
+unbind <C-l>
+
 unbind <C-f>
 bind <Escape> composite mode normal; hidecmdline; nohlsearch
 bind / fillcmdline find
