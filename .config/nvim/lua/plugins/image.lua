@@ -2,10 +2,15 @@ return {
   {
     '3rd/image.nvim',
     event = { 'VeryLazy' },
+    build = false,
+    opts = {
+      processor = 'magick_cli',
+    },
     config = function()
       require('image').setup({
         backend = 'kitty',
         processor = 'magick_cli',
+        kitty_method = 'normal',
         integrations = {
           markdown = {
             enabled = false,
