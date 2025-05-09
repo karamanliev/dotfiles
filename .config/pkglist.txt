@@ -66,7 +66,6 @@ gnome-keyring
 gnome-logs
 gnome-menus
 gnome-remote-desktop
-gnome-screenshot
 gnome-session
 gnome-settings-daemon
 gnome-shell
@@ -129,6 +128,7 @@ lib32-sqlite
 lib32-v4l-utils
 lib32-vkd3d
 libpulse
+libqalculate
 libva-nvidia-driver
 linux
 linux-firmware
@@ -187,9 +187,6 @@ qt5-wayland
 qt6-wayland
 reflector
 ripgrep
-rofi-calc-git
-rofi-emoji-git
-rofi-lbonn-wayland-git
 rsync
 rwpspread
 rygel
@@ -235,6 +232,7 @@ vim
 vkbasalt
 vkd3d
 vulkan-tools
+walker-bin
 waybar
 wayvnc
 wev
