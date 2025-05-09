@@ -22,6 +22,7 @@ cliphist
 cpio
 cpupower
 czkawka-gui-bin
+dateutils
 dconf-editor
 ddcutil
 discord

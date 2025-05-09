@@ -151,6 +151,7 @@ tooltip label {
 #custom-notification,
 #custom-agenda,
 #custom-weather,
+#custom-timer,
 #cpu,
 #temperature,
 #memory {
@@ -159,10 +160,16 @@ tooltip label {
   border-radius: 4px;
 }
 
+#custom-separator {
+  margin-right: -3px;
+}
+
 #custom-notification:hover,
 #custom-agenda:hover,
 #custom-wlsunset:hover,
 #custom-weather:hover,
+#custom-timer:hover,
+#custom-wlsunset_brightness:hover,
 #idle_inhibitor:hover,
 #cpu:hover,
 #temperature:hover,
@@ -174,7 +181,7 @@ tooltip label {
   background: @bg_hover;
 }
 
-#custom-wlsunset,
+#custom-wlsunset_brightness,
 #idle_inhibitor {
   margin: 6px 0;
   margin-top: 8px;
