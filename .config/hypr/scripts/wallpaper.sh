@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WP_FOLDER="$HOME/Pictures/Wallpapers"
+WP_FOLDER="$HOME/Pictures/Wallpapers/Vertical/"
 WP_INDEX_FILE="$HOME/.cache/rwpspread/current_wallpaper_index"
 
 if [ ! -f "$WP_INDEX_FILE" ]; then
