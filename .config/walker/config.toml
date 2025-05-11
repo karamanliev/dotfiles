@@ -292,6 +292,6 @@ label = "Shutdown"
 
 [[plugins]]
 name = "kill"
-prefix = "k:"
+prefix = "!"
 src_once = "ps -u $USER -o comm= | sort -u"
 cmd = "pkill -f %RESULT%"
