@@ -16,7 +16,7 @@ alias gco='git checkout'
 alias lg='lazygit'
 
 ## DOCKER
-alias ld='lazydocker'
+alias lzd='lazydocker'
 
 ## eza
 alias ls='eza -F --icons --color=always --group-directories-first'
@@ -55,6 +55,3 @@ alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
 alias reboot-bios='sudo systemctl reboot --firmware-setup'
 ### Kitty imgcat
 alias icat='kitten icat'
-### Zotify
-alias zotify-album="zotify --output='{artist}/{album} ({release_year})/{album_num} - {song_name}.{ext}' --root-path='~/Music/Albums/' --skip-previously-downloaded=false"
-alias zotify-playlist="zotify --output='{playlist}/{artist} - {song_name} ({release_year}).{ext}' --root-path='~/Music/Various/'"
