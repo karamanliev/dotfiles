@@ -1,9 +1,9 @@
 1password
-1password-cli
 adobe-source-sans-fonts
 adw-gtk-theme
 alacritty
 alsa-plugins
+amberol
 amd-ucode
 android-sdk-platform-tools
 baobab
@@ -11,6 +11,7 @@ base
 base-devel
 bat
 better-adb-sync-git
+bitwarden
 bluez-utils
 brave-bin
 btop
@@ -39,7 +40,9 @@ extension-manager
 eza
 fastfetch
 fd
+feishin-bin
 file-roller
+filezilla
 firefox
 firefox-tridactyl-native
 fnm-bin
