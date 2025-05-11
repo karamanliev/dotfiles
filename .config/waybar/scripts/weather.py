@@ -14,7 +14,7 @@ import os
 # - weather warnings
 
 ### CONSTANTS ###
-env_path = os.path.expanduser('~/.env')
+env_path = os.path.expanduser('~/dotfiles/.env')
 
 def load_env_file(path):
     with open(path) as f:

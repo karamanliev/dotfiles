@@ -23,7 +23,9 @@
     "modules-right": [
       "cpu",
       "custom/separator",
-      "temperature",
+      "custom/gpu",
+      // "custom/separator",
+      // "temperature",
       "custom/separator",
       "memory",
       "custom/separator",
@@ -38,7 +40,8 @@
       "custom/notification"
     ],
     "custom/separator": {
-      "format": "       "
+      "format": "       ",
+      "tooltip": false
     },
     "custom/agenda": {
       "format": "<span font_size='large'>󰨲</span>  {0}",
@@ -128,11 +131,11 @@
         "weeks-pos": "",
         "on-scroll": 1,
         "format": {
-          "months": "<span color='#ffead3'><b>{}</b></span>",
-          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "months": "<span color='#d8c5fa'><b>{}</b></span>",
+          "days": "<span color='#f8f8f8'><b>{}</b></span>",
           "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+          "weekdays": "<span color='#c4bed1'><b>{}</b></span>",
+          "today": "<span color='#BB9AF7'><b><u>{}</u></b></span>"
         }
       },
       "actions": {
@@ -151,12 +154,20 @@
       },
       "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
     },
-    "temperature": {
-      "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-      "input-filename": "temp1_input",
-      "format": "TEMP {temperatureC}°C",
+    "custom/gpu": {
+      // "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1% ⋅ \\2°C/g'",
+      "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1/g'",
+      "format": "GPU {0}%",
+      "interval": 2,
+      "tooltip": true,
       "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
     },
+    // "temperature": {
+    //   "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    //   "input-filename": "temp1_input",
+    //   "format": "TEMP {temperatureC}°C",
+    //   "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
+    // },
     "memory": {
       "format": "MEM {percentage}%",
       "interval": 2,

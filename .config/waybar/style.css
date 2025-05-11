@@ -1,6 +1,7 @@
 /*base background color*/
 @define-color bg_main rgba(25, 25, 25, 0.65);
-@define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
+/* @define-color bg_main_tooltip rgba(25, 25, 25, 0.65); */
+@define-color bg_main_tooltip rgba(26, 27, 38, 0.7);
 
 /*base background color of selections */
 @define-color bg_hover rgba(200, 200, 200, 0.15);
@@ -36,11 +37,12 @@ window#waybar {
 
 tooltip {
   background: @bg_main_tooltip;
-  border-radius: 5px;
-  border-width: 1px;
+  border-radius: 8px;
+  border-width: 0px;
   border-style: solid;
   border-color: @border_main;
 }
+
 tooltip label {
   color: @content_main;
 }
@@ -92,6 +94,7 @@ tooltip label {
 }
 
 #cpu,
+#custom-gpu,
 #disk,
 #memory,
 #temperature {
@@ -154,6 +157,7 @@ tooltip label {
 #custom-timer,
 #cpu,
 #temperature,
+#custom-gpu,
 #memory {
   margin: 6px 0;
   padding: 0 8px;
@@ -172,6 +176,7 @@ tooltip label {
 #custom-wlsunset_brightness:hover,
 #idle_inhibitor:hover,
 #cpu:hover,
+#custom-gpu:hover,
 #temperature:hover,
 #memory:hover {
   background: @bg_hover;
