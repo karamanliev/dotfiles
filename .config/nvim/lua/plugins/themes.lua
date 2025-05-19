@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local keys = require('utils.misc').theme_switch_kb
 
 return {
@@ -202,16 +203,39 @@ return {
         undercurl = true,
         transparent = false,
         gutter = false,
-        dimInactive = false, -- disabled when transparent
-        terminalColors = true,
-        commentStyle = { italic = true },
-        functionStyle = { italic = false },
-        keywordStyle = { italic = true, bold = true },
-        statementStyle = { italic = false, bold = false },
-        typeStyle = { italic = false },
-        colors = { theme = {}, palette = {} }, -- override default palette and theme colors
-        overrides = function() -- override highlight groups
-          return {}
+        diag_background = true,
+        dim_inactive = true,
+        terminal_colors = true,
+        cache = false,
+
+        styles = {
+          comment = { italic = true },
+          functions = { italic = false },
+          keyword = { italic = true, bold = true },
+          statement = { italic = false, bold = false },
+          type = { italic = false },
+        },
+
+        -- override default palette and theme colors
+        colors = {
+          palette = {},
+          theme = {
+            ink = {},
+            canvas = {},
+          },
+        },
+        -- adjust overall color balance for each theme [-1, 1]
+        color_offset = {
+          ink = { brightness = 0, saturation = 0 },
+          canvas = { brightness = 0, saturation = 0 },
+        },
+        -- override highlight groups
+        overrides = function(colors)
+          return {
+            -- Assign a static color to strings
+            ['@tag.tsx'] = { fg = colors.palette.dragonBlue, italic = true },
+            CursorLine = { bg = require('utils.misc').adjust_hex_brightness(colors.theme.ui.bg_cursorline, 'darken', 10) },
+          }
         end,
       })
     end,
