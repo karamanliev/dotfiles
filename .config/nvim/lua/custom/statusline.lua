@@ -227,7 +227,7 @@ Statusline.active = function()
     hide_when_small(lsp_msg()),
     diagnostics(),
     ' %#StatusLine#',
-    hide_when_small(lineinfo()),
+    lineinfo(),
     ' ',
     branch(),
     ' ',
