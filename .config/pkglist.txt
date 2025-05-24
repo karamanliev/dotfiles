@@ -79,6 +79,7 @@ gnome-text-editor
 gnome-tweaks
 gnome-user-share
 gnome-weather
+gnu-netcat
 go
 goverlay
 gpu-screen-recorder
@@ -160,7 +161,6 @@ ntfs-3g
 nvidia-dkms
 nvidia-settings
 nvidia-utils
-nwg-dock-hyprland
 ollama-cuda
 opencl-nvidia
 openrgb
