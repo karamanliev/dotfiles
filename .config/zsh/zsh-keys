@@ -10,45 +10,28 @@ zle -N edit-command-line
 bindkey -M vicmd "^v" edit-command-line
 
 # Use vim keys in tab complete menu
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect '^[h' vi-backward-char
+bindkey -M menuselect '^[j' vi-down-line-or-history
+bindkey -M menuselect '^[k' vi-up-line-or-history
+bindkey -M menuselect '^[l' vi-forward-char
 
 bindkey '^P' history-search-backward
-bindkey '^N' vi-down-line-or-history
-
-bindkey '^L' vi-forward-char
-bindkey '^H' vi-backward-char
-
-bindkey '^B' vi-backward-word
-bindkey '^W' vi-forward-word
-
-bindkey '^[h' backward-delete-char
-bindkey '^[l' delete-char
-
-bindkey '^[b' backward-delete-word
-bindkey '^[w' kill-word
-
-bindkey '^A' vi-beginning-of-line
-bindkey '^E' vi-end-of-line
-
-bindkey '^U' vi-kill-eol
-bindkey '^K' backward-kill-line
-
-bindkey '^]' clear-screen
+# bindkey '^N' vi-down-line-or-history # what does this do?
 
 # Completion menu navigation
-bindkey '^Y' menu-complete
+bindkey '^Y' menu-complete-wrap
+bindkey "$terminfo[kcbt]" menu-complete-wrap
+
 bindkey -M menuselect '^Y' accept-line
 bindkey -M menuselect '^I' accept-and-hold
 bindkey -M menuselect '^E' send-break
 bindkey -M menuselect '^M' .accept-line
 
-bindkey '^N' menu-select
+bindkey '^N' menu-select-wrap
+bindkey "$terminfo[kcbt]" menu-select-wrap
 
 # Fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
 
-# Accept the autosuggestion with ctrl + spacebar
+# Accept the autosuggestion with TAB
 bindkey '^I' autosuggest-accept
