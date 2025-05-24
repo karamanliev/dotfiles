@@ -1,8 +1,7 @@
 # Open hist_delete_fzf
 bindkey '^[r' hist_delete_fzf
 
-bindkey '^[t' change_terminal_colorscheme
-
+# toggle fg with ctrl+z
 bindkey '^Z' fg_widget
 
 # edit in vim buffer
@@ -53,7 +52,3 @@ bindkey "^?" backward-delete-char
 
 # Accept the autosuggestion with ctrl + spacebar
 bindkey '^I' autosuggest-accept
-
-# List nvim oldfiles in fzf, then open nvim on select
-bindkey -M main '^S' list_oldfiles
-bindkey -M vicmd '^S' list_oldfiles
