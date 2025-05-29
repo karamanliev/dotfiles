@@ -45,8 +45,8 @@ alias todo='nvim ~/Documents/todo.md'
 
 ## fzf
 ### pacman
-alias pmuinfo='sudo yay -Sy;yay -Quq | fzf --multi --height 80% --reverse --preview "yay -Qi {1}" --preview-window right:70%:wrap:nohidden | xargs -ro sudo yay -S'
-alias pminstalled='yay -Qe | fzf --multi --height 80% --reverse --preview "yay -Qi {1}" --preview-window right:60%:wrap:nohidden'
+alias checkpkg="yay -Qe | fzf --multi --height 80% --reverse --preview 'yay -Qi {1}' --preview-window right:60%:wrap:nohidden | awk '{print \$1}' | xargs -I {} yay -Qi {} | grep URL | awk '{print \$3}' | xargs xdg-open"
+
 ### commands
 alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
 
