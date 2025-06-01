@@ -231,9 +231,13 @@ placeholder = "Websearch"
 engines = ["duckduckgo"]
 
 [[builtins.websearch.entries]]
+name = "SearXNG"
+url = "https://search.karamanliev.com/search?q=%TERM%"
+
+[[builtins.websearch.entries]]
 name = "DuckDuckGo"
-# prefix = "ddg"
 url = "https://duckduckgo.com/?q=%TERM%"
+switcher_only = true
 
 [[builtins.websearch.entries]]
 name = "Google"
@@ -273,7 +277,7 @@ name = "power"
 placeholder = "Power"
 recalculate_score = true
 show_icon_when_single = true
-switcher_only = true
+# switcher_only = true
 
 [[plugins.entries]]
 exec = "hyprctl dispatch exit"
@@ -292,6 +296,6 @@ label = "Shutdown"
 
 [[plugins]]
 name = "kill"
-prefix = "!"
+prefix = "$"
 src_once = "ps -u $USER -o comm= | sort -u"
 cmd = "pkill -f %RESULT%"
