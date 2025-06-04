@@ -268,7 +268,7 @@ weight = 5
 name = "translation"
 icon = "accessories-dictionary"
 placeholder = "Translation"
-switcher_only = true
+prefix = "!t"
 provider = "googlefree"
 
 [[plugins]]
