@@ -28,6 +28,7 @@ dconf-editor
 ddcutil
 discord
 dkms
+dmidecode
 docker
 docker-compose
 dosfstools
@@ -154,6 +155,7 @@ networkmanager
 networkmanager-l2tp
 networkmanager-strongswan
 nicotine+
+nmap
 notify-send.sh
 noto-fonts
 nss-mdns
