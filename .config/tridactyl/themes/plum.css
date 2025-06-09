@@ -1,0 +1,255 @@
+:root {
+  /* Generic */
+  --tridactyl-font-family: "JetBrains Mono", monospace;
+  --tridactyl-font-family-sans: "JetBrains Mono", sans-serif;
+  --tridactyl-font-size: 12pt;
+  --tridactyl-small-font-size: calc(var(--tridactyl-font-size) * 0.75);
+  --tridactyl-bg: #000000;
+  --tridactyl-fg: #ffffff;
+  --tridactyl-logo: url("moz-extension://__MSG_@@extension_id__/static/logo/Tridactyl_64px.png");
+  --tridactyl-scrollbar-color: #6442a4;
+
+  /* Mode indicator - Modern and unified look */
+  --tridactyl-status-font-family: var(--tridactyl-font-family);
+  --tridactyl-status-font-size: var(--tridactyl-small-font-size);
+  --tridactyl-status-bg: rgba(26, 22, 34, 0.85);
+  --tridactyl-status-fg: var(--tridactyl-fg);
+  --tridactyl-status-border: 1px solid #6442a4;
+  --tridactyl-status-border-radius: 4px;
+
+  /* Search highlight */
+  --tridactyl-search-highlight-color: #9370db;
+
+  /* Hinting - Based on Image 2 */
+  --tridactyl-hintspan-font-family: var(--tridactyl-font-family);
+  --tridactyl-hintspan-font-size: var(--tridactyl-small-font-size);
+  --tridactyl-hintspan-font-weight: bold;
+  --tridactyl-hintspan-fg: #e1e1ea;
+  --tridactyl-hintspan-bg: #6442a4;
+  --tridactyl-hintspan-border-color: #9370db;
+  --tridactyl-hintspan-border-width: 1px;
+  --tridactyl-hintspan-border-style: solid;
+  --tridactyl-hintspan-border-radius: 4px;
+  --tridactyl-hintspan-js-background: #6442a4;
+
+  /* Element highlights - No darkened background as requested */
+  --tridactyl-hint-active-fg: inherit;
+  --tridactyl-hint-active-bg: #93f268d9;
+  --tridactyl-hint-active-outline: 1px solid #b19cdf;
+
+  --tridactyl-hint-bg: #604e905c;
+  --tridactyl-hint-outline: 1px #e5dcff solid;
+
+  /* :viewsource */
+  --tridactyl-vs-bg: var(--tridactyl-bg);
+  --tridactyl-vs-fg: var(--tridactyl-fg);
+  --tridactyl-vs-font-family: var(--tridactyl-font-family);
+
+  /* Command line - Modern look */
+  --tridactyl-cmdl-bg: rgba(26, 22, 34, 0.9);
+  --tridactyl-cmdl-fg: var(--tridactyl-fg);
+  --tridactyl-cmdl-line-height: 1.5;
+  --tridactyl-cmdl-font-family: var(--tridactyl-font-family);
+  --tridactyl-cmdl-font-size: calc(var(--tridactyl-font-size) * 0.85);
+  --tridactyl-cmdl-border-radius: 6px;
+
+  /* Completions - Unified with theme */
+  --tridactyl-cmplt-option-height: 1.6em;
+  --tridactyl-cmplt-fg: var(--tridactyl-fg);
+  --tridactyl-cmplt-bg: rgba(26, 22, 34, 0.95);
+  --tridactyl-cmplt-font-size: calc(var(--tridactyl-font-size) * 0.8);
+  --tridactyl-cmplt-font-family: var(--tridactyl-font-family);
+  --tridactyl-cmplt-border-top: 1px solid #40365a;
+  --tridactyl-cmplt-border-radius: 6px;
+
+  /* Section Header */
+  --tridactyl-header-first-bg: #40365a;
+  --tridactyl-header-second-bg: #332b49;
+  --tridactyl-header-third-bg: #40365a;
+  --tridactyl-header-font-size: inherit;
+  --tridactyl-header-font-weight: bold;
+  --tridactyl-header-border-bottom: 1px solid #6442a4;
+
+  /* URL style */
+  --tridactyl-url-text-decoration: none;
+  --tridactyl-url-fg: #aa88ff;
+  --tridactyl-url-bg: transparent; /* Changed to transparent */
+  --tridactyl-url-cursor: pointer;
+
+  /* Option focused */
+  --tridactyl-of-fg: #ffffff;
+  --tridactyl-of-bg: #6442a4;
+
+  /* New tab spoiler box */
+  --tridactyl-highlight-box-bg: rgba(154, 129, 217, 0.2);
+  --tridactyl-highlight-box-fg: var(--tridactyl-fg);
+
+  /* Private window and container icons - keeping default values */
+  --tridactyl-private-window-icon-url: url("chrome://browser/skin/privatebrowsing/private-browsing.svg");
+
+  /* Container colors */
+  --tridactyl-container-color-blue: #aa88ff;
+  --tridactyl-container-color-turquoise: #00c79a;
+  --tridactyl-container-color-green: #51cd00;
+  --tridactyl-container-color-yellow: #ffcb00;
+  --tridactyl-container-color-orange: #ff9f00;
+  --tridactyl-container-color-red: #ff613d;
+  --tridactyl-container-color-pink: #ff4bda;
+  --tridactyl-container-color-purple: #9370db;
+
+  --tridactyl-externaledit-bg: var(--tridactyl-logo) no-repeat center;
+}
+
+/* Using more specific selectors to ensure styles are applied */
+@-moz-document url-prefix("moz-extension://")
+{
+  body {
+    background-color: var(--tridactyl-bg) !important;
+    color: var(--tridactyl-fg) !important;
+    font-family: var(--tridactyl-font-family) !important;
+  }
+
+  /* Apply backdrop filter for blur effect */
+  #completions,
+  #command-line-holder--tridactyl-hint-bg,
+  .TridactylStatusIndicator {
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+  }
+
+  /* Modern box shadow for elements */
+  #completions {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(100, 66, 164, 0.884) !important;
+    backdrop-filter: blur(24px) !important;
+  }
+
+  #command-line-holder {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid #6442a4 !important;
+  }
+
+  /* Style the history and links section */
+  .sectionHeader {
+    background: #40365a !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-bottom: 1px solid #6442a4 !important;
+    font-weight: bold !important;
+  }
+
+  /* Style individual history entries */
+  table.CompletionTable {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  table.CompletionTable tr {
+    border-bottom: 1px solid rgba(100, 66, 164, 0.3) !important;
+  }
+
+  table.CompletionTable td {
+    padding: 6px 8px !important;
+  }
+
+  /* Style links */
+  a,
+  .url {
+    color: var(--tridactyl-url-fg) !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+  }
+
+  /* Style focused option */
+  tr.focused {
+    background-color: var(--tridactyl-of-bg) !important;
+    color: var(--tridactyl-of-fg) !important;
+  }
+
+  tr.focused .url {
+    color: white !important;
+  }
+
+  /* Styling for the hints */
+  /* .TridactylHint {
+    padding: 2px 6px !important;
+    margin: 2px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 6px !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid #9370db !important;
+    background: #6442a4dd !important;
+    color: #ffffff !important;
+    font-family: 'JetBrains Mono', monospace !important;
+  } */
+
+  /* Command line styling */
+  #tridactyl-input {
+    background: rgba(26, 22, 34, 0.9) !important;
+    color: var(--tridactyl-fg) !important;
+    font-family: "JetBrains Mono", monospace !important;
+    padding: 8px 12px !important;
+    border-radius: 12px !important;
+    border: 1px solid #6442a4 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+/* Additional styling for Firefox specific elements */
+@-moz-document url-prefix("about:"), url-prefix("chrome://")
+{
+  body {
+    --tridactyl-bg-color: var(--tridactyl-bg) !important;
+    --tridactyl-fg-color: var(--tridactyl-fg) !important;
+    font-family: "JetBrains Mono", monospace !important;
+  }
+}
+
+#completions .sectionHeader {
+  background: none !important;
+  padding: 0.6ex 2ex;
+  font-size: 1em;
+  border-bottom: var(--tridactyl-cmplt-border-top);
+}
+#completions {
+  border: var(--tridactyl-cmplt-border-top);
+  backdrop-filter: blur(24px) !important;
+  color: rgb(228, 192, 185);
+}
+
+#completions > div > table {
+  padding: 10px 14px 0px 14px;
+}
+
+.ExcmdCompletionOption td.documentation {
+  color: #b797ef;
+}
+
+.ExcmdCompletionOption td.excmd {
+  padding: 0px 16px;
+}
+
+.TridactylStatusIndicator {
+  padding: 2px 5px !important;
+  border-radius: 4px !important;
+}
+
+.cleanslate .TridactylStatusIndicator .TridactylModenormal {
+  border: #aa88ff 1px solid !important;
+}
+
+span.TridactylHint {
+  border-radius: 3px !important;
+  background-color: #402c5fcf !important;
+  border-color: var(--tridactyl-hintspan-border-color) !important;
+  border-width: 1px !important;
+  color: #b495ff !important;
+  font-size: 0.79em !important;
+}
+
+.TridactylHintElem {
+  color: none !important;
+  color: rgb(163, 103, 190) !important;
+}

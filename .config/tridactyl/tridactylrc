@@ -1,7 +1,8 @@
 sanitize tridactyllocal tridactylsync
 
 " General Settings
-set theme default
+colorscheme plum
+set theme plum
 set browser zen-browser
 set keyboardlayoutforce true
 set hintdelay 100
@@ -10,9 +11,9 @@ set modeindicator false
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
 
-autocmd DocStart karamanliev.com mode ignore
-autocmd DocStart 192.168.100.* mode ignore
-autocmd DocStart 127.0.0.1 mode ignore
+" autocmd DocStart karamanliev.com mode ignore
+" autocmd DocStart 192.168.100.* mode ignore
+" autocmd DocStart 127.0.0.1 mode ignore
 
 " Binds
 unbind <C-^>
@@ -27,6 +28,9 @@ bind x composite tabprev; tabclose #
 bind X tabclose
 bind gl tab #
 
+bind f hint -J
+bind ;; hint -;
+
 # Hard reload (clear cache)
 bind <C-r> js window.location.reload(true)
 
@@ -38,10 +42,10 @@ unbind <C-l>
 
 unbind <C-f>
 bind <Escape> composite mode normal; hidecmdline; nohlsearch
-bind / fillcmdline find
-bind ? fillcmdline find -?
-bind n findnext 1
-bind N findnext -1
+" bind / fillcmdline find
+" bind ? fillcmdline find -?
+" bind n findnext 1
+" bind N findnext -1
 
 unbind gf
 unbind gF
