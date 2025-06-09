@@ -290,6 +290,16 @@ icon = "system-reboot"
 label = "Reboot"
 
 [[plugins.entries]]
+exec = "systemctl reboot --firmware-setup"
+icon = "system-reboot"
+label = "Reboot (BIOS)"
+
+[[plugins.entries]]
+exec = "efibootmgr --bootnext 0003 && reboot"
+icon = "windows95"
+label = "Reboot (Windows)"
+
+[[plugins.entries]]
 exec = "shutdown now"
 icon = "system-shutdown"
 label = "Shutdown"
