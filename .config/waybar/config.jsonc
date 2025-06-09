@@ -106,15 +106,13 @@
           5,
           6,
           7,
-          8,
-          9,
-          10
+          8
         ]
       },
       "format": "{icon}",
       "format-icons": {
-        "9": "G",
-        "10": "M",
+        "7": "G",
+        "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
@@ -310,15 +308,13 @@
           5,
           6,
           7,
-          8,
-          9,
-          10
+          8
         ]
       },
       "format": "{icon}",
       "format-icons": {
-        "9": "G",
-        "10": "M",
+        "7": "G",
+        "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
         "minimized": "<sub>MINIMIZED</sub>"

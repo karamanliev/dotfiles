@@ -6,7 +6,7 @@ focused_monitor_active_ws=$(hyprctl monitors -j | jq -r '.[] | select (.focused 
 inactive_monitor_name=$(hyprctl monitors -j | jq -r '.[] | select (.focused == false) | .name')
 inactive_monitor_active_ws=$(hyprctl monitors -j | jq -r '.[] | select (.focused == false) | .activeWorkspace.id')
 
-workspaces=10
+workspaces=8
 
 if [ "$1" == "next" ]; then
   next_ws=$((focused_monitor_active_ws + 1))
