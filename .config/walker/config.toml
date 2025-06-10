@@ -304,6 +304,11 @@ exec = "shutdown now"
 icon = "system-shutdown"
 label = "Shutdown"
 
+[[plugins.entries]]
+exec = "systemctl suspend"
+icon = "system-suspend"
+label = "Sleep"
+
 [[plugins]]
 name = "kill"
 prefix = "$"
