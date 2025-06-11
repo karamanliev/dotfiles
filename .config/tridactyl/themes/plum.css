@@ -100,6 +100,10 @@
   --tridactyl-externaledit-bg: var(--tridactyl-logo) no-repeat center;
 }
 
+html {
+  color-scheme: light dark !important;
+}
+
 /* Using more specific selectors to ensure styles are applied */
 @-moz-document url-prefix("moz-extension://")
 {
