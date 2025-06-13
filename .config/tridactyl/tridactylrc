@@ -19,6 +19,7 @@ set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --si
 unbind <C-^>
 unbind <C-6>
 unbind d
+unbind a
 unbind D
 bind J tabnext
 bind K tabprev
@@ -42,10 +43,12 @@ unbind <C-l>
 
 unbind <C-f>
 bind <Escape> composite mode normal; hidecmdline; nohlsearch
-" bind / fillcmdline find
-" bind ? fillcmdline find -?
-" bind n findnext 1
-" bind N findnext -1
+bind <C-c> composite mode normal; hidecmdline; nohlsearch
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind gn findselect
 
 unbind gf
 unbind gF
@@ -65,6 +68,7 @@ bind --mode=ex <C-e> ex.deselect_completion
 bind --mode=ex <C-d> ex.execute_ex_on_completion_args tabclose
 bind --mode=ex <A-n> ex.next_history
 bind --mode=ex <A-p> ex.prev_history
+bind --mode=ex <C-c> ex.hide_and_clear
 
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 
@@ -75,9 +79,19 @@ alias tabuniq jsb browser.tabs.query({}).then(tabs => browser.tabs.remove(tabs.f
 alias editor_rm composite editor | jsb -p tri.native.run(`rm -f '${JS_ARG[0]}'`)
 
 " Search engines
+bind a fillcmdline tabopen a
+bind ;a hint -JW fillcmdline tabopen ax
+bind <C-a> composite js document.documentURI | fillcmdline tabopen ax
+bind A fillcmdline open a
+"bind ;A hint -JW fillcmdline open ax
+bind <C-A> composite js document.documentURI | fillcmdline open ax
 set searchengine s
-set searchurls.ai https://ai.karamanliev.com/?model=browser-search&q=%s
-set searchurls.ais https://ai.karamanliev.com/?model=browser-search&web-search=true&q=%s
+set searchurls.a https://ai.karamanliev.com/?model=browser-search&q=%s
+set searchurls.as https://ai.karamanliev.com/?model=browser-search&web-search=true&q=%s
+set searchurls.ai https://ai.karamanliev.com/?model=openai/gpt-4.1&q=%s
+set searchurls.ais https://ai.karamanliev.com/?model=openai/gpt-4.1&web-search=true&q=%s
+set searchurls.ax https://ai.karamanliev.com/?model=browser-search&temporary-chat=true&q=%s
+set searchurls.axs https://ai.karamanliev.com/?model=browser-search&temporary-chat=true&web-search=true&q=%s
 set searchurls.s https://search.karamanliev.com/search?q=%s
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.g https://www.google.com/search?q=%s
