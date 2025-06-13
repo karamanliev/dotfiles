@@ -134,7 +134,7 @@ name = "clipboard"
 avoid_line_breaks = true
 placeholder = "Clipboard"
 image_height = 500
-max_entries = 100
+max_entries = 1000
 switcher_only = true
 
 [builtins.commands]
@@ -231,6 +231,21 @@ placeholder = "Websearch"
 engines = ["duckduckgo"]
 
 [[builtins.websearch.entries]]
+name = "AI"
+url = "https://ai.karamanliev.com/?model=browser-search&temporary-chat=true&q=%TERM%"
+prefix = "@"
+
+[[builtins.websearch.entries]]
+name = "AI (Web Search)"
+url = "https://ai.karamanliev.com/?model=browser-search&web-search=true&q=%TERM%"
+prefix = "@"
+
+[[builtins.websearch.entries]]
+name = "AI (GPT-4o)"
+url = "https://ai.karamanliev.com/?model=openai/gpt-4o&q=%TERM%"
+prefix = "@"
+
+[[builtins.websearch.entries]]
 name = "SearXNG"
 url = "https://search.karamanliev.com/search?q=%TERM%"
 
@@ -247,11 +262,6 @@ switcher_only = true
 [[builtins.websearch.entries]]
 name = "Ecosia"
 url = "https://www.ecosia.org/search?q=%TERM%"
-switcher_only = true
-
-[[builtins.websearch.entries]]
-name = "Yandex"
-url = "https://yandex.com/search/?text=%TERM%"
 switcher_only = true
 
 [builtins.dmenu]
