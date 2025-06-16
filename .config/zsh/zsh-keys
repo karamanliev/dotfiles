@@ -15,8 +15,10 @@ bindkey -M menuselect '^[j' vi-down-line-or-history
 bindkey -M menuselect '^[k' vi-up-line-or-history
 bindkey -M menuselect '^[l' vi-forward-char
 
-bindkey '^P' history-search-backward
+# bindkey '^P' history-search-backward
 # bindkey '^N' vi-down-line-or-history # what does this do?
+# Atuin up key
+bindkey '^P' atuin-up-search-viins
 
 # Completion menu navigation
 bindkey '^Y' menu-complete-wrap

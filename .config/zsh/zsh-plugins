@@ -16,4 +16,5 @@ source $ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions$(if ! $IS_MAC
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
+eval "$(atuin init zsh)"
 eval "$(fnm env --use-on-cd)"
