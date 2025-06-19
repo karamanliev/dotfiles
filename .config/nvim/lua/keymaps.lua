@@ -124,4 +124,4 @@ vim.keymap.set('n', '<leader>Y', function()
   vim.cmd(tmux_command)
 end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
 
-vim.keymap.set('n', 'gs', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })

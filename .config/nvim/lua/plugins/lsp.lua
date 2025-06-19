@@ -222,7 +222,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     keys = {
       { 'gd', '<cmd>TSToolsGoToSourceDefinition<cr>', desc = 'Goto Source Definition' },
-      { 'gS', ' <cmd>lua vim.cmd "vsplit" vim.cmd "TSToolsGoToSourceDefinition"<cr>', desc = 'Goto Source Definition (vsplit)' },
+      -- { 'gS', ' <cmd>lua vim.cmd "vsplit" vim.cmd "TSToolsGoToSourceDefinition"<cr>', desc = 'Goto Source Definition (vsplit)' },
       { '<leader>co', '<cmd>TSToolsOrganizeImports<cr>', desc = 'Organize Imports' },
       { '<leader>cu', '<cmd>TSToolsRemoveUnused<cr>', desc = 'Remove Unused Imports' },
       { '<leader>cs', '<cmd>TSToolsSortImports<cr>', desc = 'Sort Imports' },

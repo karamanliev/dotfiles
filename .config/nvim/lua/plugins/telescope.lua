@@ -70,6 +70,15 @@ return {
         desc = 'Find Marks',
       },
       {
+        '<leader>fg',
+        function()
+          require('telescope.builtin').git_status({
+            use_file_path = true,
+          })
+        end,
+        desc = 'Show Git Status',
+      },
+      {
         '<leader>fn',
         function()
           require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
@@ -183,6 +192,17 @@ return {
           find_files = {
             -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
             find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
+          },
+          git_status = {
+            initial_mode = 'normal',
+            mappings = {
+              n = {
+                ['<Tab>'] = actions.toggle_selection,
+              },
+              i = {
+                ['<Tab>'] = actions.toggle_selection,
+              },
+            },
           },
           help_tags = {
             mappings = {
