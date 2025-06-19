@@ -1,0 +1,17 @@
+#!/bin/bash
+
+reload_command='atuin scripts list | tail -n +2 | sed "s/^- //" | awk '\''{$1=$1;print}'\'''
+
+commands() {
+  eval "$reload_command"
+}
+
+selection=$(commands | fzf --reverse --prompt="Select Atuin script: " \
+  --preview 'atuin scripts get -s {} | bat --color=always' \
+  --preview-window right:50%:wrap:nohidden \
+  --bind "ctrl-d:execute(atuin scripts delete {} && echo {} deleted!; sleep 1)+reload($reload_command)" \
+  --bind "ctrl-e:execute(atuin scripts edit {} && echo {} edited!)+reload($reload_command)")
+
+if [ -n "$selection" ]; then
+  atuin scripts run "${selection}"
+fi
