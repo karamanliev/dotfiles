@@ -100,8 +100,8 @@ vim.cmd([[
 ]])
 
 -- Open Notes/Todos file
-vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
-vim.keymap.set('n', '<leader>ot', '<cmd>vsplit ~/Documents/todo.md<cr>', { desc = 'Open Todos' })
+-- vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
+-- vim.keymap.set('n', '<leader>ot', '<cmd>vsplit ~/Documents/todo.md<cr>', { desc = 'Open Todos' })
 
 -- Toggle diagnostics, because it could be annoying
 local diagnostics_active = true

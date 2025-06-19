@@ -39,10 +39,6 @@ alias vim='nvim'
 alias neofetch='fastfetch'
 alias loc='locate'
 
-## Notes/Todo
-alias note='nvim ~/Documents/note.md'
-alias todo='nvim ~/Documents/todo.md'
-
 ## fzf
 ### pacman
 alias checkpkg="yay -Qe | fzf --multi --height 80% --reverse --preview 'yay -Qi {1}' --preview-window right:60%:wrap:nohidden | awk '{print \$1}' | xargs -I {} yay -Qi {} | grep URL | awk '{print \$3}' | xargs xdg-open"
