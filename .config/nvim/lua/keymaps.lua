@@ -125,3 +125,18 @@ vim.keymap.set('n', '<leader>Y', function()
 end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
 
 vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+
+-- Add a mapping (dd) to delete the current quickfix item
+local function remove_qf_item()
+  local list = vim.fn.getqflist()
+  local idx = vim.fn.line('.')
+  table.remove(list, idx)
+  vim.fn.setqflist(list, 'r')
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function()
+    vim.keymap.set('n', 'dd', remove_qf_item, { buffer = true, desc = 'Delete quickfix entry' })
+  end,
+})
