@@ -8,6 +8,7 @@ set keyboardlayoutforce true
 set hintdelay 100
 set smoothscroll true
 set modeindicator false
+set tabsort mru
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
 
@@ -31,6 +32,9 @@ bind gl tab #
 
 bind f hint -J
 bind ;; hint -;
+
+bind ;f hint -JW tabopen
+bind ;F hint -JW fillcmdline_notrail tabopen
 
 # Hard reload (clear cache)
 bind <C-r> js window.location.reload(true)
