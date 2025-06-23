@@ -81,23 +81,23 @@ vim.keymap.set('v', '<M-j>', ":'<,'>m '>+1<cr>gv=gv", { desc = 'Move block down'
 vim.keymap.set('v', '<M-k>', ":'<,'>m '<-2<cr>gv=gv", { desc = 'Move block up' })
 
 -- Center buffer while navigating
-vim.cmd([[
-  nnoremap n nzz
-  nnoremap N Nzz
-  nnoremap * *zz
-  nnoremap # #zz
-  nnoremap g* g*zz
-  nnoremap g# g#zz
-  nnoremap <C-u> <C-u>zz
-  nnoremap <C-d> <C-d>zz
-  nnoremap <C-b> <C-b>zz
-  nnoremap <C-f> <C-f>zz
-  nnoremap { {zz
-  nnoremap } }zz
-  nnoremap <C-i> <C-i>zz
-  nnoremap <C-o> <C-o>zz
-  nnoremap % %zz
-]])
+-- vim.cmd([[
+--   nnoremap n nzz
+--   nnoremap N Nzz
+--   nnoremap * *zz
+--   nnoremap # #zz
+--   nnoremap g* g*zz
+--   nnoremap g# g#zz
+--   nnoremap <C-u> <C-u>zz
+--   nnoremap <C-d> <C-d>zz
+--   nnoremap <C-b> <C-b>zz
+--   nnoremap <C-f> <C-f>zz
+--   nnoremap { {zz
+--   nnoremap } }zz
+--   nnoremap <C-i> <C-i>zz
+--   nnoremap <C-o> <C-o>zz
+--   nnoremap % %zz
+-- ]])
 
 -- Open Notes/Todos file
 -- vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
