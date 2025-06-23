@@ -6,6 +6,7 @@ alsa-plugins
 amberol
 amd-ucode
 android-sdk-platform-tools
+atuin
 baobab
 base
 base-devel
