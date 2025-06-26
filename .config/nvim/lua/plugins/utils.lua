@@ -2,6 +2,7 @@ return {
   -- Make HTTP requests with curl from Neovim
   {
     'mistweaverco/kulala.nvim',
+    enabled = false,
     ft = 'http',
     keys = {
       {
