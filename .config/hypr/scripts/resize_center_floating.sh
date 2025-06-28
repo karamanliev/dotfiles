@@ -2,6 +2,33 @@
 
 monitor_data=$(hyprctl monitors -j)
 
+EXCLUDED_CLASSES=("org.gnome.Calculator" "com.gabm.satty" "system_monitor_btop" "zen")
+EXCLUDED_TITLES=("Picture-in-Picture")
+
+function should_skip_class_or_title {
+  local real_address="$1"
+  local class title
+
+  class=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\").class")
+  title=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\").title")
+
+  for excluded in "${EXCLUDED_CLASSES[@]}"; do
+    if [[ "$class" == "$excluded" ]]; then
+      echo "skipping $class"
+      return 0
+    fi
+  done
+
+  for excluded in "${EXCLUDED_TITLES[@]}"; do
+    if [[ "$title" == "$excluded" ]]; then
+      echo "skipping $title"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 function get_monitor_and_transform {
   local real_address="$1"
   local active_monitor
@@ -34,7 +61,7 @@ function handle {
     get_monitor_and_transform "$real_address"
     floating=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\").floating")
 
-    if [ "$floating" = true ]; then
+    if [ "$floating" = true ] && ! should_skip_class_or_title "$real_address"; then
       resize_and_center "$real_address" "$transform"
     fi
     ;;
@@ -44,7 +71,7 @@ function handle {
     floating="${args#*,}"
     real_address="0x$address"
 
-    if [ "$floating" = 1 ]; then
+    if [ "$floating" = 1 ] && ! should_skip_class_or_title "$real_address"; then
       get_monitor_and_transform "$real_address"
       resize_and_center "$real_address" "$transform"
     fi
