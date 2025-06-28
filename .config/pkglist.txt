@@ -165,6 +165,7 @@ nvidia-container-toolkit
 nvidia-dkms
 nvidia-settings
 nvidia-utils
+obsidian
 ollama-cuda
 opencl-nvidia
 openrgb
@@ -201,7 +202,6 @@ satty
 sbctl
 seahorse
 sesh-bin
-slack-desktop
 snap-pac
 snapborg
 snapper
