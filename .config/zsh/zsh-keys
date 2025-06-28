@@ -4,6 +4,9 @@ bindkey '^[r' hist_delete_fzf
 # toggle fg with ctrl+z
 bindkey '^Z' fg_widget
 
+# change terminal colorscheme
+bindkey '^[t' change_terminal_colorscheme
+
 # edit in vim buffer
 autoload edit-command-line
 zle -N edit-command-line

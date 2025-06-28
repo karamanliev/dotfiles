@@ -45,3 +45,8 @@ menu-complete-wrap() {
   zle menu-complete
 }
 zle -N menu-complete-wrap
+
+change_terminal_colorscheme() {
+  zsh-sync-colors.sh
+}
+zle -N change_terminal_colorscheme
