@@ -3,25 +3,26 @@
 monitor_data=$(hyprctl monitors -j)
 
 EXCLUDED_CLASSES=("org.gnome.Calculator" "com.gabm.satty" "system_monitor_btop" "zen")
-EXCLUDED_TITLES=("Picture-in-Picture")
+EXCLUDED_TITLES=()
+EXCLUDED_CLASSES_TITLE=("org.gnome.Nautilus " "zen Picture-in-Picture")
 
 function should_skip_class_or_title {
   local real_address="$1"
-  local class title
+  local client_data class title class_title
 
-  class=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\").class")
-  title=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\").title")
+  client_data=$(hyprctl clients -j | jq -r ".[] | select(.address == \"$real_address\") | \"\\(.class)\\t\\(.title)\"")
+  echo "client_data: ${client_data}"
+  [[ -z "$client_data" ]] && return 1
 
-  for excluded in "${EXCLUDED_CLASSES[@]}"; do
-    if [[ "$class" == "$excluded" ]]; then
-      echo "skipping $class"
-      return 0
-    fi
-  done
+  IFS=$'\t' read -r class title <<<"$client_data"
+  echo "class: ${class}"
+  echo "title: ${title}"
+  class_title="$class $title"
 
-  for excluded in "${EXCLUDED_TITLES[@]}"; do
-    if [[ "$title" == "$excluded" ]]; then
-      echo "skipping $title"
+  local excluded
+  for excluded in "${EXCLUDED_CLASSES[@]}" "${EXCLUDED_TITLES[@]}" "${EXCLUDED_CLASSES_TITLE[@]}"; do
+    if [[ "$class" == "$excluded" || "$title" == "$excluded" || "$class_title" == "$excluded" ]]; then
+      echo "skipping $excluded"
       return 0
     fi
   done
