@@ -8,6 +8,7 @@ set keyboardlayoutforce true
 set hintdelay 100
 set smoothscroll true
 set modeindicator false
+" set modeindicatormodes {"normal":"false","ex":"false","visual":"false","insert":"false","input":"false"}
 set tabsort mru
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
@@ -47,7 +48,6 @@ unbind <C-l>
 
 unbind <C-f>
 bind <Escape> composite mode normal; hidecmdline; nohlsearch
-bind <C-c> composite mode normal; hidecmdline; nohlsearch
 bind / fillcmdline find
 bind ? fillcmdline find -?
 bind n findnext 1
@@ -57,6 +57,9 @@ bind gn findselect
 unbind gf
 unbind gF
 bind gf hint -qb
+
+bind --mode=normal <A-`> mode ignore
+bind --mode=ignore <A-`> mode normal
 
 " bind --mode=browser <C-j> escapehatch
 bind --mode=browser <C-n> tabnext
