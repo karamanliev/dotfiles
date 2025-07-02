@@ -85,8 +85,6 @@ gnu-netcat
 go
 goverlay
 gpu-screen-recorder
-gpu-screen-recorder-gtk
-gpu-screen-recorder-ui
 grilo-plugins
 gst-plugin-pipewire
 gvfs
