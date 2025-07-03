@@ -164,8 +164,15 @@ def ret_events(
     cssclass = ""
     for match in lines:
         title = match.group("title")
+        full_title = title  # Store the full title for tooltip
+
+        # Apply max title length limit only to the display title, not tooltip
+        if args.max_title_length > 0:
+            title = elipsis(title, args.max_title_length)
+
         if args.waybar:
             title = html.escape(title)
+            full_title = html.escape(full_title)
         if hyperlink and match.group("meet_url"):
             title = make_hyperlink(match.group("meet_url"), title)
         startdate = dtparse.parse(
@@ -179,7 +186,8 @@ def ret_events(
             continue
 
         event_info = {
-            "title": title,
+            "title": full_title,  # Use full title in the event data
+            "display_title": title,  # Use truncated title for display
             "startdate": startdate,
             "enddate": enddate,
             "calendar_url": match.group("calendar_url"),
@@ -214,7 +222,7 @@ def ret_events(
                 and timeuntilstarting.minutes <= args.notify_min_before_events
             ):
                 cssclass = "soon"
-                notify(title, startdate, enddate, args)
+                notify(full_title, startdate, enddate, args)
 
             thetime = pretty_date(timeuntilstarting, startdate, args)
             if hyperlink:
@@ -228,7 +236,6 @@ def ret_events(
 
         ret.append(event_info)
     return ret, cssclass
-
 
 def notify(
     title: str,
@@ -366,7 +373,42 @@ def group_events_by_date(events: list[dict]) -> str:
     for event in events:
         date_key = event["startdate"].strftime("%a %d")
         event_time = event["startdate"].strftime("%H:%M")
-        grouped_events[date_key].append(f"<span color='#c4bed1'>{event_time}</span> {event['title']}")
+
+        # Wrap long titles to new lines (around 50 chars, at word boundaries)
+        title = event['title']
+        if len(title) > 40:
+            # Smart wrapping at word boundaries
+            wrapped_title = ""
+            remaining_text = title
+            max_length = 40
+
+            while len(remaining_text) > max_length:
+                # Find the last space or punctuation after position 50
+                break_pos = max_length
+
+                # Look for spaces or punctuation marks after max_length
+                for i in range(max_length, min(len(remaining_text), max_length + 20)):
+                    if remaining_text[i] in " ,.;:-/()[]{}":
+                        break_pos = i + 1
+                        break
+
+                # If no good breaking point found within reasonable distance, force break at max_length
+                if break_pos == max_length and len(remaining_text) > max_length + 20:
+                    # If we still have a lot of text, look for any space before max_length
+                    last_space = remaining_text[:max_length].rfind(' ')
+                    if last_space > max_length // 2:  # Use a space if it's not too far back
+                        break_pos = last_space + 1
+
+                # Add the line and continue with remaining text
+                wrapped_title += remaining_text[:break_pos] + "\n"
+                remaining_text = remaining_text[break_pos:]
+
+            wrapped_title += remaining_text  # Add the final piece
+            wrapped_title = wrapped_title.strip()  # Remove trailing newline
+        else:
+            wrapped_title = title
+
+        grouped_events[date_key].append(f"<span color='#c4bed1'>{event_time}</span> {wrapped_title}")
 
     # Format the output with styled date headers
     result = []
@@ -448,7 +490,7 @@ def main():
             tooltip = group_events_by_date(events)
 
             ret = {
-                "text": elipsis(coming_up_next["display"], args.max_title_length),
+                "text": coming_up_next["display"],
                 "tooltip": tooltip,
                 "tooltip-markup": True  # Enable markup in tooltip for styling
             }
