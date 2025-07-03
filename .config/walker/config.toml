@@ -296,25 +296,25 @@ switcher_only = false
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh toggle-recording"
-icon = "media-record"
+icon = "simplescreenrecorder"
 label = "Toggle Recording [DP-3]"
 categories = ["recording"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh pause"
-icon = "media-playback-pause"
+icon = "state-pause"
 label = "Pause/Resume Recording [DP-3]"
 categories = ["recording"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh toggle-replay"
-icon = "replay-record"
+icon = "green-recorder"
 label = "Toggle Replay [DP-3]"
 categories = ["replay"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh save-replay"
-icon = "replay-play"
+icon = "tartube-refresh-tray"
 label = "Save Replay [DP-3]"
 categories = ["replay"]
 
@@ -328,25 +328,25 @@ switcher_only = false
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh toggle-recording DP-1"
-icon = "media-record"
+icon = "simplescreenrecorder"
 label = "Toggle Recording [DP-1]"
 categories = ["recording"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh pause DP-1"
-icon = "media-playback-pause"
+icon = "state-pause"
 label = "Pause/Resume Recording [DP-1]"
 categories = ["recording"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh toggle-replay DP-1"
-icon = "replay-record"
+icon = "green-recorder"
 label = "Toggle Replay [DP-1]"
 categories = ["replay"]
 
 [[plugins.entries]]
 exec = "$HOME/.local/bin/gsr.sh save-replay DP-1"
-icon = "replay-play"
+icon = "tartube-refresh-tray"
 label = "Save Replay [DP-1]"
 categories = ["replay"]
 
