@@ -178,7 +178,8 @@ tooltip label {
 #cpu:hover,
 #custom-gpu:hover,
 #temperature:hover,
-#memory:hover {
+#memory:hover,
+#custom-gsr:hover {
   background: @bg_hover;
 }
 
@@ -187,6 +188,7 @@ tooltip label {
 }
 
 #custom-wlsunset_brightness,
+#custom-gsr,
 #idle_inhibitor {
   margin: 6px 0;
   margin-top: 8px;
@@ -201,4 +203,31 @@ tooltip label {
 #idle_inhibitor {
   margin-left: 2px;
   margin-right: 10px;
+}
+
+#custom-gsr {
+  margin-left: 8px;
+}
+
+#custom-gsr.recording,
+#custom-gsr.both {
+  color: #ff757f;
+  animation: blink 1s infinite alternate;
+}
+
+#custom-gsr.paused {
+  color: #ffc777; /* Red color for recording */
+}
+
+#custom-gsr.replay {
+  color: #c3e88d;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 }

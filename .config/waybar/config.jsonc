@@ -32,6 +32,7 @@
       "tray",
       "idle_inhibitor",
       "custom/wlsunset_brightness",
+      "custom/gsr",
       "custom/separator",
       "hyprland/language",
       "custom/separator",
@@ -115,6 +116,7 @@
         "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
+        "notes": "<sub>NOTES</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
       }
     },
@@ -223,6 +225,23 @@
       // tmp file is for debouncing/throttling
       "on-scroll-up": "${HOME}/.config/waybar/scripts/brightness.sh up",
       "on-scroll-down": "${HOME}/.config/waybar/scripts/brightness.sh down"
+    },
+    "custom/gsr": {
+      "exec": "$HOME/.local/bin/gsr.sh status",
+      "format": "<span font_size='x-large'>{icon}</span>{text}",
+      "format-icons": {
+        "both": "󱍷 ",
+        "recording": "󰻃 ",
+        "paused": " ",
+        "replay": "󱘌 ",
+        "inactive": "󰙧"
+      },
+      "return-type": "json",
+      "interval": "once",
+      "signal": 1,
+      "on-click": "walker -m gsr-dp3",
+      "on-click-right": "walker -m gsr-dp1",
+      "tooltip": true
     }
   },
   {
@@ -252,6 +271,7 @@
       "tray",
       "idle_inhibitor",
       "custom/wlsunset_brightness",
+      "custom/gsr",
       "custom/separator",
       "hyprland/language",
       "custom/separator",
@@ -317,6 +337,7 @@
         "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
+        "notes": "<sub>NOTES</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
       }
     },
@@ -395,6 +416,23 @@
       // tmp file is for debouncing/throttling
       "on-scroll-up": "${HOME}/.config/waybar/scripts/brightness.sh up",
       "on-scroll-down": "${HOME}/.config/waybar/scripts/brightness.sh down"
+    },
+    "custom/gsr": {
+      "exec": "$HOME/.local/bin/gsr.sh status",
+      "format": "<span font_size='x-large'>{icon}</span>{text}",
+      "format-icons": {
+        "both": "󱍷 ",
+        "recording": "󰻃 ",
+        "paused": " ",
+        "replay": "󱘌 ",
+        "inactive": "󰙧"
+      },
+      "return-type": "json",
+      "interval": "once",
+      "signal": 1,
+      "on-click": "walker -m gsr-dp3",
+      "on-click-right": "walker -m gsr-dp1",
+      "tooltip": true
     }
   }
 ]

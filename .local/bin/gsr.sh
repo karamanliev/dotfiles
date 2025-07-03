@@ -11,12 +11,20 @@ mkdir -p "$state_dir"
 pid_file="$state_dir/gsr.pid"
 mode_file="$state_dir/mode"
 pause_file="$state_dir/paused"
+monitor_file="$state_dir/monitor"
 recording_file="$state_dir/recording_active"
 last_recording_file="$state_dir/last_recording"
 
+if [[ "$1" != "status" ]]; then
+  monitor="${2:-DP-3}"
+  echo "$monitor" >"$monitor_file"
+else
+  monitor=$(cat "$monitor_file" 2>/dev/null || echo "DP-3")
+fi
+
 # Common options
 common_opts=(
-  -w "DP-3"
+  -w "$monitor"
   -f "60"
   -a "default_output|default_input"
 )
@@ -44,7 +52,7 @@ is_paused() {
 }
 
 notify() {
-  notify-send.sh -i media-record-symbolic -a "GPU Screen Recorder" "$@"
+  notify-send.sh -i gpu-screen-recorder -a "GPU Screen Recorder" "$@"
 }
 
 notify_with_buttons() {
@@ -151,10 +159,10 @@ toggle_pause() {
 
     if is_paused; then
       rm -f "$pause_file"
-      notify "Recording resumed"
+      # notify "Recording resumed"
     else
       touch "$pause_file"
-      notify "Recording paused"
+      # notify "Recording paused"
     fi
 
     update_waybar
@@ -175,7 +183,7 @@ start_replay() {
     return 1
   fi
 
-  gpu-screen-recorder "${common_opts[@]}" -c mp4 -r 10 -o "$rep_dir" -ro "$rec_dir" &
+  gpu-screen-recorder "${common_opts[@]}" -c mp4 -r 60 -o "$rep_dir" -ro "$rec_dir" &
   echo $! >"$pid_file"
   echo "replay" >"$mode_file"
 
@@ -244,25 +252,22 @@ get_status() {
 
   local alt text tooltip
 
+  text="$monitor"
   if $recording && $paused; then
     alt="paused"
-    text="PAUSED"
     tooltip="Recording is paused"
   elif [[ "$mode" == "replay" ]] && $recording; then
     alt="both"
-    text="REC+RPL"
     tooltip="Recording and replay buffer active"
   elif $recording; then
     alt="recording"
-    text="REC"
     tooltip="Recording in progress"
   elif [[ "$mode" == "replay" ]]; then
     alt="replay"
-    text="RPL"
     tooltip="Replay buffer active"
   else
     alt="inactive"
-    text="GSR"
+    text=""
     tooltip="GPU Screen Recorder inactive"
   fi
 

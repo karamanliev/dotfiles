@@ -282,6 +282,70 @@ prefix = "!t"
 provider = "googlefree"
 
 [[plugins]]
+keep_sort = true
+name = "gsr-dp3"
+placeholder = "Screen Recorder [DP-3]"
+recalculate_score = true
+show_icon_when_single = true
+switcher_only = false
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh toggle-recording"
+icon = "media-record"
+label = "Toggle Recording [DP-3]"
+categories = ["recording"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh pause"
+icon = "media-playback-pause"
+label = "Pause/Resume Recording [DP-3]"
+categories = ["recording"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh toggle-replay"
+icon = "replay-record"
+label = "Toggle Replay [DP-3]"
+categories = ["replay"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh save-replay"
+icon = "replay-play"
+label = "Save Replay [DP-3]"
+categories = ["replay"]
+
+[[plugins]]
+keep_sort = true
+name = "gsr-dp1"
+placeholder = "Screen Recorder [DP-1]"
+recalculate_score = true
+show_icon_when_single = true
+switcher_only = false
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh toggle-recording DP-1"
+icon = "media-record"
+label = "Toggle Recording [DP-1]"
+categories = ["recording"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh pause DP-1"
+icon = "media-playback-pause"
+label = "Pause/Resume Recording [DP-1]"
+categories = ["recording"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh toggle-replay DP-1"
+icon = "replay-record"
+label = "Toggle Replay [DP-1]"
+categories = ["replay"]
+
+[[plugins.entries]]
+exec = "$HOME/.local/bin/gsr.sh save-replay DP-1"
+icon = "replay-play"
+label = "Save Replay [DP-1]"
+categories = ["replay"]
+
+[[plugins]]
 keep_sort = false
 name = "power"
 placeholder = "Power"
