@@ -43,8 +43,8 @@ vim.diagnostic.config({
 vim.o.foldenable = true
 vim.opt.foldtext = ''
 vim.o.foldcolumn = '0'
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
+vim.o.foldlevel = 4
+vim.o.foldlevelstart = 4
 vim.o.foldmethod = 'expr'
 -- Default to treesitter folding
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -115,6 +115,7 @@ vim.opt.breakindent = true
 vim.opt.autoindent = true
 vim.opt.shiftround = true
 vim.opt.expandtab = true
+vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 
 -- Save undo history
