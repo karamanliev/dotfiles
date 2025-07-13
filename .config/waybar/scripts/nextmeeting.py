@@ -56,7 +56,7 @@ import dateutil.parser as dtparse
 import dateutil.relativedelta as dtrel
 
 REG_TSV = re.compile(
-    r"(?P<startdate>(\d{4})-(\d{2})-(\d{2}))\s*?(?P<starthour>(\d{2}:\d{2}))\s*(?P<enddate>(\d{4})-(\d{2})-(\d{2}))\s*?(?P<endhour>(\d{2}:\d{2}))\s*(?P<calendar_url>(https://\S+))\s*(?P<meet_url>(https://\S*)?)\s*(?P<title>.*)$"
+    r"(?P<startdate>(\d{4})-(\d{2})-(\d{2}))\s*?(?P<starthour>(\d{2}:\d{2}|))\s*(?P<enddate>(\d{4})-(\d{2})-(\d{2}))\s*?(?P<endhour>(\d{2}:\d{2}|))\s*(?P<calendar_url>(https://\S+))\s*(?P<meet_url>(https://\S*)?)\s*(?P<title>.*)$"
 )
 GCALCLI_CMDLINE = f"gcalcli --nocolor agenda today --nodeclined  --details=end --details=url --tsv "
 TITLE_ELIPSIS_LENGTH = 50
@@ -164,9 +164,8 @@ def ret_events(
     cssclass = ""
     for match in lines:
         title = match.group("title")
-        full_title = title  # Store the full title for tooltip
+        full_title = title
 
-        # Apply max title length limit only to the display title, not tooltip
         if args.max_title_length > 0:
             title = elipsis(title, args.max_title_length)
 
@@ -175,26 +174,48 @@ def ret_events(
             full_title = html.escape(full_title)
         if hyperlink and match.group("meet_url"):
             title = make_hyperlink(match.group("meet_url"), title)
+
+        # Handle all-day events (empty time fields)
+        start_time = match.group('starthour') or "00:00"
+        end_time = match.group('endhour') or "23:59"
+
         startdate = dtparse.parse(
-            f"{match.group('startdate')} {match.group('starthour')}"
+            f"{match.group('startdate')} {start_time}"
         )
-        enddate = dtparse.parse(f"{match.group('enddate')} {match.group('endhour')}")
+        enddate = dtparse.parse(f"{match.group('enddate')} {end_time}")
+
+        # Detect all-day events
+        is_all_day = (match.group('starthour') == '' or
+                     dtrel.relativedelta(enddate, startdate).days >= 1)
+
+        # Skip all-day meetings only if skip flag is set and we're not showing them in waybar
         if (
             args.skip_all_day_meeting
-            and dtrel.relativedelta(enddate, startdate).days >= 1
+            and not (args.waybar and args.waybar_show_all_day_meeting)
+            and is_all_day
         ):
             continue
 
         event_info = {
-            "title": full_title,  # Use full title in the event data
-            "display_title": title,  # Use truncated title for display
+            "title": full_title,
+            "display_title": title,
             "startdate": startdate,
             "enddate": enddate,
             "calendar_url": match.group("calendar_url"),
             "meet_url": match.group("meet_url"),
+            "is_all_day": is_all_day,
         }
 
-        if datetime.datetime.now() > startdate:
+        # For all-day events, show different formatting
+        if is_all_day:
+            if datetime.datetime.now().date() == startdate.date():
+                thetime = "all day"
+            else:
+                thetime = f"all day {startdate.strftime('%a %d')}"
+            event_info["time_str"] = thetime
+            event_info["display"] = f"{title} ({thetime})"
+        elif datetime.datetime.now() > startdate:
+            # Rest of the existing logic for regular meetings...
             cssclass = "current"
             timetofinish = dtrel.relativedelta(enddate, datetime.datetime.now())
             if timetofinish.hours == 0:
@@ -372,7 +393,12 @@ def group_events_by_date(events: list[dict]) -> str:
     grouped_events = defaultdict(list)
     for event in events:
         date_key = event["startdate"].strftime("%a %d")
-        event_time = event["startdate"].strftime("%H:%M")
+
+        # Show "All-day" for all-day events instead of time
+        if event.get("is_all_day", False):
+            event_time = "All-day"
+        else:
+            event_time = event["startdate"].strftime("%H:%M")
 
         # Wrap long titles to new lines (around 50 chars, at word boundaries)
         title = event['title']
@@ -477,16 +503,14 @@ def main():
         if not events:
             ret = {"text": "No meeting 🏖️"}
         else:
-            if args.waybar_show_all_day_meeting:
+            # Always use next non-all-day meeting for main display
+            coming_up_next = get_next_non_all_day_meeting(
+                events, int(args.all_day_meeting_hours)
+            )
+            if not coming_up_next:  # only all days meeting
                 coming_up_next = events[0]
-            else:
-                coming_up_next = get_next_non_all_day_meeting(
-                    events, int(args.all_day_meeting_hours)
-                )
-                if not coming_up_next:  # only all days meeting
-                    coming_up_next = events[0]
 
-            # Format tooltip with grouped and styled events
+            # Format tooltip with grouped and styled events (includes all-day if flag is set)
             tooltip = group_events_by_date(events)
 
             ret = {
@@ -500,7 +524,6 @@ def main():
     else:
         # For non-waybar output, we'll still show the grouped format
         print(group_events_by_date(events))
-
 
 if __name__ == "__main__":
     main()
