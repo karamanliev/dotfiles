@@ -43,8 +43,8 @@ vim.diagnostic.config({
 vim.o.foldenable = true
 vim.opt.foldtext = ''
 vim.o.foldcolumn = '0'
-vim.o.foldlevel = 4
-vim.o.foldlevelstart = 4
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
 vim.o.foldmethod = 'expr'
 -- Default to treesitter folding
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
