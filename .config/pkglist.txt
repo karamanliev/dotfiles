@@ -12,7 +12,9 @@ base
 base-devel
 bat
 better-adb-sync-git
+bind
 bitwarden
+blueman
 bluez-utils
 brave-bin
 btop
@@ -188,6 +190,7 @@ protonup-qt-bin
 python-llfuse
 python-pipx
 python-pystray
+python-vobject
 qmk
 qt5-wayland
 qt6-wayland
@@ -238,6 +241,7 @@ vkbasalt
 vkd3d
 vulkan-tools
 walker-bin
+walker-bin-debug
 waybar
 wayvnc
 wev
