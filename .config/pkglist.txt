@@ -241,7 +241,6 @@ vkbasalt
 vkd3d
 vulkan-tools
 walker-bin
-walker-bin-debug
 waybar
 wayvnc
 wev
