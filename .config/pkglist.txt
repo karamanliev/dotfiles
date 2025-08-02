@@ -3,7 +3,6 @@ adobe-source-sans-fonts
 adw-gtk-theme
 alacritty
 alsa-plugins
-amberol
 amd-ucode
 android-sdk-platform-tools
 atuin
