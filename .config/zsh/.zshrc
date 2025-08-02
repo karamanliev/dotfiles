@@ -24,7 +24,7 @@ setopt INTERACTIVE_COMMENTS
 
 source $ZSH_MODULES/zsh-vim-mode
 source $ZSH_MODULES/zsh-plugins
-source $ZSH_MODULES/zsh-tmux
+# source $ZSH_MODULES/zsh-tmux
 source $ZSH_MODULES/zsh-keys
 source $ZSH_MODULES/zsh-aliases
 source $ZSH_MODULES/zsh-functions
