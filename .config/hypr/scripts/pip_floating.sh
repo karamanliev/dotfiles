@@ -15,6 +15,8 @@ handle() {
 
     if [[ "$floating_state" == "0" ]]; then
       hyprctl dispatch movewindow mon:DP-1 silent
+      sed -i 's/float, title:Picture-in-Picture/tile, title:Picture-in-Picture/g' ~/.config/hypr/source/rules.conf
+      sed -i 's/monitor DP-3, title:Picture-in-Picture/monitor DP-1, title:Picture-in-Picture/g' ~/.config/hypr/source/rules.conf
       # hyprctl dispatch resizewindowpixel 1406 791,address:"$window_addr"
     elif [[ "$floating_state" == "1" ]]; then
       hyprctl --batch "\
@@ -22,6 +24,8 @@ handle() {
         dispatch resizewindowpixel exact 640 360,address:$window_addr;\
         dispatch movewindowpixel exact 20 1060,address:$window_addr;\
         dispatch pin address:$window_addr"
+      sed -i 's/tile, title:Picture-in-Picture/float, title:Picture-in-Picture/g' ~/.config/hypr/source/rules.conf
+      sed -i 's/monitor DP-1, title:Picture-in-Picture/monitor DP-3, title:Picture-in-Picture/g' ~/.config/hypr/source/rules.conf
     fi
     ;;
   esac
