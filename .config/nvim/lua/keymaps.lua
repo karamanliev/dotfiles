@@ -51,7 +51,7 @@ vim.keymap.set('n', 'dd', function()
 end, { expr = true })
 
 -- Split line in normal mode
-vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
+-- vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
 
 -- Resize splits
 vim.keymap.set('n', '<M-,>', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
