@@ -64,45 +64,42 @@ return {
           end, 'Signature Help', { 'n', 'i' })
 
           -- Toggle inlay hints
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map('<leader>th', function()
-              ---@diagnostic disable-next-line: missing-parameter
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, 'Toggle Inlay Hints')
-          end
+          -- if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+          --   map('<leader>th', function()
+          --     ---@diagnostic disable-next-line: missing-parameter
+          --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          --   end, 'Toggle Inlay Hints')
+          -- end
 
           -- Highlight references
-          -- if client and client.server_capabilities.documentHighlightProvider then
-          --   local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-          --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-          --     buffer = event.buf,
-          --     group = highlight_augroup,
-          --     callback = vim.lsp.buf.document_highlight,
-          --   })
-          --
-          --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-          --     buffer = event.buf,
-          --     group = highlight_augroup,
-          --     callback = vim.lsp.buf.clear_references,
-          --   })
-          --
-          --   vim.api.nvim_create_autocmd('LspDetach', {
-          --     group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-          --     callback = function(event)
-          --       vim.lsp.buf.clear_references()
-          --       vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event.buf })
-          --     end,
-          --   })
-          -- end
+          if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+              callback = function(evt)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = evt.buf })
+              end,
+            })
+          end
         end,
       })
 
       local servers = {
         bashls = {
           filetypes = { 'sh', 'zsh' },
-        },
-        hyprls = {
-          filetypes = { 'conf', 'hyprlang' },
         },
         eslint = {
           enabled = false,
@@ -429,6 +426,7 @@ return {
   -- used for completion, annotations and signatures of Neovim apis
   {
     'folke/lazydev.nvim',
+    enabled = false,
     ft = { 'lua' },
     dependencies = {
       'Bilal2453/luvit-meta',
@@ -581,7 +579,7 @@ return {
   -- Illuminate the current word under the cursor and next/prev reference
   {
     'RRethy/vim-illuminate',
-    enabled = true,
+    enabled = false,
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {
       delay = 200,

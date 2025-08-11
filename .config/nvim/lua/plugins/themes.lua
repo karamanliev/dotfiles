@@ -301,6 +301,7 @@ return {
 
   {
     'EdenEast/nightfox.nvim',
+    enabled = false,
     priority = 1000,
     lazy = true,
     keys = keys,
@@ -354,6 +355,7 @@ return {
 
   {
     'ramojus/mellifluous.nvim',
+    enabled = false,
     priority = 1000,
     lazy = true,
     keys = keys,

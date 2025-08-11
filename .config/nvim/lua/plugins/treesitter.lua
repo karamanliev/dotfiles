@@ -21,7 +21,6 @@ return {
         'c',
         'diff',
         'php',
-        'hyprlang',
         'http',
       },
       auto_install = true,
@@ -49,11 +48,6 @@ return {
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
-
-      -- Add highlighting for hyprland configs
-      vim.filetype.add({
-        pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
-      })
     end,
   },
 
@@ -62,7 +56,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    enabled = true,
+    enabled = false,
     config = function()
       -- Treesitter Textobjects Repeatable Move
       local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
@@ -129,7 +123,7 @@ return {
     'chrisgrieser/nvim-various-textobjs',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    enabled = true,
+    enabled = false,
     config = function()
       require('various-textobjs').setup({
         keymaps = {

@@ -411,6 +411,7 @@ return {
   -- Autopairs
   {
     'windwp/nvim-autopairs',
+    enabled = false,
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup({})
@@ -426,7 +427,7 @@ return {
     'windwp/nvim-ts-autotag',
     ft = { 'html', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'php' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    enabled = true,
+    enabled = false,
     config = function()
       require('nvim-ts-autotag').setup({
         opts = {
