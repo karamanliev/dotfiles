@@ -47,7 +47,6 @@ return {
           map('gr', require('telescope.builtin').lsp_references, 'Goto References')
           map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
           map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
           -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')

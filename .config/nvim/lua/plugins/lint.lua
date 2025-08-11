@@ -46,9 +46,9 @@ return {
         end,
       })
 
-      vim.keymap.set('n', '<leader>dl', function()
-        lint.try_lint()
-      end, { desc = 'Lint document' })
+      -- vim.keymap.set('n', '<leader>dl', function()
+      --   lint.try_lint()
+      -- end, { desc = 'Lint document' })
     end,
   },
 }

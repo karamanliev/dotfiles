@@ -51,7 +51,6 @@ return {
         desc = 'Opened buffers',
       },
       { '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>', mode = { 'n', 'v' }, desc = 'Fuzzy find current buffer' },
-      { '<leader>gb', '<cmd>Telescope git_branches<cr>', desc = 'Git Branches' },
       {
         '<leader><',
         function()

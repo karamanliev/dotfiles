@@ -49,35 +49,34 @@ return {
 
         -- Actions
         -- visual mode
-        map('v', '<leader>hs', function()
+        map('v', '<leader>gs', function()
           gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'stage git hunk' })
-        map('v', '<leader>hr', function()
+        map('v', '<leader>gr', function()
           gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'reset git hunk' })
         -- normal mode
-        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
-        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
-        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git Stage buffer' })
-        map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
-        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git Reset buffer' })
+        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+        map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+        map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git Stage buffer' })
+        map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
+        map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git Reset buffer' })
         map('n', 'gs', gitsigns.preview_hunk_inline, { desc = 'git preview hunk' })
-        map('n', '<leader>hp', function()
+        map('n', '<leader>gp', function()
           gitsigns.toggle_linehl()
           gitsigns.toggle_deleted()
           gitsigns.toggle_word_diff()
         end, { desc = 'git toggle preview file hunk' })
-        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git blame line' })
-        map('n', '<leader>hq', gitsigns.setqflist, { desc = 'git qflist hunk' })
-        map('n', '<leader>gt', gitsigns.diffthis, { desc = 'git diff against index' })
-        map('n', '<leader>gT', function()
+        map('n', '<leader>gq', gitsigns.setqflist, { desc = 'git qflist hunk' })
+        map('n', '<leader>dt', gitsigns.diffthis, { desc = 'diff against index' })
+        map('n', '<leader>dT', function()
           gitsigns.diffthis('@')
-        end, { desc = 'git diff against last commit' })
+        end, { desc = 'diff against last commit' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggle git show blame line' })
-        map('n', '<leader>tB', gitsigns.blame, { desc = 'Toggle Blame panel' })
-        map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = 'Toggle git show Deleted' })
-        map('n', '<leader>tl', gitsigns.toggle_linehl, { desc = 'Toggle git show Line highlights' })
+        map('n', '<leader>gb', gitsigns.blame_line, { desc = 'Blame line' })
+        map('n', '<leader>gB', gitsigns.blame, { desc = 'Blame panel' })
+        map('n', '<leader>gd', gitsigns.toggle_deleted, { desc = 'Git show deleted' })
+        map('n', '<leader>gl', gitsigns.toggle_linehl, { desc = 'Git show line highlights' })
       end,
     },
   },
@@ -95,13 +94,13 @@ return {
       'DiffviewToggleFiles',
     },
     keys = {
-      { '<leader>gdd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace Diff' },
-      { '<leader>gdf', '<cmd>DiffviewFileHistory --follow %<cr>', desc = 'File Diff' },
-      { '<leader>gdF', '<cmd>DiffviewFileHistory .<cr>', desc = 'All Files/Commits Diff' },
-      { '<leader>gdv', "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", desc = 'Visual Selection Diff', mode = { 'v' } },
-      { '<leader>gdl', '<Cmd>.DiffviewFileHistory --follow<CR>', desc = 'Line Diff' },
+      { '<leader>dd', '<cmd>DiffviewOpen<cr>', desc = 'Workspace Diff' },
+      { '<leader>df', '<cmd>DiffviewFileHistory --follow %<cr>', desc = 'File Diff' },
+      { '<leader>dF', '<cmd>DiffviewFileHistory .<cr>', desc = 'All Files/Commits Diff' },
+      { '<leader>dv', "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", desc = 'Visual Selection Diff', mode = { 'v' } },
+      { '<leader>dl', '<Cmd>.DiffviewFileHistory --follow<CR>', desc = 'Line Diff' },
       {
-        '<leader>gdb',
+        '<leader>db',
         function()
           local user_input = vim.fn.input('Diff HEAD with Branch: ')
           vim.cmd('DiffviewOpen origin/' .. user_input .. '..HEAD')

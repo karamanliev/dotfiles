@@ -12,14 +12,14 @@ return {
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
-      {
-        '<leader>df',
-        function()
-          require('conform').format({ async = true, lsp_fallback = true })
-        end,
-        mode = '',
-        desc = 'Format document',
-      },
+      -- {
+      --   '<leader>df',
+      --   function()
+      --     require('conform').format({ async = true, lsp_fallback = true })
+      --   end,
+      --   mode = '',
+      --   desc = 'Format document',
+      -- },
       {
         '<leader>tf',
         '<cmd>ToggleBufferAutoformat<CR>',
