@@ -3,23 +3,6 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      {
-        'williamboman/mason.nvim',
-        cmd = {
-          'Mason',
-          'MasonLog',
-          'MasonUpdate',
-          'MasonInstall',
-          'MasonUninstall',
-          'MasonUninstallAll',
-        },
-        config = true,
-      }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-    },
     config = function()
       -- Remove default nvim 0.11 lsp mappings
       vim.keymap.del('n', 'grr')
@@ -43,14 +26,11 @@ return {
             map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           end
 
-          -- map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           map('gr', require('telescope.builtin').lsp_references, 'Goto References')
           map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
           map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
-          -- map('<leader>cL', vim.lsp.codelens.refresh, 'CodeLens Refresh')
-          -- map('<leader>cl', vim.lsp.codelens.run, 'CodeLens Run')
 
           map('K', function()
             vim.lsp.buf.hover({
@@ -62,14 +42,6 @@ return {
               border = 'single',
             })
           end, 'Signature Help', { 'n', 'i' })
-
-          -- Toggle inlay hints
-          -- if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          --   map('<leader>th', function()
-          --     ---@diagnostic disable-next-line: missing-parameter
-          --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          --   end, 'Toggle Inlay Hints')
-          -- end
 
           -- Highlight references
           if client and client.server_capabilities.documentHighlightProvider then
@@ -98,11 +70,8 @@ return {
       })
 
       local servers = {
-        bashls = {
-          filetypes = { 'sh', 'zsh' },
-        },
+        bashls = {},
         eslint = {
-          enabled = false,
           settings = {
             workingDirectories = { mode = 'auto' },
             rulesCustomizations = {
@@ -112,9 +81,6 @@ return {
             format = false,
           },
         },
-        html = {},
-        cssls = {},
-        graphql = {},
         tailwindcss = {
           root_dir = function(fname)
             local root_pattern = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.mjs')
@@ -124,17 +90,14 @@ return {
         jsonls = {
           settings = {
             json = {
-              filetypes = { 'json' },
               schemas = require('schemastore').json.schemas({}),
               validate = { enable = true },
             },
           },
         },
         yamlls = {
-          filetypes = { 'yaml' },
           settings = {
             yaml = {
-              filetypes = { 'yaml', 'yml' },
               schemaStore = {
                 enable = false,
                 url = '',
@@ -146,13 +109,8 @@ return {
         lua_ls = {
           settings = {
             Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- fix undefined global variables and unused variables diagnostics
-              diagnostics = {
-                disable = { 'missing-fields' },
-                -- globals = { 'vim' },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
               },
             },
           },
@@ -172,43 +130,17 @@ return {
         },
       }
 
-      require('mason').setup()
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'prettierd', -- Used to format JavaScript, TypeScript, CSS, HTML, JSON, etc.
-        'stylelint', -- Used to lint CSS
-        'eslint_d', -- Used to lint JavaScript and TypeScript
-        -- 'htmlhint', -- Used to lint HTML
-        -- 'jsonlint', -- Used to lint JSON
-        -- 'js-debug-adapters', -- Used to debug JavaScript and TypeScript
-        'shfmt', -- Used to format shell scripts
-      })
-      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
-
-      require('mason-lspconfig').setup({
-        handlers = {
-          function(server_name)
-            local disabled_servers = { 'ts_ls', 'vtsls', 'eslint', 'emmet_language_server' }
-            if vim.tbl_contains(disabled_servers, server_name) then
-              return
-            end
-
-            local server = servers[server_name] or {}
-
-            local blink_capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
-
-            server.capabilities = vim.tbl_deep_extend('force', {}, blink_capabilities or {})
-            -- server.handlers = vim.tbl_deep_extend('force', default_handlers, server.handlers or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      })
-
-      require('lspconfig.ui.windows').default_options.border = 'single'
+      for server_name, config in pairs(servers) do
+        vim.lsp.config(server_name, config)
+        vim.lsp.enable(server_name)
+      end
     end,
+  },
+
+  {
+    'williamboman/mason.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
   },
 
   -- ts-tools
@@ -236,27 +168,14 @@ return {
         handlers = {},
 
         settings = {
-          -- spawn additional tsserver instance to calculate diagnostics on it
           separate_diagnostic_server = true,
-          -- "change"|"insert_leave" determine when the client asks the server about diagnostic
           publish_diagnostic_on = 'change',
-          -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-          -- "remove_unused_imports"|"organize_imports") -- or string "all"
-          -- to include all supported code actions
-          -- specify commands exposed as code_actions
           expose_as_code_action = {},
-          -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-          -- not exists then standard path resolution strategy is applied
           tsserver_path = nil,
-          -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-          -- (see 💅 `styled-components` support section)
           tsserver_plugins = {
             '@styled/typescript-styled-plugin',
           },
-          -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-          -- memory limit in megabytes or "auto"(basically no limit)
           tsserver_max_memory = 'auto',
-          -- described below
           tsserver_format_options = {},
           tsserver_file_preferences = {
             includeInlayParameterNameHints = 'none',
@@ -268,174 +187,18 @@ return {
             includeInlayFunctionLikeReturnTypeHints = true,
             includeInlayEnumMemberValueHints = true,
           },
-          -- locale of all tsserver messages, supported locales you can find here:
-          -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
           tsserver_locale = 'en',
-          -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
           complete_function_calls = true,
           include_completions_with_insert_text = true,
-          -- CodeLens
-          -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-          -- possible values: ("off"|"all"|"implementations_only"|"references_only")
           code_lens = 'off',
-          -- by default code lenses are displayed on all referencable values and for some of you it can
-          -- be too much this option reduce count of them by removing member references from lenses
           disable_member_code_lens = true,
-          -- JSXCloseTag
-          -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-ts-autotag,
-          -- that maybe have a conflict if enable this feature. )
           jsx_close_tag = {
-            enable = false,
+            enable = true,
             filetypes = { 'javascriptreact', 'typescriptreact' },
           },
         },
       })
     end,
-  },
-
-  -- pretty diagnostic virtual text
-  {
-    'rachartier/tiny-inline-diagnostic.nvim',
-    enabled = false,
-    event = 'LspAttach',
-    priority = 1000,
-    keys = {
-      {
-        '<leader>td',
-        function()
-          require('tiny-inline-diagnostic').toggle()
-        end,
-        desc = 'Toggle Tiny Inline Diagnostic',
-      },
-    },
-    config = function()
-      local bg = require('utils.misc').get_bg_color()
-
-      require('tiny-inline-diagnostic').setup({
-        signs = {
-          -- left = '█',
-          left = '',
-          -- right = '█',
-          right = '',
-          diag = ' ■',
-          arrow = '    ',
-          up_arrow = '    ',
-          vertical = ' │',
-          vertical_end = ' └',
-        },
-        hi = {
-          error = 'DiagnosticError',
-          warn = 'DiagnosticWarn',
-          info = 'DiagnosticInfo',
-          hint = 'DiagnosticHint',
-          arrow = 'NonText',
-          background = 'CursorLine', -- Can be a highlight or a hexadecimal color (#RRGGBB)
-          mixing_color = bg,
-        },
-        blend = {
-          factor = 0.1,
-        },
-        options = {
-          show_source = true,
-          throttle = 20,
-          softwrap = 15,
-          multiple_diag_under_cursor = false,
-          multilines = false,
-          show_all_diags_on_cursorline = false,
-          enable_on_insert = false,
-
-          overflow = {
-            mode = 'wrap',
-          },
-          format = nil,
-
-          --- Enable it if you want to always have message with `after` characters length.
-          break_line = {
-            enabled = false,
-            after = 30,
-          },
-
-          virt_texts = {
-            priority = 10000,
-          },
-
-          severity = {
-            vim.diagnostic.severity.ERROR,
-            vim.diagnostic.severity.WARN,
-            vim.diagnostic.severity.INFO,
-            vim.diagnostic.severity.HINT,
-          },
-        },
-      })
-    end,
-  },
-
-  -- Show diagnostics in a panel
-  {
-    'folke/trouble.nvim',
-    enabled = false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    cmd = {
-      'Trouble',
-      'TroubleToggle',
-    },
-    keys = {
-      -- { '<leader>xx', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      { '<leader>qD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (workspace)' },
-      { '<leader>ql', '<cmd>Trouble lsp toggle focus=true win.position=right<cr>', desc = 'LSP stuff' },
-      { '<leader>qd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Diagnostics (buffer)' },
-      { '<leader>qL', '<cmd>Trouble loclist toggle<cr>', desc = 'LocList' },
-      { '<leader>qq', '<cmd>Trouble quickfix toggle<cr>', desc = 'Quickfix' },
-      { '<leader>qt', '<cmd>Trouble todo toggle focus=true win.position=right<cr>', desc = 'Todo' },
-      { '<leader>qs', '<cmd>Trouble lsp_document_symbols toggle focus=false win.position=right<cr>', desc = 'Symbols' },
-      { '<leader>qf', '<cmd>Trouble telescope_files toggle focus=true<cr>', desc = 'Telescope Files' },
-      { '<leader>qF', '<cmd>Trouble telescope toggle focus=true<cr>', desc = 'Telescope' },
-      { ']q', '<cmd>Trouble next jump=true skip_groups=true<cr>', desc = 'Next Trouble' },
-      { '[q', '<cmd>Trouble prev jump=true skip_groups=true<cr>', desc = 'Previous Trouble' },
-    },
-    config = function()
-      local open_with_trouble = require('trouble.sources.telescope').open
-      local add_to_trouble = require('trouble.sources.telescope').add
-
-      require('trouble').setup({
-        win = {
-          size = {
-            width = 50,
-            height = 10,
-          },
-        },
-      })
-
-      require('telescope').setup({
-        defaults = {
-          keymaps = {
-            i = {
-              ['<c-q>'] = open_with_trouble,
-              ['<m-q>'] = add_to_trouble,
-            },
-            n = {
-              ['<c-q>'] = open_with_trouble,
-              ['<m-q>'] = add_to_trouble,
-            },
-          },
-        },
-      })
-    end,
-  },
-
-  -- used for completion, annotations and signatures of Neovim apis
-  {
-    'folke/lazydev.nvim',
-    enabled = false,
-    ft = { 'lua' },
-    dependencies = {
-      'Bilal2453/luvit-meta',
-    },
-    opts = {
-      library = {
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-      },
-    },
   },
 
   -- Global project lint with TSC
