@@ -7,10 +7,6 @@ vim.keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Do
 vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
--- Remap macro recording to 'Q' instead of 'q'
-vim.keymap.set('n', 'q', '<nop>', {})
-vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro [Q]', noremap = true })
-
 -- Yank filepath to clipboard
 vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
@@ -50,9 +46,6 @@ vim.keymap.set('n', 'dd', function()
   return 'dd'
 end, { expr = true })
 
--- Split line in normal mode
--- vim.keymap.set('n', 'L', 'i<cr><escape>', { desc = 'Split line Left' })
-
 -- Resize splits
 vim.keymap.set('n', '<M-,>', '<cmd>vertical resize -2<cr>', { desc = 'Resize Vertical Less' })
 vim.keymap.set('n', '<M-.>', '<cmd>vertical resize +2<cr>', { desc = 'Resize Vertical More' })
@@ -67,7 +60,7 @@ vim.keymap.set('n', ']e', function()
   vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, float = false, count = 1 })
 end, { desc = 'Go to next Error message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic Error messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic Quickfix list' })
 
 -- Don't move cursor when using J
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines J' })
@@ -80,42 +73,9 @@ vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move line up (inse
 vim.keymap.set('v', '<M-j>', ":'<,'>m '>+1<cr>gv=gv", { desc = 'Move block down' })
 vim.keymap.set('v', '<M-k>', ":'<,'>m '<-2<cr>gv=gv", { desc = 'Move block up' })
 
--- Center buffer while navigating
--- vim.cmd([[
---   nnoremap n nzz
---   nnoremap N Nzz
---   nnoremap * *zz
---   nnoremap # #zz
---   nnoremap g* g*zz
---   nnoremap g# g#zz
---   nnoremap <C-u> <C-u>zz
---   nnoremap <C-d> <C-d>zz
---   nnoremap <C-b> <C-b>zz
---   nnoremap <C-f> <C-f>zz
---   nnoremap { {zz
---   nnoremap } }zz
---   nnoremap <C-i> <C-i>zz
---   nnoremap <C-o> <C-o>zz
---   nnoremap % %zz
--- ]])
-
--- Open Notes/Todos file
--- vim.keymap.set('n', '<leader>on', '<cmd>vsplit ~/Documents/note.md<cr>', { desc = 'Open Notes' })
--- vim.keymap.set('n', '<leader>ot', '<cmd>vsplit ~/Documents/todo.md<cr>', { desc = 'Open Todos' })
-
--- Toggle diagnostics, because it could be annoying
-local diagnostics_active = true
-vim.keymap.set('n', '<leader>tx', function()
-  diagnostics_active = not diagnostics_active
-  if diagnostics_active then
-    vim.diagnostic.show()
-  else
-    vim.diagnostic.hide()
-  end
-end, { desc = 'Toggle diagnostics' })
-
 -- Open lazygit in new tmux window
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 
 -- Open yazi in new tmux window
 vim.keymap.set('n', '<leader>Y', function()
@@ -123,8 +83,6 @@ vim.keymap.set('n', '<leader>Y', function()
   local tmux_command = 'silent !tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
   vim.cmd(tmux_command)
 end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
-
-vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 
 -- Add a mapping (dd) to delete the current quickfix item
 local function remove_qf_item()
