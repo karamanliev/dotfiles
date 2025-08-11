@@ -1,25 +1,18 @@
 return {
-  -- Detect tabstop and shiftwidth automatically
-  {
-    'tpope/vim-sleuth',
-    enabled = false,
-    event = { 'BufReadPre', 'BufNewFile' },
-  },
-
   -- Autoformat on save
   {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
-      -- {
-      --   '<leader>df',
-      --   function()
-      --     require('conform').format({ async = true, lsp_fallback = true })
-      --   end,
-      --   mode = '',
-      --   desc = 'Format document',
-      -- },
+      {
+        '<leader>F',
+        function()
+          require('conform').format({ async = true, lsp_fallback = true })
+        end,
+        mode = '',
+        desc = 'Format document',
+      },
       {
         '<leader>tf',
         '<cmd>ToggleBufferAutoformat<CR>',
@@ -69,5 +62,19 @@ return {
         sh = { 'shfmt' },
       },
     },
+  },
+
+  -- Autopairs
+  {
+    'windwp/nvim-autopairs',
+    enabled = false,
+    event = 'InsertEnter',
+    config = function()
+      require('nvim-autopairs').setup({})
+      -- If you want to automatically add `(` after selecting a function or method
+      -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      -- local cmp = require('cmp')
+      -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    end,
   },
 }

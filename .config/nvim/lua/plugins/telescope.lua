@@ -84,16 +84,10 @@ return {
         end,
         desc = 'Find Neovim files',
       },
-      -- { '<leader>.', function() require('telescope.builtin').find_files() end, desc = 'Find Files' },
-      -- { '<leader>fs', function() require('telescope.builtin').builtin() end, desc = 'Find Select Telescope' },
-      -- { '<leader>fw', function() require('telescope.builtin').grep_string() end, desc = 'Find current Word' },
-      -- { '<leader>,', "zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", mode = 'v', desc = 'Find by Grep (Visual)' },
-      -- { '<leader>yy', '<cmd>Telescope neoclip layout_strategy=vertical initial_mode=normal<cr>', desc = 'Neoclip' },
-      -- { '<leader>fg', '<cmd>AdvancedGitSearch<cr>', desc = 'AdvancedGitSearch' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { -- If encountering errors, see telescope-fzf-native README for installation instructions
+      {
         'nvim-telescope/telescope-fzf-native.nvim',
 
         build = 'make',
@@ -155,28 +149,6 @@ return {
           },
           preview = {
             filesize_limit = 5,
-            -- mime_hook = function(filepath, bufnr, opts)
-            --   local is_image = function(filepath)
-            --     local image_extensions = { 'png', 'jpg' } -- Supported image formats
-            --     local split_path = vim.split(filepath:lower(), '.', { plain = true })
-            --     local extension = split_path[#split_path]
-            --     return vim.tbl_contains(image_extensions, extension)
-            --   end
-            --   if is_image(filepath) then
-            --     local term = vim.api.nvim_open_term(bufnr, {})
-            --     local function send_output(_, data, _)
-            --       for _, d in ipairs(data) do
-            --         vim.api.nvim_chan_send(term, d .. '\r\n')
-            --       end
-            --     end
-            --     vim.fn.jobstart({
-            --       'catimg', -- Terminal image viewer command
-            --       filepath,
-            --     }, { on_stdout = send_output, stdout_buffered = true, pty = true })
-            --   else
-            --     require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
-            --   end
-            -- end,
           },
           buffer_previewer_maker = image_utils.buffer_previewer_maker,
         },
@@ -301,113 +273,6 @@ return {
         },
       })
       require('telescope').load_extension('live_grep_args')
-    end,
-  },
-
-  {
-    'AckslD/nvim-neoclip.lua',
-    enabled = false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('neoclip').setup({
-        default_register_macros = 'Q',
-        history = 1000,
-        filter = nil,
-        preview = true,
-        keys = {
-          telescope = {
-            i = {
-              paste = '<m-p>',
-              delete = '<m-d>',
-              paste_behind = '<c-o>',
-            },
-          },
-        },
-      })
-
-      require('telescope').load_extension('neoclip')
-    end,
-  },
-
-  {
-    'debugloop/telescope-undo.nvim',
-    enabled = false,
-    keys = {
-      {
-        '<leader>u',
-        '<cmd>Telescope undo<cr>',
-        desc = 'Undo',
-      },
-    },
-    opts = {
-      extensions = {
-        undo = {
-          use_delta = true,
-          use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
-          side_by_side = true,
-          vim_diff_opts = {
-            ctxlen = vim.o.scrolloff,
-          },
-          entry_format = 'state #$ID, $STAT, $TIME',
-          time_format = '',
-          saved_only = false,
-          initial_mode = 'normal',
-          layout_strategy = 'vertical',
-          layout_config = {
-            width = 0.9,
-            height = 0.9,
-            prompt_position = 'top',
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require('telescope').setup(opts)
-      require('telescope').load_extension('undo')
-    end,
-  },
-
-  {
-    'aaronhallaert/advanced-git-search.nvim',
-    enabled = false,
-    cmd = { 'AdvancedGitSearch' },
-    dependencies = {
-      'sindrets/diffview.nvim',
-    },
-    config = function()
-      local theme = {
-        layout_strategy = 'vertical',
-        layout_config = {
-          width = 0.9,
-          height = 0.9,
-          prompt_position = 'top',
-          mirror = true,
-        },
-      }
-
-      require('telescope').setup({
-        extensions = {
-          advanced_git_search = {
-            diff_plugin = 'diffview',
-            show_builtin_git_pickers = true,
-            telescope_theme = {
-              search_log_content = theme,
-              checkout_reflog = theme,
-              diff_commit_file = theme,
-              diff_branch_file = theme,
-              diff_commit_line = theme,
-              changed_on_branch = theme,
-              search_log_content_file = theme,
-
-              show_custom_functions = {
-                layout_config = { width = 0.4, height = 0.4 },
-              },
-            },
-          },
-        },
-      })
-
-      require('telescope').load_extension('advanced_git_search')
     end,
   },
 

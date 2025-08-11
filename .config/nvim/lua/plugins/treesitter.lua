@@ -1,7 +1,8 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPre', 'BufNewFile' },
+    lazy = false,
+    branch = 'master',
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
@@ -30,6 +31,13 @@ return {
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby', 'php' },
+        disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
       },
       indent = { enable = true, disable = { 'ruby', 'php' } },
 
@@ -61,6 +69,7 @@ return {
       -- Treesitter Textobjects Repeatable Move
       local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
 
+      ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup({
         textobjects = {
           select = {
