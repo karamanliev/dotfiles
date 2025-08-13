@@ -58,6 +58,7 @@ return {
         json = { 'prettierd' },
         yaml = { 'prettierd' },
         graphql = { 'prettierd' },
+        astro = { 'prettierd' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
       },
