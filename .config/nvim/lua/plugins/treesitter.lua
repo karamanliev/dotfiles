@@ -23,6 +23,7 @@ return {
         'diff',
         'php',
         'http',
+        'astro',
       },
       auto_install = true,
       highlight = {
