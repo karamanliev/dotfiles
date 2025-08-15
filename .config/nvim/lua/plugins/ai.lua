@@ -34,10 +34,10 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     keys = {
-      { '<leader>A', '<cmd>CodeCompanionActions<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Actions' },
-      { '<leader>a', '<cmd>CodeCompanionChat Toggle<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Chat Toggle' },
+      { '\\A', '<cmd>CodeCompanionActions<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Actions' },
+      { '\\a', '<cmd>CodeCompanionChat Toggle<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Chat Toggle' },
       { 'ga', '<cmd>CodeCompanionChat Add<cr>', mode = { 'v' }, desc = 'CodeCompanion Chat Add' },
-      { '<leader>ta', desc = 'Select AI Model' },
+      { '\\s', desc = 'CodeCompanion Select Model' },
     },
     cmd = {
       'CodeCompanion',
@@ -113,7 +113,7 @@ return {
           },
         },
       })
-      vim.keymap.set('n', '<leader>ta', select_model, { desc = 'Select AI Model' })
+      vim.keymap.set('n', '\\s', select_model)
       -- Expand 'cc' into 'CodeCompanion' in the command line
       vim.cmd([[cab cc CodeCompanion]])
     end,

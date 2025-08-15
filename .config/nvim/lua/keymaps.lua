@@ -8,7 +8,7 @@ vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', ex
 vim.keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- Yank filepath to clipboard
-vim.keymap.set({ 'n', 'x' }, '<leader>yf', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
+vim.keymap.set({ 'n', 'x' }, '\\y', '<cmd>let @+=expand("%:p")<CR>', { desc = 'Yank filepath' })
 
 -- Reselect last yanked/pasted text
 vim.keymap.set('n', 'gV', '`[v`]', { desc = 'Reselect last yanked/pasted text' })
