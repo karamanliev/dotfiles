@@ -23,6 +23,8 @@ return {
         'diff',
         'php',
         'http',
+        'markdown',
+        'markdown_inline',
         'astro',
       },
       auto_install = true,
