@@ -1,49 +1,10 @@
 return {
-  -- AI completion
-  {
-    'supermaven-inc/supermaven-nvim',
-    enabled = true,
-    event = 'InsertEnter',
-    config = function()
-      require('supermaven-nvim').setup({
-        keymaps = {
-          accept_suggestion = '<C-l>',
-          clear_suggestion = '<C-c>',
-          accept_word = '<C-j>',
-        },
-        ignore_filetypes = { cpp = true }, -- or { "cpp", }
-        -- color = {
-        --   suggestion_color = "#FFFFFF",
-        --   cterm = 244,
-        -- },
-        log_level = 'off',
-        disable_inline_completion = false,
-        disable_keymaps = false,
-        condition = function()
-          return string.match(vim.fn.expand('%:t'), '.env')
-        end,
-      })
-    end,
-  },
-
   -- Blink autocompletion engine
   {
     'saghen/blink.cmp',
     version = '1.*',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      -- 'huijiro/blink-cmp-supermaven',
-      -- 'onsails/lspkind.nvim',
-      -- 'supermaven-inc/supermaven-nvim',
-      -- {
-      --   'saghen/blink.compat',
-      --   enabled = false,
-      --   version = '*',
-      --   lazy = true,
-      --   opts = {
-      --     impersonate_nvim_cmp = false,
-      --   },
-      -- },
     },
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -84,23 +45,6 @@ return {
       },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-        providers = {
-          -- supermaven = {
-          --   name = 'supermaven',
-          --   module = 'blink-cmp-supermaven',
-          --   async = true,
-          --
-          --   transform_items = function(ctx, items)
-          --     for _, item in ipairs(items) do
-          --       item.kind_icon = ''
-          --       item.kind_name = 'Supermaven'
-          --       item.source_name = 'AI'
-          --       item.kind_hl = 'BlinkCmpKindEnum'
-          --     end
-          --     return items
-          --   end,
-          -- },
-        },
       },
       cmdline = {
         completion = {
@@ -119,7 +63,7 @@ return {
     opts_extend = { 'sources.default' },
   },
 
-  -- Snippets
+  -- Custom Snippets
   {
     'L3MON4D3/LuaSnip',
     enabled = false,

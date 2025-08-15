@@ -23,6 +23,7 @@ return {
         { '<leader>s', group = 'Session' },
         { '<leader>t', group = 'Toggle' },
         { '<leader>y', group = 'Yank' },
+        { '<leader>a', group = 'AI' },
       })
       -- visual mode
       wk.add({
