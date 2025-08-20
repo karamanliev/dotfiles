@@ -104,6 +104,7 @@ hyprpicker
 hyprshot-git
 inkscape
 iwd
+kiro-bin
 kitty
 lazydocker
 lazygit
@@ -233,6 +234,7 @@ ttf-nerd-fonts-symbols-mono
 ttf-opensans
 ttf-victor-mono
 unrar
+uv
 variety
 viber
 vim
