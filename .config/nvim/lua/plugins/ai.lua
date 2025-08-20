@@ -32,6 +32,13 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
+      {
+        'ravitemer/mcphub.nvim',
+        build = 'npm install -g mcp-hub@latest',
+        config = function()
+          require('mcphub').setup()
+        end,
+      },
     },
     keys = {
       { '\\A', '<cmd>CodeCompanionActions<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Actions' },
@@ -46,16 +53,22 @@ return {
       'CodeCompanionCmd',
     },
     config = function()
-      local default_model = 'anthropic/claude-sonnet-4'
+      local default_model = 'qwen/qwen3-coder:free'
       local available_models = {
         'anthropic/claude-sonnet-4',
         'openai/gpt-5-mini',
         'openai/gpt-5',
+        'openai/gpt-oss-20b:free',
+        'openai/gpt-oss-120b',
         'google/gemini-2.5-flash',
         'google/gemini-2.5-pro',
         'z-ai/glm-4.5',
         'qwen/qwen3-coder',
+        'qwen/qwen3-coder:free',
         'moonshotai/kimi-k2',
+        'moonshotai/kimi-k2:free',
+        'moonshotai/kimi-dev-72b:free',
+        'mistralai/codestral-2508',
       }
       local current_model = default_model
 
@@ -112,8 +125,25 @@ return {
             layout = 'vertical',
           },
         },
+        extensions = {
+          mcphub = {
+            callback = 'mcphub.extensions.codecompanion',
+            opts = {
+              -- MCP Tools
+              make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
+              show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
+              add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
+              show_result_in_chat = true, -- Show tool results directly in chat buffer
+              format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
+              -- MCP Resources
+              make_vars = true, -- Convert MCP resources to #variables for prompts
+              -- MCP Prompts
+              make_slash_commands = true, -- Add MCP prompts as /slash commands
+            },
+          },
+        },
       })
-      vim.keymap.set('n', '\\s', select_model)
+      vim.keymap.set('n', '\\s', select_model, { desc = 'CodeCompanion Select Model' })
       -- Expand 'cc' into 'CodeCompanion' in the command line
       vim.cmd([[cab cc CodeCompanion]])
     end,
