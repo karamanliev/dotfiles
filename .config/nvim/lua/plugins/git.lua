@@ -1,6 +1,72 @@
 return {
   -- Gitsigns
   {
+    'NeogitOrg/neogit',
+    cmd = { 'Neogit' },
+    keys = {
+      { 'gh', '<cmd>DiffviewClose<cr><cmd>Neogit<cr>', desc = 'Neogit' },
+      {
+        'gL',
+        '<cmd>Neogit log<cr>',
+        desc = 'Neogit Log',
+      },
+    },
+    config = function()
+      local neogit = require('neogit')
+
+      neogit.setup({
+        graph_style = 'kitty',
+        process_spinner = true,
+        remember_settings = true,
+        use_per_project_settings = true,
+        kind = 'tab',
+      })
+
+      -- Focus Neogit on current buffer
+      local function open_neogit_on_current_buffer()
+        local function cursor_to_line(pattern)
+          local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+          local esccaped_pattern = string.gsub(pattern, '[%p]', '%%%1')
+          for i, line in ipairs(lines) do
+            if line:match(esccaped_pattern) then
+              vim.api.nvim_win_set_cursor(0, { i, 0 }) -- If pattern is found, move the cursor to the matching line
+              return
+            end
+          end
+        end
+
+        local function open_callback(augroup_id, file_rel)
+          vim.api.nvim_del_augroup_by_id(augroup_id)
+          -- Send a tab to open the file
+          -- local keys = vim.api.nvim_replace_termcodes('<tab>', true, false, true)
+          -- vim.api.nvim_feedkeys(keys, 'i', false) -- Is insert mode!!
+          cursor_to_line(file_rel)
+        end
+
+        local filename = vim.api.nvim_buf_get_name(0)
+        if filename ~= '' then
+          local file_rel = vim.fn.fnamemodify(vim.fn.expand('%'), ':.')
+          -- local escaped_file = vim.fn.escape(file_rel, '\\/.*$^~[]')
+          local MyNeogitGroup = vim.api.nvim_create_augroup('MyNeogitGroup', { clear = true })
+          vim.api.nvim_create_autocmd('User', {
+            desc = 'A temp autocmd to open neogit on current buffer',
+            pattern = 'NeogitStatusRefreshed',
+            group = MyNeogitGroup,
+            callback = function()
+              open_callback(MyNeogitGroup, file_rel)
+            end,
+          })
+        end
+        require('neogit').open()
+      end
+
+      vim.keymap.set('n', 'gh', function()
+        vim.cmd('DiffviewClose')
+        open_neogit_on_current_buffer()
+      end, { noremap = true, desc = 'Neogit' })
+    end,
+  },
+  {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {
