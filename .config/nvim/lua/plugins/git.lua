@@ -143,6 +143,36 @@ return {
           file_panel = {
             {
               'n',
+              '<C-d>',
+              actions.scroll_view(0.25),
+              { desc = 'Scroll preview down' },
+            },
+            {
+              'n',
+              '<C-u>',
+              actions.scroll_view(-0.25),
+              { desc = 'Scroll preview up' },
+            },
+            {
+              'n',
+              'j',
+              actions.select_next_entry,
+              { desc = 'Move cursor down' },
+            },
+            {
+              'n',
+              'k',
+              actions.select_prev_entry,
+              { desc = 'Move cursor up' },
+            },
+            {
+              'n',
+              '<cr>',
+              actions.focus_entry,
+              { desc = 'Focus the diff' },
+            },
+            {
+              'n',
               '[h',
               actions.view_windo(function(layout_name, sym)
                 if sym == 'b' then
@@ -203,16 +233,19 @@ return {
               '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
               { desc = 'Close the diffview' },
             },
-            {
-              'n',
-              '<Esc>',
-              '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
-              { desc = 'Close the diffview' },
-            },
+            -- {
+            --   'n',
+            --   '<Esc>',
+            --   '<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>',
+            --   { desc = 'Close the diffview' },
+            -- },
             {
               'n',
               'o',
-              actions.goto_file_edit,
+              function()
+                actions.goto_file_edit()
+                vim.cmd('tabclose #')
+              end,
               desc = 'Open the file in a new tab',
             },
           },
@@ -247,10 +280,12 @@ return {
             winbar_info = true,
             disable_diagnostics = false,
           },
-
-          file_panel = {
-            win_config = 'right',
-            width = 35,
+        },
+        file_panel = {
+          listing_style = 'list',
+          win_config = {
+            position = 'top',
+            height = 15,
           },
         },
       })
