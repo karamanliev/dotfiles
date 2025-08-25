@@ -223,6 +223,7 @@ telegram-desktop
 terminus-font
 tmux-git
 tmux-plugin-manager
+tree
 ttf-bitstream-vera
 ttf-dejavu
 ttf-fira-code
