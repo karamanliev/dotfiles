@@ -53,7 +53,7 @@ return {
       'CodeCompanionCmd',
     },
     config = function()
-      local default_model = 'qwen/qwen3-coder:free'
+      local default_model = 'qwen/qwen3-coder'
       local available_models = {
         'anthropic/claude-sonnet-4',
         'openai/gpt-5-mini',
@@ -62,6 +62,7 @@ return {
         'openai/gpt-oss-120b',
         'google/gemini-2.5-flash',
         'google/gemini-2.5-pro',
+        'mistralai/codestral-2508',
         'z-ai/glm-4.5',
         'qwen/qwen3-coder',
         'qwen/qwen3-coder:free',
