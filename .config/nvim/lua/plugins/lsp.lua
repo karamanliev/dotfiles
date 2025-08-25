@@ -81,12 +81,6 @@ return {
             format = false,
           },
         },
-        tailwindcss = {
-          root_dir = function(fname)
-            local root_pattern = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.mjs')
-            return root_pattern(fname)
-          end,
-        },
         jsonls = {
           settings = {
             json = {
@@ -129,6 +123,7 @@ return {
           },
         },
         astro = {},
+        tailwindcss = {},
       }
 
       for server_name, config in pairs(servers) do
