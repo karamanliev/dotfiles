@@ -10,6 +10,11 @@ return {
         '<cmd>Neogit log<cr>',
         desc = 'Neogit Log',
       },
+      {
+        '<leader>gc',
+        '<cmd>lua require("neogit").action("commit", "commit", { "--verbose" })<cr>',
+        desc = 'Neogit Commit',
+      },
     },
     config = function()
       local neogit = require('neogit')
@@ -20,6 +25,8 @@ return {
         remember_settings = true,
         use_per_project_settings = true,
         kind = 'tab',
+        disable_line_numbers = false,
+        disable_relative_line_numbers = false,
       })
 
       -- Focus Neogit on current buffer
@@ -64,6 +71,8 @@ return {
         vim.cmd('DiffviewClose')
         open_neogit_on_current_buffer()
       end, { noremap = true, desc = 'Neogit' })
+
+      vim.keymap.set('n', '<leader>gc', neogit.action('commit', 'commit', { '--verbose' }), { desc = 'Neogit Commit' })
     end,
   },
   {
@@ -97,17 +106,17 @@ return {
         end
 
         -- Navigation
-        map('n', ']h', function()
+        map('n', ']c', function()
           if vim.wo.diff then
-            vim.cmd.normal({ ']h', bang = true })
+            vim.cmd.normal({ ']c', bang = true })
           else
             gitsigns.nav_hunk('next')
           end
         end, { desc = 'Jump to next git hunk' })
 
-        map('n', '[h', function()
+        map('n', '[c', function()
           if vim.wo.diff then
-            vim.cmd.normal({ '[h', bang = true })
+            vim.cmd.normal({ '[c', bang = true })
           else
             gitsigns.nav_hunk('prev')
           end
@@ -143,6 +152,7 @@ return {
         map('n', '<leader>gB', gitsigns.blame, { desc = 'Blame panel' })
         map('n', '<leader>gd', gitsigns.toggle_deleted, { desc = 'Git show deleted' })
         map('n', '<leader>gl', gitsigns.toggle_linehl, { desc = 'Git show line highlights' })
+        map({ 'o', 'x' }, 'ih', '<cmd>lua require("gitsigns").select_hunk()<cr>', { desc = 'Select hunk' })
       end,
     },
   },
