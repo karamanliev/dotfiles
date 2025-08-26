@@ -2,6 +2,7 @@ return {
   -- Session management
   {
     'rmagatti/auto-session',
+    enabled = false,
     event = {
       'BufReadPre',
       'BufWritePre',
