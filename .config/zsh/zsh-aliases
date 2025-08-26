@@ -31,7 +31,7 @@ alias lt='f() { if [ $# -eq 0 ]; then eza --tree --level=2 --icons --color=alway
 ## Remap
 alias cat='bat'
 alias top='btop'
-alias nvim='nvim --listen /tmp/nvim-server-$(tmux display-message -p "\#{session_id}-#{window_id}-#{pane_id}").pipe'
+# alias nvim='nvim --listen /tmp/nvim-server-$(tmux display-message -p "\#{session_id}-#{window_id}-#{pane_id}").pipe'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
