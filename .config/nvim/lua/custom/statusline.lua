@@ -184,7 +184,7 @@ end
 local function lsp_msg()
   local msg = vim.lsp.status()
 
-  if #msg == 0 or vim.o.columns < 120 then
+  if msg == '' or vim.o.columns < 80 then
     return ''
   end
 
@@ -224,7 +224,7 @@ Statusline.active = function()
     '%=%#StatusLine#',
     table.concat(custom_modules, ' '),
     ' %#StatusLine#',
-    hide_when_small(lsp_msg()),
+    lsp_msg(),
     diagnostics(),
     ' %#StatusLine#',
     lineinfo(),
@@ -262,13 +262,9 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
   command = 'setlocal statusline=%!v:lua.Statusline.short()',
 })
 
--- Redraw statusline when LSP progress is done
+-- Redraw statusline when LSP progress updates
 vim.api.nvim_create_autocmd('LspProgress', {
-  callback = function(args)
-    if string.find(args.match, 'end') then
-      vim.cmd('redrawstatus')
-    end
-
+  callback = function()
     vim.cmd('redrawstatus')
   end,
 })
