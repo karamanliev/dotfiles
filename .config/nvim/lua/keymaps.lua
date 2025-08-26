@@ -73,6 +73,9 @@ vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move line up (inse
 vim.keymap.set('v', '<M-j>', ":'<,'>m '>+1<cr>gv=gv", { desc = 'Move block down' })
 vim.keymap.set('v', '<M-k>', ":'<,'>m '<-2<cr>gv=gv", { desc = 'Move block up' })
 
+-- Select foldmethod with vim.ui.select
+vim.keymap.set('n', 'zfm', '<cmd>SelectFoldMethod<cr>', { desc = 'Select foldmethod' })
+
 -- Open lazygit in new tmux window
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 -- vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })

@@ -93,6 +93,21 @@ command('Search', function(o)
   vim.ui.open(url)
 end, { nargs = 1, desc = 'search in browser' })
 
+-- Create a command to select fold method using vim.ui.select
+command('SelectFoldMethod', function()
+  local methods = { 'manual', 'indent', 'expr', 'marker', 'syntax', 'diff' }
+  local current = vim.o.foldmethod
+  local options = vim.tbl_map(function(m)
+    return m == current and m .. ' (current)' or m
+  end, methods)
+
+  vim.ui.select(options, { prompt = 'Fold method:' }, function(choice)
+    if choice then
+      vim.o.foldmethod = choice:gsub(' %(current%)', '')
+    end
+  end)
+end, { desc = 'Select fold method' })
+
 -- Highlight when yanking (copying) text
 autocmd('TextYankPost', {
   callback = function()
