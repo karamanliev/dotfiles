@@ -81,19 +81,21 @@ M.theme_switch_kb = {
             'randombones',
             -- main themes
             'catppuccin',
-            'rose-pine',
             'kanagawa',
-            'tokyonight',
             'monoglow',
+            'rose-pine',
+            'tokyonight',
+            'unokai',
             -- light themes
-            'kanagawa-lotus',
-            'daylight',
             'catppuccin-latte',
             'dawnfox',
             'dayfox',
-            'vimbones',
-            'tokyonight-day',
+            'daylight',
+            'kanagawa-lotus',
+            'kanagawa-paper-canvas',
             'rose-pine-dawn',
+            'tokyonight-day',
+            'vimbones',
           }
 
           if vim.tbl_contains(not_allowed, color) then

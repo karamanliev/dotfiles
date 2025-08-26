@@ -156,6 +156,7 @@ return {
   {
     'rebelot/kanagawa.nvim',
     lazy = true,
+    enabled = false,
     priority = 1000,
     keys = keys,
     config = function()
@@ -321,6 +322,7 @@ return {
   {
     'cdmill/neomodern.nvim',
     priority = 1000,
+    enabled = false,
     lazy = true,
     keys = keys,
     config = function()
