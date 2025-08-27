@@ -43,6 +43,14 @@ return {
       },
       { '<leader>ft', '<cmd>TodoTelescope<cr>', desc = 'Find Todo Comments' },
       {
+        '<C-Space>',
+        function()
+          require('telescope.builtin').buffers()
+        end,
+        mode = { 'n', 'v' },
+        desc = 'Opened buffers',
+      },
+      {
         '<leader><leader>',
         function()
           require('telescope.builtin').buffers()
@@ -183,10 +191,12 @@ return {
             },
           },
           buffers = {
-            ignore_current_buffer = true,
+            ignore_current_buffer = false,
             initial_mode = 'normal',
             sort_mru = true,
             previewer = false,
+            sort_lastused = true,
+            select_current = false,
             theme = 'dropdown',
             mappings = {
               i = {
