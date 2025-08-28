@@ -82,23 +82,23 @@ return {
           },
         },
         jsonls = {
-          settings = {
-            json = {
-              schemas = require('schemastore').json.schemas({}),
-              validate = { enable = true },
-            },
-          },
+          -- settings = {
+          --   json = {
+          --     schemas = require('schemastore').json.schemas({}),
+          --     validate = { enable = true },
+          --   },
+          -- },
         },
         yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = false,
-                url = '',
-              },
-              schemas = require('schemastore').yaml.schemas(),
-            },
-          },
+          -- settings = {
+          --   yaml = {
+          --     schemaStore = {
+          --       enable = false,
+          --       url = '',
+          --     },
+          --     schemas = require('schemastore').yaml.schemas(),
+          --   },
+          -- },
         },
         lua_ls = {
           settings = {
@@ -339,6 +339,7 @@ return {
   -- JSON/YAML Schemas definitions
   {
     'b0o/schemastore.nvim',
+    enabled = false,
     ft = { 'json', 'yaml', 'yml' },
   },
 }
