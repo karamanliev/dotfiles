@@ -2,9 +2,9 @@
 
 monitor_data=$(hyprctl monitors -j)
 
-EXCLUDED_CLASSES=("org.gnome.Calculator" "com.gabm.satty" "system_monitor_btop" "zen")
+EXCLUDED_CLASSES=("org.gnome.Calculator" "com.gabm.satty" "system_monitor_btop" "zen" "eu.betterbird.Betterbird")
 EXCLUDED_TITLES=()
-EXCLUDED_CLASSES_TITLE=("org.gnome.Nautilus " "zen Picture-in-Picture")
+EXCLUDED_CLASSES_TITLE=("org.gnome.Nautilus " "zen Picture-in-Picture" "eu.betterbird.Betterbird")
 
 function should_skip_class_or_title {
   local real_address="$1"

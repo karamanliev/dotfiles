@@ -11,6 +11,7 @@ base
 base-devel
 bat
 better-adb-sync-git
+betterbird-bin
 bind
 bitwarden
 blueman

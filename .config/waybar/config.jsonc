@@ -105,18 +105,19 @@
           3,
           4,
           5,
-          6,
-          7,
-          8
+          6
+          // 7,
+          // 8
         ]
       },
       "format": "{icon}",
       "format-icons": {
-        "7": "G",
-        "8": "M",
+        // "7": "G",
+        // "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
         "notes": "<sub>NOTES</sub>",
+        "mail": "<sub>MAIL</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
       }
     },
@@ -326,18 +327,19 @@
           3,
           4,
           5,
-          6,
-          7,
-          8
+          6
+          // 7,
+          // 8
         ]
       },
       "format": "{icon}",
       "format-icons": {
-        "7": "G",
-        "8": "M",
+        // "7": "G",
+        // "8": "M",
         "chat": "<sub>CHAT</sub>",
         "ai": "<sub>AI</sub>",
         "notes": "<sub>NOTES</sub>",
+        "mail": "<sub>MAIL</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
       }
     },
