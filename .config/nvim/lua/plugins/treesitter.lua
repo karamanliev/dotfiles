@@ -5,48 +5,43 @@ return {
     branch = 'main',
     build = ':TSUpdate',
     config = function()
-      local languages = {
-        { parser = 'bash', filetype = 'sh' },
-        { parser = 'html', filetype = 'html' },
-        { parser = 'lua', filetype = 'lua' },
-        { parser = 'luadoc', filetype = nil }, -- documentation parser
-        { parser = 'markdown', filetype = 'markdown' },
-        { parser = 'markdown_inline', filetype = nil }, -- inline markdown parser
-        { parser = 'vim', filetype = 'vim' },
-        { parser = 'vimdoc', filetype = nil }, -- vim help parser
-        { parser = 'javascript', filetype = 'javascript' },
-        { parser = 'typescript', filetype = 'typescript' },
-        { parser = 'tsx', filetype = 'typescriptreact' },
-        { parser = 'jsx', filetype = 'javascriptreact' },
-        { parser = 'json', filetype = 'json' },
-        { parser = 'yaml', filetype = 'yaml' },
-        { parser = 'css', filetype = 'css' },
-        { parser = 'toml', filetype = 'toml' },
-        { parser = 'dockerfile', filetype = 'dockerfile' },
-        { parser = 'gitignore', filetype = 'gitignore' },
-        { parser = 'regex', filetype = nil }, -- regex highlighting
-        { parser = 'python', filetype = 'python' },
-        { parser = 'go', filetype = 'go' },
-        { parser = 'query', filetype = nil }, -- treesitter query parser
-        { parser = 'c', filetype = 'c' },
-        { parser = 'diff', filetype = 'diff' },
-        { parser = 'php', filetype = 'php' },
-        { parser = 'http', filetype = 'http' },
-        { parser = 'astro', filetype = 'astro' },
+      local parsers = {
+        'bash',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'vim',
+        'vimdoc',
+        'javascript',
+        'typescript',
+        'tsx',
+        'jsx',
+        'json',
+        'yaml',
+        'css',
+        'toml',
+        'dockerfile',
+        'gitignore',
+        'regex',
+        'python',
+        'go',
+        'query',
+        'c',
+        'diff',
+        'php',
+        'http',
+        'astro',
       }
 
-      -- Install parsers
-      local parsers = {}
-      for _, lang in ipairs(languages) do
-        table.insert(parsers, lang.parser)
-      end
       require('nvim-treesitter').install(parsers)
 
-      -- Enable treesitter for filetypes
       local filetypes = {}
-      for _, lang in ipairs(languages) do
-        if lang.filetype then
-          table.insert(filetypes, lang.filetype)
+      for _, parser in ipairs(parsers) do
+        local filetype = vim.treesitter.language.get_filetypes(parser)[2]
+        if filetype then
+          table.insert(filetypes, filetype)
         end
       end
 
