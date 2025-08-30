@@ -2,63 +2,62 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
-    branch = 'master',
+    branch = 'main',
     build = ':TSUpdate',
-    opts = {
-      ensure_installed = {
-        'bash',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'vim',
-        'vimdoc',
-        'javascript',
-        'json',
-        'css',
-        'typescript',
-        'markdown',
-        'query',
-        'c',
-        'diff',
-        'php',
-        'http',
-        'markdown',
-        'markdown_inline',
-        'astro',
-      },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby', 'php' },
-        disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
-      },
-      indent = { enable = true, disable = { 'ruby', 'php' } },
+    config = function()
+      local languages = {
+        { parser = 'bash', filetype = 'sh' },
+        { parser = 'html', filetype = 'html' },
+        { parser = 'lua', filetype = 'lua' },
+        { parser = 'luadoc', filetype = nil }, -- documentation parser
+        { parser = 'markdown', filetype = 'markdown' },
+        { parser = 'markdown_inline', filetype = nil }, -- inline markdown parser
+        { parser = 'vim', filetype = 'vim' },
+        { parser = 'vimdoc', filetype = nil }, -- vim help parser
+        { parser = 'javascript', filetype = 'javascript' },
+        { parser = 'typescript', filetype = 'typescript' },
+        { parser = 'tsx', filetype = 'typescriptreact' },
+        { parser = 'jsx', filetype = 'javascriptreact' },
+        { parser = 'json', filetype = 'json' },
+        { parser = 'yaml', filetype = 'yaml' },
+        { parser = 'css', filetype = 'css' },
+        { parser = 'toml', filetype = 'toml' },
+        { parser = 'dockerfile', filetype = 'dockerfile' },
+        { parser = 'gitignore', filetype = 'gitignore' },
+        { parser = 'regex', filetype = nil }, -- regex highlighting
+        { parser = 'python', filetype = 'python' },
+        { parser = 'go', filetype = 'go' },
+        { parser = 'query', filetype = nil }, -- treesitter query parser
+        { parser = 'c', filetype = 'c' },
+        { parser = 'diff', filetype = 'diff' },
+        { parser = 'php', filetype = 'php' },
+        { parser = 'http', filetype = 'http' },
+        { parser = 'astro', filetype = 'astro' },
+      }
 
-      incremental_selection = {
-        enable = false,
-        keymaps = {
-          init_selection = '<C-space>',
-          node_incremental = '<C-space>',
-          scope_incremental = false,
-          node_decremental = '<bs>',
-        },
-      },
-    },
-    config = function(_, opts)
-      -- Prefer git instead of curl in order to improve connectivity in some environments
-      require('nvim-treesitter.install').prefer_git = true
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
+      -- Install parsers
+      local parsers = {}
+      for _, lang in ipairs(languages) do
+        table.insert(parsers, lang.parser)
+      end
+      require('nvim-treesitter').install(parsers)
+
+      -- Enable treesitter for filetypes
+      local filetypes = {}
+      for _, lang in ipairs(languages) do
+        if lang.filetype then
+          table.insert(filetypes, lang.filetype)
+        end
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = filetypes,
+        callback = function()
+          vim.treesitter.start()
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
     end,
   },
 
