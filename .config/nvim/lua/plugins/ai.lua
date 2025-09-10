@@ -28,12 +28,6 @@ return {
 
   {
     'NickvanDyke/opencode.nvim',
-    opts = {
-      on_opencode_not_found = function()
-        vim.system({ 'tmux', 'splitw', '-l 35%', '-d', 'opencode' }, { cwd = vim.fn.getcwd() }):wait()
-        return true
-      end,
-    },
     keys = {
       {
         '<leader>oA',
@@ -89,7 +83,7 @@ return {
       {
         '<leader>op',
         function()
-          require('opencode').select_prompt()
+          require('opencode').select()
         end,
         desc = 'Select prompt',
         mode = { 'n', 'v' },
@@ -103,6 +97,14 @@ return {
         desc = 'Explain code near cursor',
       },
     },
+    config = function()
+      vim.g.opencode_opts = {
+        on_opencode_not_found = function()
+          vim.system({ 'tmux', 'splitw', '-l 35%', '-d', 'opencode' }, { cwd = vim.fn.getcwd() }):wait()
+          return true
+        end,
+      }
+    end,
   },
 
   -- AI chat & agents
