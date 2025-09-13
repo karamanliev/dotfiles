@@ -37,6 +37,17 @@ end, {
   desc = 'Re-enable autoformat-on-save',
 })
 
+-- Toggle Wrapping
+command('ToggleWrap', function()
+  local enable = not vim.wo.wrap
+  vim.wo.wrap = enable
+  vim.wo.linebreak = enable
+  vim.wo.breakindent = enable
+  vim.notify('Wrapping ' .. (vim.wo.wrap and 'enabled' or 'disabled'), vim.log.levels.INFO)
+end, {
+  desc = 'Toggle wrapping',
+})
+
 -- Toggle global autoformatting
 command('ToggleGlobalAutoformat', function()
   vim.g.disable_autoformat = not vim.g.disable_autoformat

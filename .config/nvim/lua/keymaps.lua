@@ -40,6 +40,8 @@ vim.keymap.set('x', 'g/', '<Esc>/\\%V', { desc = 'Search in visual selection' })
 -- Yank in visual without moving cursor
 vim.keymap.set('v', 'y', 'y`]', { desc = 'Yank' })
 
+vim.keymap.set({ 'n', 'x' }, '<leader>tw', '<cmd>ToggleWrap<cr>', { desc = 'Toggle Wrapping' })
+
 -- Yank the line on `dd` only if it is non-empty
 vim.keymap.set('n', 'dd', function()
   if vim.fn.getline('.'):match('^%s*$') then
