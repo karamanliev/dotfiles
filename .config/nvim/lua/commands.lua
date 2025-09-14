@@ -98,6 +98,36 @@ command('LazyGit', function()
   )
 end, { desc = 'LazyGit' })
 
+command('LazyGitLogs', function()
+  local bg = require('utils.misc').get_bg_color()
+  local cwd = vim.fn.getcwd()
+  vim.cmd(
+    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
+      .. bg
+      .. ' -Sbg=\\'
+      .. bg
+      .. ' -d "'
+      .. vim.fn.getcwd()
+      .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --sm full --filter '
+      .. cwd
+  )
+end, { desc = 'LazyGitLogs' })
+
+command('LazyGitLogsFile', function()
+  local bg = require('utils.misc').get_bg_color()
+  local file = vim.fn.expand('%:p')
+  vim.cmd(
+    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
+      .. bg
+      .. ' -Sbg=\\'
+      .. bg
+      .. ' -d "'
+      .. vim.fn.getcwd()
+      .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --filter '
+      .. file
+  )
+end, { desc = 'LazyGitLogsFile' })
+
 command('Search', function(o)
   local escaped = vim.uri_encode(o.args)
   local url = ('https://duckduckgo.com/?q=%s'):format(escaped)
