@@ -82,7 +82,7 @@ vim.keymap.set('n', 'zfm', '<cmd>SelectFoldMethod<cr>', { desc = 'Select foldmet
 
 -- Open lazygit in new tmux window
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
--- vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 
 -- Open yazi in new tmux window
 vim.keymap.set('n', '<leader>Y', function()

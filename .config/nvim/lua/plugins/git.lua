@@ -1,7 +1,8 @@
 return {
-  -- Gitsigns
+  -- Neogit
   {
     'NeogitOrg/neogit',
+    enabled = false,
     cmd = { 'Neogit' },
     keys = {
       { 'gh', '<cmd>DiffviewClose<cr><cmd>Neogit<cr>', desc = 'Neogit' },
@@ -75,6 +76,7 @@ return {
       vim.keymap.set('n', '<leader>gc', neogit.action('commit', 'commit', { '--verbose' }), { desc = 'Neogit Commit' })
     end,
   },
+  -- Gitsigns
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -156,7 +158,6 @@ return {
       end,
     },
   },
-
   -- Diffview
   {
     'sindrets/diffview.nvim',

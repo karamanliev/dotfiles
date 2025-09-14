@@ -88,7 +88,7 @@ end, {
 command('LazyGit', function()
   local bg = require('utils.misc').get_bg_color()
   vim.cmd(
-    'silent !tmux set -w popup-border-lines none; tmux popup -E -eTERM=screen-256color -xC -yS -w100\\% -h99\\% -sbg=\\'
+    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
       .. bg
       .. ' -Sbg=\\'
       .. bg
