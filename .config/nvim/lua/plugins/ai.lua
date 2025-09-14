@@ -25,9 +25,62 @@ return {
       })
     end,
   },
+  -- Claude Code
+  {
+    'coder/claudecode.nvim',
+    cmd = {
+      'ClaudeCode',
+      'ClaudeCodeAdd',
+      'ClaudeCodeSend',
+    },
+    opts = {
+      focus_after_send = true,
+      terminal = {
+        provider = 'external',
+        provider_opts = {
+          external_terminal_cmd = function(cmd)
+            -- Check if Claude is already running in any pane of the current window
+            local check_claude = os.execute("tmux list-panes -F '#{pane_current_command}' | grep -q claude")
+            if check_claude == 0 then
+              local pane_id = vim.fn.system('tmux list-panes -F "#{pane_id}:#{pane_current_command}" | grep claude | cut -d: -f1'):gsub('\n', '')
+              return 'tmux select-pane -t ' .. pane_id
+            end
 
+            local cols = vim.o.columns
+            local lines = vim.o.lines
+            local split_cmd = cols / math.max(lines, 1) >= 1.2 and 'tmux splitw -l 35% -d ' or 'tmux splitw -h -l 45% -d '
+
+            return split_cmd .. cmd
+          end,
+        },
+      },
+      diff_opts = {
+        layout = 'vertical',
+        open_in_current_tab = true,
+        keep_terminal_focus = false,
+      },
+    },
+    keys = {
+      { '<leader>an', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude', mode = { 'n', 'v' } },
+      { '<leader>ar', '<cmd>ClaudeCode --resume<cr>', desc = 'Resume Claude' },
+      { '<leader>ac', '<cmd>ClaudeCode --continue<cr>', desc = 'Continue Claude' },
+      { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
+      { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
+      {
+        '<leader>as',
+        '<cmd>ClaudeCodeTreeAdd<cr>',
+        desc = 'Add file',
+        ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles' },
+      },
+      -- Diff management
+      { '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' },
+      { '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' },
+    },
+  },
+  -- Opencode
   {
     'NickvanDyke/opencode.nvim',
+    enabled = false,
     keys = {
       {
         '<leader>oA',
@@ -106,7 +159,6 @@ return {
       }
     end,
   },
-
   -- AI chat & agents
   {
     'olimorris/codecompanion.nvim',
