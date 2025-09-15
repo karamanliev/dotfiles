@@ -1,7 +1,6 @@
 return {
   {
     '3rd/image.nvim',
-    commit = '21909e3',
     event = { 'VeryLazy' },
     build = false,
     opts = {
