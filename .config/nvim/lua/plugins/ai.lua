@@ -55,7 +55,7 @@ return {
         },
       },
       diff_opts = {
-        layout = 'vertical',
+        layout = 'horizontal',
         open_in_current_tab = true,
         keep_terminal_focus = false,
       },
