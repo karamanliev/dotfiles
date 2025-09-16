@@ -1,7 +1,7 @@
 os:
-  edit: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e {{filename}}<cr>";tmux popup -C;
-  editAtLine: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e +{{line}} {{filename}}<cr>";tmux popup -C;
-  open: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>e {{filename}}<cr>";tmux popup -C;
+  edit: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
+  editAtLine: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e +{{line}} {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
+  open: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
 git:
   paging:
     colorArg: always
@@ -37,3 +37,7 @@ gui:
     "*": "#b4befe"
 promptToReturnFromSubprocess: false
 notARepository: "skip"
+keybinding:
+  universal:
+    edit: <disabled>
+    openFile: e

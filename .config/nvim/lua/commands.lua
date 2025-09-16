@@ -85,46 +85,48 @@ end, {
   nargs = '?',
 })
 
-command('LazyGit', function()
-  local bg = require('utils.misc').get_bg_color()
+command('LazyGit', function(opts)
+  local socket_path = vim.v.servername
+  local zoom_flag = opts.bang and '' or '-Z'
+  local kill_pane = opts.bang and 'false' or 'true'
   vim.cmd(
-    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
-      .. bg
-      .. ' -Sbg=\\'
-      .. bg
-      .. ' -d "'
+    'silent !tmux split-window '
+      .. zoom_flag
+      .. ' -c "'
       .. vim.fn.getcwd()
-      .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml'
+      .. '" "NVIM_SERVER='
+      .. socket_path
+      .. ' LAZYGIT_KILL_PANE='
+      .. kill_pane
+      .. ' lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
   )
-end, { desc = 'LazyGit' })
+end, { desc = 'LazyGit', bang = true })
 
 command('LazyGitLogs', function()
-  local bg = require('utils.misc').get_bg_color()
   local cwd = vim.fn.getcwd()
+  local socket_path = vim.v.servername
   vim.cmd(
-    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
-      .. bg
-      .. ' -Sbg=\\'
-      .. bg
-      .. ' -d "'
+    'silent !tmux split-window -Z -c "'
       .. vim.fn.getcwd()
-      .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --sm full --filter '
+      .. '" "NVIM_SERVER='
+      .. socket_path
+      .. ' LAZYGIT_KILL_PANE=true lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --sm full --filter '
       .. cwd
+      .. '; tmux kill-pane"'
   )
 end, { desc = 'LazyGitLogs' })
 
 command('LazyGitLogsFile', function()
-  local bg = require('utils.misc').get_bg_color()
   local file = vim.fn.expand('%:p')
+  local socket_path = vim.v.servername
   vim.cmd(
-    'silent !tmux set -w popup-border-lines none; tmux popup -E -xC -yS -w100\\% -h99\\% -sbg=\\'
-      .. bg
-      .. ' -Sbg=\\'
-      .. bg
-      .. ' -d "'
+    'silent !tmux split-window -Z -c "'
       .. vim.fn.getcwd()
-      .. '" lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --filter '
+      .. '" "NVIM_SERVER='
+      .. socket_path
+      .. ' LAZYGIT_KILL_PANE=true lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --filter '
       .. file
+      .. '; tmux kill-pane"'
   )
 end, { desc = 'LazyGitLogsFile' })
 
