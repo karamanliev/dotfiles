@@ -88,9 +88,12 @@ end, {
 command('LazyGit', function(opts)
   local socket_path = vim.v.servername
   local zoom_flag = opts.bang and '' or '-Z'
+  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h' or '-v'
   local kill_pane = opts.bang and 'false' or 'true'
   vim.cmd(
     'silent !tmux split-window '
+      .. orientation
+      .. ' '
       .. zoom_flag
       .. ' -c "'
       .. vim.fn.getcwd()
