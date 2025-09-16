@@ -22,18 +22,19 @@ return {
         { '<leader>d', group = 'Diff' },
         { '<leader>s', group = 'Session' },
         { '<leader>t', group = 'Toggle' },
-        { '<leader>o', group = 'OpenCode', icon = '󰚩' },
+        -- { '<leader>o', group = 'OpenCode', icon = '󰚩' },
+        { '\\', group = 'Claude Code', icon = '󰚩' },
       })
       -- visual mode
       wk.add({
         { '<leader>g', desc = 'Git', mode = 'v' },
       })
 
-      wk.add({
-        { '\\Z', '<cmd>ClearBuffers!<CR>', desc = 'Clear all buffers (unsaved also), but this one' },
-        { '\\W', '<cmd>WriteWithoutFormat<CR>', desc = 'Write (No Autoformat)' },
-        { '\\z', '<cmd>ClearBuffers<CR>', desc = 'Clear all buffers, but this one' },
-      })
+      -- wk.add({
+      --   { '\\Z', '<cmd>ClearBuffers!<CR>', desc = 'Clear all buffers (unsaved also), but this one' },
+      --   { '\\W', '<cmd>WriteWithoutFormat<CR>', desc = 'Write (No Autoformat)' },
+      --   { '\\z', '<cmd>ClearBuffers<CR>', desc = 'Clear all buffers, but this one' },
+      -- })
     end,
   },
 }

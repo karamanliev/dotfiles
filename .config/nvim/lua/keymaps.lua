@@ -1,7 +1,8 @@
 -- Clear search highlights with <Esc>
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', '\\w', '<cmd>w<CR>', { desc = 'Save file' })
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Write file' })
+vim.keymap.set('n', '<leader>W', '<cmd>WriteWithoutFormat<CR>', { desc = 'Write file (no autoformat)' })
 
 -- Better up/down
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
