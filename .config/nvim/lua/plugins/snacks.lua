@@ -35,7 +35,20 @@ return {
         enabled = false,
         timeout = 3000,
       },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        formatters = {
+          file = {
+            filename_first = true,
+          },
+        },
+        previewers = {
+          diff = {
+            builtin = false,
+            cmd = { 'delta' },
+          },
+        },
+      },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = false },
