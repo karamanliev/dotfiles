@@ -23,6 +23,7 @@ btrfs-progs
 catimg
 celluloid
 cliphist
+code
 cpio
 cpupower
 czkawka-gui-bin
@@ -105,7 +106,6 @@ hyprpicker
 hyprshot-git
 inkscape
 iwd
-kiro-bin
 kitty
 lazydocker
 lazygit
