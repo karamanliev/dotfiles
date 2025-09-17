@@ -106,7 +106,7 @@ M.theme_switch_kb = {
         end, target('', 'color'))
       end
 
-      vim.cmd('Telescope colorscheme previewer=false layout_config={height=100,width=25,anchor="NE"}')
+      vim.cmd('lua Snacks.picker.colorschemes() previewer=false layout_config={height=100,width=25,anchor="NE"}')
       vim.fn.getcompletion = target
     end,
     desc = 'Toggle Theme',

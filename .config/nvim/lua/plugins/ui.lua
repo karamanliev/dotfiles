@@ -42,7 +42,7 @@ return {
   -- vim.input and vim.select replacement
   {
     'stevearc/dressing.nvim',
-    enabled = true,
+    enabled = false,
     event = { 'VeryLazy' },
     opts = {},
     config = function()
