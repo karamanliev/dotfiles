@@ -72,6 +72,17 @@ set_hl('TelescopePreviewTitle', { link = 'TodoBgTODO' })
 set_hl('TelescopeResultsTitle', { fg = statusline_bg, bg = statusline_bg })
 set_hl('TelescopeSelection', { link = 'CursorLine' })
 
+-- Snacks
+set_hl('SnacksInputTitle', { fg = comment_fg })
+set_hl('SnacksPicker', { fg = text_fg, bg = statusline_bg })
+set_hl('SnacksPickerBorder', { fg = statusline_bg, bg = statusline_bg })
+set_hl('SnacksPickerList', { fg = text_fg, bg = statusline_bg })
+set_hl('SnacksPickerPreview', { fg = text_fg, bg = cursorline_bg })
+set_hl('SnacksPickerPreviewBorder', { fg = cursorline_bg, bg = cursorline_bg })
+set_hl('SnacksPickerInput', { bg = prompt_bg, fg = text_fg, bold = true })
+set_hl('SnacksPickerInputBorder', { fg = prompt_bg, bg = prompt_bg })
+set_hl('SnacksPickerInputTitle', { link = 'TodoBgNOTE' })
+
 -- Floats like diagnostics and gitsigns preview, hover and signature help
 set_hl('FloatBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('NormalFloat', { bg = statusline_bg })

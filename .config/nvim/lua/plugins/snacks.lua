@@ -25,9 +25,13 @@ return {
         end,
       },
       dashboard = { enabled = false },
-      explorer = { replace_netrw = false },
+      explorer = { enabled = false, replace_netrw = false },
       indent = { enabled = false },
-      input = { enabled = true },
+      input = {
+        enabled = true,
+        prompt_pos = false,
+        icon_pos = false,
+      },
       image = {
         enabled = true,
       },
@@ -42,24 +46,63 @@ return {
             filename_first = true,
           },
         },
+        win = {
+          preview = {
+            wo = {
+              foldcolumn = '0',
+              number = true,
+              numberwidth = 4,
+              relativenumber = false,
+              signcolumn = 'no',
+              statuscolumn = '',
+            },
+          },
+        },
         previewers = {
           diff = {
             builtin = false,
             cmd = { 'delta' },
           },
         },
+        layouts = {
+          vertical = {
+            layout = {
+              box = 'horizontal',
+              backdrop = false,
+              width = 0.8,
+              height = 0.8,
+              border = 'none',
+              {
+                box = 'vertical',
+                { win = 'input', height = 1, border = 'single', title = '{title} {live} {flags}', title_pos = 'center' },
+                { win = 'list', title = ' Results ', title_pos = 'center', border = 'single' },
+                { win = 'preview', title = '{preview:Preview}', height = 0.65, border = 'single', title_pos = 'center' },
+              },
+            },
+          },
+        },
       },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = false },
-      statuscolumn = { enabled = true },
+      statuscolumn = {
+        enabled = false,
+        left = { 'git', 'sign' },
+        right = { 'fold' },
+      },
       words = { enabled = true },
       toggle = {
         which_key = false,
       },
       styles = {
-        notification = {
-          -- wo = { wrap = true } -- Wrap notifications
+        input = {
+          border = 'single',
+          relative = 'cursor',
+          row = -4,
+          col = 0,
+          wo = {
+            winhighlight = 'NormalFloat:Normal,FloatBorder:LineNr,FloatTitle:LineNr,FloatPrompt:LineNr',
+          },
         },
       },
     },
@@ -75,7 +118,16 @@ return {
       {
         '<leader><space>',
         function()
-          Snacks.picker.buffers()
+          Snacks.picker.buffers({
+            current = false,
+            layout = {
+              preset = 'select',
+              -- auto_hide = { 'preview' },
+              -- cycle = true,
+            },
+            previewers = { enabled = false },
+            focus = 'list',
+          })
         end,
         desc = 'Buffers',
       },
