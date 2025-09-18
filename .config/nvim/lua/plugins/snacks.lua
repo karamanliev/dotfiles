@@ -26,7 +26,24 @@ return {
       },
       dashboard = { enabled = false },
       explorer = { enabled = false, replace_netrw = false },
-      indent = { enabled = false },
+      indent = {
+        enabled = true,
+        animate = {
+          enabled = false,
+        },
+        chunk = {
+          enabled = true,
+        },
+        indent = {
+          enabled = true,
+          width = 2,
+          char = '┊',
+          hl = 'Whitespace',
+        },
+        scope = {
+          enabled = false,
+        },
+      },
       input = {
         enabled = true,
         prompt_pos = false,
