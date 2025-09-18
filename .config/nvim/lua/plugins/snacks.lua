@@ -133,6 +133,20 @@ return {
         desc = 'Smart Find Files',
       },
       {
+        '<leader>.',
+        function()
+          vim.cmd('normal! "vy')
+          local search_text = vim.fn.getreg('v'):gsub('^%s*(.-)%s*$', '%1')
+          Snacks.picker.files({
+            title = 'Find File (Visual)',
+            hidden = true,
+            search = search_text,
+          })
+        end,
+        mode = 'v',
+        desc = 'Find File (Visual)',
+      },
+      {
         '<leader><space>',
         function()
           Snacks.picker.buffers({
@@ -146,14 +160,31 @@ return {
             focus = 'list',
           })
         end,
+        mode = { 'n', 'v' },
         desc = 'Buffers',
       },
       {
         '<leader>,',
         function()
-          Snacks.picker.grep()
+          Snacks.picker.grep({
+            hidden = true,
+          })
         end,
         desc = 'Grep',
+      },
+      {
+        '<leader>,',
+        function()
+          vim.cmd('normal! "vy')
+          local search_text = vim.fn.getreg('v'):gsub('^%s*(.-)%s*$', '%1')
+          Snacks.picker.grep({
+            title = 'Grep (Visual)',
+            search = search_text,
+            hidden = true,
+          })
+        end,
+        mode = 'v',
+        desc = 'Grep (Visual)',
       },
       {
         '<leader>;',
@@ -163,6 +194,15 @@ return {
         desc = 'Resume',
       },
       -- find
+      {
+        '<leader>ff',
+        function()
+          Snacks.picker.files({
+            hidden = true,
+          })
+        end,
+        desc = 'Find Config File',
+      },
       {
         '<leader>fn',
         function()
@@ -195,7 +235,9 @@ return {
       {
         '<leader>fg',
         function()
-          Snacks.picker.git_diff()
+          Snacks.picker.git_status({
+            cwd = vim.fn.expand('%:p:h'),
+          })
         end,
         desc = 'Git Status',
       },
@@ -391,6 +433,71 @@ return {
         end,
         desc = 'Undo History',
       },
+      {
+        '<leader>tt',
+        function()
+          Snacks.picker.colorschemes({
+            focus = 'list',
+            main = {
+              current = true,
+              file = true,
+            },
+            transform = function(item)
+              local allowed = {
+                'catppuccin-frappe',
+                'catppuccin-macchiato',
+                'catppuccin-mocha',
+                'rose-pine-main',
+                'rose-pine-moon',
+                'poimandres',
+                'kanagawa-paper-ink',
+                'oldworld',
+                'tokyonight-moon',
+                'tokyonight-night',
+                'tokyonight-storm',
+              }
+
+              if vim.tbl_contains(allowed, item.text) then
+                return item
+              end
+
+              return false
+            end,
+
+            layout = {
+              preset = 'sidebar',
+              preview = 'main',
+              layout = {
+                position = 'right',
+                width = 0.25,
+              },
+            },
+            confirm = function(picker, item)
+              picker:close()
+              if item then
+                picker.preview.state.colorscheme = nil
+                vim.schedule(function()
+                  vim.cmd('colorscheme ' .. item.text)
+                  local colorscheme_path = vim.fn.stdpath('config') .. '/lua/custom/colorscheme.lua'
+                  local lines = vim.fn.readfile(colorscheme_path)
+
+                  for i, line in ipairs(lines) do
+                    if line:match('vim%.cmd%.colorscheme%(.+%)') then
+                      lines[i] = string.format("vim.cmd.colorscheme('%s')", item.text)
+                      break
+                    end
+                  end
+
+                  vim.fn.writefile(lines, colorscheme_path)
+                  vim.fn.system('nvim-sync-colors.sh ' .. item.text)
+                end)
+              end
+            end,
+          })
+        end,
+        desc = 'Toggle Theme',
+        mode = { 'n', 'v' },
+      },
       -- {
       --   '<leader>uC',
       --   function()
@@ -547,6 +654,9 @@ return {
           else
             vim.print = _G.dd
           end
+
+          vim.cmd([[cab SnacksPicker lua Snacks.picker()]])
+          vim.cmd([[cab Snacks lua Snacks]])
 
           -- Create some toggle mappings
           -- Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')

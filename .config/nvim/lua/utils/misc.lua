@@ -106,37 +106,7 @@ M.theme_switch_kb = {
         end, target('', 'color'))
       end
 
-      require('snacks.picker').colorschemes({
-        layout = {
-          preset = 'sidebar',
-          preview = 'main',
-          layout = {
-            position = 'right',
-            width = 0.25,
-          },
-        },
-        confirm = function(picker, item)
-          picker:close()
-          if item then
-            picker.preview.state.colorscheme = nil
-            vim.schedule(function()
-              vim.cmd('colorscheme ' .. item.text)
-              local colorscheme_path = vim.fn.stdpath('config') .. '/lua/custom/colorscheme.lua'
-              local lines = vim.fn.readfile(colorscheme_path)
-
-              for i, line in ipairs(lines) do
-                if line:match('vim%.cmd%.colorscheme%(.+%)') then
-                  lines[i] = string.format("vim.cmd.colorscheme('%s')", item.text)
-                  break
-                end
-              end
-
-              vim.fn.writefile(lines, colorscheme_path)
-              vim.fn.system('nvim-sync-colors.sh ' .. item.text)
-            end)
-          end
-        end,
-      })
+      vim.cmd('Telescope colorscheme previewer=false layout_config={height=100,width=25,anchor="NE"}')
       vim.fn.getcompletion = target
     end,
     desc = 'Toggle Theme',
