@@ -48,7 +48,7 @@
       "format": "<span font_size='large'>󰨲</span>  {0}",
       "exec": "${HOME}/.config/waybar/scripts/nextmeeting.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar",
       "on-click-middle": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
-      "on-click": "gnome-calendar",
+      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
       "interval": 59,
       "return-type": "json",
       "tooltip": "true"
@@ -124,7 +124,7 @@
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
-      "on-click": "gnome-calendar",
+      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
         "mode": "month",
@@ -346,7 +346,7 @@
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
-      "on-click": "gnome-calendar",
+      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
         "mode": "month",
