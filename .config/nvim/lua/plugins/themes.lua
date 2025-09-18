@@ -1,12 +1,8 @@
----@diagnostic disable: missing-fields
-local keys = require('utils.misc').theme_switch_kb
-
 return {
   {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     lazy = true,
-    keys = keys,
     config = function()
       require('tokyonight').setup({
         style = 'moon',
@@ -57,7 +53,6 @@ return {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
-    keys = keys,
     config = function()
       require('poimandres').setup({
         bold_vert_split = false, -- use bold vertical separators
@@ -73,7 +68,6 @@ return {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = true,
-    keys = keys,
     priority = 1000,
     config = function()
       require('rose-pine').setup({
@@ -158,7 +152,6 @@ return {
     lazy = true,
     enabled = false,
     priority = 1000,
-    keys = keys,
     config = function()
       require('kanagawa').setup({
         compile = false, -- enable compiling the colorscheme
@@ -198,7 +191,6 @@ return {
     'thesimonho/kanagawa-paper.nvim',
     lazy = true,
     priority = 1000,
-    keys = keys,
     config = function()
       require('kanagawa-paper').setup({
         undercurl = true,
@@ -247,7 +239,6 @@ return {
     lazy = true,
     name = 'catppuccin',
     priority = 1000,
-    keys = keys,
     config = function()
       require('catppuccin').setup({
         flavour = 'auto', -- latte, frappe, macchiato, mocha
@@ -305,7 +296,6 @@ return {
     enabled = false,
     priority = 1000,
     lazy = true,
-    keys = keys,
     config = function()
       require('nightfox').setup({
         options = {
@@ -324,7 +314,6 @@ return {
     priority = 1000,
     enabled = false,
     lazy = true,
-    keys = keys,
     config = function()
       local c = require('neomodern.palette')[vim.g.neomodern_config and vim.g.neomodern_config.style or 'roseprime'].line
       local line = require('utils.misc').adjust_hex_brightness(c, 'lighten', 35)
@@ -360,7 +349,6 @@ return {
     enabled = false,
     priority = 1000,
     lazy = true,
-    keys = keys,
     config = function()
       require('mellifluous').setup({
         dim_inactive = false,
@@ -418,7 +406,6 @@ return {
     'dgox16/oldworld.nvim',
     lazy = true,
     priority = 1000,
-    keys = keys,
     config = function()
       local adjust_hex = require('utils.misc').adjust_hex_brightness
       local p = require('oldworld.palette')
