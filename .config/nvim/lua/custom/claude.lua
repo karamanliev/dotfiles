@@ -1,14 +1,15 @@
 -- Custom Claude integration with tmux
 -- Provides direct tmux integration without the claudecode plugin
+local cli = 'opencode'
 
 -- Initialize shared Claude pane utilities globally
 _G.claude_utils = {
   check_claude_running = function()
-    return os.execute("tmux list-panes -F '#{pane_current_command}' | grep -q claude") == 0
+    return os.execute("tmux list-panes -F '#{pane_current_command}' | grep -q " .. cli) == 0
   end,
 
   get_claude_pane_id = function()
-    return vim.fn.system('tmux list-panes -F "#{pane_id}:#{pane_current_command}" | grep claude | cut -d: -f1'):gsub('\n', '')
+    return vim.fn.system('tmux list-panes -F "#{pane_id}:#{pane_current_command}" | grep ' .. cli .. ' | cut -d: -f1'):gsub('\n', '')
   end,
 
   ensure_claude_running = function(flags)
@@ -17,7 +18,7 @@ _G.claude_utils = {
       local cols = vim.o.columns
       local lines = vim.o.lines
       local split_cmd = cols / math.max(lines, 1) >= 1.2 and 'tmux splitw -l 35% -d ' or 'tmux splitw -h -l 45% -d '
-      vim.fn.system(split_cmd .. 'claude' .. (flags and (' ' .. flags) or ''))
+      vim.fn.system(split_cmd .. cli .. (flags and (' ' .. flags) or ''))
     end
   end,
 
