@@ -140,7 +140,6 @@ libva-nvidia-driver
 linux
 linux-firmware
 linux-headers
-local-by-flywheel-bin
 localsearch
 loupe
 lutris
