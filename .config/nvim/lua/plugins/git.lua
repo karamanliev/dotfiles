@@ -161,6 +161,7 @@ return {
   -- Diffview
   {
     'sindrets/diffview.nvim',
+    enabled = false,
     cmd = {
       'DiffviewClose',
       'DiffviewFileHistory',
