@@ -142,6 +142,7 @@ return {
   -- Show definitions in a popup
   {
     'rmagatti/goto-preview',
+    enabled = false,
     keys = {
       { 'gpd', desc = 'Preview definition' },
       { 'gpD', desc = 'Preview declaration' },
@@ -217,6 +218,7 @@ return {
   -- Turbo console.log
   {
     'Goose97/timber.nvim',
+    enabled = false,
     keys = {
       'gl',
     },
