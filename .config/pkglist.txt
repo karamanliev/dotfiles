@@ -102,7 +102,7 @@ hypridle
 hyprland
 hyprpaper
 hyprpicker
-hyprshot-git
+hyprshot
 inkscape
 iwd
 kitty
