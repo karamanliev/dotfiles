@@ -2,6 +2,7 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
+    enabled = false,
     cmd = 'Telescope',
     keys = {
       {
@@ -244,6 +245,7 @@ return {
 
   {
     'nvim-telescope/telescope-live-grep-args.nvim',
+    enabled = false,
     keys = {
       { '<leader>,', '<cmd>Telescope live_grep_args<cr>' },
       {
@@ -288,6 +290,7 @@ return {
 
   {
     'nvim-telescope/telescope-frecency.nvim',
+    enabled = false,
     keys = {
       { '<leader>.', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Find files' },
     },

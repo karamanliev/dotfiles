@@ -280,31 +280,31 @@ autocmd('BufEnter', {
 })
 
 -- Disable LSP and TS when opening large files
-local big_file = autogroup('BigFile', { clear = true })
-vim.filetype.add({
-  pattern = {
-    ['.*'] = {
-      function(path, buf)
-        return vim.bo[buf] and vim.bo[buf].filetype ~= 'bigfile' and path and vim.fn.getfsize(path) > 1024 * 500 and 'bigfile' or nil -- bigger than 500KB
-      end,
-    },
-  },
-})
-
-autocmd({ 'FileType' }, {
-  group = big_file,
-  pattern = 'bigfile',
-  callback = function(ev)
-    vim.cmd('syntax off')
-    -- vim.cmd('UfoDetach')
-    vim.cmd('Gitsigns detach')
-    vim.opt_local.foldmethod = 'manual'
-    vim.opt_local.spell = false
-    vim.schedule(function()
-      vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ''
-    end)
-  end,
-})
+-- local big_file = autogroup('BigFile', { clear = true })
+-- vim.filetype.add({
+--   pattern = {
+--     ['.*'] = {
+--       function(path, buf)
+--         return vim.bo[buf] and vim.bo[buf].filetype ~= 'bigfile' and path and vim.fn.getfsize(path) > 1024 * 500 and 'bigfile' or nil -- bigger than 500KB
+--       end,
+--     },
+--   },
+-- })
+--
+-- autocmd({ 'FileType' }, {
+--   group = big_file,
+--   pattern = 'bigfile',
+--   callback = function(ev)
+--     vim.cmd('syntax off')
+--     -- vim.cmd('UfoDetach')
+--     vim.cmd('Gitsigns detach')
+--     vim.opt_local.foldmethod = 'manual'
+--     vim.opt_local.spell = false
+--     vim.schedule(function()
+--       vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ''
+--     end)
+--   end,
+-- })
 
 -- Open signature help automatically
 -- autocmd('LspAttach', {

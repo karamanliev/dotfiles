@@ -42,7 +42,7 @@ return {
   -- vim.input and vim.select replacement
   {
     'stevearc/dressing.nvim',
-    enabled = true,
+    enabled = false,
     event = { 'VeryLazy' },
     opts = {},
     config = function()
@@ -63,6 +63,7 @@ return {
   -- indents
   {
     'shellRaining/hlchunk.nvim',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('hlchunk').setup({

@@ -23,12 +23,16 @@ return {
           local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
 
           if not vim.tbl_contains(ts_ft, vim.bo.filetype) then
-            map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
+            -- map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
+            map('gd', require('snacks.picker').lsp_definitions, 'Goto Definition')
           end
 
-          map('gr', require('telescope.builtin').lsp_references, 'Goto References')
-          map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
-          map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+          -- map('gr', require('telescope.builtin').lsp_references, 'Goto References')
+          -- map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
+          -- map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+          map('gr', require('snacks.picker').lsp_references, 'Goto References')
+          map('gI', require('snacks.picker').lsp_implementations, 'Goto Implementation')
+          map('<leader>cd', require('snacks.picker').lsp_type_definitions, 'Type Definition')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
 
@@ -44,28 +48,28 @@ return {
           end, 'Signature Help', { 'n', 'i' })
 
           -- Highlight references
-          if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-              callback = function(evt)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = evt.buf })
-              end,
-            })
-          end
+          -- if client and client.server_capabilities.documentHighlightProvider then
+          --   local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+          --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.document_highlight,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.clear_references,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd('LspDetach', {
+          --     group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+          --     callback = function(evt)
+          --       vim.lsp.buf.clear_references()
+          --       vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = evt.buf })
+          --     end,
+          --   })
+          -- end
         end,
       })
 
