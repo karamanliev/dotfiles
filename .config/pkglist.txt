@@ -22,7 +22,6 @@ btrfs-assistant
 btrfs-progs
 catimg
 celluloid
-cliphist
 code
 cpio
 cpupower
