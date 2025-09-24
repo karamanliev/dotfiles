@@ -39,8 +39,6 @@ dust
 efibootmgr
 ethtool
 evince
-evolution
-extension-manager
 eza
 fastfetch
 fd
@@ -236,7 +234,6 @@ ttf-opensans
 ttf-victor-mono
 unrar
 uv
-variety
 viber
 vim
 vkbasalt
