@@ -167,7 +167,6 @@ nvidia-utils
 obsidian
 ollama-cuda
 opencl-nvidia
-openrgb
 otf-libertinus
 otf-san-francisco
 otf-san-francisco-mono
@@ -206,6 +205,7 @@ snap-pac
 snapborg
 snapper
 socat
+solaar
 spotify
 sshfs
 starship
