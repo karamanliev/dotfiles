@@ -88,6 +88,7 @@ return {
   -- NPM package info
   {
     'vuki656/package-info.nvim',
+    enabled = false,
     dependencies = { 'MunifTanjim/nui.nvim' },
     event = 'BufRead package.json',
     config = function()

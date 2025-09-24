@@ -78,11 +78,11 @@ local function filename()
     fname = ''
   end
 
-  local ftype = vim.bo.filetype
-  local ficon = require('nvim-web-devicons').get_icon_by_filetype(ftype)
-  if ficon == nil then
-    ficon = ''
-  end
+  -- local ftype = vim.bo.filetype
+  -- local ficon = require('nvim-web-devicons').get_icon_by_filetype(ftype)
+  -- if ficon == nil then
+  --   ficon = ''
+  -- end
 
   local msymbol = vim.bo.modified and ' [+]' or ''
   local mhl = vim.bo.modified and '%#StatusLine#' or '%#StatusLineNoChanges#'
