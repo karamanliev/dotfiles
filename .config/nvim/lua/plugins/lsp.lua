@@ -14,26 +14,30 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
           local map = function(keys, func, desc, mode)
             vim.keymap.set(mode and mode or 'n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- Keybinds are only enabled for tsserver files
-          -- NOTE: for some reason `if client.name == 'tsserver'` doesn't work well and <gd> gets reasigned to default go_to_definition instead
-          local ts_ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' }
+          -- Keybinds are only enabled for ts files
+          local ts_ft = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          }
 
           if not vim.tbl_contains(ts_ft, vim.bo.filetype) then
-            -- map('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
             map('gd', require('snacks.picker').lsp_definitions, 'Goto Definition')
           end
 
           map('gr', require('snacks.picker').lsp_references, 'Goto References')
-          map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
+          map('<leader>ca', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
           map('<leader>ci', require('snacks.picker').lsp_implementations, 'Goto Implementation')
           map('<leader>cd', require('snacks.picker').lsp_declarations, 'Goto Declaration')
           map('<leader>ct', require('snacks.picker').lsp_type_definitions, 'Goto Type Definition')
-          map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
+          map('<leader>cn', vim.lsp.buf.rename, 'Rename Word')
 
           map('K', function()
             vim.lsp.buf.hover({
@@ -84,25 +88,8 @@ return {
             format = false,
           },
         },
-        jsonls = {
-          -- settings = {
-          --   json = {
-          --     schemas = require('schemastore').json.schemas({}),
-          --     validate = { enable = true },
-          --   },
-          -- },
-        },
-        yamlls = {
-          -- settings = {
-          --   yaml = {
-          --     schemaStore = {
-          --       enable = false,
-          --       url = '',
-          --     },
-          --     schemas = require('schemastore').yaml.schemas(),
-          --   },
-          -- },
-        },
+        jsonls = {},
+        yamlls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -125,9 +112,64 @@ return {
             },
           },
         },
-        astro = {},
         tailwindcss = {},
-        vtsls = {},
+        astro = {},
+        vtsls = {
+          on_attach = function(client, bufnr)
+            local map = function(keys, func, desc)
+              vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'TS: ' .. desc })
+            end
+            local execute = require('utils.lsp').execute
+            local action = require('utils.lsp').action
+
+            map('gd', function()
+              local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+
+              execute({
+                command = 'typescript.goToSourceDefinition',
+                arguments = { params.textDocument.uri, params.position },
+                open = true,
+              })
+            end, 'Goto Source Definition')
+            map('<leader>cf', function()
+              execute({
+                command = 'typescript.findAllFileReferences',
+                arguments = { vim.uri_from_bufnr(0) },
+                open = 'always',
+              })
+            end, 'File References')
+            map('<leader>co', function()
+              execute({
+                command = 'typescript.organizeImports',
+                arguments = { vim.api.nvim_buf_get_name(0) },
+              })
+            end, 'Organize Imports')
+            map('<leader>cm', action['source.addMissingImports.ts'], 'Add missing imports')
+            map('<leader>cu', action['source.removeUnused.ts'], 'Remove unused imports')
+            map('<leader>cv', function()
+              execute({ command = 'typescript.selectTypeScriptVersion' })
+            end, 'Select TS workspace version')
+          end,
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                maxInlayHintLength = 30,
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+            },
+          },
+        },
       }
 
       for server_name, config in pairs(servers) do
