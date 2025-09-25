@@ -5,10 +5,11 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       -- Remove default nvim 0.11 lsp mappings
-      vim.keymap.del('n', 'grr')
-      vim.keymap.del('n', 'gri')
-      vim.keymap.del('n', 'gra')
-      vim.keymap.del('n', 'grn')
+      vim.keymap.del('n', 'gra') -- code actions
+      vim.keymap.del('n', 'gri') -- goto implementation
+      vim.keymap.del('n', 'grn') -- rename
+      vim.keymap.del('n', 'grr') -- goto references
+      vim.keymap.del('n', 'grt') -- goto type definition
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -27,14 +28,12 @@ return {
             map('gd', require('snacks.picker').lsp_definitions, 'Goto Definition')
           end
 
-          -- map('gr', require('telescope.builtin').lsp_references, 'Goto References')
-          -- map('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
-          -- map('<leader>cd', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
           map('gr', require('snacks.picker').lsp_references, 'Goto References')
-          map('gI', require('snacks.picker').lsp_implementations, 'Goto Implementation')
-          map('<leader>cd', require('snacks.picker').lsp_type_definitions, 'Type Definition')
-          map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
           map('<leader>cc', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
+          map('<leader>ci', require('snacks.picker').lsp_implementations, 'Goto Implementation')
+          map('<leader>cd', require('snacks.picker').lsp_declarations, 'Goto Declaration')
+          map('<leader>ct', require('snacks.picker').lsp_type_definitions, 'Goto Type Definition')
+          map('<leader>cr', vim.lsp.buf.rename, 'Rename Word')
 
           map('K', function()
             vim.lsp.buf.hover({
@@ -128,6 +127,7 @@ return {
         },
         astro = {},
         tailwindcss = {},
+        vtsls = {},
       }
 
       for server_name, config in pairs(servers) do

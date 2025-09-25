@@ -2,6 +2,7 @@ return {
   -- TSTools LSP
   {
     'pmizio/typescript-tools.nvim',
+    enabled = false,
     ft = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     keys = {
