@@ -49,8 +49,6 @@ function M.execute(opts)
           items = items,
         })
         vim.cmd('copen')
-      else
-        vim.notify('No results from LSP command: ' .. opts.command, vim.log.levels.INFO)
       end
 
       if opts.handler then
