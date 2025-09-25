@@ -150,13 +150,27 @@ return {
         '<leader><space>',
         function()
           Snacks.picker.buffers({
-            current = false,
             layout = {
-              preset = 'select',
-              -- auto_hide = { 'preview' },
-              -- cycle = true,
+              cycle = true,
+              preset = 'ivy',
+              layout = {
+                box = 'vertical',
+                backdrop = false,
+                row = -1,
+                width = 0,
+                height = 0.15,
+                border = 'top',
+                title = ' {title} {live} {flags}',
+                title_pos = 'left',
+                { win = 'input', height = 1, border = 'none' },
+                {
+                  box = 'horizontal',
+                  { win = 'list', border = 'none' },
+                },
+              },
+              hidden = { 'preview' },
             },
-            previewers = { enabled = false },
+            current = false,
             focus = 'list',
           })
         end,
