@@ -67,7 +67,6 @@ hypridle
 hyprland
 hyprpaper
 hyprpicker
-hyprpolkitagent
 hyprshot
 inkscape
 kitty
@@ -122,6 +121,7 @@ nicotine+
 nmap
 notify-send.sh
 noto-fonts
+noto-fonts-emoji
 nss-mdns
 ntfs-3g
 nvidia-container-toolkit
@@ -145,6 +145,7 @@ pipewire-jack
 pipewire-pulse
 playerctl
 plocate
+polkit-gnome
 polychromatic
 protonup-qt-bin
 python-llfuse
