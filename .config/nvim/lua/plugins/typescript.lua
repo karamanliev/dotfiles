@@ -78,6 +78,7 @@ return {
   -- Better errors for TypeScript
   {
     'dmmulroy/ts-error-translator.nvim',
+    enabled = false,
     ft = { 'typescript', 'typescriptreact' },
     -- opts = {
     --   auto_override_publish_diagnostics = false,
