@@ -194,12 +194,12 @@ return {
   -- Smart split/join
   {
     'Wansmer/treesj',
+    enabled = false,
     keys = {
       { '<leader>j', '<cmd>TSJToggle<cr>', desc = 'TreesJ Toggle' },
     },
     -- event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    enabled = true,
     opts = {
       use_default_keymaps = false,
       max_join_length = 160,
