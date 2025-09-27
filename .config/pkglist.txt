@@ -18,6 +18,7 @@ btop
 btrfs-assistant
 btrfs-progs
 celluloid
+chromium
 code
 cpio
 cpupower
@@ -112,7 +113,7 @@ moonlight-qt
 nano
 nano-syntax-highlighting
 nautilus
-neovim
+neovim-nightly-bin
 network-manager-applet
 networkmanager
 networkmanager-l2tp
