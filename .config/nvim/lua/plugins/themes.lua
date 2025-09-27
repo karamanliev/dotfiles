@@ -53,16 +53,6 @@ return {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
     lazy = true,
-    init = function()
-      vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
-        pattern = { '*' },
-        callback = function()
-          vim.api.nvim_set_hl(0, 'LspReferenceText', { underline = true, bold = true })
-          vim.api.nvim_set_hl(0, 'LspReferenceRead', { underline = true, bold = true })
-          vim.api.nvim_set_hl(0, 'LspReferenceWrite', { underline = true, bold = true })
-        end,
-      })
-    end,
     config = function()
       require('poimandres').setup({
         bold_vert_split = false, -- use bold vertical separators
@@ -70,6 +60,16 @@ return {
         disable_background = false, -- disable background
         disable_float_background = false, -- disable background for floats
         disable_italics = false, -- disable italics
+      })
+    end,
+    init = function()
+      vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
+        pattern = { 'poimandres' },
+        callback = function()
+          vim.api.nvim_set_hl(0, 'LspReferenceText', { underline = true, bold = true })
+          vim.api.nvim_set_hl(0, 'LspReferenceRead', { underline = true, bold = true })
+          vim.api.nvim_set_hl(0, 'LspReferenceWrite', { underline = true, bold = true })
+        end,
       })
     end,
   },
