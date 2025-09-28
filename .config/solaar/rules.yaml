@@ -1,32 +1,24 @@
 %YAML 1.3
 ---
 - MouseGesture: Mouse Left
-- KeyPress:
-  - [Super_L, Shift_L, h]
-  - click
+- Execute: [bash, -c, niri msg action focus-column-left-or-last]
 ...
 ---
 - MouseGesture: Mouse Right
-- KeyPress:
-  - [Super_L, Shift_L, l]
-  - click
+- Execute: [bash, -c, niri msg action focus-column-right-or-first]
 ...
 ---
 - MouseGesture: Mouse Down
-- KeyPress:
-  - [Super_L, Shift_L, j]
-  - click
+- Execute: [bash, -c, niri msg action focus-workspace-down]
 ...
 ---
 - MouseGesture: Mouse Up
-- KeyPress:
-  - [Super_L, Shift_L, k]
-  - click
+- Execute: [bash, -c, niri msg action focus-workspace-up]
 ...
 ---
 - MouseGesture: []
 - KeyPress:
-  - [Super_L, r]
+  - [Super_L, a]
   - click
 ...
 ---
