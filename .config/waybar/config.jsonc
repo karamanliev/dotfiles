@@ -9,16 +9,20 @@
     "margin-bottom": 0,
     "margin-left": 0,
     "modules-left": [
+      "niri/workspaces",
       "hyprland/workspaces",
       "custom/separator",
-      "custom/agenda",
+      "custom/niri_windowcount",
+      "hyprland/windowcount",
       "custom/separator",
       "custom/timer"
     ],
     "modules-center": [
       "custom/weather",
       "custom/separator",
-      "clock"
+      "clock",
+      "custom/separator",
+      "custom/agenda"
     ],
     "modules-right": [
       "cpu",
@@ -34,6 +38,7 @@
       "custom/wlsunset_brightness",
       "custom/gsr",
       "custom/separator",
+      "niri/language",
       "hyprland/language",
       "custom/separator",
       "pulseaudio",
@@ -90,6 +95,9 @@
       "on-click-middle": "${HOME}/.config/hypr/scripts/show_desktop.sh",
       "escape": true
     },
+    "niri/workspaces": {
+      "format": "{value}"
+    },
     "hyprland/workspaces": {
       "disable-scroll": true,
       "tooltip": false,
@@ -120,6 +128,14 @@
         "mail": "<sub>MAIL</sub>",
         "minimized": "<sub>MINIMIZED</sub>"
       }
+    },
+    "custom/niri_windowcount": {
+      "format": "[ {text} ]",
+      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
+    },
+    "hyprland/windowcount": {
+      "format": "[ {} ]",
+      "separate-outputs": true
     },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
@@ -176,6 +192,12 @@
         "critical": 80
       },
       "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
+    },
+    "niri/language": {
+      "format": "<span font_size='large'>󰌌</span>  {}",
+      "format-en": "EN",
+      "format-bg": "BG",
+      "on-click": "niri msg action switch-layout \"next\""
     },
     "hyprland/language": {
       "format": "<span font_size='large'>󰌌</span>  {}",
@@ -255,7 +277,11 @@
     "margin-bottom": 0,
     "margin-left": 0,
     "modules-left": [
+      "niri/workspaces",
       "hyprland/workspaces",
+      "custom/separator",
+      "custom/niri_windowcount",
+      "hyprland/windowcount"
     ],
     "modules-center": [
       "custom/weather",
@@ -274,6 +300,7 @@
       "custom/wlsunset_brightness",
       "custom/gsr",
       "custom/separator",
+      "niri/language",
       "hyprland/language",
       "custom/separator",
       "pulseaudio",
@@ -312,6 +339,9 @@
       "on-click-middle": "${HOME}/.config/hypr/scripts/show_desktop.sh",
       "escape": true
     },
+    "niri/workspaces": {
+      "format": "{value}"
+    },
     "hyprland/workspaces": {
       "disable-scroll": true,
       "tooltip": false,
@@ -343,6 +373,14 @@
         "minimized": "<sub>MINIMIZED</sub>"
       }
     },
+    "custom/niri_windowcount": {
+      "format": "[ {text} ]",
+      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
+    },
+    "hyprland/windowcount": {
+      "format": "[ {} ]",
+      "separate-outputs": true
+    },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
@@ -368,6 +406,12 @@
         "on-scroll-up": "shift_up",
         "on-scroll-down": "shift_down"
       }
+    },
+    "niri/language": {
+      "format": "<span font_size='large'>󰌌</span>  {}",
+      "format-en": "EN",
+      "format-bg": "BG",
+      "on-click": "niri msg action switch-layout \"next\""
     },
     "hyprland/language": {
       "format": "<span font_size='large'>󰌌</span>  {}",

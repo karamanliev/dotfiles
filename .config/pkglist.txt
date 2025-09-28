@@ -119,6 +119,7 @@ networkmanager
 networkmanager-l2tp
 networkmanager-strongswan
 nicotine+
+niri
 nmap
 notify-send.sh
 noto-fonts

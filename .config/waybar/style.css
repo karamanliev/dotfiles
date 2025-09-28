@@ -87,6 +87,7 @@ tooltip label {
 
 #workspaces button.active {
   background: rgba(187, 154, 247, 0.6);
+  color: @content_main;
 }
 
 #workspaces button.visible:not(.active) {
