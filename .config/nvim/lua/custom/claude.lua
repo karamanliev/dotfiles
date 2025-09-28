@@ -1,6 +1,6 @@
 -- Custom Claude integration with tmux
 -- Provides direct tmux integration without the claudecode plugin
-local cli = 'opencode'
+local cli = 'claude'
 
 -- Initialize shared Claude pane utilities globally
 _G.claude_utils = {
