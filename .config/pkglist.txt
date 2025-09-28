@@ -190,11 +190,11 @@ ttf-nerd-fonts-symbols-mono
 unrar
 uv
 viber
+vicinae-bin
 vim
 vkbasalt
 vkd3d
 vulkan-tools
-walker-bin
 waybar
 wayvnc
 wev
