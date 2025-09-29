@@ -50,6 +50,7 @@ git
 git-delta
 gnome-calculator
 gnome-calendar
+gnome-keyring
 gnu-netcat
 go
 goverlay
@@ -97,6 +98,7 @@ lib32-opencl-nvidia
 lib32-sqlite
 lib32-v4l-utils
 lib32-vkd3d
+libgnome-keyring
 libpulse
 libqalculate
 libva-nvidia-driver
@@ -204,10 +206,12 @@ wireplumber
 wl-clipboard
 wlsunset
 xclip
+xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
 xdg-user-dirs-gtk
 xdg-utils
 xorg-xinit
+xwayland-satellite
 yay
 yazi
 zen-browser-bin
