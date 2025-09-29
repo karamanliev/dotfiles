@@ -187,6 +187,7 @@ tree
 tree-sitter-cli
 ttf-bitstream-vera
 ttf-dejavu
+ttf-jetbrains-mono
 ttf-liberation
 ttf-nerd-fonts-symbols-mono
 unrar
