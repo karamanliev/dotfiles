@@ -1,12 +1,149 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node.
-// Check the wiki for a full description of the configuration:
-// https://yalter.github.io/niri/Configuration:-Introduction
+//-----  OUTPUTS
+output "DP-3" {
+    mode "2560x1440@165.08"
+    focus-at-startup
+    scale 1
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}
 
-// Input device configuration.
-// Find the full list of options on the wiki:
-// https://yalter.github.io/niri/Configuration:-Input
+output "DP-1" {
+    mode "2560x1440@165.08"
+    scale 1
+    transform "270"
+    position x=2560 y=-565
+    variable-refresh-rate on-demand=true
+}
 
+output "HDMI-A-1" {
+    off
+    mode "2560x1440@120.00"
+    scale 2
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}
+
+
+//-----  ENVIRONMENT
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    MOZ_ENABLE_WAYLAND "1"
+    CLUTTER_BACKEND "wayland"
+    GDK_BACKEND "wayland,x11,*"
+    GDK_DPI_SCALE "1"
+    GDK_SCALE "1"
+    QT_AUTO_SCREEN_SCALE_FACTOR "1"
+    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    SDL_VIDEODRIVER "wayland"
+    GSK_RENDERER "ngl"
+    WLR_NO_HARDWARE_CURSORS "1"
+}
+
+
+//-----  AUTOSTART
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
+spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
+
+spawn-at-startup "swaync"
+spawn-at-startup "waybar"
+spawn-at-startup "nm-applet"
+spawn-at-startup "blueman-applet"
+spawn-at-startup "solaar" "--window=hide" "--battery-icons=symbolic"
+
+spawn-at-startup "hypridle"
+spawn-at-startup "hyprpaper"
+
+spawn-at-startup "wlsunset" "-l" "43.204666" "-L" "27.910543"
+spawn-at-startup "wayvnc" "0.0.0.0" "5900"
+
+spawn-at-startup "vicinae" "server"
+spawn-at-startup "Telegram"
+spawn-at-startup "zen-browser"
+spawn-at-startup "betterbird"
+spawn-at-startup "obsidian"
+spawn-at-startup "kitty"
+spawn-at-startup "xwayland-satellite"
+
+
+//-----  GENERAL
+hotkey-overlay {
+    skip-at-startup
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
+}
+
+prefer-no-csd
+screenshot-path null
+
+clipboard {
+    disable-primary
+}
+
+animations {
+    slowdown 1
+}
+
+
+//-----  INPUT
+input {
+    keyboard {
+        xkb {
+            layout "us,bg"
+            variant ",phonetic"
+        }
+
+        repeat-delay 425
+        repeat-rate 50
+        numlock
+    }
+
+    mouse {
+        accel-speed 0
+        accel-profile "flat"
+        scroll-button-lock
+    }
+
+    disable-power-key-handling
+    workspace-auto-back-and-forth
+    // warp-mouse-to-focus mode="center-xy"
+    focus-follows-mouse max-scroll-amount="10%"
+}
+
+
+//-----  LAYOUT
+layout {
+    gaps 8
+
+    center-focused-column "never"
+    always-center-single-column
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.9
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2
+        active-color "#bb9af7FF"
+        inactive-color "#505050"
+    }
+
+    background-color "transparent"
+}
+
+
+//-----  WORKSPACES
 workspace "1" {
     open-on-output "DP-3"
 }
@@ -33,171 +170,13 @@ workspace "MAIL" {
     open-on-output "DP-3"
 }
 
-// Input device configuration.
-// https://yalter.github.io/niri/Configuration:-Input
-input {
-    keyboard {
-        xkb {
-            layout "us,bg"
-            variant ",phonetic"
-        }
 
-        repeat-delay 425
-        repeat-rate 50
-        // Enable numlock on startup, omitting this setting disables it.
-        numlock
-    }
-
-    mouse {
-        accel-speed 0.1
-        accel-profile "flat"
-        scroll-button-lock
-    }
-
-    disable-power-key-handling
-    workspace-auto-back-and-forth
-    warp-mouse-to-focus mode="center-xy"
-    focus-follows-mouse max-scroll-amount="10%"
-}
-
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// https://yalter.github.io/niri/Configuration:-Outputs
-output "DP-3" {
-    mode "2560x1440@165.08"
-    focus-at-startup
-    scale 1
-    transform "normal"
-    position x=0 y=0
-    variable-refresh-rate on-demand=true
-}
-
-output "DP-1" {
-    mode "2560x1440@165.08"
-    scale 1
-    transform "270"
-    position x=2560 y=-565
-    variable-refresh-rate on-demand=true
-}
-
-output "HDMI-A-1" {
-    off
-    mode "2560x1440@120.00"
-    scale 2
-    position x=0 y=0
-    variable-refresh-rate on-demand=true
-}
-
-environment {
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    MOZ_ENABLE_WAYLAND "1"
-    CLUTTER_BACKEND "wayland"
-    GDK_BACKEND "wayland,x11,*"
-    GDK_DPI_SCALE "1"
-    GDK_SCALE "1"
-    QT_AUTO_SCREEN_SCALE_FACTOR "1"
-    QT_QPA_PLATFORM "wayland;xcb"
-    QT_QPA_PLATFORMTHEME "gtk3"
-    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-    SDL_VIDEODRIVER "wayland"
-    GSK_RENDERER "ngl"
-    WLR_NO_HARDWARE_CURSORS "1"
-}
-
-// Settings that influence how windows are positioned and sized.
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Layout
-layout {
-    gaps 8
-
-    center-focused-column "never"
-    always-center-single-column
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
-    }
-
-    default-column-width { proportion 0.5; }
-
-    focus-ring {
-        width 2
-        active-color "#bb9af7FF"
-        inactive-color "#505050"
-    }
-
-    background-color "transparent"
-}
-
-overview {
-    workspace-shadow {
-        off
-    }
-}
-
-
-spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-
-spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
-// spawn-sh-at-startup "sh -c $XDG_CONFIG_HOME/niri/scripts/pip_floating.sh"
-
-spawn-at-startup "swaync"
-spawn-at-startup "waybar"
-// spawn-at-startup "nm-applet"
-
-spawn-at-startup "hypridle"
-spawn-at-startup "hyprpaper"
-
-
-
-spawn-at-startup "wlsunset" "-l" "43.204666" "-L" "27.910543"
-
-spawn-at-startup "wayvnc" "0.0.0.0" "5900"
-
-spawn-at-startup "vicinae" "server"
-spawn-at-startup "solaar" "--window=hide" "--battery-icons=symbolic"
-// spawn-at-startup "blueman-applet"
-spawn-at-startup "Telegram"
-spawn-at-startup "zen-browser"
-spawn-at-startup "betterbird"
-spawn-at-startup "obsidian"
-spawn-at-startup "kitty"
-spawn-at-startup "xwayland-satellite"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
-hotkey-overlay {
-    skip-at-startup
-}
-
-prefer-no-csd
-screenshot-path null
-
-clipboard {
-    disable-primary
-}
-
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://yalter.github.io/niri/Configuration:-Animations
-animations {
-    slowdown 1
-}
-
-
+//-----  RULES
 layer-rule {
-    // This is for swaybg; change for other wallpaper tools.
-    // Find the right namespace by running niri msg layers.
     match namespace="^hyprpaper$"
     place-within-backdrop true
 }
 
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Window-Rules
-
-// Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     match title="^Picture-in-Picture$"
     open-on-output "DP-1"
@@ -268,201 +247,141 @@ window-rule {
     open-on-workspace "MAIL"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
-
+//----- BINDS
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae vicinae://toggle"; }
 
-        XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-        XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-        XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-        XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-        XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
-        // Open/close the Overview: a zoomed-out view of workspaces and windows.
-        // You can also move the mouse into the top-left hot corner,
-        // or do a four-finger swipe up on a touchpad.
-        Mod+A repeat=false { toggle-overview; }
+    Mod+A repeat=false { toggle-overview; }
 
-        Mod+Q repeat=false { close-window; }
+    Mod+Q repeat=false { close-window; }
 
-        Mod+Left  { focus-column-left; }
-        Mod+Down  { focus-window-down; }
-        Mod+Up    { focus-window-up; }
-        Mod+Right { focus-column-right; }
-        Mod+H     { focus-column-left; }
-        Mod+J     { focus-window-or-workspace-down; }
-        Mod+K     { focus-window-or-workspace-up; }
-        Mod+L     { focus-column-right; }
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
 
-        Alt+Tab { focus-window-previous; }
+    Alt+Tab { focus-window-previous; }
 
-        Mod+Shift+H     { move-column-left; }
-        Mod+Shift+J     { move-window-down-or-to-workspace-down; }
-        Mod+Shift+K     { move-window-up-or-to-workspace-up; }
-        Mod+Shift+L     { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+L     { move-column-right; }
 
-        Mod+Shift+Tab { focus-monitor-next; }
+    Mod+Shift+Tab { focus-monitor-next; }
 
-        Mod+Home { focus-column-first; }
-        Mod+End  { focus-column-last; }
-        Mod+Ctrl+Home { move-column-to-first; }
-        Mod+Ctrl+End  { move-column-to-last; }
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
 
 
-        Mod+Shift+Ctrl+Tab { move-column-to-monitor-next; }
-        Mod+Ctrl+Tab     { move-workspace-to-monitor-next; }
+    Mod+Shift+Ctrl+Tab { move-column-to-monitor-next; }
+    Mod+Ctrl+Tab     { move-workspace-to-monitor-next; }
 
-        // Alternatively, there are commands to move just a single window:
-        // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
-        // ...
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+N              { focus-workspace-down; }
+    Mod+P              { focus-workspace-up; }
+    Mod+Shift+N         { move-column-to-workspace-down; }
+    Mod+Shift+P         { move-column-to-workspace-up; }
 
-        // And you can also move a whole workspace to another monitor:
-        // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
-        // ...
+    Mod+Ctrl+N         { move-workspace-down; }
+    Mod+Ctrl+P         { move-workspace-up; }
 
-        Mod+Page_Down      { focus-workspace-down; }
-        Mod+Page_Up        { focus-workspace-up; }
-        Mod+N              { focus-workspace-down; }
-        Mod+P              { focus-workspace-up; }
-        Mod+Shift+N         { move-column-to-workspace-down; }
-        Mod+Shift+P         { move-column-to-workspace-up; }
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
 
-        // Alternatively, there are commands to move just a single window:
-        // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
-        // ...
+    Mod+WheelScrollRight     cooldown-ms=200 { focus-column-right; }
+    Mod+WheelScrollLeft      cooldown-ms=200 { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight cooldown-ms=200 { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft cooldown-ms=200 { move-column-left; }
 
-        Mod+Ctrl+N         { move-workspace-down; }
-        Mod+Ctrl+P         { move-workspace-up; }
+    Mod+Shift+WheelScrollDown     cooldown-ms=200 { focus-column-right; }
+    Mod+Shift+WheelScrollUp       cooldown-ms=200 { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown cooldown-ms=200 { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp  cooldown-ms=200 { move-column-left; }
 
-        // You can bind mouse wheel scroll ticks using the following syntax.
-        // These binds will change direction based on the natural-scroll setting.
-        //
-        // To avoid scrolling through workspaces really fast, you can use
-        // the cooldown-ms property. The bind will be rate-limited to this value.
-        // You can set a cooldown on any bind, but it's most useful for the wheel.
-        Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-        Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-        Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-        Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+C { focus-workspace "CHAT"; }
+    Mod+M { focus-workspace "MAIL"; }
+    Mod+B { focus-workspace "NOTES"; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
 
-        Mod+WheelScrollRight     cooldown-ms=200 { focus-column-right; }
-        Mod+WheelScrollLeft      cooldown-ms=200 { focus-column-left; }
-        Mod+Ctrl+WheelScrollRight cooldown-ms=200 { move-column-right; }
-        Mod+Ctrl+WheelScrollLeft cooldown-ms=200 { move-column-left; }
+    Mod+Tab { focus-workspace-previous; }
 
-        // Usually scrolling up and down with Shift in applications results in
-        // horizontal scrolling; these binds replicate that.
-        Mod+Shift+WheelScrollDown     cooldown-ms=200 { focus-column-right; }
-        Mod+Shift+WheelScrollUp       cooldown-ms=200 { focus-column-left; }
-        Mod+Ctrl+Shift+WheelScrollDown cooldown-ms=200 { move-column-right; }
-        Mod+Ctrl+Shift+WheelScrollUp  cooldown-ms=200 { move-column-left; }
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
 
-        Mod+1 { focus-workspace 1; }
-        Mod+2 { focus-workspace 2; }
-        Mod+3 { focus-workspace 3; }
-        Mod+4 { focus-workspace 4; }
-        Mod+5 { focus-workspace 5; }
-        Mod+6 { focus-workspace 6; }
-        Mod+7 { focus-workspace 7; }
-        Mod+8 { focus-workspace 8; }
-        Mod+9 { focus-workspace 9; }
-        Mod+C { focus-workspace "CHAT"; }
-        Mod+M { focus-workspace "MAIL"; }
-        Mod+B { focus-workspace "NOTES"; }
-        // Mod+9 { focus-workspace 9; }
-        Mod+Shift+1 { move-column-to-workspace 1; }
-        Mod+Shift+2 { move-column-to-workspace 2; }
-        Mod+Shift+3 { move-column-to-workspace 3; }
-        Mod+Shift+4 { move-column-to-workspace 4; }
-        Mod+Shift+5 { move-column-to-workspace 5; }
-        Mod+Shift+6 { move-column-to-workspace 6; }
-        Mod+Shift+7 { move-column-to-workspace 7; }
-        Mod+Shift+8 { move-column-to-workspace 8; }
-        Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+BracketLeft  { spawn-sh "~/.config/hypr/scripts/wallpaper.sh prev"; }
+    Mod+Shift+BracketRight { spawn-sh "~/.config/hypr/scripts/wallpaper.sh next"; }
 
-        // Alternatively, there are commands to move just a single window:
-        // Mod+Ctrl+1 { move-window-to-workspace 1; }
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
 
-        // Switches focus between the current and the previous workspace.
-        Mod+Tab { focus-workspace-previous; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
 
-        // The following binds move the focused window in and out of a column.
-        // If the window is alone, they will consume it into the nearby column to the side.
-        // If the window is already in a column, they will expel it out.
-        Mod+BracketLeft  { consume-or-expel-window-left; }
-        Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Shift+C { center-visible-columns; }
 
-        Mod+Shift+BracketLeft  { spawn-sh "~/.config/hypr/scripts/wallpaper.sh prev"; }
-        Mod+Shift+BracketRight { spawn-sh "~/.config/hypr/scripts/wallpaper.sh next"; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
 
-        // Consume one window from the right to the bottom of the focused column.
-        Mod+Comma  { consume-window-into-column; }
-        // Expel the bottom window from the focused column to the right.
-        Mod+Period { expel-window-from-column; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
 
-        Mod+R { switch-preset-column-width; }
-        // Cycling through the presets in reverse order is also possible.
-        // Mod+R { switch-preset-column-width-back; }
-        Mod+Shift+R { switch-preset-window-height; }
-        Mod+Ctrl+R { reset-window-height; }
-        Mod+F { maximize-column; }
-        Mod+Shift+F { fullscreen-window; }
-        Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+V { spawn-sh "vicinae vicinae://extensions/vicinae/clipboard/history"; }
+    Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
+    Mod+Z { spawn-sh "gtk-launch brave-ai.karamanliev.com__-Default"; }
 
-        // Mod+C { center-column; }
-        Mod+Shift+C { center-visible-columns; }
+    Mod+D       { toggle-window-floating; }
+    Mod+Shift+D { switch-focus-between-floating-and-tiling; }
 
-        Mod+Minus { set-column-width "-10%"; }
-        Mod+Equal { set-column-width "+10%"; }
+    Mod+T { toggle-column-tabbed-display; }
 
-        Mod+Shift+Minus { set-window-height "-10%"; }
-        Mod+Shift+Equal { set-window-height "+10%"; }
+    Hangul       { switch-layout "next"; }
+    Mod+E        { spawn "nautilus"; }
 
-        Mod+V { spawn-sh "vicinae vicinae://extensions/vicinae/clipboard/history"; }
-            Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
-                Mod+Z { spawn-sh "gtk-launch brave-ai.karamanliev.com__-Default"; }
-
-                Mod+D       { toggle-window-floating; }
-                Mod+Shift+D { switch-focus-between-floating-and-tiling; }
-
-                // Toggle tabbed column display mode.
-                // Windows in this column will appear as vertical tabs
-                // rather than stacked on top of each other.
-                Mod+T { toggle-column-tabbed-display; }
-
-                Hangul       { switch-layout "next"; }
-                Mod+E        { spawn "nautilus"; }
-
-                Mod+Shift+S { screenshot show-pointer=false; }
-                // Ctrl+Print { screenshot-screen; }
-                // Alt+Print { screenshot-window; }
-
-                // Applications such as remote-desktop clients and software KVM switches may
-                // request that niri stops processing the keyboard shortcuts defined here
-                // so they may, for example, forward the key presses as-is to a remote machine.
-                // It's a good idea to bind an escape hatch to toggle the inhibitor,
-                // so a buggy application can't hold your session hostage.
-                //
-                // The allow-inhibiting=false property can be applied to other binds as well,
-                // which ensures niri always processes them, even when an inhibitor is active.
-                Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+S { screenshot show-pointer=false; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
 
-                F12 { spawn-sh "pkill -x waybar; waybar"; }
-
-                // Powers off the monitors. To turn them back on, do any input like
-                // moving the mouse or pressing any other key.
-                Mod+F12 { power-off-monitors; }
-            }
+    F12 { spawn-sh "pkill -x waybar; waybar"; }
+    Mod+F12 { power-off-monitors; }
+}
