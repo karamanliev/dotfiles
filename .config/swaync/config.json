@@ -21,6 +21,13 @@
   "notification-icon-size": 40,
   "notification-2fa-action": false,
   "notification-inline-replies": false,
+  "notification-visibility": {
+    "niri-screenshots": {
+      "state": "ignored",
+      "app-name": "niri",
+      "summary": "^Screenshot captured$"
+    }
+  },
   "positionX": "right",
   "positionY": "top",
   "script-fail-notify": true,
