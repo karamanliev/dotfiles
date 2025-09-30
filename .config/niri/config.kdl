@@ -195,8 +195,15 @@ window-rule {
     open-floating true
     open-focused false
     default-floating-position x=20 y=40 relative-to="top-right"
-    default-column-width { proportion 0.3; }
-    default-window-height { proportion 0.3; }
+    opacity 0.65
+    default-column-width { fixed 448; }
+    default-window-height { fixed 252; }
+    shadow {
+      off
+      softness 30
+      spread 5
+      draw-behind-window false
+    }
 }
 
 window-rule {
