@@ -17,7 +17,7 @@ _G.claude_utils = {
       -- Start Claude in a new tmux pane
       local cols = vim.o.columns
       local lines = vim.o.lines
-      local split_cmd = cols / math.max(lines, 1) >= 1.2 and 'tmux splitw -l 35% -d ' or 'tmux splitw -h -l 45% -d '
+      local split_cmd = cols / math.max(lines, 1) >= 1.2 and 'tmux splitw -b -l 30% -d ' or 'tmux splitw -h -l 45% -d '
       vim.fn.system(split_cmd .. cli .. (flags and (' ' .. flags) or ''))
     end
   end,
