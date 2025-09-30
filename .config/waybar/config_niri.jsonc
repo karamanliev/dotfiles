@@ -97,7 +97,7 @@
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
-      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
+      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-3"
     },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
@@ -234,7 +234,7 @@
     "modules-left": [
       "niri/workspaces",
       "custom/separator",
-      "custom/niri_windowcount",
+      "custom/niri_windowcount"
     ],
     "modules-center": [
       "custom/weather",
@@ -296,7 +296,7 @@
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
-      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
+      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-1"
     },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
