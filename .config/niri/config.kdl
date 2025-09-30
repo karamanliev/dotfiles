@@ -147,19 +147,31 @@ layout {
 
 
 //-----  WORKSPACES
-workspace "1" {
+workspace "L1" {
     open-on-output "DP-3"
 }
 
-workspace "2" {
+workspace "L2" {
     open-on-output "DP-3"
 }
 
-workspace "3" {
+workspace "L3" {
     open-on-output "DP-3"
 }
 
-workspace "T" {
+workspace "MAIL" {
+    open-on-output "DP-3"
+}
+
+workspace "R1" {
+    open-on-output "DP-1"
+}
+
+workspace "R2" {
+    open-on-output "DP-1"
+}
+
+workspace "R3" {
     open-on-output "DP-1"
 }
 
@@ -168,9 +180,6 @@ workspace "CHAT" {
 }
 workspace "NOTES" {
     open-on-output "DP-1"
-}
-workspace "MAIL" {
-    open-on-output "DP-3"
 }
 
 
@@ -193,19 +202,19 @@ window-rule {
 window-rule {
     match app-id="zen" at-startup=true
     open-on-output "DP-3"
-    open-on-workspace "1"
+    open-on-workspace "L1"
     open-maximized true
 }
 
 window-rule {
   match title="DevTools"
-  default-column-width { fixed 800; }
+  default-column-width { fixed 680; }
 }
 
 window-rule {
     match app-id="kitty" at-startup=true
     open-on-output "DP-1"
-    open-on-workspace "T"
+    open-on-workspace "R1"
     open-maximized true
 }
 
