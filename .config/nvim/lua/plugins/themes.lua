@@ -237,7 +237,7 @@ return {
           return {
             -- Assign a static color to strings
             ['@tag.tsx'] = { fg = colors.palette.dragonBlue, italic = true },
-            CursorLine = { bg = require('utils.misc').adjust_hex_brightness(colors.theme.ui.bg_cursorline, 'darken', 10) },
+            CursorLine = { bg = require('utils.highlights').adjust_hex_brightness(colors.theme.ui.bg_cursorline, 'darken', 10) },
           }
         end,
       })
@@ -326,7 +326,7 @@ return {
     lazy = true,
     config = function()
       local c = require('neomodern.palette')[vim.g.neomodern_config and vim.g.neomodern_config.style or 'roseprime'].line
-      local line = require('utils.misc').adjust_hex_brightness(c, 'lighten', 35)
+      local line = require('utils.highlights').adjust_hex_brightness(c, 'lighten', 35)
 
       require('neomodern').setup({
         plain_float = false,
@@ -417,7 +417,7 @@ return {
     lazy = true,
     priority = 1000,
     config = function()
-      local adjust_hex = require('utils.misc').adjust_hex_brightness
+      local adjust_hex = require('utils.highlights').adjust_hex_brightness
       local p = require('oldworld.palette')
       local u = require('oldworld.utils.color_utils')
       local DARKEN_AMOUNT = 0.20

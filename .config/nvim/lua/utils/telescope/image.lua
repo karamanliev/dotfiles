@@ -1,6 +1,6 @@
 local previewers = require('telescope.previewers')
 local image_api = require('image')
-local utils = require('utils.core')
+local img_utils = require('utils.image')
 
 local M = {}
 local is_image_preview = false
@@ -39,7 +39,7 @@ M.buffer_previewer_maker = function(filepath, bufnr, opts)
 
   last_file_path = filepath
 
-  if utils.is_supported_image(filepath) then
+  if img_utils.is_supported_image(filepath) then
     create_image(filepath, opts.winid, bufnr)
   else
     previewers.buffer_previewer_maker(filepath, bufnr, opts)

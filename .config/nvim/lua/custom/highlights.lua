@@ -1,13 +1,13 @@
-local set_hl = require('utils.misc').set_hl
-local link_hl = require('utils.misc').link_hl
-local get_hl_color = require('utils.misc').get_hl_color
-local adjust_hex = require('utils.misc').adjust_hex_brightness
+local set_hl = require('utils.highlights').set_hl
+local link_hl = require('utils.highlights').link_hl
+local get_hl_color = require('utils.highlights').get_hl_color
+local adjust_hex = require('utils.highlights').adjust_hex_brightness
 local statusline_fg = get_hl_color('StatusLine', 'fg#')
 local statusline_bg = get_hl_color('StatusLine', 'bg#')
 
 local lineNr_fg = get_hl_color('LineNr', 'fg#')
-local cursorline_bg = require('utils.misc').get_cursorline_bg()
-local text_fg = require('utils.misc').get_fg_color()
+local cursorline_bg = require('utils.highlights').get_cursorline_bg()
+local text_fg = require('utils.highlights').get_fg_color()
 local comment_fg = get_hl_color('@comment', 'fg')
 
 local diagnosticSignOk_fg = get_hl_color('DiagnosticSignOk', 'fg#')
