@@ -83,7 +83,7 @@ overview {
 }
 
 prefer-no-csd
-screenshot-path null
+screenshot-path "/tmp/screenshot.png"
 
 clipboard {
     disable-primary
@@ -414,7 +414,8 @@ binds {
     Hangul       { switch-layout "next"; }
     Mod+E        { spawn "nautilus"; }
 
-    Mod+Shift+S { screenshot show-pointer=false; }
+    Mod+Shift+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false"; }
+    Mod+Ctrl+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && satty -f /tmp/screenshot.png"; }
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
