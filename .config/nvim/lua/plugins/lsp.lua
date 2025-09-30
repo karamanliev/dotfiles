@@ -112,6 +112,7 @@ return {
             },
           },
         },
+        cssls = {},
         tailwindcss = {},
         astro = {},
         vtsls = {
