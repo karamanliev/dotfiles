@@ -1,6 +1,7 @@
 require('options')
 require('commands')
 require('keymaps')
+require('custom')
 
 -- Lazy and plugins load
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -24,4 +25,5 @@ require('lazy').setup('plugins', {
   },
 })
 
-require('custom')
+-- Set colorscheme
+require('custom.colorscheme')
