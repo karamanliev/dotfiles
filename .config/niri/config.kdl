@@ -110,6 +110,7 @@ input {
     mouse {
         accel-speed 0
         accel-profile "flat"
+        middle-emulation
         scroll-button-lock
     }
 
@@ -261,54 +262,41 @@ binds {
     Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae vicinae://toggle"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-
     Mod+A repeat=false { toggle-overview; }
+    Mod+Escape repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
+    Mod+N     { focus-workspace-down; }
+    Mod+P     { focus-workspace-up; }
     Mod+L     { focus-column-right; }
-
-    Alt+Tab { focus-window-previous; }
 
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
     Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+N     { move-column-to-workspace-down; }
+    Mod+Shift+P     { move-column-to-workspace-up; }
     Mod+Shift+L     { move-column-right; }
 
-    Mod+Shift+Tab { focus-monitor-next; }
+    Mod+Ctrl+N      { move-workspace-down; }
+    Mod+Ctrl+P      { move-workspace-up; }
+    Mod+Ctrl+J      { move-workspace-down; }
+    Mod+Ctrl+K      { move-workspace-up; }
 
-    Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
-    Mod+Ctrl+Home { move-column-to-first; }
-    Mod+Ctrl+End  { move-column-to-last; }
+    Alt+Tab           { focus-window-previous; }
+    Mod+Ctrl+L        { focus-monitor-next; }
+    Mod+Ctrl+H        { focus-monitor-previous; }
+    Mod+Shift+Ctrl+L  { move-column-to-monitor-next; }
+    Mod+Shift+Ctrl+H  { move-column-to-monitor-next; }
+    Mod+Shift+Tab     { move-workspace-to-monitor-next; }
 
-
-    Mod+Shift+Ctrl+Tab { move-column-to-monitor-next; }
-    Mod+Ctrl+Tab     { move-workspace-to-monitor-next; }
-
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
-    Mod+N              { focus-workspace-down; }
-    Mod+P              { focus-workspace-up; }
-    Mod+Shift+N         { move-column-to-workspace-down; }
-    Mod+Shift+P         { move-column-to-workspace-up; }
-
-    Mod+Ctrl+N         { move-workspace-down; }
-    Mod+Ctrl+P         { move-workspace-up; }
+    Mod+Left          { focus-column-first; }
+    Mod+Right         { focus-column-last; }
+    Mod+Shift+Left    { move-column-to-first; }
+    Mod+Shift+Right   { move-column-to-last; }
 
     Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
@@ -386,8 +374,12 @@ binds {
     Mod+E        { spawn "nautilus"; }
 
     Mod+Shift+S { screenshot show-pointer=false; }
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     F12 { spawn-sh "pkill -x waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
