@@ -10,10 +10,8 @@
     "margin-left": 0,
     "modules-left": [
       "niri/workspaces",
-      "hyprland/workspaces",
       "custom/separator",
       "custom/niri_windowcount",
-      "hyprland/windowcount",
       "custom/separator",
       "custom/timer"
     ],
@@ -39,7 +37,6 @@
       "custom/gsr",
       "custom/separator",
       "niri/language",
-      "hyprland/language",
       "custom/separator",
       "pulseaudio",
       "custom/separator",
@@ -53,7 +50,7 @@
       "format": "<span font_size='large'>󰨲</span>  {0}",
       "exec": "${HOME}/.config/waybar/scripts/nextmeeting.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar",
       "on-click-middle": "${HOME}/.config/waybar/scripts/nextmeeting.py --open-meet-url",
-      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
+      "on-click": "betterbird -calendar;niri msg action focus-workspace \"MAIL\"",
       "interval": 59,
       "return-type": "json",
       "tooltip": "true"
@@ -62,8 +59,8 @@
       "tooltip": true,
       "return-type": "json",
       "exec": "$HOME/.config/waybar/scripts/waybar_timer.sh check",
-      "on-click": "[[ $(hyprctl clients | grep 'title: Set timer') ]] && hyprctl dispatch closewindow title:'Set timer' || $HOME/.config/waybar/scripts/waybar_timer.sh minute_dialog",
-      "on-click-right": "[[ $(hyprctl clients | grep 'title: Set timer') ]] && hyprctl dispatch closewindow title:'Set timer' || $HOME/.config/waybar/scripts/waybar_timer.sh datetime_dialog",
+      "on-click": "[[ $(niri msg --json windows | jq -r '.[] | select(.title == \"Set timer\") | .id') ]] && niri msg action close-window --id $(niri msg --json windows | jq -r '.[] | select(.title == \"Set timer\") | .id') || $HOME/.config/waybar/scripts/waybar_timer.sh minute_dialog",
+      "on-click-right": "[[ $(niri msg --json windows | jq -r '.[] | select(.title == \"Set timer\") | .id') ]] && niri msg action close-window --id $(niri msg --json windows | jq -r '.[] | select(.title == \"Set timer\") | .id') || $HOME/.config/waybar/scripts/waybar_timer.sh datetime_dialog",
       "on-click-middle": "$HOME/.config/waybar/scripts/waybar_timer.sh stop",
       "interval": 1
     },
@@ -92,55 +89,20 @@
       "exec": "swaync-client -swb | jq --unbuffered --compact-output 'if .text == \"0\" then .text = \"\" else .text = \"  \" + .text end'",
       "on-click": "swaync-client -t -sw",
       "on-click-right": "swaync-client -d -sw",
-      "on-click-middle": "${HOME}/.config/hypr/scripts/show_desktop.sh",
+      "on-click-middle": "niri msg action toggle-overview",
       "escape": true
     },
     "niri/workspaces": {
       "format": "{value}"
     },
-    "hyprland/workspaces": {
-      "disable-scroll": true,
-      "tooltip": false,
-      "icon-size": 32,
-      "all-outputs": true,
-      "show-special": true,
-      "special-visible-only": false,
-      "move-to-monitor": true,
-      "persistent-workspaces": {
-        "*": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-          // 7,
-          // 8
-        ]
-      },
-      "format": "{icon}",
-      "format-icons": {
-        // "7": "G",
-        // "8": "M",
-        "chat": "<sub>CHAT</sub>",
-        "ai": "<sub>AI</sub>",
-        "notes": "<sub>NOTES</sub>",
-        "mail": "<sub>MAIL</sub>",
-        "minimized": "<sub>MINIMIZED</sub>"
-      }
-    },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
     },
-    "hyprland/windowcount": {
-      "format": "[ {} ]",
-      "separate-outputs": true
-    },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
-      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
+      "on-click": "betterbird -calendar;niri msg action focus-workspace \"MAIL\"",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
         "mode": "month",
@@ -169,7 +131,7 @@
       "states": {
         "critical": 90
       },
-      "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
+      "on-click": "[[ $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') ]] && niri msg action close-window --id $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') || kitty --app-id=system_monitor_btop --single-instance -e btop"
     },
     "custom/gpu": {
       // "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1% ⋅ \\2°C/g'",
@@ -177,13 +139,12 @@
       "format": "GPU {0}%",
       "interval": 2,
       "tooltip": true,
-      "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
+      "on-click": "[[ $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') ]] && niri msg action close-window --id $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') || kitty --app-id=system_monitor_btop --single-instance -e btop"
     },
     // "temperature": {
     //   "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
     //   "input-filename": "temp1_input",
     //   "format": "TEMP {temperatureC}°C",
-    //   "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
     // },
     "memory": {
       "format": "MEM {percentage}%",
@@ -191,19 +152,13 @@
       "states": {
         "critical": 80
       },
-      "on-click": "hyprctl clients | grep -q system_monitor_btop && hyprctl dispatch closewindow class:system_monitor_btop || kitty --app-id=system_monitor_btop --single-instance -e btop"
+      "on-click": "[[ $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') ]] && niri msg action close-window --id $(niri msg --json windows | jq -r '.[] | select(.app_id == \"system_monitor_btop\") | .id') || kitty --app-id=system_monitor_btop --single-instance -e btop"
     },
     "niri/language": {
       "format": "<span font_size='large'>󰌌</span>  {}",
       "format-en": "EN",
       "format-bg": "BG",
       "on-click": "niri msg action switch-layout \"next\""
-    },
-    "hyprland/language": {
-      "format": "<span font_size='large'>󰌌</span>  {}",
-      "format-en": "EN",
-      "format-bg": "BG",
-      "on-click": "hyprctl switchxkblayout current next"
     },
     "pulseaudio": {
       "scroll-step": 5,
@@ -278,10 +233,8 @@
     "margin-left": 0,
     "modules-left": [
       "niri/workspaces",
-      "hyprland/workspaces",
       "custom/separator",
       "custom/niri_windowcount",
-      "hyprland/windowcount"
     ],
     "modules-center": [
       "custom/weather",
@@ -301,7 +254,6 @@
       "custom/gsr",
       "custom/separator",
       "niri/language",
-      "hyprland/language",
       "custom/separator",
       "pulseaudio",
       "custom/separator",
@@ -336,55 +288,20 @@
       "exec": "swaync-client -swb | jq --unbuffered --compact-output 'if .text == \"0\" then .text = \"\" else .text = \"  \" + .text end'",
       "on-click": "swaync-client -t -sw",
       "on-click-right": "swaync-client -d -sw",
-      "on-click-middle": "${HOME}/.config/hypr/scripts/show_desktop.sh",
+      "on-click-middle": "niri msg action toggle-overview",
       "escape": true
     },
     "niri/workspaces": {
       "format": "{value}"
     },
-    "hyprland/workspaces": {
-      "disable-scroll": true,
-      "tooltip": false,
-      "icon-size": 32,
-      "all-outputs": true,
-      "show-special": true,
-      "special-visible-only": false,
-      "move-to-monitor": true,
-      "persistent-workspaces": {
-        "*": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-          // 7,
-          // 8
-        ]
-      },
-      "format": "{icon}",
-      "format-icons": {
-        // "7": "G",
-        // "8": "M",
-        "chat": "<sub>CHAT</sub>",
-        "ai": "<sub>AI</sub>",
-        "notes": "<sub>NOTES</sub>",
-        "mail": "<sub>MAIL</sub>",
-        "minimized": "<sub>MINIMIZED</sub>"
-      }
-    },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh"
     },
-    "hyprland/windowcount": {
-      "format": "[ {} ]",
-      "separate-outputs": true
-    },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
-      "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
+      "on-click": "betterbird -calendar;niri msg action focus-workspace \"MAIL\"",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
         "mode": "month",
@@ -412,12 +329,6 @@
       "format-en": "EN",
       "format-bg": "BG",
       "on-click": "niri msg action switch-layout \"next\""
-    },
-    "hyprland/language": {
-      "format": "<span font_size='large'>󰌌</span>  {}",
-      "format-en": "EN",
-      "format-bg": "BG",
-      "on-click": "hyprctl switchxkblayout current next"
     },
     "pulseaudio": {
       "scroll-step": 5,
