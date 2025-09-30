@@ -49,7 +49,6 @@ gimp
 git
 git-delta
 gnome-calculator
-gnome-calendar
 gnome-keyring
 gnu-netcat
 go
