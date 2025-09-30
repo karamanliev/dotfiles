@@ -15,12 +15,9 @@ return {
 
       -- Document existing key chains
       wk.add({
-        { '<leader>c', group = 'Code' },
-        { '<leader>d', group = 'Document' },
         { '<leader>f', group = 'Find' },
         { '<leader>g', group = 'Git' },
         { '<leader>d', group = 'Diff' },
-        { '<leader>s', group = 'Session' },
         { '<leader>t', group = 'Toggle' },
         -- { '<leader>o', group = 'OpenCode', icon = '󰚩' },
         { '\\', group = 'Claude Code', icon = '󰚩' },

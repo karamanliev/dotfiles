@@ -253,7 +253,7 @@ return {
             hidden = true,
           })
         end,
-        desc = 'Find Config File',
+        desc = 'Find Files',
       },
       {
         '<leader>fn',

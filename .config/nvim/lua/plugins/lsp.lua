@@ -32,12 +32,13 @@ return {
             map('gd', require('snacks.picker').lsp_definitions, 'Goto Definition')
           end
 
-          map('gr', require('snacks.picker').lsp_references, 'Goto References')
-          map('<leader>ca', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
-          map('<leader>ci', require('snacks.picker').lsp_implementations, 'Goto Implementation')
-          map('<leader>cd', require('snacks.picker').lsp_declarations, 'Goto Declaration')
-          map('<leader>ct', require('snacks.picker').lsp_type_definitions, 'Goto Type Definition')
-          map('<leader>cn', vim.lsp.buf.rename, 'Rename Word')
+          map('gr', '', 'Group', { 'n', 'v' })
+          map('gra', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
+          map('gri', require('snacks.picker').lsp_implementations, 'Goto Implementation')
+          map('grn', vim.lsp.buf.rename, 'Rename Word')
+          map('grr', require('snacks.picker').lsp_references, 'Goto References')
+          map('grt', require('snacks.picker').lsp_type_definitions, 'Goto Type Definition')
+          map('grd', require('snacks.picker').lsp_declarations, 'Goto Declaration')
 
           map('K', function()
             vim.lsp.buf.hover({
@@ -132,22 +133,22 @@ return {
                 open = true,
               })
             end, 'Goto Source Definition')
-            map('<leader>cf', function()
+            map('grf', function()
               execute({
                 command = 'typescript.findAllFileReferences',
                 arguments = { vim.uri_from_bufnr(0) },
                 open = 'always',
               })
             end, 'File References')
-            map('<leader>co', function()
+            map('gro', function()
               execute({
                 command = 'typescript.organizeImports',
                 arguments = { vim.api.nvim_buf_get_name(0) },
               })
             end, 'Organize Imports')
-            map('<leader>cm', action['source.addMissingImports.ts'], 'Add missing imports')
-            map('<leader>cu', action['source.removeUnused.ts'], 'Remove unused imports')
-            map('<leader>cv', function()
+            map('grm', action['source.addMissingImports.ts'], 'Add missing imports')
+            map('gru', action['source.removeUnused.ts'], 'Remove unused imports')
+            map('grv', function()
               execute({ command = 'typescript.selectTypeScriptVersion' })
             end, 'Select TS workspace version')
           end,
