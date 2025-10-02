@@ -190,12 +190,12 @@ layer-rule {
 }
 
 window-rule {
-    match title="^Picture-in-Picture$"
+    match title="^Picture-in-Picture$" is-floating=true
     open-on-output "DP-1"
     open-floating true
     open-focused false
     default-floating-position x=20 y=40 relative-to="top-right"
-    opacity 0.65
+    opacity 0.75
     default-column-width { fixed 448; }
     default-window-height { fixed 252; }
     shadow {
@@ -382,8 +382,9 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     Mod+R       { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R  { reset-window-height; }
+    Mod+Shift+R { switch-preset-column-width-back; }
+    Mod+Ctrl+R { switch-preset-window-height; }
+    Mod+Shift+Ctrl+R  { reset-window-height; }
     Mod+F       { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Ctrl+F  { expand-column-to-available-width; }
