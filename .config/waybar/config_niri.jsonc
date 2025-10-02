@@ -12,6 +12,7 @@
       "niri/workspaces",
       "custom/separator",
       "custom/niri_windowcount",
+      "niri/window",
       "custom/separator",
       "custom/timer"
     ],
@@ -98,6 +99,11 @@
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-3"
+    },
+    "niri/window": {
+      "format": " {title} ",
+      "separate-outputs": true,
+      "max-length": 30
     },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
@@ -217,8 +223,8 @@
       "return-type": "json",
       "interval": "once",
       "signal": 1,
-      "on-click": "walker -m gsr-dp3",
-      "on-click-right": "walker -m gsr-dp1",
+      "on-click": "vicinae vicinae://extensions/ico/gsr/gsr-dp3",
+      "on-click-right": "vicinae vicinae://extensions/ico/gsr/gsr-dp1",
       "tooltip": true
     }
   },
@@ -234,7 +240,8 @@
     "modules-left": [
       "niri/workspaces",
       "custom/separator",
-      "custom/niri_windowcount"
+      "custom/niri_windowcount",
+      "niri/window"
     ],
     "modules-center": [
       "custom/weather",
@@ -297,6 +304,11 @@
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-1"
+    },
+    "niri/window": {
+      "format": " {title} ",
+      "separate-outputs": true,
+      "max-length": 30
     },
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
@@ -387,8 +399,8 @@
       "return-type": "json",
       "interval": "once",
       "signal": 1,
-      "on-click": "walker -m gsr-dp3",
-      "on-click-right": "walker -m gsr-dp1",
+      "on-click": "vicinae vicinae://extensions/ico/gsr/gsr-dp3",
+      "on-click-right": "vicinae vicinae://extensions/ico/gsr/gsr-dp1",
       "tooltip": true
     }
   }
