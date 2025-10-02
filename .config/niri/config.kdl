@@ -300,7 +300,7 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
     Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae vicinae://toggle"; }
 
     Mod+A repeat=false { toggle-overview; }
@@ -308,12 +308,13 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+H     { focus-column-left; }
+    Mod+H     { focus-column-left-or-last; }
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
     Mod+N     { focus-workspace-down; }
     Mod+P     { focus-workspace-up; }
-    Mod+L     { focus-column-right; }
+    Mod+L     { focus-column-right-or-first; }
+    Alt+Tab   { focus-window-previous; }
 
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
@@ -326,12 +327,12 @@ binds {
     Mod+Ctrl+P      { move-workspace-up; }
     Mod+Ctrl+J      { move-workspace-down; }
     Mod+Ctrl+K      { move-workspace-up; }
+    Mod+Tab         { focus-workspace-previous; }
 
-    Alt+Tab           { focus-window-previous; }
-    Mod+Ctrl+L        { focus-monitor-next; }
-    Mod+Ctrl+H        { focus-monitor-previous; }
-    Mod+Shift+Ctrl+L  { move-column-to-monitor-next; }
-    Mod+Shift+Ctrl+H  { move-column-to-monitor-next; }
+    Mod+Ctrl+H        { focus-monitor-left; }
+    Mod+Ctrl+L        { focus-monitor-right; }
+    Mod+Shift+Ctrl+H  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+L  { move-column-to-monitor-right; }
     Mod+Shift+Tab     { move-workspace-to-monitor-next; }
 
     Mod+Left          { focus-column-first; }
@@ -339,20 +340,15 @@ binds {
     Mod+Shift+Left    { move-column-to-first; }
     Mod+Shift+Right   { move-column-to-last; }
 
-    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollDown      cooldown-ms=200 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=200 { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown cooldown-ms=200 { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollUp   cooldown-ms=200 { move-column-to-workspace-up; }
 
     Mod+WheelScrollRight     cooldown-ms=200 { focus-column-right; }
     Mod+WheelScrollLeft      cooldown-ms=200 { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight cooldown-ms=200 { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft cooldown-ms=200 { move-column-left; }
-
-    Mod+Shift+WheelScrollDown     cooldown-ms=200 { focus-column-right; }
-    Mod+Shift+WheelScrollUp       cooldown-ms=200 { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown cooldown-ms=200 { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp  cooldown-ms=200 { move-column-left; }
+    Mod+Shift+WheelScrollRight cooldown-ms=200 { move-column-right; }
+    Mod+Shift+WheelScrollLeft cooldown-ms=200 { move-column-left; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -376,8 +372,6 @@ binds {
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
 
-    Mod+Tab { focus-workspace-previous; }
-
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
@@ -387,14 +381,15 @@ binds {
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
 
-    Mod+R { switch-preset-column-width; }
+    Mod+R       { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
+    Mod+Ctrl+R  { reset-window-height; }
+    Mod+F       { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+Ctrl+F  { expand-column-to-available-width; }
 
-    Mod+Shift+C { center-visible-columns; }
+    Mod+X       { center-column; }
+    Mod+Shift+X { center-visible-columns; }
 
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
@@ -411,11 +406,15 @@ binds {
 
     Mod+T { toggle-column-tabbed-display; }
 
-    Hangul       { switch-layout "next"; }
-    Mod+E        { spawn "nautilus"; }
+    Hangul { switch-layout "next"; }
+    Mod+E  { spawn "nautilus"; }
+
+    Mod+I { spawn-sh "name=$(zenity --entry --title='Workspace' --text='Enter new workspace name:') && [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
+    Mod+Shift+I { unset-workspace-name; }
 
     Mod+Shift+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false"; }
-    Mod+Ctrl+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && satty -f /tmp/screenshot.png"; }
+    Mod+Ctrl+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && for i in $(seq 1 100); do [ -f /tmp/screenshot.png ] && break; sleep 0.05; done && [ -f /tmp/screenshot.png ] && satty -f /tmp/screenshot.png"; }
+    Mod+Alt+S { spawn-sh "wl-paste --type image/png | satty -f -"; }
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
