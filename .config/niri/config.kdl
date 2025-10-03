@@ -190,7 +190,7 @@ layer-rule {
 }
 
 window-rule {
-    match title="^Picture-in-Picture$" is-floating=true
+    match title="^Picture-in-Picture$"
     open-on-output "DP-1"
     open-floating true
     open-focused false
@@ -204,6 +204,11 @@ window-rule {
       spread 5
       draw-behind-window false
     }
+}
+
+window-rule {
+  match title="^Picture-in-Picture$"
+  opacity 1.0
 }
 
 window-rule {
@@ -301,7 +306,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
-    Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae vicinae://toggle"; }
+    Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
 
     Mod+A repeat=false { toggle-overview; }
     Mod+Escape repeat=false { toggle-overview; }
