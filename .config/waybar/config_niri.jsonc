@@ -223,8 +223,8 @@
       "return-type": "json",
       "interval": "once",
       "signal": 1,
-      "on-click": "vicinae vicinae://extensions/ico/gsr/gsr-dp3",
-      "on-click-right": "vicinae vicinae://extensions/ico/gsr/gsr-dp1",
+      "on-click": "${HOME}/.config/waybar/scripts/gsr.sh DP-3",
+      "on-click-right": "${HOME}/.config/waybar/scripts/gsr.sh DP-1",
       "tooltip": true
     }
   },
@@ -399,8 +399,8 @@
       "return-type": "json",
       "interval": "once",
       "signal": 1,
-      "on-click": "vicinae vicinae://extensions/ico/gsr/gsr-dp3",
-      "on-click-right": "vicinae vicinae://extensions/ico/gsr/gsr-dp1",
+      "on-click": "${HOME}/.config/waybar/scripts/gsr.sh DP-3",
+      "on-click-right": "${HOME}/.config/waybar/scripts/gsr.sh DP-1",
       "tooltip": true
     }
   }
