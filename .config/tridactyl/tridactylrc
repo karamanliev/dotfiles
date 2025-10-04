@@ -18,6 +18,7 @@ set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --si
 " autocmd DocStart 127.0.0.1 mode ignore
 
 " Binds
+bind <Space><Space> fillcmdline tab
 unbind <C-^>
 unbind <C-6>
 unbind d
