@@ -305,7 +305,8 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+S hotkey-overlay-title="Open a Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Shift+Return hotkey-overlay-title="Open Named Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
     Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
 
     Mod+A repeat=false { toggle-overview; }
@@ -418,9 +419,9 @@ binds {
     Mod+I { spawn-sh "name=$(zenity --entry --title='Workspace' --text='Enter new workspace name:') && [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
     Mod+Shift+I { unset-workspace-name; }
 
-    Mod+Shift+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false"; }
-    Mod+Ctrl+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && for i in $(seq 1 100); do [ -f /tmp/screenshot.png ] && break; sleep 0.05; done && [ -f /tmp/screenshot.png ] && satty -f /tmp/screenshot.png"; }
-    Mod+Alt+S { spawn-sh "wl-paste --type image/png | satty -f -"; }
+    Mod+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false"; }
+    Mod+Shift+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && for i in $(seq 1 150); do [ -f /tmp/screenshot.png ] && break; sleep 0.05; done && [ -f /tmp/screenshot.png ] && satty -f /tmp/screenshot.png"; }
+    Mod+Ctrl+S { spawn-sh "wl-paste --type image/png | satty -f -"; }
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
