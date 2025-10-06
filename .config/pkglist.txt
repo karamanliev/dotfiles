@@ -158,6 +158,7 @@ python-vobject
 qmk
 qt5-wayland
 qt6-wayland
+rclone
 reflector
 ripgrep
 rsync
