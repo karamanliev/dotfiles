@@ -25,7 +25,7 @@ return {
         end,
       },
       dashboard = { enabled = false },
-      explorer = { enabled = false, replace_netrw = false },
+      explorer = { replace_netrw = false },
       indent = {
         enabled = true,
         animate = {
@@ -406,6 +406,17 @@ return {
         end,
         desc = 'Toggle Theme',
         mode = { 'n', 'v' },
+      },
+      {
+        '<leader>E',
+        function()
+          Snacks.picker.explorer({
+            auto_close = true,
+            follow_file = true,
+            hidden = true,
+          })
+        end,
+        desc = 'Explorer',
       },
       {
         '<leader>ss',
