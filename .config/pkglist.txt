@@ -177,6 +177,7 @@ starship
 steam
 stow
 sunshine
+sushi
 swaync
 sweethome3d
 tealdeer
