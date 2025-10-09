@@ -215,6 +215,7 @@ window-rule {
 window-rule {
     match app-id="system_monitor_btop"
     match app-id="org.gnome.Loupe"
+    match app-id="org.gnome.NautilusPreviewer"
     open-focused true
     open-floating true
     default-column-width { proportion 0.9; }
