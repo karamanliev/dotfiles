@@ -309,7 +309,7 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Shift+Return hotkey-overlay-title="Open Named Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
-    Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
+    Mod+D hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
 
     Mod+A repeat=false { toggle-overview; }
     Mod+Escape repeat=false { toggle-overview; }
@@ -389,13 +389,15 @@ binds {
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
 
-    Mod+R       { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-column-width-back; }
-    Mod+Ctrl+R { switch-preset-window-height; }
-    Mod+Shift+Ctrl+R  { reset-window-height; }
-    Mod+F       { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
-    Mod+Ctrl+F  { expand-column-to-available-width; }
+    Mod+R            { switch-preset-column-width; }
+    Mod+Shift+R      { switch-preset-column-width-back; }
+    Mod+Ctrl+R       { switch-preset-window-height; }
+    Mod+Shift+Ctrl+R { switch-preset-window-height-back; }
+
+    Mod+F            { maximize-column; }
+    Mod+Shift+F      { expand-column-to-available-width; }
+    Mod+Ctrl+F       { reset-window-height; }
+    Mod+Shift+Ctrl+F { fullscreen-window; }
 
     Mod+X       { center-column; }
     Mod+Shift+X { center-visible-columns; }
@@ -410,7 +412,7 @@ binds {
     Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
     Mod+Z { spawn-sh "gtk-launch brave-ai.karamanliev.com__-Default"; }
 
-    Mod+D       { toggle-window-floating; }
+    Mod+Space       { toggle-window-floating; }
     Mod+Shift+D { switch-focus-between-floating-and-tiling; }
 
     Mod+T { toggle-column-tabbed-display; }
