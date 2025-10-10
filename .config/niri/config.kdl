@@ -415,7 +415,8 @@ binds {
     Mod+Space       { toggle-window-floating; }
     Mod+Shift+D { switch-focus-between-floating-and-tiling; }
 
-    Mod+T { toggle-column-tabbed-display; }
+    Mod+Shift+T { toggle-column-tabbed-display; }
+    Mod+T { focus-window-down-or-top; }
 
     Hangul { switch-layout "next"; }
     Mod+E  { spawn "nautilus"; }
