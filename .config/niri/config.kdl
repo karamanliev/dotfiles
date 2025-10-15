@@ -51,7 +51,7 @@ spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Developer Tools.*' -- 'set-window-width 800'"
 
 spawn-at-startup "swaync"
-spawn-at-startup "waybar" "--config" "~/.config/waybar/config_niri.jsonc"
+spawn-at-startup "waybar" "--config=/home/ico/.config/waybar/config_niri.jsonc"
 spawn-at-startup "nm-applet"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "solaar" "--window=hide" "--battery-icons=symbolic"
