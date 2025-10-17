@@ -440,6 +440,28 @@ return {
         desc = 'Git Browse',
         mode = { 'n', 'v' },
       },
+
+      {
+        '<leader>gc',
+        function()
+          Snacks.terminal.toggle('git commit', {
+            start_insert = true, -- start in insert mode
+            auto_insert = true, -- re-enter insert mode when focusing
+            auto_close = false, -- don't auto-close on exit (prevents error message)
+            win = {
+              position = 'bottom',
+              height = 0.4,
+              keys = {
+                q = { 'close', mode = { 'n', 't' } },
+                ['<C-c>'] = { 'close', mode = { 'n', 'i', 't' } },
+                ['ZQ'] = { 'close', mode = { 'n', 'i', 't' } },
+              },
+            },
+          })
+        end,
+        desc = 'Git Commit',
+        mode = { 'n', 'v' },
+      },
       {
         ']]',
         function()
