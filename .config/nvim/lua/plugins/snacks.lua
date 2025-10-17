@@ -444,17 +444,16 @@ return {
       {
         '<leader>gc',
         function()
-          Snacks.terminal.toggle('git commit', {
-            start_insert = true, -- start in insert mode
-            auto_insert = true, -- re-enter insert mode when focusing
-            auto_close = false, -- don't auto-close on exit (prevents error message)
+          Snacks.terminal.open('git commit', {
+            start_insert = true,
+            auto_insert = true,
+            auto_close = true,
             win = {
               position = 'bottom',
               height = 0.4,
               keys = {
-                q = { 'close', mode = { 'n', 't' } },
-                ['<C-c>'] = { 'close', mode = { 'n', 'i', 't' } },
-                ['ZQ'] = { 'close', mode = { 'n', 'i', 't' } },
+                ['<C-c>'] = { 'hide', mode = { 'n', 'i', 't' } },
+                ['ZQ'] = { 'hide', mode = { 'n', 'i', 't' } },
               },
             },
           })
