@@ -107,22 +107,62 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
-        -- Navigation
+        -- Navigation (unstaged)
         map('n', ']c', function()
           if vim.wo.diff then
             vim.cmd.normal({ ']c', bang = true })
           else
-            gitsigns.nav_hunk('next')
+            gitsigns.nav_hunk('next', {
+              navigation_message = true,
+              foldopen = true,
+            })
           end
-        end, { desc = 'Jump to next git hunk' })
+        end, { desc = 'Jump to next git hunk (unstaged)' })
 
         map('n', '[c', function()
           if vim.wo.diff then
             vim.cmd.normal({ '[c', bang = true })
           else
-            gitsigns.nav_hunk('prev')
+            gitsigns.nav_hunk('prev', {
+              navigation_message = true,
+              foldopen = true,
+            })
           end
-        end, { desc = 'Jump to previous git hunk' })
+        end, { desc = 'Jump to previous git hunk (unstaged)' })
+
+        -- Navigation (all)
+        map('n', ']C', function()
+          gitsigns.nav_hunk('next', {
+            navigation_message = true,
+            foldopen = true,
+            target = 'all',
+          })
+        end, { desc = 'Jump to next git hunk (all)' })
+
+        map('n', '[C', function()
+          gitsigns.nav_hunk('prev', {
+            navigation_message = true,
+            foldopen = true,
+            target = 'all',
+          })
+        end, { desc = 'Jump to previous git hunk (all)' })
+
+        -- Navigation (staged)
+        map('n', ']s', function()
+          gitsigns.nav_hunk('next', {
+            navigation_message = true,
+            foldopen = true,
+            target = 'staged',
+          })
+        end, { desc = 'Jump to next git hunk (all)' })
+
+        map('n', '[s', function()
+          gitsigns.nav_hunk('prev', {
+            navigation_message = true,
+            foldopen = true,
+            target = 'staged',
+          })
+        end, { desc = 'Jump to previous git hunk (all)' })
 
         -- Actions
         -- visual mode
@@ -133,12 +173,13 @@ return {
           gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, { desc = 'reset git hunk' })
         -- normal mode
-        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git toggle stage hunk' })
         map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
         map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git Stage buffer' })
-        map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
+        map('n', '<leader>gU', gitsigns.reset_buffer_index, { desc = 'git undo stage buffer' })
         map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git Reset buffer' })
-        map('n', 'gs', gitsigns.preview_hunk_inline, { desc = 'git preview hunk' })
+        map('n', 'gs', gitsigns.preview_hunk_inline, { desc = 'git preview hunk (inline)' })
+        map('n', 'gS', gitsigns.preview_hunk, { desc = 'git preview hunk (floating)' })
         map('n', '<leader>gp', function()
           gitsigns.toggle_linehl()
           gitsigns.toggle_deleted()
