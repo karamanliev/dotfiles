@@ -115,6 +115,7 @@ return {
             gitsigns.nav_hunk('next', {
               navigation_message = true,
               foldopen = true,
+              target = 'all',
             })
           end
         end, { desc = 'Jump to next git hunk (unstaged)' })
@@ -126,6 +127,7 @@ return {
             gitsigns.nav_hunk('prev', {
               navigation_message = true,
               foldopen = true,
+              target = 'all',
             })
           end
         end, { desc = 'Jump to previous git hunk (unstaged)' })
@@ -135,7 +137,7 @@ return {
           gitsigns.nav_hunk('next', {
             navigation_message = true,
             foldopen = true,
-            target = 'all',
+            target = 'unstaged',
           })
         end, { desc = 'Jump to next git hunk (all)' })
 
@@ -143,7 +145,7 @@ return {
           gitsigns.nav_hunk('prev', {
             navigation_message = true,
             foldopen = true,
-            target = 'all',
+            target = 'unstaged',
           })
         end, { desc = 'Jump to previous git hunk (all)' })
 
