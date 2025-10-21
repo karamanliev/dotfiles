@@ -100,6 +100,7 @@ lib32-vkd3d
 libgnome-keyring
 libpulse
 libqalculate
+libreoffice-fresh
 libva-nvidia-driver
 linux
 linux-firmware
