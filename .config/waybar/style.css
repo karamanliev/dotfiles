@@ -171,10 +171,10 @@ tooltip label {
 
 #custom-notification:hover,
 #custom-agenda:hover,
-#custom-wlsunset:hover,
+#custom-sunsetr:hover,
 #custom-weather:hover,
 #custom-timer:hover,
-#custom-wlsunset_brightness:hover,
+#custom-sunsetr_brightness:hover,
 #idle_inhibitor:hover,
 #cpu:hover,
 #custom-gpu:hover,
@@ -188,7 +188,7 @@ tooltip label {
   background: @bg_hover;
 }
 
-#custom-wlsunset_brightness,
+#custom-sunsetr_brightness,
 #custom-gsr,
 #idle_inhibitor {
   margin: 6px 0;
@@ -197,7 +197,7 @@ tooltip label {
   border-radius: 4px;
 }
 
-#custom-wlsunset {
+#custom-sunsetr {
   margin-right: 8px;
 }
 

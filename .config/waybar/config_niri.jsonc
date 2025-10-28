@@ -34,7 +34,7 @@
       "custom/separator",
       "tray",
       "idle_inhibitor",
-      "custom/wlsunset_brightness",
+      "custom/sunsetr_brightness",
       "custom/gsr",
       "custom/separator",
       "niri/language",
@@ -194,18 +194,19 @@
       "on-click-right": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
       "return-type": "json"
     },
-    "custom/wlsunset_brightness": {
+    "custom/sunsetr_brightness": {
       "exec": "${HOME}/.config/waybar/scripts/brightness.sh status",
       "format": "<span font_size='x-large'>{icon}</span>  <span font_scale='small-caps' baseline_shift='2pt'>{text}%</span>",
       "interval": "once",
       "signal": 1,
       "return-type": "json",
-      "tooltip-format": "wlsunset: {alt}\nbrightness: {text}%",
+      "tooltip-format": "sunsetr: {alt}\nbrightness: {text}%",
       "format-icons": {
-        "off": "",
-        "on": ""
+        "day": "",
+        "night": "",
+        "auto": "󰃡"
       },
-      "on-click": "${HOME}/.config/waybar/scripts/brightness.sh toggle",
+      "on-click": "${HOME}/.config/waybar/scripts/brightness.sh cycle",
       // tmp file is for debouncing/throttling
       "on-scroll-up": "${HOME}/.config/waybar/scripts/brightness.sh up",
       "on-scroll-down": "${HOME}/.config/waybar/scripts/brightness.sh down"
@@ -257,7 +258,7 @@
       // "custom/separator",
       "tray",
       "idle_inhibitor",
-      "custom/wlsunset_brightness",
+      "custom/sunsetr_brightness",
       "custom/gsr",
       "custom/separator",
       "niri/language",
@@ -370,18 +371,19 @@
       "on-click-right": "xdg-open https://www.sinoptik.bg/varna-bulgaria-100726050/14-days",
       "return-type": "json"
     },
-    "custom/wlsunset_brightness": {
+    "custom/sunsetr_brightness": {
       "exec": "${HOME}/.config/waybar/scripts/brightness.sh status",
       "format": "<span font_size='x-large'>{icon}</span>  <span font_scale='small-caps' baseline_shift='2pt'>{text}%</span>",
       "interval": "once",
       "signal": 1,
       "return-type": "json",
-      "tooltip-format": "wlsunset: {alt}\nbrightness: {text}%",
+      "tooltip-format": "sunsetr: {alt}\nbrightness: {text}%",
       "format-icons": {
         "off": "",
-        "on": ""
+        "on": "",
+        "auto": "󰃡"
       },
-      "on-click": "${HOME}/.config/waybar/scripts/brightness.sh toggle",
+      "on-click": "${HOME}/.config/waybar/scripts/brightness.sh cycle",
       // tmp file is for debouncing/throttling
       "on-scroll-up": "${HOME}/.config/waybar/scripts/brightness.sh up",
       "on-scroll-down": "${HOME}/.config/waybar/scripts/brightness.sh down"

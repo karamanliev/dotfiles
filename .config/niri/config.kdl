@@ -59,7 +59,7 @@ spawn-at-startup "solaar" "--window=hide" "--battery-icons=symbolic"
 spawn-at-startup "hypridle"
 spawn-at-startup "hyprpaper"
 
-spawn-at-startup "wlsunset" "-l" "43.204666" "-L" "27.910543"
+spawn-at-startup "sunsetr"
 spawn-at-startup "wayvnc" "0.0.0.0" "5900"
 
 spawn-at-startup "vicinae" "server"
@@ -309,7 +309,7 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Shift+Return hotkey-overlay-title="Open Named Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
-    Mod+D hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
+    Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
 
     Mod+A repeat=false { toggle-overview; }
     Mod+Escape repeat=false { toggle-overview; }
@@ -412,7 +412,7 @@ binds {
     Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
     Mod+Z { spawn-sh "gtk-launch brave-ai.karamanliev.com__-Default"; }
 
-    Mod+Space       { toggle-window-floating; }
+    Mod+D       { toggle-window-floating; }
     Mod+Shift+D { switch-focus-between-floating-and-tiling; }
 
     Mod+Shift+T { toggle-column-tabbed-display; }

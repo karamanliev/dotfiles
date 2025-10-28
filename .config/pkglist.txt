@@ -177,6 +177,7 @@ sshfs
 starship
 steam
 stow
+sunsetr-bin
 sunshine
 sushi
 swaync
@@ -207,7 +208,6 @@ wget
 wine-staging
 wireplumber
 wl-clipboard
-wlsunset
 xclip
 xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
