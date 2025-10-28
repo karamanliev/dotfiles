@@ -17,6 +17,8 @@ alias lg='lazygit'
 
 ## DOCKER
 alias lzd='lazydocker'
+alias dc='docker compose'
+alias dcr='docker compose down && docker compose up -d'
 
 ## eza
 alias ls='eza -F --icons --color=always --group-directories-first'
