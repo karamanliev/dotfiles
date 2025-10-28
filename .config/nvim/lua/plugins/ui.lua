@@ -2,7 +2,7 @@ return {
   -- Highlight colors HEX/RGB/HSV/HSL
   {
     'brenoprata10/nvim-highlight-colors',
-    enabled = false,
+    enabled = true,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('nvim-highlight-colors').setup({
