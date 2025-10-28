@@ -20,7 +20,9 @@ return {
         disable_inline_completion = false,
         disable_keymaps = false,
         condition = function()
-          return string.match(vim.fn.expand('%:t'), '.env')
+          local filename = vim.fn.expand('%:t')
+          local fullpath = vim.fn.expand('%:p')
+          return string.match(filename, 'obsidian') or string.match(fullpath, 'obsidian')
         end,
       })
     end,
