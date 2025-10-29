@@ -110,6 +110,17 @@ def get_wind_direction(deg: int) -> str:
     else:           return 'N'
 
 
+def format_time(timestamp: int) -> str:
+    '''
+    convert unix timestamp to human-readable time format (HH:MM)
+
+    @param timestamp: unix timestamp
+
+    @return formatted time string
+    '''
+    return datetime.datetime.fromtimestamp(timestamp).strftime('%H:%M')
+
+
 def print_entry(label: str, content: str, indent: int = 0, label_width: int = 8):
     '''
     print an 'entry' that consists of a label (printed in gray) and some
@@ -232,6 +243,8 @@ def current_weather():
     wind_speed       = round(data['wind']['speed'], 1)
     wind_direction   = get_wind_direction(data['wind']['deg'])
     rainfall         = data['rain']['1h']
+    sunrise          = format_time(data['sys']['sunrise'])
+    sunset           = format_time(data['sys']['sunset'])
 
     # print data
     print_entry('weather',  f'\x1b[32m{weather}\x1b[0m')
@@ -239,6 +252,8 @@ def current_weather():
     print_entry('humidity', f'\x1b[31m{humidity} % RH\x1b[0m')
     print_entry('wind',     f'\x1b[35m{wind_speed} m/s\x1b[90m ({wind_direction})\x1b[0m')
     print_entry('rain',     f'\x1b[34m{rainfall} mm\x1b[0m')
+    print_entry('sunrise',  f'\x1b[33m{sunrise}\x1b[0m')
+    print_entry('sunset',   f'\x1b[33m{sunset}\x1b[0m')
 
 
 
@@ -447,6 +462,8 @@ def waybar_current(data: dict) -> str:
     wind_speed       = round(data['wind']['speed'], 1)
     wind_direction   = get_wind_direction(data['wind']['deg'])
     rainfall         = data['rain']['1h']
+    sunrise          = format_time(data['sys']['sunrise'])
+    sunset           = format_time(data['sys']['sunset'])
 
     # generate output
     output = ''
@@ -455,6 +472,8 @@ def waybar_current(data: dict) -> str:
     output += waybar_entry('humidity', colorize(f'{humidity} % RH', RED))
     output += waybar_entry('wind',     f'{colorize(f"{wind_speed} m/s", PURPLE)} {colorize(f"({wind_direction})", GRAY)}')
     output += waybar_entry('rain',     colorize(f"{rainfall} mm", BLUE))
+    output += waybar_entry('sunrise',  colorize(sunrise, ORANGE))
+    output += waybar_entry('sunset',   colorize(sunset, ORANGE))
     return output
 
 
@@ -556,4 +575,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
