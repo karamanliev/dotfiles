@@ -2,7 +2,7 @@ return {
   -- AI completion
   {
     'supermaven-inc/supermaven-nvim',
-    enabled = false,
+    enabled = true,
     event = 'InsertEnter',
     config = function()
       require('supermaven-nvim').setup({
