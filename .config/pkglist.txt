@@ -18,7 +18,6 @@ btop
 btrfs-assistant
 btrfs-progs
 celluloid
-chromium
 code
 cpio
 cpupower
@@ -193,6 +192,7 @@ ttf-dejavu
 ttf-jetbrains-mono
 ttf-liberation
 ttf-nerd-fonts-symbols-mono
+ungoogled-chromium-bin
 unrar
 uv
 viber
