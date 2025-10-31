@@ -12,7 +12,7 @@
   _unitId: 479FF5E7
   _wpid: B034
   change-host: null
-  divert-keys: {82: 0, 83: 0, 86: 0, 195: 2, 196: 0}
+  divert-keys: {82: 0, 83: 0, 86: 0, 195: 2, 196: 1}
   dpi: 1200
   hires-scroll-mode: false
   hires-smooth-invert: false
