@@ -1,7 +1,7 @@
 return {
   -- AI completion
   {
-    'supermaven-inc/supermaven-nvim',
+    'karamanliev/supermaven-nvim',
     enabled = true,
     event = 'InsertEnter',
     config = function()
