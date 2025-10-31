@@ -130,6 +130,7 @@
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
+      "locale": "en_GB.UTF-8",
       "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
@@ -359,6 +360,7 @@
     "clock": {
       "format": "{:%a %d %b    %H:%M}",
       "tooltip-format": "<tt>{calendar}</tt>",
+      "locale": "en_GB.UTF-8",
       "on-click": "hyprctl dispatch focusworkspaceoncurrentmonitor special:mail;hyprctl dispatch sendshortcut CTRL,3,class:eu.betterbird.Betterbird",
       "on-click-right": "xdg-open https://calendar.google.com/",
       "calendar": {
@@ -367,11 +369,11 @@
         "weeks-pos": "",
         "on-scroll": 1,
         "format": {
-          "months": "<span color='#ffead3'><b>{}</b></span>",
-          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "months": "<span color='#d8c5fa'><b>{}</b></span>",
+          "days": "<span color='#f8f8f8'><b>{}</b></span>",
           "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+          "weekdays": "<span color='#c4bed1'><b>{}</b></span>",
+          "today": "<span color='#BB9AF7'><b><u>{}</u></b></span>"
         }
       },
       "actions": {
