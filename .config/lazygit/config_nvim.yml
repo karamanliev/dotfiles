@@ -3,9 +3,9 @@ os:
   editAtLine: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e +{{line}} {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
   open: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --line-numbers  --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --line-numbers  --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 gui:
   sidePanelWidth: 0.25
   enlargedSideViewLocation: top
@@ -32,7 +32,6 @@ gui:
       - "#cdd6f4"
     searchingActiveBorderColor:
       - "#f9e2af"
-
   authorColors:
     "*": "#b4befe"
 promptToReturnFromSubprocess: false
