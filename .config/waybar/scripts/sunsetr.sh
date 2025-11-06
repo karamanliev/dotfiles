@@ -1,31 +1,30 @@
 #!/bin/bash
 
 BRIGHTNESS_CACHE="/tmp/brightness_cache"
-BRIGHTNESS_THROTTLE="/tmp/brightness_throttle"
+BRIGHTNESS_LOCK="/tmp/brightness_lock"
 
-read_brightness() {
-  ddcutil -b 1 --skip-ddc-checks getvcp 10 -t | perl -nE 'if (/ C (\d+) /) { say $1; }'
+cleanup() {
+  rmdir "$BRIGHTNESS_LOCK" 2>/dev/null
 }
 
+trap cleanup EXIT
+
 update_brightness_cache() {
-  read_brightness >"$BRIGHTNESS_CACHE"
+  ddcutil -b 1 --skip-ddc-checks getvcp 10 -t 2>/dev/null | perl -nE 'if (/ C (\d+) /) { say $1; }' >"$BRIGHTNESS_CACHE"
 }
 
 get_brightness() {
-  if [ -f "$BRIGHTNESS_CACHE" ]; then
-    cat "$BRIGHTNESS_CACHE"
-  else
-    BRIGHTNESS=$(read_brightness)
-    echo "$BRIGHTNESS" >"$BRIGHTNESS_CACHE"
-    echo "$BRIGHTNESS"
+  if [ ! -f "$BRIGHTNESS_CACHE" ]; then
+    update_brightness_cache
   fi
+  cat "$BRIGHTNESS_CACHE" 2>/dev/null || echo "0"
 }
 
 get_status() {
   trap 'exit 0' SIGTERM SIGINT
 
   while true; do
-    BRIGHTNESS=$(get_brightness)
+    BRIGHTNESS="$(get_brightness)"
     SUNSETR_STATUS=$(sunsetr status --json 2>/dev/null)
 
     if [ $? -eq 0 ]; then
@@ -66,7 +65,7 @@ get_status() {
 }
 
 toggle_preset() {
-  local PERIOD=$(sunsetr status --json 2>/dev/null | jq -r '.active_period // "day"')
+  PERIOD=$(sunsetr status --json 2>/dev/null | jq -r '.period // "day"')
 
   if [ "$PERIOD" = "night" ]; then
     sunsetr preset day >/dev/null 2>&1
@@ -76,9 +75,7 @@ toggle_preset() {
 }
 
 brightness_up() {
-  if [ ! -f "$BRIGHTNESS_THROTTLE" ]; then
-    touch "$BRIGHTNESS_THROTTLE"
-
+  if mkdir "$BRIGHTNESS_LOCK" 2>/dev/null; then
     ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 + 5 &
     ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 + 5 &
     wait
@@ -87,14 +84,12 @@ brightness_up() {
 
     sleep 0.2
 
-    rm "$BRIGHTNESS_THROTTLE"
+    rmdir "$BRIGHTNESS_LOCK"
   fi
 }
 
 brightness_down() {
-  if [ ! -f "$BRIGHTNESS_THROTTLE" ]; then
-    touch "$BRIGHTNESS_THROTTLE"
-
+  if mkdir "$BRIGHTNESS_LOCK" 2>/dev/null; then
     ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 - 5 &
     ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 - 5 &
     wait
@@ -103,7 +98,7 @@ brightness_down() {
 
     sleep 0.2
 
-    rm "$BRIGHTNESS_THROTTLE"
+    rmdir "$BRIGHTNESS_LOCK"
   fi
 }
 
