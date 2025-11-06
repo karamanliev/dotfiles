@@ -188,6 +188,7 @@ tooltip label {
   background: @bg_hover;
 }
 
+#custom-sunsetr,
 #custom-sunsetr_brightness,
 #custom-gsr,
 #idle_inhibitor {
@@ -197,7 +198,7 @@ tooltip label {
   border-radius: 4px;
 }
 
-#custom-sunsetr {
+#custom-gsr {
   margin-right: 8px;
 }
 
