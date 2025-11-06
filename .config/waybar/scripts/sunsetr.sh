@@ -1,11 +1,27 @@
 #!/bin/bash
 
-get_brightness() {
+BRIGHTNESS_CACHE="/tmp/brightness_cache"
+BRIGHTNESS_THROTTLE="/tmp/brightness_throttle"
+
+read_brightness() {
   ddcutil -b 1 --skip-ddc-checks getvcp 10 -t | perl -nE 'if (/ C (\d+) /) { say $1; }'
 }
 
+update_brightness_cache() {
+  read_brightness >"$BRIGHTNESS_CACHE"
+}
+
+get_brightness() {
+  if [ -f "$BRIGHTNESS_CACHE" ]; then
+    cat "$BRIGHTNESS_CACHE"
+  else
+    BRIGHTNESS=$(read_brightness)
+    echo "$BRIGHTNESS" >"$BRIGHTNESS_CACHE"
+    echo "$BRIGHTNESS"
+  fi
+}
+
 get_status() {
-  # Trap to ensure cleanup on exit
   trap 'exit 0' SIGTERM SIGINT
 
   while true; do
@@ -13,19 +29,16 @@ get_status() {
     SUNSETR_STATUS=$(sunsetr status --json 2>/dev/null)
 
     if [ $? -eq 0 ]; then
-      PERIOD=$(echo "$SUNSETR_STATUS" | jq -r '.active_period // "day"')
+      PERIOD=$(echo "$SUNSETR_STATUS" | jq -r '.period // "day"')
       PRESET=$(echo "$SUNSETR_STATUS" | jq -r '.active_preset // "default"')
       TEMP=$(echo "$SUNSETR_STATUS" | jq -r '.current_temp // "0"')
       GAMMA=$(echo "$SUNSETR_STATUS" | jq -r '.current_gamma // "0"')
       NEXT_PERIOD=$(echo "$SUNSETR_STATUS" | jq -r '.next_period // null')
 
-      # Format next period info
       NEXT_PERIOD_INFO=""
       if [ "$NEXT_PERIOD" != "null" ] && [ -n "$NEXT_PERIOD" ]; then
-        # Convert ISO 8601 timestamp to local time
         FORMATTED_TIME=$(date -d "$NEXT_PERIOD" '+%H:%M:%S' 2>/dev/null)
         if [ $? -eq 0 ]; then
-          # Calculate time left
           CURRENT_EPOCH=$(date +%s)
           NEXT_EPOCH=$(date -d "$NEXT_PERIOD" +%s 2>/dev/null)
           if [ $? -eq 0 ]; then
@@ -63,30 +76,34 @@ toggle_preset() {
 }
 
 brightness_up() {
-  if [ ! -f /tmp/brightness_throttle ]; then
-    touch /tmp/brightness_throttle
+  if [ ! -f "$BRIGHTNESS_THROTTLE" ]; then
+    touch "$BRIGHTNESS_THROTTLE"
 
     ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 + 5 &
     ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 + 5 &
     wait
 
+    update_brightness_cache
+
     sleep 0.2
 
-    rm /tmp/brightness_throttle
+    rm "$BRIGHTNESS_THROTTLE"
   fi
 }
 
 brightness_down() {
-  if [ ! -f /tmp/brightness_throttle ]; then
-    touch /tmp/brightness_throttle
+  if [ ! -f "$BRIGHTNESS_THROTTLE" ]; then
+    touch "$BRIGHTNESS_THROTTLE"
 
     ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 - 5 &
     ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 - 5 &
     wait
 
+    update_brightness_cache
+
     sleep 0.2
 
-    rm /tmp/brightness_throttle
+    rm "$BRIGHTNESS_THROTTLE"
   fi
 }
 
