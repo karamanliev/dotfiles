@@ -197,6 +197,7 @@ unrar
 uv
 viber
 vicinae-bin
+video-trimmer
 vim
 vkbasalt
 vkd3d
