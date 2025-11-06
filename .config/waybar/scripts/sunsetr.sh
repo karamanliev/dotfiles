@@ -65,12 +65,15 @@ get_status() {
 }
 
 toggle_preset() {
-  PERIOD=$(sunsetr status --json 2>/dev/null | jq -r '.period // "day"')
+  PERIOD=$(sunsetr status --json 2>/dev/null | jq -r '.period // "static"')
+  PRESET=$(sunsetr status --json 2>/dev/null | jq -r '.active_preset // "default"')
 
   if [ "$PERIOD" = "night" ]; then
     sunsetr preset day >/dev/null 2>&1
-  else
+  elif [ "$PERIOD" = "day" ]; then
     sunsetr preset night >/dev/null 2>&1
+  else
+    sunsetr preset "$PRESET" >/dev/null 2>&1
   fi
 }
 
