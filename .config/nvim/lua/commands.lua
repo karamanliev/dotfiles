@@ -133,6 +133,30 @@ command('LazyGitLogsFile', function()
   )
 end, { desc = 'LazyGitLogsFile' })
 
+command('Yazi', function(opts)
+  local socket_path = vim.v.servername
+  local zoom_flag = opts.bang and '' or '-Z'
+  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h' or '-v'
+  local kill_pane = opts.bang and 'false' or 'true'
+  local current_file_path = vim.fn.expand('%:p')
+
+  vim.cmd(
+    'silent !tmux split-window '
+      .. orientation
+      .. ' '
+      .. zoom_flag
+      .. ' -c "'
+      .. vim.fn.getcwd()
+      .. '" "NVIM_SERVER='
+      .. socket_path
+      .. ' YAZI_KILL_PANE='
+      .. kill_pane
+      .. ' yazi '
+      .. current_file_path
+      .. '; [ \\$YAZI_KILL_PANE = "true" ] && tmux kill-pane || true"'
+  )
+end, { desc = 'Yazi', bang = true })
+
 command('Search', function(o)
   local escaped = vim.uri_encode(o.args)
   local url = ('https://duckduckgo.com/?q=%s'):format(escaped)

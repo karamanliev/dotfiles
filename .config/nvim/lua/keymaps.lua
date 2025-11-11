@@ -91,11 +91,7 @@ vim.keymap.set('n', '<leader>L', function()
 end, { desc = 'Lazy' })
 
 -- Open yazi in new tmux window
-vim.keymap.set('n', '<leader>Y', function()
-  local current_file_dir = vim.fn.expand('%:p:h')
-  local tmux_command = 'silent !tmux new-window -c "' .. vim.fn.getcwd() .. '" -- yazi ' .. current_file_dir
-  vim.cmd(tmux_command)
-end, { desc = 'Yazi', silent = true }) -- opens yazi in a new tmux window
+vim.keymap.set('n', '<leader>y', '<cmd>Yazi<cr>', { desc = 'Yazi' })
 
 -- Add a mapping (dd) to delete the current quickfix item
 local function remove_qf_item()
