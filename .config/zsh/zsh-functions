@@ -50,3 +50,8 @@ change_terminal_colorscheme() {
   zsh-sync-colors.sh
 }
 zle -N change_terminal_colorscheme
+
+
+# Create a directory and cd into it
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
