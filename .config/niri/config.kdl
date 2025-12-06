@@ -331,7 +331,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="eu.betterbird.Betterbird"
+    match app-id="eu.betterbird.Betterbird" at-startup=true
     open-on-output "DP-3"
     open-on-workspace "MAIL"
     open-maximized true
