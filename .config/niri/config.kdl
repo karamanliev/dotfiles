@@ -147,6 +147,32 @@ layout {
     background-color "transparent"
 }
 
+//----- ALT+TAB
+recent-windows {
+    debounce-ms 750
+
+    open-delay-ms 150
+
+    highlight {
+        active-color "#bb9af7FF"
+        urgent-color "#ff9999ff"
+        padding 30
+        corner-radius 0
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab         { next-window scope="output"; }
+        Alt+Shift+Tab   { previous-window scope="output"; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
 
 //-----  WORKSPACES
 workspace "L1" {
@@ -341,7 +367,6 @@ binds {
     Mod+N     { focus-workspace-down; }
     Mod+P     { focus-workspace-up; }
     Mod+L     { focus-column-right-or-first; }
-    Alt+Tab   { focus-window-previous; }
 
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
