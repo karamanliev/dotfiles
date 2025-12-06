@@ -261,6 +261,12 @@ window-rule {
 }
 
 window-rule {
+  match app-id="^steam_app"
+  open-on-output "DP-3"
+  open-fullscreen true
+}
+
+window-rule {
   match title="^Picture-in-Picture$"
   opacity 1.0
 }
