@@ -244,17 +244,17 @@ end
 
 local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
 
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
-  group = augroup,
-  pattern = '*',
-  command = 'setlocal statusline=%!v:lua.Statusline.active()',
-})
-
-vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
-  group = augroup,
-  pattern = '*',
-  command = 'setlocal statusline=%!v:lua.Statusline.inactive()',
-})
+-- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
+--   group = augroup,
+--   pattern = '*',
+--   command = 'setlocal statusline=%!v:lua.Statusline.active()',
+-- })
+--
+-- vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
+--   group = augroup,
+--   pattern = '*',
+--   command = 'setlocal statusline=%!v:lua.Statusline.inactive()',
+-- })
 
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
   group = augroup,

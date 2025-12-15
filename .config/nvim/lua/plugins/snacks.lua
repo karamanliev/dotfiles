@@ -193,24 +193,19 @@ return {
               cycle = true,
               preset = 'ivy',
               layout = {
-                box = 'vertical',
-                backdrop = false,
-                row = -1,
-                width = 0,
-                height = 0.15,
-                border = 'top',
-                title = ' {title} {live} {flags}',
-                title_pos = 'left',
-                { win = 'input', height = 1, border = 'none' },
-                {
-                  box = 'horizontal',
-                  { win = 'list', border = 'none' },
-                },
+                height = 0.25,
               },
               hidden = { 'preview' },
             },
             current = false,
             focus = 'list',
+            win = {
+              list = {
+                keys = {
+                  ['<c-x>'] = 'bufdelete',
+                },
+              },
+            },
           })
         end,
         mode = { 'n', 'v' },
