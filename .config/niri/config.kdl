@@ -159,7 +159,7 @@ layout {
 recent-windows {
     debounce-ms 750
 
-    open-delay-ms 150
+    open-delay-ms 250
 
     highlight {
         active-color "#bb9af7FF"
@@ -174,8 +174,10 @@ recent-windows {
     }
 
     binds {
-        Alt+Tab         { next-window scope="output"; }
-        Alt+Shift+Tab   { previous-window scope="output"; }
+        Alt+Tab         { next-window scope="workspace"; }
+        Alt+Shift+Tab   { previous-window scope="workspace"; }
+        Alt+Escape      { next-window scope="output"; }
+        Alt+Shift+Escape{ previous-window scope="output"; }
         Alt+grave       { next-window     filter="app-id"; }
         Alt+Shift+grave { previous-window filter="app-id"; }
     }
@@ -269,6 +271,12 @@ window-rule {
 window-rule {
   match title="^Picture-in-Picture$"
   opacity 1.0
+}
+
+window-rule {
+  match app-id="^figma-linux$"
+  open-on-output "DP-3"
+  default-column-width { proportion 1.0; }
 }
 
 window-rule {
