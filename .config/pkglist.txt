@@ -37,6 +37,7 @@ eza
 fastfetch
 fd
 feishin-bin
+figma-linux-bin
 file-roller
 firefox
 firefox-tridactyl-native
