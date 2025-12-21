@@ -30,6 +30,7 @@ dmidecode
 docker
 docker-compose
 dosfstools
+droidcam
 dust
 efibootmgr
 ethtool
@@ -128,7 +129,7 @@ noto-fonts-emoji
 nss-mdns
 ntfs-3g
 nvidia-container-toolkit
-nvidia-dkms
+nvidia-open-dkms
 nvidia-settings
 nvidia-utils
 obsidian
