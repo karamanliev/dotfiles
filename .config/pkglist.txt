@@ -147,7 +147,6 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
-plann
 playerctl
 plocate
 polkit-gnome
