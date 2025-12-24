@@ -10,7 +10,7 @@ cleanup() {
 trap cleanup EXIT
 
 update_brightness_cache() {
-  ddcutil -b 1 --skip-ddc-checks getvcp 10 -t 2>/dev/null | perl -nE 'if (/ C (\d+) /) { say $1; }' >"$BRIGHTNESS_CACHE"
+  ddcutil -b 5 --skip-ddc-checks getvcp 10 -t 2>/dev/null | perl -nE 'if (/ C (\d+) /) { say $1; }' >"$BRIGHTNESS_CACHE"
 }
 
 get_brightness() {
@@ -79,8 +79,8 @@ toggle_preset() {
 
 brightness_up() {
   if mkdir "$BRIGHTNESS_LOCK" 2>/dev/null; then
-    ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 + 5 &
-    ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 + 5 &
+    ddcutil --noverify --skip-ddc-checks -b 5 setvcp 10 + 5 &
+    ddcutil --noverify --skip-ddc-checks -b 3 setvcp 10 + 5 &
     wait
 
     update_brightness_cache
@@ -93,8 +93,8 @@ brightness_up() {
 
 brightness_down() {
   if mkdir "$BRIGHTNESS_LOCK" 2>/dev/null; then
-    ddcutil --noverify --skip-ddc-checks -b 4 setvcp 10 - 5 &
-    ddcutil --noverify --skip-ddc-checks -b 1 setvcp 10 - 5 &
+    ddcutil --noverify --skip-ddc-checks -b 5 setvcp 10 - 5 &
+    ddcutil --noverify --skip-ddc-checks -b 3 setvcp 10 - 5 &
     wait
 
     update_brightness_cache
