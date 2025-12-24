@@ -5,7 +5,7 @@ output "DP-3" {
     scale 1
     transform "normal"
     position x=0 y=0
-    variable-refresh-rate on-demand=true
+    variable-refresh-rate
 }
 
 output "DP-1" {
