@@ -1,7 +1,6 @@
 1password
 adobe-source-sans-fonts
 adw-gtk-theme
-alacritty
 alsa-plugins
 amd-ucode
 atuin
