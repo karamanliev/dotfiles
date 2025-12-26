@@ -48,6 +48,7 @@ gimp
 git
 git-delta
 gnome-calculator
+gnome-disk-utility
 gnome-keyring
 gnu-netcat
 go
@@ -132,7 +133,6 @@ nvidia-open-dkms
 nvidia-settings
 nvidia-utils
 obsidian
-ollama-cuda
 opencl-nvidia
 otf-san-francisco
 otf-san-francisco-mono
@@ -180,7 +180,6 @@ sunsetr-bin
 sunshine
 sushi
 swaync
-sweethome3d
 tealdeer
 telegram-desktop
 tmux-git
