@@ -32,13 +32,13 @@ get_wallpaper_index_by_path() {
 }
 
 if [ "$1" = "daemon" ]; then
-  pidof hyprpaper && killall -9 -q hyprpaper
+  pidof wpaperd && killall -9 -q wpaperd
   pidof rwpspread && killall -9 -q rwpspread
 
   load_wallpapers
   get_current_wallpaper
 
-  rwpspread -b hyprpaper -di "$CURRENT_WALLPAPER" &
+  rwpspread -b wpaperd -di "$CURRENT_WALLPAPER" &
   disown
 else
   load_wallpapers
@@ -73,5 +73,5 @@ else
   echo "$CURRENT_INDEX" >"$WP_INDEX_FILE"
 
   CURRENT_WALLPAPER="${WALLPAPERS_ARR[$CURRENT_INDEX]}"
-  rwpspread -b hyprpaper -i "$CURRENT_WALLPAPER"
+  rwpspread -b wpaperd -i "$CURRENT_WALLPAPER"
 fi

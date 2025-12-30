@@ -66,7 +66,7 @@ spawn-at-startup "solaar" "--window=hide"
 spawn-at-startup "gtk-launch" "razer-battery-tray.desktop"
 
 spawn-at-startup "hypridle"
-spawn-at-startup "hyprpaper"
+spawn-at-startup ".~/.config/hypr/scripts/wallpaper.sh daemon"
 
 spawn-at-startup "sunsetr"
 spawn-at-startup "wayvnc" "0.0.0.0" "5900"
@@ -223,7 +223,7 @@ workspace "NOTES" {
 
 //-----  RULES
 layer-rule {
-    match namespace="^hyprpaper$"
+    match namespace="^wpaperd"
     place-within-backdrop true
 }
 
