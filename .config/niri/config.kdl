@@ -79,6 +79,8 @@ spawn-at-startup "obsidian"
 spawn-at-startup "kitty"
 spawn-at-startup "xwayland-satellite"
 
+spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
+
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" "writes" "--dir-cache-time" "5s" "karamanliev-dav:" "/home/ico/Server" "--daemon"
 
 //-----  GENERAL
