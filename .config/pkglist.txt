@@ -64,11 +64,8 @@ gvfs-mtp
 gvfs-nfs
 gvfs-onedrive
 gvfs-smb
-hypridle
-hyprland
-hyprpicker
-hyprshot
 inkscape
+jq
 kitty
 lazydocker
 lazygit
@@ -179,6 +176,7 @@ stow
 sunsetr-bin
 sunshine
 sushi
+swayidle
 swaync
 tealdeer
 telegram-desktop
@@ -210,7 +208,6 @@ wl-clipboard
 wpaperd
 xclip
 xdg-desktop-portal-gnome
-xdg-desktop-portal-hyprland
 xdg-user-dirs-gtk
 xdg-utils
 xorg-xinit

@@ -58,18 +58,21 @@ spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Extension.*' -- 'move-window-to-floating' 'set-window-width 30%' 'set-window-height 60%' 'center-window'"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Developer Tools.*' -- 'set-window-width 800'"
 
-spawn-at-startup "swaync"
+// spawn-at-startup "swaync"
 spawn-at-startup "waybar" "--config=/home/ico/.config/waybar/config_niri.jsonc"
 spawn-at-startup "nm-applet"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "solaar" "--window=hide"
 spawn-at-startup "gtk-launch" "razer-battery-tray.desktop"
 
-spawn-at-startup "hypridle"
-spawn-at-startup ".~/.config/hypr/scripts/wallpaper.sh daemon"
+spawn-at-startup "wpaperd" "-d"
+spawn-at-startup "swayidle" "-w" \
+"timeout" "600" "niri msg action power-off-monitors" \
+"timeout" "3600" "systemctl suspend"
+
 
 spawn-at-startup "sunsetr"
-spawn-at-startup "wayvnc" "0.0.0.0" "5900"
+spawn-at-startup "wayvnc" "--output=DP-3" "0.0.0.0" "5900"
 
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "Telegram"
@@ -81,7 +84,10 @@ spawn-at-startup "xwayland-satellite"
 
 spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
 
-spawn-at-startup "rclone" "mount" "--vfs-cache-mode" "writes" "--dir-cache-time" "5s" "karamanliev-dav:" "/home/ico/Server" "--daemon"
+// mount the server nas as a local folder "~/Server"
+spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
+                 "writes" "--dir-cache-time" "5s" \
+                 "karamanliev-dav:" "/home/ico/Server" "--daemon"
 
 //-----  GENERAL
 hotkey-overlay {
@@ -451,8 +457,8 @@ binds {
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
-    Mod+Shift+BracketLeft  { spawn-sh "~/.config/hypr/scripts/wallpaper.sh prev"; }
-    Mod+Shift+BracketRight { spawn-sh "~/.config/hypr/scripts/wallpaper.sh next"; }
+    Mod+Shift+BracketLeft  { spawn-sh "~/.config/niri/scripts/wallpaper.sh prev"; }
+    Mod+Shift+BracketRight { spawn-sh "~/.config/niri/scripts/wallpaper.sh next"; }
 
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
