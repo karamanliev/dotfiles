@@ -1,6 +1,12 @@
 -- Clear search highlights with <Esc>
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Yank to system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
+
+-- Paste from system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Write file' })
 vim.keymap.set('n', '<leader>W', '<cmd>WriteWithoutFormat<CR>', { desc = 'Write file (no autoformat)' })
 
@@ -91,7 +97,7 @@ vim.keymap.set('n', '<leader>L', function()
 end, { desc = 'Lazy' })
 
 -- Open yazi in new tmux window
-vim.keymap.set('n', '<leader>y', '<cmd>Yazi<cr>', { desc = 'Yazi' })
+vim.keymap.set('n', '<leader>Y', '<cmd>Yazi<cr>', { desc = 'Yazi' })
 
 -- Add a mapping (dd) to delete the current quickfix item
 local function remove_qf_item()

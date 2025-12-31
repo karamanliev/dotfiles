@@ -83,10 +83,20 @@ vim.opt.termguicolors = true
 vim.opt.cmdwinheight = 20
 
 -- Clipboard
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = ''
 -- Use OSC52 when SSH
 if vim.env.SSH_TTY then
-  vim.g.clipboard = 'osc52'
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
 end
 
 -- Enable break indent
