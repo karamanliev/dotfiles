@@ -508,6 +508,7 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
+    F8 { spawn "gsr.sh" "save-replay"; }
     F12 { spawn-sh "pkill -x waybar; waybar --config ~/.config/waybar/config_niri.jsonc"; }
     Mod+F12 { power-off-monitors; }
 }
