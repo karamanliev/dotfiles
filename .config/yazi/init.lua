@@ -1,3 +1,3 @@
 require("full-border"):setup({
-	type = ui.Border.ROUNDED,
+	type = ui.Border.PLAIN,
 })
