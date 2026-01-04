@@ -101,7 +101,6 @@ libva-nvidia-driver
 linux
 linux-firmware
 linux-headers
-llama.cpp-cuda
 localsearch
 loupe
 lutris
