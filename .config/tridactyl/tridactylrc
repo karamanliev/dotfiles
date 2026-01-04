@@ -59,8 +59,8 @@ unbind gf
 unbind gF
 bind gf hint -qb
 
-bind --mode=normal <A-`> mode ignore
-bind --mode=ignore <A-`> mode normal
+bind --mode=normal <A-v> mode ignore
+bind --mode=ignore <A-v> mode normal
 
 " bind --mode=browser <C-j> escapehatch
 bind --mode=browser <C-n> tabnext
