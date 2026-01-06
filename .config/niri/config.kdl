@@ -26,7 +26,7 @@ output "DP-1" {
 
 output "HDMI-A-1" {
     off
-    mode "2560x1440@120.00"
+    mode "3840x2160@120.00"
     scale 2
     position x=0 y=0
     variable-refresh-rate on-demand=true
@@ -510,5 +510,6 @@ binds {
 
     F8 { spawn "gsr.sh" "save-replay"; }
     F12 { spawn-sh "pkill -x waybar; waybar --config ~/.config/waybar/config_niri.jsonc"; }
+    F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
     Mod+F12 { power-off-monitors; }
 }

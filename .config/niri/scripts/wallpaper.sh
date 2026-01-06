@@ -56,6 +56,8 @@ else
       RANDOM_INDEX=$((RANDOM % WALLPAPERS_COUNT))
     done
     CURRENT_INDEX=$RANDOM_INDEX
+  elif [ "$1" = "current" ]; then
+    CURRENT_INDEX=$(cat "$WP_INDEX_FILE")
   # If the argument is path to a file
   elif [ -f "$1" ]; then
     NEW_INDEX=$(get_wallpaper_index_by_path "$1")
