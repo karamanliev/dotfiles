@@ -44,6 +44,8 @@ firefox-tridactyl-native
 fnm-bin
 fragments
 fzf
+gamemode
+gamescope
 gimp
 git
 git-delta
