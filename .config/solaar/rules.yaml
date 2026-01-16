@@ -29,9 +29,7 @@
 ...
 ---
 - MouseGesture: []
-- KeyPress:
-  - [Super_L, a]
-  - click
+- Execute: [bash, -c, niri msg action toggle-overview]
 ...
 ---
 - Key: [Middle Button, pressed]
