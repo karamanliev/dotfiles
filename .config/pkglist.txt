@@ -12,7 +12,6 @@ betterbird-bin
 bind
 bitwarden
 blueman
-brave-bin
 btop
 btrfs-assistant
 btrfs-progs
@@ -95,7 +94,6 @@ lib32-opencl-nvidia
 lib32-sqlite
 lib32-v4l-utils
 lib32-vkd3d
-libgnome-keyring
 libpulse
 libqalculate
 libreoffice-fresh
