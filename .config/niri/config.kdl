@@ -215,6 +215,10 @@ workspace "MAIL" {
     open-on-output "DP-3"
 }
 
+workspace "GAMES" {
+    open-on-output "DP-3"
+}
+
 workspace "R1" {
     open-on-output "DP-1"
 }
@@ -384,6 +388,12 @@ window-rule {
     open-on-workspace "MAIL"
 }
 
+window-rule {
+    match app-id="steam"
+    match app-id="^steam_app"
+    open-on-workspace "GAMES"
+}
+
 //----- BINDS
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
@@ -449,6 +459,7 @@ binds {
     Mod+9 { focus-workspace 9; }
     Mod+C { focus-workspace "CHAT"; }
     Mod+M { focus-workspace "MAIL"; }
+    Mod+G { focus-workspace "GAMES"; }
     Mod+B { focus-workspace "NOTES"; }
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
