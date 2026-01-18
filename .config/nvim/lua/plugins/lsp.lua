@@ -115,6 +115,7 @@ return {
         },
         cssls = {},
         tailwindcss = {},
+        unocss = {},
         astro = {},
         vtsls = {
           on_attach = function(client, bufnr)

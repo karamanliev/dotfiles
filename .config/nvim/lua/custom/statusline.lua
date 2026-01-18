@@ -181,20 +181,6 @@ local function branch()
   return ' ' .. branch_name
 end
 
-local function lsp_msg()
-  local msg = vim.lsp.status()
-
-  if msg == '' or vim.o.columns < 80 then
-    return ''
-  end
-
-  local spinners = { '', '󰪞', '󰪟', '󰪠', '󰪢', '󰪣', '󰪤', '󰪥' }
-  local ms = vim.uv.hrtime() / 1e6
-  local frame = math.floor(ms / 100) % #spinners
-
-  return '%#StatusLineNoChanges#' .. spinners[frame + 1] .. ' ' .. msg
-end
-
 local hide_when_small = function(module)
   if vim.o.columns < 120 then
     return ''
@@ -224,7 +210,6 @@ Statusline.active = function()
     '%=%#StatusLine#',
     table.concat(custom_modules, ' '),
     ' %#StatusLine#',
-    lsp_msg(),
     diagnostics(),
     ' %#StatusLine#',
     lineinfo(),
@@ -244,29 +229,49 @@ end
 
 local augroup = vim.api.nvim_create_augroup('Statusline', { clear = true })
 
--- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
---   group = augroup,
---   pattern = '*',
---   command = 'setlocal statusline=%!v:lua.Statusline.active()',
--- })
---
--- vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
---   group = augroup,
---   pattern = '*',
---   command = 'setlocal statusline=%!v:lua.Statusline.inactive()',
--- })
+local excluded_filetypes = {
+  -- Add filetype to exlcude here:
+  -- 'snacks_picker',
+  -- 'snacks_picker_input',
+  -- 'snacks_picker_list',
+  -- 'snacks_picker_preview',
+  -- 'snacks_input',
+  -- 'snacks_dashboard',
+  -- 'snacks_notifier',
+  -- 'snacks_terminal',
+}
 
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
+local function should_skip_statusline()
+  local ft = vim.bo.filetype
+  return vim.tbl_contains(excluded_filetypes, ft) or vim.w.snacks_win
+end
+
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   group = augroup,
-  pattern = { 'alpha' },
-  command = 'setlocal statusline=%!v:lua.Statusline.short()',
-})
-
--- Redraw statusline when LSP progress updates
-vim.api.nvim_create_autocmd('LspProgress', {
+  pattern = '*',
   callback = function()
-    vim.cmd('redrawstatus')
+    if not should_skip_statusline() then
+      vim.wo.statusline = '%!v:lua.Statusline.active()'
+    end
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
+  group = augroup,
+  pattern = '*',
+  callback = function()
+    if not should_skip_statusline() then
+      vim.wo.statusline = '%!v:lua.Statusline.inactive()'
+    end
+  end,
+})
+
+-- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
+--   group = augroup,
+--   pattern = { 'alpha' },
+--   callback = function()
+--     vim.wo.statusline = '%!v:lua.Statusline.short()'
+--   end,
+-- })
 
 return M
