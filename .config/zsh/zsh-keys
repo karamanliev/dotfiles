@@ -4,6 +4,12 @@ bindkey '^[r' hist_delete_fzf
 # toggle fg with ctrl+z
 bindkey '^Z' fg_widget
 
+# open zoxide zi widget
+bindkey '^F' cdi_widget
+
+# attach/detach tmux session
+bindkey '^[s' tmux_dotfiles_widget
+
 # change terminal colorscheme
 bindkey '^[t' change_terminal_colorscheme
 

@@ -51,6 +51,47 @@ change_terminal_colorscheme() {
 }
 zle -N change_terminal_colorscheme
 
+function cdi_widget() {
+  zle -I
+  cdi
+  zle reset-prompt
+}
+
+zle -N cdi_widget
+
+# Regular function with the logic
+tmux-dotfiles() {
+  local session_name="dotfiles"
+  local session_path="$HOME/dotfiles"
+
+  if [[ -n "$TMUX" ]]; then
+    local current_session=$(tmux display-message -p '#S')
+    if [[ "$current_session" == "$session_name" ]]; then
+      tmux detach-client
+    else
+      if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux switch-client -t "$session_name"
+      else
+        tmux new-session -d -s "$session_name" -c "$session_path"
+        tmux switch-client -t "$session_name"
+      fi
+    fi
+  else
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+      tmux attach-session -t "$session_name"
+    else
+      tmux new-session -s "$session_name" -c "$session_path"
+    fi
+  fi
+}
+
+# Widget that calls the function
+function tmux_dotfiles_widget() {
+  zle push-line
+  BUFFER="tmux-dotfiles"
+  zle accept-line
+}
+zle -N tmux_dotfiles_widget
 
 # Create a directory and cd into it
 mkcd() { mkdir -p "$1" && cd "$1"; }
