@@ -391,6 +391,7 @@ window-rule {
 window-rule {
     match app-id="steam"
     match app-id="^steam_app"
+    match title="gamescope"
     open-on-workspace "GAMES"
 }
 
