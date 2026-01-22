@@ -24,7 +24,7 @@ get_window_count() {
     num="$(echo "$windows" | jq "length")"
     focused_pos="$(echo "$windows" | jq "map(.is_focused) | index(true) + 1")"
     if [ "$num" -le 1 ]; then
-      printf "%d\n" "$num"
+      printf "\n"
     elif [ "$focused_pos" = "null" ]; then
       printf "%d\n" "$num"
     else
