@@ -239,6 +239,10 @@ tooltip label {
   color: #c3e88d;
 }
 
+#custom-niri_windowcount {
+  margin-right: 12px;
+}
+
 @keyframes blink {
   from {
     opacity: 1;

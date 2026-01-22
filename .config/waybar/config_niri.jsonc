@@ -111,7 +111,9 @@
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-3"
     },
     "niri/window": {
-      "format": " {title} ",
+      "format": "{title}",
+      "icon": true,
+      "icon-size": 16,
       "separate-outputs": true,
       "max-length": 30
     },
@@ -326,7 +328,9 @@
       "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-1"
     },
     "niri/window": {
-      "format": " {title} ",
+      "format": "{title}",
+      "icon": true,
+      "icon-size": 16,
       "separate-outputs": true,
       "max-length": 30
     },
