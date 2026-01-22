@@ -9,6 +9,8 @@
     "margin-bottom": 0,
     "margin-left": 0,
     "modules-left": [
+      "custom/vicinae",
+      "custom/separator",
       "niri/workspaces",
       "custom/separator",
       "custom/niri_windowcount",
@@ -46,6 +48,14 @@
     "custom/separator": {
       "format": "       ",
       "tooltip": false
+    },
+    "custom/vicinae": {
+      "format": "<span font_size='11.5pt'>{icon}</span>",
+      "tooltip": false,
+      "format-icons": {
+        "default": "󰌧"
+      },
+      "on-click": "vicinae toggle"
     },
     "custom/agenda": {
       "format": "<span font_size='large'>󰨲</span>  {0}",
@@ -238,6 +248,8 @@
     "margin-bottom": 0,
     "margin-left": 0,
     "modules-left": [
+      "custom/vicinae",
+      "custom/separator",
       "niri/workspaces",
       "custom/separator",
       "custom/niri_windowcount",
@@ -255,7 +267,7 @@
       // "custom/separator",
       // "memory",
       // "custom/separator",
-      "tray",
+      // "tray",
       "idle_inhibitor",
       "custom/sunsetr",
       "custom/gsr",
@@ -269,6 +281,14 @@
     "custom/separator": {
       "format": "       ",
       "tooltip": false
+    },
+    "custom/vicinae": {
+      "format": "<span font_size='11.5pt'>{icon}</span>",
+      "tooltip": false,
+      "format-icons": {
+        "default": "󰌧"
+      },
+      "on-click": "vicinae toggle"
     },
     "tray": {
       "icon-size": 18,

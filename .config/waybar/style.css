@@ -35,6 +35,10 @@ window#waybar {
   margin-right: 8px;
 }
 
+.modules-left {
+  margin-left: 6px;
+}
+
 tooltip {
   background: @bg_main_tooltip;
   border-radius: 0px;
@@ -50,7 +54,7 @@ tooltip label {
 #workspaces {
   color: transparent;
   margin-right: 0px;
-  margin-left: 6px;
+  margin-left: 2px;
 }
 #workspaces button {
   border-radius: 3px;
@@ -60,6 +64,10 @@ tooltip label {
   margin-right: 4px;
   color: @content_main;
   transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#workspaces button:last-child {
+  margin-right: 2px;
 }
 
 #workspaces button.empty {
@@ -159,10 +167,15 @@ tooltip label {
 #cpu,
 #temperature,
 #custom-gpu,
+#custom-vicinae,
 #memory {
   margin: 6px 0;
   padding: 0 8px;
   border-radius: 4px;
+}
+
+#custom-vicinae {
+  padding: 0 4px;
 }
 
 #custom-separator {
@@ -170,6 +183,7 @@ tooltip label {
 }
 
 #custom-notification:hover,
+#custom-vicinae:hover,
 #custom-agenda:hover,
 #custom-sunsetr:hover,
 #custom-weather:hover,
