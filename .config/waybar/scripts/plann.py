@@ -129,6 +129,11 @@ def parse_plann_output(output: str) -> list[dict]:
             if enddate < datetime.datetime.now():
                 continue
 
+            # Skip events that start more than 2 weeks in the future
+            two_weeks_from_now = datetime.datetime.now() + datetime.timedelta(weeks=2)
+            if startdate > two_weeks_from_now:
+                continue
+
             # Detect all-day events
             # An all-day event starts at 00:00 and either:
             # - ends at 00:00 on a different day, or
