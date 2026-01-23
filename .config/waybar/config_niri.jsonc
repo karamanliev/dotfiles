@@ -55,7 +55,8 @@
       "format-icons": {
         "default": "󰌧"
       },
-      "on-click": "vicinae toggle"
+      "on-click": "vicinae toggle",
+      "on-click-right": "vicinae vicinae://extensions/vicinae/wm/switch-windows"
     },
     "custom/agenda": {
       "format": "<span font_size='large'>󰨲</span>  {0}",
@@ -290,7 +291,8 @@
       "format-icons": {
         "default": "󰌧"
       },
-      "on-click": "vicinae toggle"
+      "on-click": "vicinae toggle",
+      "on-click-right": "vicinae vicinae://extensions/vicinae/wm/switch-windows"
     },
     "tray": {
       "icon-size": 18,
