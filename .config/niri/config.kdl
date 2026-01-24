@@ -5,7 +5,7 @@ output "DP-3" {
     scale 1
     transform "normal"
     position x=0 y=0
-    variable-refresh-rate
+    variable-refresh-rate on-demand=true
 }
 
 output "DP-1" {
@@ -13,7 +13,6 @@ output "DP-1" {
     scale 1
     transform "270"
     position x=2560 y=-565
-    variable-refresh-rate on-demand=true
 
     layout {
       default-column-width { proportion 1.0; }
@@ -272,19 +271,24 @@ window-rule {
 window-rule {
   match app-id="steam" title="^Steam$"
   open-on-output "DP-3"
+  open-on-workspace "GAMES"
   default-column-width { proportion 0.76; }
 }
 
 window-rule {
   match app-id="steam" title="^Friends List$"
   open-on-output "DP-3"
+  open-on-workspace "GAMES"
   default-column-width { proportion 0.24; }
 }
 
 window-rule {
   match app-id="^steam_app"
+  match app-id="gamescope"
   open-on-output "DP-3"
+  open-on-workspace "GAMES"
   open-fullscreen true
+  variable-refresh-rate true
 }
 
 window-rule {
@@ -387,14 +391,6 @@ window-rule {
 window-rule {
     match app-id="betterbird"
     open-on-workspace "MAIL"
-}
-
-window-rule {
-    match app-id="steam"
-    match app-id="^steam_app"
-    match app-id="gamescope"
-    match title="gamescope"
-    open-on-workspace "GAMES"
 }
 
 //----- BINDS
