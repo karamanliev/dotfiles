@@ -55,6 +55,7 @@ environment {
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
+spawn-at-startup "~/.config/niri/scripts/sunsetr_gaming.sh"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Extension.*' -- 'move-window-to-floating' 'set-window-width 30%' 'set-window-height 60%' 'center-window'"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Developer Tools.*' -- 'set-window-width 800'"
 
@@ -391,6 +392,7 @@ window-rule {
 window-rule {
     match app-id="steam"
     match app-id="^steam_app"
+    match app-id="gamescope"
     match title="gamescope"
     open-on-workspace "GAMES"
 }
