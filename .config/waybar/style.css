@@ -251,3 +251,59 @@ tooltip label {
     opacity: 0.5;
   }
 }
+
+/* Claude Code Usage Monitor Styling */
+#custom-claude-usage {
+  margin: 6px 0;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect: show clickable */
+#custom-claude-usage:hover {
+  background: @bg_hover;
+}
+
+/* Color-coded by usage level */
+#custom-claude-usage.claude-low {
+  color: #a6e3a1; /* Green: low usage (0-49%) */
+}
+
+#custom-claude-usage.claude-mid {
+  color: #f9e2af; /* Yellow: medium usage (50-79%) */
+}
+
+#custom-claude-usage.claude-high {
+  color: #f38ba8; /* Red: high usage (80-99%) */
+}
+
+/* Error state (network failures, auth errors, etc.) */
+#custom-claude-usage.critical {
+  color: #ff5555;
+  background: rgba(255, 85, 85, 0.1);
+}
+
+.niri-taskbar button:hover {
+  background: rgba(200, 200, 200, 0.35);
+}
+
+.niri-taskbar button.focused {
+  background: rgba(200, 200, 200, 0.2);
+}
+
+.niri-taskbar button {
+  margin-right: 4px;
+  padding: 0px 4px;
+  border-radius: 4px;
+  border-bottom: solid 3px transparent;
+}
+
+.niri-taskbar button:last-child {
+  margin-right: 0px;
+}
+
+.niri-taskbar button image {
+  margin-top: 3px;
+}
