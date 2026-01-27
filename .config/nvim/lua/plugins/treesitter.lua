@@ -193,7 +193,7 @@ return {
   -- Smart split/join
   {
     'Wansmer/treesj',
-    enabled = false,
+    enabled = true,
     keys = {
       { '<leader>j', '<cmd>TSJToggle<cr>', desc = 'TreesJ Toggle' },
     },
