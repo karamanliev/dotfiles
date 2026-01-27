@@ -113,7 +113,15 @@ return {
             },
           },
         },
-        cssls = {},
+        cssls = {
+          settings = {
+            css = {
+              lint = {
+                unknownProperties = 'ignore',
+              },
+            },
+          },
+        },
         tailwindcss = {},
         unocss = {},
         astro = {},
