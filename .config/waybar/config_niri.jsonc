@@ -105,7 +105,9 @@
       "escape": true
     },
     "niri/workspaces": {
-      "format": "{value}"
+      "format": "{value}",
+      "on-scroll-up": "niri msg action focus-workspace-up",
+      "on-scroll-down": "niri msg action focus-workspace-down"
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
@@ -323,7 +325,9 @@
       "escape": true
     },
     "niri/workspaces": {
-      "format": "{value}"
+      "format": "{value}",
+      "on-scroll-up": "niri msg action focus-workspace-up",
+      "on-scroll-down": "niri msg action focus-workspace-down"
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
