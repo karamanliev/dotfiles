@@ -158,6 +158,7 @@ rclone
 reflector
 ripgrep
 rsync
+rustup
 rwpspread
 rygel
 satty

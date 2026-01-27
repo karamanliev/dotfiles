@@ -89,6 +89,7 @@ return {
             format = false,
           },
         },
+        rust_analyzer = {},
         jsonls = {},
         yamlls = {},
         lua_ls = {
