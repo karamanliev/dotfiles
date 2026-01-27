@@ -96,3 +96,17 @@ zle -N tmux_dotfiles_widget
 # Create a directory and cd into it
 mkcd() { mkdir -p "$1" && cd "$1"; }
 
+# open sesh outside tmux
+function sesh-sessions() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list -i -d | fzf --height 40% --reverse --border-label ' sesh ' --border --ansi --prompt '⚡  ')
+    zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
+
+zle -N sesh-sessions
