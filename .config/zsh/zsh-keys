@@ -8,7 +8,7 @@ bindkey '^Z' fg_widget
 bindkey '^F' cdi_widget
 
 # attach/detach tmux session
-bindkey '^[s' tmux_dotfiles_widget
+bindkey '^[l' tmux_dotfiles_widget
 
 # change terminal colorscheme
 bindkey '^[t' change_terminal_colorscheme
