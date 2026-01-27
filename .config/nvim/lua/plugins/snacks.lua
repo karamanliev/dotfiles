@@ -33,6 +33,9 @@ return {
         },
         chunk = {
           enabled = true,
+          char = {
+            arrow = '─',
+          },
         },
         indent = {
           enabled = true,
@@ -127,7 +130,28 @@ return {
         ui_select = true,
       },
       quickfile = { enabled = true },
-      scope = { enabled = true },
+      scope = {
+        enabled = true,
+        cursor = true,
+        keys = {
+          textobject = {
+            ii = {
+              cursor = true,
+            },
+            ai = {
+              cursor = true,
+            },
+          },
+          jump = {
+            ['[i'] = {
+              cursor = true,
+            },
+            [']i'] = {
+              cursor = true,
+            },
+          },
+        },
+      },
       scroll = { enabled = false },
       statuscolumn = {
         enabled = false,
@@ -471,6 +495,31 @@ return {
         end,
         desc = 'Prev Reference',
         mode = { 'n', 't' },
+      },
+      {
+        -- fold at cursor column using snacks scope
+        'za',
+        function()
+          require('snacks.scope').get(function(scope)
+            if not scope then
+              vim.cmd('normal! za')
+              return
+            end
+
+            local fold_start = vim.fn.foldclosed(scope.from)
+
+            if fold_start ~= -1 then
+              vim.cmd(scope.from .. 'foldopen')
+            else
+              local saved_fdm = vim.wo.foldmethod
+
+              vim.wo.foldmethod = 'manual'
+              vim.cmd(string.format('%d,%dfold', scope.from, scope.to))
+              vim.wo.foldmethod = saved_fdm
+            end
+          end)
+        end,
+        desc = 'Toggle fold at cursor column',
       },
     },
     init = function()

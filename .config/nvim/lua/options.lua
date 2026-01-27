@@ -45,8 +45,8 @@ vim.opt.foldtext = ''
 vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
-vim.o.foldmethod = 'indent'
--- vim.o.foldmethod = 'expr'
+vim.o.foldmethod = 'expr'
+-- vim.o.foldmethod = 'indent'
 -- Default to treesitter folding
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 -- Prefer LSP folding if client supports it
