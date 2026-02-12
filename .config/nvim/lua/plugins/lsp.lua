@@ -186,7 +186,7 @@ return {
           settings = {
             intelephense = {
               stubs = require('utils.php_stubs'),
-              format = false,
+              format = true,
             },
           },
         },

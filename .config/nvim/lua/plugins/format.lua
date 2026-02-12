@@ -42,9 +42,14 @@ return {
         if vim.b.dont_format_on_write or vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
+        local ft = vim.bo[bufnr].filetype
+        -- For PHP: run LSP (intelephense) first, then rustywind for tailwind classes
+        if ft == 'php' then
+          return { timeout_ms = 500, lsp_format = 'first' }
+        end
         return {
           timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+          lsp_fallback = not disable_filetypes[ft],
         }
       end,
       formatters_by_ft = {
@@ -61,7 +66,7 @@ return {
         astro = { 'prettierd' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
-        php = { 'prettierd', 'rustywind' },
+        php = { 'rustywind' },
       },
     },
   },
