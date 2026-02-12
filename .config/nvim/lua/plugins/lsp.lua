@@ -182,6 +182,14 @@ return {
             },
           },
         },
+        intelephense = {
+          settings = {
+            intelephense = {
+              stubs = require('utils.php_stubs'),
+              format = false,
+            },
+          },
+        },
       }
 
       for server_name, config in pairs(servers) do
