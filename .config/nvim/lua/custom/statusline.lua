@@ -201,8 +201,10 @@ Statusline.active = function()
   end
 
   return table.concat({
-    hide_when_small(update_mode_colors()),
-    hide_when_small(mode()),
+    -- hide_when_small(update_mode_colors()),
+    -- hide_when_small(mode()),
+    update_mode_colors(),
+    mode(),
     '%#StatusLine#',
     filename(),
     ' %#StatusLine#',
