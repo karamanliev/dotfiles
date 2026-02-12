@@ -61,6 +61,7 @@ return {
         astro = { 'prettierd' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
+        php = { 'prettierd' },
       },
     },
   },
