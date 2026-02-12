@@ -31,7 +31,7 @@ alias lsf='eza -lfa --icons --color=always | grep -v /'
 alias lt='f() { if [ $# -eq 0 ]; then eza --tree --level=2 --icons --color=always --group-directories-first; else eza --tree --level="$1" --icons --color=always --group-directories-first; fi }; f'
 
 ## Remap
-alias cat='bat'
+# alias cat='bat'
 alias top='btop'
 alias nvim='nvim --listen /tmp/nvim-server-$$.pipe'
 alias v='nvim'
