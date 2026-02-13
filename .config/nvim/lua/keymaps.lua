@@ -89,9 +89,9 @@ vim.keymap.set('n', 'zfm', '<cmd>SelectFoldMethod<cr>', { desc = 'Select foldmet
 
 -- Open lazygit in new tmux window
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
-vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+-- vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 vim.keymap.set('n', 'gH', '<cmd>LazyGit!<cr>', { desc = 'LazyGit split' })
-vim.keymap.set('n', 'gL', '<cmd>LazyGitLogs<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', 'gL', '<cmd>LazyGitLogsFile<cr>', { desc = 'LazyGit' })
 vim.keymap.set('n', '<leader>L', function()
   require('lazy').home()
 end, { desc = 'Lazy' })

@@ -110,7 +110,7 @@ command('LazyGitLogs', function()
   local socket_path = vim.v.servername
   vim.cmd(
     'silent !tmux split-window -Z -c "'
-      .. vim.fn.getcwd()
+      .. cwd
       .. '" "NVIM_SERVER='
       .. socket_path
       .. ' LAZYGIT_KILL_PANE=true lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --sm full --filter '
@@ -303,47 +303,26 @@ autocmd('BufEnter', {
   desc = 'Disable New Line Comment',
 })
 
--- Disable LSP and TS when opening large files
--- local big_file = autogroup('BigFile', { clear = true })
--- vim.filetype.add({
---   pattern = {
---     ['.*'] = {
---       function(path, buf)
---         return vim.bo[buf] and vim.bo[buf].filetype ~= 'bigfile' and path and vim.fn.getfsize(path) > 1024 * 500 and 'bigfile' or nil -- bigger than 500KB
---       end,
---     },
---   },
--- })
---
--- autocmd({ 'FileType' }, {
---   group = big_file,
---   pattern = 'bigfile',
---   callback = function(ev)
---     vim.cmd('syntax off')
---     -- vim.cmd('UfoDetach')
---     vim.cmd('Gitsigns detach')
---     vim.opt_local.foldmethod = 'manual'
---     vim.opt_local.spell = false
---     vim.schedule(function()
---       vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ''
---     end)
---   end,
--- })
-
--- Open signature help automatically
--- autocmd('LspAttach', {
---   group = autogroup('LspSignatureHelp', { clear = true }),
---   callback = function(args)
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---
---     if client then
---       local signatureProvider = client.server_capabilities.signatureHelpProvider
---       if signatureProvider and signatureProvider.triggerCharacters then
---         require('utils.lsp').setup(client, args.buf)
---       end
---     end
---   end,
--- })
+-- Store/clear nvim server socket in tmux pane option for external lazygit integration
+if vim.env.TMUX then
+  autocmd('VimEnter', {
+    callback = function()
+      local socket = vim.v.servername
+      if socket ~= '' then
+        vim.fn.system('tmux set-option -p @nvim_server ' .. socket)
+      end
+    end,
+    group = general,
+    desc = 'Store nvim server in tmux pane option',
+  })
+  autocmd('VimLeave', {
+    callback = function()
+      vim.fn.system('tmux set-option -pu @nvim_server')
+    end,
+    group = general,
+    desc = 'Clear nvim server from tmux pane option',
+  })
+end
 
 -- Refresh colorscheme highlights on change
 autocmd({ 'ColorScheme' }, {

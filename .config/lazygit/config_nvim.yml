@@ -1,7 +1,7 @@
 os:
-  edit: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
-  editAtLine: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e +{{line}} {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
-  open: nvim --server "${NVIM_SERVER}" --remote-send "<cmd>e {{filename}}<cr>"; [ "${LAZYGIT_KILL_PANE}" = "true" ] && tmux kill-pane || true;
+  edit: "~/.config/lazygit/scripts/nvim-edit.sh {{filename}}"
+  editAtLine: "~/.config/lazygit/scripts/nvim-edit.sh {{filename}} {{line}}"
+  editInTerminal: false
 git:
   pagers:
     - colorArg: always
@@ -40,5 +40,10 @@ promptToReturnFromSubprocess: false
 notARepository: "skip"
 keybinding:
   universal:
-    edit: <disabled>
-    openFile: e
+    quit: Q
+customCommands:
+  - key: q
+    context: global
+    command: 'if [ -n "${LAZYGIT_POPUP_SESSION}" ]; then tmux detach-client; fi'
+    description: Close popup (detach) or no-op
+    output: terminal
