@@ -1,4 +1,9 @@
 [mgr]
 show_hidden = true
 show_symlink = true
-ratio = [2, 3, 3]
+ratio = [2, 3, 4]
+
+[opener]
+edit = [
+  { run = '~/.config/yazi/scripts/nvim-edit.sh "$@"', block = true, desc = "Edit" },
+]

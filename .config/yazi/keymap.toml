@@ -1,4 +1,14 @@
 [[mgr.prepend_keymap]]
+on   = "<C-q>"
+run  = "shell '~/.config/yazi/scripts/nvim-quickfix.sh \"$@\"' --block"
+desc = "Send selected files to nvim quickfix"
+
+[[mgr.prepend_keymap]]
+on = "-"
+run = "quit"
+desc = "Quit Yazi"
+
+[[mgr.prepend_keymap]]
 on   = "<Enter>"
 run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"

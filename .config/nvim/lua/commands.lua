@@ -134,28 +134,28 @@ command('LazyGitLogsFile', function()
 end, { desc = 'LazyGitLogsFile' })
 
 command('Yazi', function(opts)
-  local socket_path = vim.v.servername
-  local zoom_flag = opts.bang and '' or '-Z'
-  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h' or '-v'
-  local kill_pane = opts.bang and 'false' or 'true'
-  local current_file_path = vim.fn.expand('%:p')
-
-  vim.cmd(
-    'silent !tmux split-window '
-      .. orientation
-      .. ' '
-      .. zoom_flag
-      .. ' -c "'
-      .. vim.fn.getcwd()
-      .. '" "NVIM_SERVER='
-      .. socket_path
-      .. ' YAZI_KILL_PANE='
-      .. kill_pane
-      .. ' yazi '
-      .. current_file_path
-      .. '; [ \\$YAZI_KILL_PANE = "true" ] && tmux kill-pane || true"'
-  )
+  local session = vim.fn.system('tmux display-message -p "#S"'):gsub('\n', '')
+  local window = vim.fn.system('tmux display-message -p "#I"'):gsub('\n', '')
+  local persist = opts.bang and '1' or ''
+  vim.fn.jobstart({
+    'bash', '-c',
+    '~/.config/tmux/scripts/yazi-split.sh "'
+      .. session .. '" "' .. window .. '" "' .. vim.fn.getcwd() .. '" "' .. vim.fn.expand('%:p') .. '" "' .. persist .. '"',
+  })
 end, { desc = 'Yazi', bang = true })
+
+command('QuickfixFromFile', function(opts)
+  local path = opts.args
+  local items = {}
+  for line in io.lines(path) do
+    if line ~= '' then
+      table.insert(items, { filename = line, lnum = 1, col = 1 })
+    end
+  end
+  os.remove(path)
+  vim.fn.setqflist({}, 'r', { items = items, title = 'Yazi' })
+  vim.cmd('copen')
+end, { nargs = 1, desc = 'Populate quickfix from yazi file list' })
 
 command('Search', function(o)
   local escaped = vim.uri_encode(o.args)
