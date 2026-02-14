@@ -1,0 +1,131 @@
+// This configuration is merged with the default vicinae configuration file, which you can obtain by running the `vicinae config default` command.
+// Every item defined in this file takes precedence over the values defined in the default config or any other imported file.
+//
+// You can make manual edits to this file, however you should keep in mind that this file may be written to by vicinae when a configuration change is made through the GUI.
+// When that happens, any custom comments or formatting will be lost.
+//
+// If you want to maintain a configuration file with your own comments and formatting, you should create a separate file and add it to the 'imports' array.
+//
+// Learn more about configuration at https://docs.vicinae.com/config
+
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "close_on_focus_loss": true,
+   "pop_to_root_on_close": true,
+   "keybinding": "emacs",
+   "search_files_in_root": true,
+   "font": {
+      "normal": {
+         "size": 10.5
+      }
+   },
+   "theme": {
+      "dark": {
+         "icon_theme": "Papirus-Dark"
+      }
+   },
+   "launcher_window": {
+      "opacity": 0.98
+   },
+   "keybinds": {
+      "open-search-filter": "control+F"
+   },
+   "favorites": [
+      "@knoopx/store.vicinae.stocks:stocks",
+      "@LuggaPugga/store.vicinae.port-killer:port-killer",
+      "@leonkohli/store.vicinae.process-manager:processes",
+      "shortcuts:7fb0aead-18c7-4dcc-ac83-36b45b9a9632",
+      "@gebeto/store.raycast.translate:translate",
+      "shortcuts:5ea5c65d-6a28-42d4-a68b-29d2d7bed936"
+   ],
+   "providers": {
+      "@asubbotin/store.raycast.shell": {
+         "preferences": {
+            "arguments_terminal_type": "kitty"
+         }
+      },
+      "@gebeto/store.raycast.translate": {
+         "entrypoints": {
+            "instant-translate-copy": {
+               "enabled": false
+            },
+            "instant-translate-paste": {
+               "enabled": false
+            },
+            "instant-translate-view": {
+               "enabled": false
+            },
+            "quick-translate": {
+               "enabled": false
+            },
+            "translate": {
+               "alias": "tr"
+            },
+            "translate-form": {
+               "enabled": false
+            }
+         }
+      },
+      "@knoopx/store.vicinae.stocks": {
+         "preferences": {
+            "symbols": "FWRA.MI,BTC-USD,AMD,INTC,BYDDY,TSLA"
+         }
+      },
+      "applications": {
+         "preferences": {
+            "paths": [
+               "/home/ico/.local/share/applications",
+               "/usr/share/applications"
+            ]
+         }
+      },
+      "clipboard": {
+         "preferences": {
+            "encryption": true,
+            "monitoring": true
+         },
+         "entrypoints": {
+            "history": {
+               "preferences": {
+                  "defaultAction": "copy"
+               }
+            }
+         }
+      },
+      "power": {
+         "entrypoints": {
+            "reboot": {
+               "preferences": {
+                  "confirm": false
+               }
+            },
+            "sleep": {
+               "preferences": {
+                  "confirm": false
+               }
+            },
+            "suspend": {
+               "preferences": {
+                  "confirm": false
+               }
+            }
+         }
+      },
+      "shortcuts": {
+         "entrypoints": {
+            "5ea5c65d-6a28-42d4-a68b-29d2d7bed936": {
+               "alias": "ai"
+            },
+            "67d3fa49-eeac-4e2a-a04f-8dc73de96d34": {
+               "alias": "gem"
+            },
+            "7fb0aead-18c7-4dcc-ac83-36b45b9a9632": {
+               "alias": "s"
+            },
+            "a384f435-f4d9-4789-a9d9-07dc7502ab30": {
+               "alias": "gpt"
+            }
+         }
+      }
+   }
+}

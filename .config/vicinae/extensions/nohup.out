@@ -1,0 +1,134 @@
+[37m[22:23:13.954] [32mINFO [0m  -  GnomeWindowManager: Detected environment: "niri/Wayland" [0m
+[37m[22:23:13.954] [32mINFO [0m  -  GnomeWindowManager: Not in GNOME environment, skipping [0m
+[37m[22:23:13.981] [32mINFO [0m  -  Activated clipboard server "wlr-clipboard" [0m
+[37m[22:23:14.062] [32mINFO [0m  -  Started extension manager /tmp/command.gpvDmw [0m
+[37m[22:23:14.064] [32mINFO [0m  -  Starting clipboard server "wlr-clipboard" [0m
+[37m[22:23:14.066] [32mINFO [0m  -  Clipboard server "wlr-clipboard" started successfully. [0m
+[37m[22:23:14.066] [32mINFO [0m  -  Started "Qalculate!" calculator backend [0m
+[37m[22:23:14.165] [32mINFO [0m  -  Vicinae server successfully started. Call vicinae without an argument to toggle the window [0m
+[37m[22:23:19.398] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fde07100 with focusing surface 0x5574fee644c0 [0m
+[37m[22:24:16.627] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fe5e3fd0 with focusing surface 0x5574fee644c0 [0m
+[37m[22:24:32.138] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574fe5e3fd0 [0m
+[37m[22:26:55.604] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574ff72e180 with focusing surface 0x5574fee644c0 [0m
+[37m[22:27:03.770] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ff72e180 [0m
+[37m[22:27:10.201] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574febfb760 with focusing surface 0x5574fee644c0 [0m
+[37m[22:27:21.989] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574feddb980 [0m
+[37m[22:27:25.122] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ff1f6140 [0m
+[37m[22:27:27.563] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe991d30 [0m
+[37m[22:27:30.924] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe7b6bd0 [0m
+[37m[22:27:34.783] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fefbc0b0 [0m
+[37m[22:27:37.234] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe8aecd0 [0m
+[37m[22:27:38.481] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe720cd0 [0m
+[37m[22:27:39.698] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fef9e440 [0m
+[37m[22:27:40.754] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fedcc6d0 [0m
+[37m[22:27:41.826] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ffc05280 [0m
+[37m[22:27:42.782] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ff427970 [0m
+[37m[22:27:44.487] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe554d80 [0m
+[37m[22:27:45.479] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ff22a9c0 [0m
+[37m[22:27:47.212] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe778220 [0m
+[37m[22:27:49.018] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574fe6c8d40 [0m
+[37m[22:27:50.144] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ff2c8cb0 [0m
+[37m[22:27:51.107] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ffb4cf10 [0m
+[37m[22:27:52.764] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574febfb760 with focusing surface 0x5574ff58a300 [0m
+[37m[22:27:55.326] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ff9ae8b0 [0m
+[37m[22:28:01.070] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fee644c0 [0m
+[37m[22:28:05.836] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574febab540 [0m
+[37m[22:28:07.878] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fed55cb0 [0m
+[37m[22:28:09.125] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fe8aaa10 [0m
+[37m[22:28:11.420] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fee36ed0 [0m
+[37m[22:28:12.724] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574ff0615f0 [0m
+[37m[22:28:14.133] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574feb1cae0 [0m
+[37m[22:28:15.107] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fedebaf0 [0m
+[37m[22:28:16.117] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574ffa3abb0 [0m
+[37m[22:28:17.293] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574feda2e50 [0m
+[37m[22:28:21.149] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574ff270040 [0m
+[37m[22:28:23.256] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff32e6a0 with focusing surface 0x5574fe7b0af0 [0m
+[37m[22:28:25.413] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574fee644c0 [0m
+[37m[22:28:27.707] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574ff5bbea0 [0m
+[37m[22:28:29.006] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574ff4e7b60 [0m
+[37m[22:28:30.031] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574ff3d6c40 [0m
+[37m[22:28:31.086] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574ff1467f0 [0m
+[37m[22:28:32.340] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574fec03ea0 [0m
+[37m[22:28:35.134] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffd0c790 with focusing surface 0x5574ff22a770 [0m
+[37m[22:28:38.280] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ff092380 [0m
+[37m[22:28:39.224] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fef15de0 with focusing surface 0x5574fee644c0 [0m
+[37m[22:28:42.471] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574fead6730 [0m
+[37m[22:28:47.027] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffcb59d0 with focusing surface 0x5574fee644c0 [0m
+[37m[22:28:50.946] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffcb59d0 with focusing surface 0x5574ff3bb8e0 [0m
+[37m[22:28:52.955] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ffcb59d0 with focusing surface 0x5574ff5553c0 [0m
+[37m[22:28:59.369] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ffc1a4f0 [0m
+[37m[22:29:03.421] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff868090 with focusing surface 0x5574fee644c0 [0m
+[37m[22:29:08.539] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ff4bfff0 [0m
+[37m[22:29:10.442] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fea5db50 with focusing surface 0x5574fee644c0 [0m
+[37m[22:29:14.652] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fea5db50 with focusing surface 0x5574ffc1a480 [0m
+[37m[22:29:15.841] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fea5db50 with focusing surface 0x5574ff6236e0 [0m
+[37m[22:29:17.276] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fea5db50 with focusing surface 0x5574fedd3aa0 [0m
+[37m[22:29:18.898] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fea5db50 with focusing surface 0x5574ff7035e0 [0m
+[37m[22:29:21.280] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574fed6a9b0 [0m
+[37m[22:29:23.436] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fef76830 with focusing surface 0x5574fee644c0 [0m
+[37m[22:29:27.736] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574ff187540 [0m
+[37m[22:29:34.960] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fe7f35c0 with focusing surface 0x5574fee644c0 [0m
+[37m[22:29:42.594] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fe7f35c0 with focusing surface 0x5574ff574c60 [0m
+[37m[22:29:44.997] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fe7f35c0 with focusing surface 0x5574fe5b1aa0 [0m
+[37m[22:29:51.377] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fe7f35c0 with focusing surface 0x5574fe60e010 [0m
+[37m[22:29:55.390] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fe7f35c0 with focusing surface 0x5574ffc03160 [0m
+[37m[22:32:32.029] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:32:33.175] [32mINFO [0m  -  Stopping extension development for "gsr" [0m
+[37m[22:32:43.816] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:32:52.067] [32mINFO [0m  -  Stopping extension development for "gsr" [0m
+[37m[22:34:31.841] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:34:36.790] [32mINFO [0m  -  Stopping extension development for "gsr" [0m
+[37m[22:37:40.165] [31mERROR[0m  -  Failed to load bundle at /home/ico/.local/share/vicinae/extensions/gsr "Could not find package.json file at /home/ico/.local/share/vicinae/extensions/gsr/package.json" [0m
+[37m[22:37:40.222] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:37:40.328] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:38:00.024] [32mINFO [0m  -  Stopping extension development for "gsr" [0m
+[37m[22:38:29.770] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:38:29.834] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:38:31.601] [32mINFO [0m  -  Stopping extension development for "gsr" [0m
+[37m[22:38:47.879] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:38:47.941] [32mINFO [0m  -  Start extension development session for "gsr" [0m
+[37m[22:40:10.293] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:40:10.378] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:41:25.091] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:41:32.460] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:41:39.337] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:41:49.117] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:42:56.591] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:43:17.291] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:44:06.062] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:45:23.385] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:45:27.318] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:46:07.016] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:47:37.163] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:47:50.270] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:47:52.336] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports." [0m
+[37m[22:47:52.348] [32mINFO [0m  -  [EXTENSION] "ErrorBoundary: Error boundaries should implement getDerivedStateFromError(). In that method, return a state update to display an error message or fallback UI." [0m
+[37m[22:47:52.348] [31mERROR[0m  -  Got crash Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `GSRCommand`. [0m
+[37m[22:50:51.436] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:50:58.167] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574fee25a50 with focusing surface 0x5574fee644c0 [0m
+[37m[22:52:08.887] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:52:08.895] [32mINFO [0m  -  Reloading active command following extension refresh [0m
+[37m[22:52:16.436] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:52:16.445] [32mINFO [0m  -  Reloading active command following extension refresh [0m
+[37m[22:52:22.897] [32mINFO [0m  -  Refreshing extension development for "gsr" [0m
+[37m[22:52:22.905] [32mINFO [0m  -  Reloading active command following extension refresh [0m
+[37m[22:52:50.169] [32mINFO [0m  -  [EXTENSION] "Failed to execute GSR command: Error: Command failed: $HOME/.local/bin/gsr.sh save-replay DP-1" [0m
+[37m[22:52:51.532] [32mINFO [0m  -  [EXTENSION] "Failed to execute GSR command: Error: Command failed: $HOME/.local/bin/gsr.sh save-replay DP-1" [0m
+[37m[22:53:05.250] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574ff932300 with focusing surface 0x5574fee644c0 [0m
+[37m[22:57:29.768] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Try to disable surface 0x5574feffd250 with focusing surface 0x5574fee644c0 [0m
+[37m[22:57:39.937] [33mWARN [0m  -  virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Try to enable surface 0x5574fee644c0 with focusing surface 0x5574feffd250 [0m
+[37m[23:02:00.688] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
+[37m[23:02:01.680] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
+[37m[23:02:01.695] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
+[37m[23:02:01.738] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
+[37m[23:02:02.263] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
+[37m[23:02:02.277] [32mINFO [0m  -  app directory "/usr/share/applications" changed, launching a new scan [0m
