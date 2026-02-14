@@ -59,7 +59,7 @@ spawn-at-startup "~/.config/niri/scripts/sunsetr_gaming.sh"
 // spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Developer Tools.*' -- 'set-window-width 800'"
 
 // spawn-at-startup "swaync"
-spawn-at-startup "waybar" "--config=/home/ico/.config/waybar/config_niri.jsonc"
+spawn-at-startup "waybar"
 spawn-at-startup "nm-applet"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "solaar" "--window=hide"
@@ -525,7 +525,7 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     F8 { spawn "gsr.sh" "save-replay"; }
-    F12 { spawn-sh "pkill -x waybar; waybar --config ~/.config/waybar/config_niri.jsonc"; }
+    F12 { spawn-sh "pkill -x waybar; waybar"; }
     F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
     Mod+F12 { power-off-monitors; }
 }
