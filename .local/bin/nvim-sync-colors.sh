@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if $IS_MACOS; then
-  sed() {
-    gsed "$@"
-  }
-fi
-
 # Function to get color and convert to hex
 get_tmux_color() {
   local color_type=$1

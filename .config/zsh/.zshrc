@@ -28,9 +28,3 @@ source $ZSH_MODULES/zsh-plugins
 source $ZSH_MODULES/zsh-keys
 source $ZSH_MODULES/zsh-aliases
 source $ZSH_MODULES/zsh-functions
-
-if $IS_MACOS; then
-  source $ZSH_MODULES/zsh-macos-env
-  source $ZSH_MODULES/zsh-macos-aliases
-  source $ZSH_MODULES/zsh-macos-functions
-fi

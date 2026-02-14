@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if $IS_MACOS; then
-  sed() {
-    gsed "$@"
-  }
-fi
-
 colors=$(ls ~/dotfiles/.config/kitty/themes | sed 's/.conf//')
 get_tmux_color() {
   local color_type=$1
