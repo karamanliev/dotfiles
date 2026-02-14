@@ -31,12 +31,21 @@ elif [ -n "$SRV" ]; then
   [ -f "$CURRENT_FILE" ] && YAZI_CMD="yazi '$CURRENT_FILE'"
 fi
 
-# $5: if set, persist mode — no zoom, yazi stays open after file operations
 ZOOM_FLAG="-Z"
 KILL_PANE="true"
+PANE_SIZE=""
+PANE_POS=""
+
+# $5: if set, use this flag to change zoom mode
 if [ -n "${5:-}" ]; then
-  ZOOM_FLAG=""
-  KILL_PANE="false"
+  ZOOM_FLAG="${5}"
+  PANE_SIZE="-l 35"
+  PANE_POS="-b"
+fi
+
+# $6: if set, use this flag to kill the pane
+if [ -n "${6:-}" ]; then
+  KILL_PANE="${6}"
 fi
 
 # Orientation: horizontal if window is at least 2x wider than tall, else vertical
@@ -45,7 +54,7 @@ HEIGHT=$(tmux display-message -p -t "${SESSION}:${WINDOW}" "#{window_height}")
 ORIENTATION="-h"
 [ "$WIDTH" -lt $((HEIGHT * 2)) ] && ORIENTATION="-v"
 
-PANE_ID=$(tmux split-window -t "${SESSION}:${WINDOW}" $ORIENTATION $ZOOM_FLAG -c "$PANE_PATH" -P -F "#{pane_id}" \
+PANE_ID=$(tmux split-window -t "${SESSION}:${WINDOW}" $ORIENTATION $ZOOM_FLAG $PANE_SIZE $PANE_POS -c "$PANE_PATH" -P -F "#{pane_id}" \
   "env NVIM_SERVER='${SRV}' YAZI_KILL_PANE=${KILL_PANE} ${YAZI_CMD}; tmux set-option -w -t '${SESSION}:${WINDOW}' -u @yazi_pane 2>/dev/null; tmux kill-pane")
 
 tmux set-option -w -t "${SESSION}:${WINDOW}" @yazi_pane "$PANE_ID"

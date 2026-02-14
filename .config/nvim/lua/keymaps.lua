@@ -96,8 +96,8 @@ vim.keymap.set('n', '<leader>L', function()
   require('lazy').home()
 end, { desc = 'Lazy' })
 
--- Open yazi in new tmux window
-vim.keymap.set('n', '<leader>Y', '<cmd>Yazi<cr>', { desc = 'Yazi' })
+-- Open yazi in tmux split
+vim.keymap.set('n', '-', '<cmd>Yazi<cr>', { desc = 'Yazi' })
 
 -- Add a mapping (dd) to delete the current quickfix item
 local function remove_qf_item()

@@ -136,11 +136,25 @@ end, { desc = 'LazyGitLogsFile' })
 command('Yazi', function(opts)
   local session = vim.fn.system('tmux display-message -p "#S"'):gsub('\n', '')
   local window = vim.fn.system('tmux display-message -p "#I"'):gsub('\n', '')
-  local persist = opts.bang and '1' or ''
+  local zoom = opts.bang and '-Z' or ' '
+  local kill_pane = opts.bang and 'true' or 'true'
+
   vim.fn.jobstart({
-    'bash', '-c',
+    'bash',
+    '-c',
     '~/.config/tmux/scripts/yazi-split.sh "'
-      .. session .. '" "' .. window .. '" "' .. vim.fn.getcwd() .. '" "' .. vim.fn.expand('%:p') .. '" "' .. persist .. '"',
+      .. session
+      .. '" "'
+      .. window
+      .. '" "'
+      .. vim.fn.getcwd()
+      .. '" "'
+      .. vim.fn.expand('%:p')
+      .. '" "'
+      .. zoom
+      .. '" "'
+      .. kill_pane
+      .. '"',
   })
 end, { desc = 'Yazi', bang = true })
 
