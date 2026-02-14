@@ -72,9 +72,11 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- Disable netrw inside tmux (yazi is used instead)
+if vim.env.TMUX then
+  vim.g.loaded_netrw = 1
+  vim.g.loaded_netrwPlugin = 1
+end
 
 -- Enable true color support
 vim.opt.termguicolors = true

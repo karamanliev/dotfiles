@@ -317,7 +317,7 @@ autocmd('BufEnter', {
   desc = 'Disable New Line Comment',
 })
 
--- Store/clear nvim server socket in tmux pane option for external lazygit integration
+-- Store/clear nvim server socket in tmux pane option for external lazygit/yazi integration
 if vim.env.TMUX then
   autocmd('VimEnter', {
     callback = function()
@@ -335,6 +335,22 @@ if vim.env.TMUX then
     end,
     group = general,
     desc = 'Clear nvim server from tmux pane option',
+  })
+
+  -- Open Yazi when nvim is opened with a directory
+  autocmd('VimEnter', {
+    callback = function()
+      local arg = vim.fn.argv(0)
+      if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
+        local dir_buf = vim.fn.bufnr()
+        vim.cmd('cd ' .. vim.fn.fnameescape(tostring(arg)))
+        vim.cmd('enew')
+        pcall(vim.cmd, 'bwipeout ' .. dir_buf)
+        vim.cmd('Yazi!')
+      end
+    end,
+    group = general,
+    desc = 'Open Yazi when nvim is opened with a directory',
   })
 end
 
