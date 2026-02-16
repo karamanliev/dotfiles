@@ -11,6 +11,9 @@ export SAVEHIST=1000000
 # Open man pages with nvim
 export MANPAGER='nvim +Man!'
 
+# Add colors for commands and completions
+export LS_COLORS="$(vivid generate tokyonight-moon)"
+
 # Default fzf options
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS} \
 	--height 60% \

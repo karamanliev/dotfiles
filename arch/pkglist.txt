@@ -195,6 +195,7 @@ viber
 vicinae-bin
 video-trimmer
 vim
+vivid
 vkbasalt
 vkd3d
 vulkan-tools
