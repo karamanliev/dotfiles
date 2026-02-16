@@ -41,7 +41,7 @@ bindkey -M menuselect '^I' accept-and-hold
 bindkey -M menuselect '^E' send-break
 bindkey -M menuselect '^M' .accept-line
 
-bindkey '^N' menu-select-wrap
+bindkey '^N' down-line-or-select
 bindkey "$terminfo[kcbt]" menu-select-wrap
 
 # Fix backspace bug when switching modes
