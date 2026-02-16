@@ -135,7 +135,7 @@
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
-      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-3"
+      "exec": "~/.config/waybar/scripts/niri_windowcount.sh DP-3"
     },
     "niri/window": {
       "format": "{title}",
@@ -364,7 +364,7 @@
     },
     "custom/niri_windowcount": {
       "format": "[ {text} ]",
-      "exec": "~/dotfiles/.config/waybar/scripts/niri_windowcount.sh DP-1"
+      "exec": "~/.config/waybar/scripts/niri_windowcount.sh DP-1"
     },
     "niri/window": {
       "format": "{title}",

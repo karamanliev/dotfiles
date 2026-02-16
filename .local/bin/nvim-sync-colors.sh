@@ -44,11 +44,11 @@ else
 fi
 
 # Replace colors in tmux config
-sed -i "s/^bg_color=.*/bg_color=$bg_color_hex/" ~/dotfiles/.config/tmux/dynamic_colors.conf
-sed -i "s/^fg_color=.*/fg_color=$fg_color_hex/" ~/dotfiles/.config/tmux/dynamic_colors.conf
-# sed -i "s|^include themes/.*|include themes/$kitty_theme|" ~/dotfiles/.config/kitty/colorscheme.conf
+sed -i "s/^bg_color=.*/bg_color=$bg_color_hex/" ~/.config/tmux/dynamic_colors.conf
+sed -i "s/^fg_color=.*/fg_color=$fg_color_hex/" ~/.config/tmux/dynamic_colors.conf
+# sed -i "s|^include themes/.*|include themes/$kitty_theme|" ~/.config/kitty/colorscheme.conf
 
 # Reload tmux configuration
-tmux source-file ~/dotfiles/.config/tmux/tmux.conf
+tmux source-file ~/.config/tmux/tmux.conf
 # Reload kitty configuration
 kitten themes --reload-in=all $kitty_theme
