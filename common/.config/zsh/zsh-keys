@@ -1,6 +1,3 @@
-# Open hist_delete_fzf
-# bindkey '^[r' hist_delete_fzf
-
 # toggle fg with ctrl+z
 bindkey '^Z' fg_widget
 
@@ -9,9 +6,6 @@ bindkey '^F' cdi_widget
 
 # open sesh outside tmux
 bindkey '^[s' sesh-sessions
-
-# attach/detach tmux session
-# bindkey '^[l' tmux_dotfiles_widget
 
 # change terminal colorscheme
 bindkey '^[t' change_terminal_colorscheme
