@@ -1,45 +1,51 @@
-# toggle fg with ctrl+z
-bindkey '^Z' fg_widget
+# ============================================
+# CUSTOM FUNCTION KEY BINDINGS
+# ============================================
+bindkey '^Z' fg_widget # toggle fg with ctrl+z
 
-# open zoxide zi widget
-bindkey '^F' cdi_widget
+bindkey '^F' cdi_widget # open zoxide zi widget
 
-# open sesh outside tmux
-bindkey '^[s' sesh-sessions
+bindkey '^[s' sesh-sessions # open sesh outside tmux
 
-# change terminal colorscheme
-bindkey '^[t' change_terminal_colorscheme
+bindkey '^[t' change_terminal_colorscheme # change terminal colorscheme
 
 # edit in vim buffer
 autoload edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd "^v" edit-command-line
+bindkey "^[v" edit-command-line
 
-# Use vim keys in tab complete menu
-bindkey -M menuselect '^[h' vi-backward-char
-bindkey -M menuselect '^[j' vi-down-line-or-history
-bindkey -M menuselect '^[k' vi-up-line-or-history
-bindkey -M menuselect '^[l' vi-forward-char
+# ============================================
+# COMMAND LINE (not in menu)
+# ============================================
+bindkey '^N' down-line-or-select # Enter the menu completion
+bindkey "^P" atuin-up-search     # Go to atuin history search
 
-# bindkey '^P' history-search-backward
-# bindkey '^N' vi-down-line-or-history # what does this do?
-# Atuin up key
-bindkey '^P' atuin-up-search-viins
+bindkey '^Y' menu-complete-wrap # Select first completion from the menu
 
-# Completion menu navigation
-bindkey '^Y' menu-complete-wrap
-bindkey "$terminfo[kcbt]" menu-complete-wrap
+# Accept autosuggestion (ghost text)
+bindkey '^[[C' autosuggest-accept # Right arrow
+bindkey '^I' autosuggest-accept   # Or Tab
 
-bindkey -M menuselect '^Y' accept-line
-bindkey -M menuselect '^I' accept-and-hold
-bindkey -M menuselect '^E' send-break
-bindkey -M menuselect '^M' .accept-line
+# ============================================
+# INSIDE COMPLETION MENU
+# ============================================
+bindkey -M menuselect '^N' menu-complete         # select next completion
+bindkey -M menuselect "^P" reverse-menu-complete # select previous completion
 
-bindkey '^N' down-line-or-select
-bindkey "$terminfo[kcbt]" menu-select-wrap
+bindkey -M menuselect '^Y' accept-line     # accept but don't execute command
+bindkey -M menuselect '^I' accept-and-hold # accept and hold in completion menu with TAB
+bindkey -M menuselect '^E' send-break      # close menu and remove selection
+bindkey -M menuselect '^M' .accept-line    # accept and execute command with ENTER
 
-# Fix backspace bug when switching modes
-bindkey "^?" backward-delete-char
+bindkey -M menuselect '^[h' vi-backward-char        # left menu item
+bindkey -M menuselect '^[j' vi-down-line-or-history # down menu item
+bindkey -M menuselect '^[k' vi-up-line-or-history   # up menu item
+bindkey -M menuselect '^[l' vi-forward-char         # right menu item
 
-# Accept the autosuggestion with TAB
-bindkey '^I' autosuggest-accept
+bindkey -M menuselect '/' history-incremental-search-forward  # search in history forward
+bindkey -M menuselect '?' history-incremental-search-backward # search in history backward
+
+# ============================================
+# MISC
+# ============================================
+bindkey "^?" backward-delete-char # fix backspace bug when switching modes

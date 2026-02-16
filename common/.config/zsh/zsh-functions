@@ -16,11 +16,6 @@ function y() {
 
 # Fix for autosuggestions breaking when selecting a suggestion
 # more info: https://github.com/zsh-users/zsh-autosuggestions/issues/816
-menu-select-wrap() {
-  zle menu-select
-}
-zle -N menu-select-wrap
-
 menu-complete-wrap() {
   zle menu-complete
 }
