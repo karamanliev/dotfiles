@@ -283,11 +283,11 @@ return {
         desc = 'Find Config File',
       },
       {
-        '<leader>fp',
+        '<leader>fz',
         function()
-          Snacks.picker.projects()
+          Snacks.picker.zoxide()
         end,
-        desc = 'Projects',
+        desc = 'Zoxide',
       },
       {
         '<leader>>',
