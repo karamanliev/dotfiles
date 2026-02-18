@@ -19,9 +19,9 @@ format = '[$symbol](bold white)'
 disabled = false
 
 [os.symbols]
-Windows = ' '
 Arch = '󰣇 '
 Macos = '󰀵 '
+Ubuntu = ' '
 
 [aws]
 style = "bold yellow"
