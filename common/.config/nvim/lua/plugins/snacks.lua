@@ -436,10 +436,10 @@ return {
         mode = { 'n', 'v' },
       },
       {
-        '<leader>E',
+        '<leader>fe',
         function()
           Snacks.picker.explorer({
-            auto_close = true,
+            auto_close = false,
             follow_file = true,
             hidden = true,
           })
