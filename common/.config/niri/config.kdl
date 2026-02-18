@@ -379,7 +379,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="brave-app.slack.com__client_T02BWN11C-Work"
+    match app-id="chrome-mail.google.com__mail_u_0_-Work"
     open-on-workspace "CHAT"
 }
 
@@ -500,7 +500,6 @@ binds {
 
     Mod+V { spawn-sh "vicinae vicinae://extensions/vicinae/clipboard/history"; }
     Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
-    Mod+Z { spawn-sh "gtk-launch brave-ai.karamanliev.com__-Default"; }
 
     Mod+D       { toggle-window-floating; }
     Mod+Shift+D { switch-focus-between-floating-and-tiling; }
