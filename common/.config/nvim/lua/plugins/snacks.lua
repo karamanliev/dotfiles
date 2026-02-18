@@ -447,6 +447,31 @@ return {
         desc = 'Explorer',
       },
       {
+        '<leader>fo',
+        function()
+          Snacks.picker.lsp_symbols({
+            focus = 'list',
+            layout = {
+              preset = 'sidebar',
+              preview = 'main',
+              layout = {
+                position = 'right',
+                width = 0.3,
+              },
+            },
+            win = {
+              list = {
+                wo = {
+                  number = true,
+                  relativenumber = true,
+                },
+              },
+            },
+          })
+        end,
+        desc = 'LSP Symbols',
+      },
+      {
         '<leader>ss',
         function()
           Snacks.scratch()
