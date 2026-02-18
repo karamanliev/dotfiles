@@ -365,11 +365,11 @@ return {
       {
         '<leader>tt',
         function()
+          local original_colorscheme = vim.g.colors_name
           Snacks.picker.colorschemes({
             focus = 'list',
             main = {
               current = true,
-              file = true,
             },
             transform = function(item)
               local allowed = {
@@ -392,19 +392,27 @@ return {
 
               return false
             end,
-
+            on_change = function(picker, item)
+              if item then
+                vim.cmd.colorscheme(item.text)
+              end
+            end,
             layout = {
               preset = 'sidebar',
-              preview = 'main',
               layout = {
                 position = 'right',
                 width = 0.25,
               },
+              hidden = { 'preview' },
             },
+            on_close = function(picker)
+              if not picker.result then
+                vim.cmd.colorscheme(original_colorscheme)
+              end
+            end,
             confirm = function(picker, item)
               picker:close()
               if item then
-                picker.preview.state.colorscheme = nil
                 vim.schedule(function()
                   vim.cmd('colorscheme ' .. item.text)
                   local colorscheme_path = vim.fn.stdpath('config') .. '/lua/custom/colorscheme.lua'
