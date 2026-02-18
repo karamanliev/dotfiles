@@ -37,11 +37,6 @@ bindkey -M menuselect '^I' accept-and-hold # accept and hold in completion menu 
 bindkey -M menuselect '^E' send-break      # close menu and remove selection
 bindkey -M menuselect '^M' .accept-line    # accept and execute command with ENTER
 
-bindkey -M menuselect '^[h' vi-backward-char        # left menu item
-bindkey -M menuselect '^[j' vi-down-line-or-history # down menu item
-bindkey -M menuselect '^[k' vi-up-line-or-history   # up menu item
-bindkey -M menuselect '^[l' vi-forward-char         # right menu item
-
 bindkey -M menuselect '/' history-incremental-search-forward  # search in history forward
 bindkey -M menuselect '?' history-incremental-search-backward # search in history backward
 
