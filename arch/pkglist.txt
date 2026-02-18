@@ -197,6 +197,7 @@ vim
 vivid
 vkbasalt
 vkd3d
+voxtype-bin
 vulkan-tools
 waybar
 wayvnc
@@ -206,6 +207,7 @@ wine-staging
 wireplumber
 wl-clipboard
 wpaperd
+wtype
 xclip
 xdg-desktop-portal-gnome
 xdg-user-dirs-gtk

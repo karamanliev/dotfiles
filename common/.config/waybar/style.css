@@ -168,6 +168,7 @@ tooltip label {
 #temperature,
 #custom-gpu,
 #custom-vicinae,
+#custom-voxtype,
 #memory {
   margin: 6px 0;
   padding: 0 8px;
@@ -194,7 +195,9 @@ tooltip label {
 #custom-gpu:hover,
 #temperature:hover,
 #memory:hover,
-#custom-gsr:hover {
+#custom-gsr:hover,
+#custom-claude-usage:hover,
+#custom-voxtype:hover {
   background: @bg_hover;
 }
 
@@ -262,10 +265,6 @@ tooltip label {
 }
 
 /* Hover effect: show clickable */
-#custom-claude-usage:hover {
-  background: @bg_hover;
-}
-
 /* Color-coded by usage level */
 #custom-claude-usage.claude-low {
   color: #a6e3a1; /* Green: low usage (0-49%) */
@@ -306,4 +305,39 @@ tooltip label {
 
 .niri-taskbar button image {
   margin-top: 3px;
+}
+
+/* voxtype styles */
+#custom-voxtype {
+  padding: 0 2px;
+  margin-right: 2px;
+}
+
+#custom-voxtype.recording {
+  color: #ff5555;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+#custom-voxtype.transcribing {
+  color: #f1fa8c;
+}
+
+#custom-voxtype.idle {
+  color: #50fa7b;
+}
+
+#custom-voxtype.stopped {
+  color: #6272a4;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

@@ -81,13 +81,14 @@ spawn-at-startup "betterbird"
 spawn-at-startup "obsidian"
 spawn-at-startup "kitty"
 spawn-at-startup "xwayland-satellite"
+spawn-at-startup "voxtype"
 
 spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
 
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
-                 "karamanliev-dav:" "/home/ico/Server" "--daemon"
+                 "karamanliev-dav:" "$HOME/Server" "--daemon"
 
 //-----  GENERAL
 hotkey-overlay {
@@ -527,4 +528,7 @@ binds {
     F12 { spawn-sh "pkill -x waybar; waybar"; }
     F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
     Mod+F12 { power-off-monitors; }
+
+    // Hyper keybinds
+    Super+Ctrl+Shift+Alt+R { spawn-sh "voxtype record toggle"; }
 }
