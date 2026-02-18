@@ -22,7 +22,6 @@ cpupower
 czkawka-gui-bin
 dateutils
 ddcutil
-discord
 dkms
 dmidecode
 docker
