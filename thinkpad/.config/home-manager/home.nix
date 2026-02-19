@@ -46,6 +46,7 @@
     tmux
     ungoogled-chromium
     vicinae
+    vivid
     waybar
     wpaperd
     yazi
