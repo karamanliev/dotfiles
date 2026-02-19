@@ -29,3 +29,4 @@ source $ZSH_MODULES/zsh-completions
 source $ZSH_MODULES/zsh-keys
 source $ZSH_MODULES/zsh-aliases
 source $ZSH_MODULES/zsh-functions
+[[ -f $ZSH_MODULES/zsh-nix ]] && source $ZSH_MODULES/zsh-nix

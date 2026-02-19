@@ -11,5 +11,8 @@ export DOTFILES=$HOME/dotfiles
 # set custom zsh config path
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
+# skip ubuntu global compinit (handled by zsh-autocomplete)
+[[ -f /etc/os-release ]] && grep -q '^ID=ubuntu' /etc/os-release && skip_global_compinit=1
+
 # add scripts to path
 PATH=$HOME/.local/bin:$PATH
