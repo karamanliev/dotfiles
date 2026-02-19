@@ -1,3 +1,6 @@
+[user]
+  name = Hristo Karamanliev
+
 [core]
   editor = nvim
   pager = delta --features=interactive
@@ -48,3 +51,6 @@
 
 [delta "interactive"]
   side-by-side = true
+
+[include]
+  path = ~/.config/git/local
