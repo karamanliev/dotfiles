@@ -14,6 +14,9 @@ export MANPAGER='nvim +Man!'
 # Add colors for commands and completions
 export LS_COLORS="$(vivid generate tokyonight-moon)"
 
+# Check for secret envs and source them
+[[ -f $ZSH_MODULES/zsh-secrets ]] && source $ZSH_MODULES/zsh-secrets
+
 # Default fzf options
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS} \
 	--height 60% \
