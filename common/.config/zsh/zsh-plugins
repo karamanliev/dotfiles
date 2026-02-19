@@ -1,6 +1,10 @@
-export ZSH_PLUGINS_FOLDER
+if [[ -n "$NIX_PROFILES" ]]; then
+  ZSH_PLUGINS_FOLDER=~/.nix-profile/share/zsh/plugins
+else
+  ZSH_PLUGINS_FOLDER=/usr/share/zsh/plugins
+fi
 
-ZSH_PLUGINS_FOLDER=/usr/share/zsh/plugins
+export ZSH_PLUGINS_FOLDER
 
 source $ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh
