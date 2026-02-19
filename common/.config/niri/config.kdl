@@ -1,36 +1,4 @@
-//-----  OUTPUTS
-output "DP-3" {
-    mode "2560x1440@165.08"
-    focus-at-startup
-    scale 1
-    transform "normal"
-    position x=0 y=0
-    variable-refresh-rate on-demand=true
-}
-
-output "DP-1" {
-    mode "2560x1440@165.08"
-    scale 1
-    transform "270"
-    position x=2560 y=-565
-
-    layout {
-      default-column-width { proportion 1.0; }
-      preset-column-widths {
-        proportion 0.95
-        proportion 1.0
-      }
-    }
-}
-
-output "HDMI-A-1" {
-    off
-    mode "3840x2160@120.00"
-    scale 2
-    position x=0 y=0
-    variable-refresh-rate on-demand=true
-}
-
+include "local.kdl"
 
 //-----  ENVIRONMENT
 environment {
