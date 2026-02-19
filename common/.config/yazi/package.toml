@@ -13,5 +13,10 @@ use = "iynaix/time-travel"
 rev = "aaec6e2"
 hash = "3d52b2b88c91a4ece2f7ed68ff39bb7b"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-paste"
+rev = "25918dc"
+hash = "75fd60b2df7115e0a6ca31a6a804d320"
+
 [flavor]
 deps = []
