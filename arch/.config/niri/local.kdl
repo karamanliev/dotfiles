@@ -31,3 +31,165 @@ output "HDMI-A-1" {
     variable-refresh-rate on-demand=true
 }
 
+
+//-----  AUTOSTART
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
+spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
+spawn-at-startup "~/.config/niri/scripts/sunsetr_gaming.sh"
+
+spawn-at-startup "solaar" "--window=hide"
+spawn-at-startup "gtk-launch" "razer-battery-tray.desktop"
+
+spawn-at-startup "swayidle" "-w" \
+"timeout" "600" "niri msg action power-off-monitors" \
+"timeout" "3600" "systemctl suspend"
+
+spawn-at-startup "wayvnc" "--output=DP-3" "0.0.0.0" "5900"
+
+spawn-at-startup "zen-browser"
+
+spawn-at-startup "betterbird"
+spawn-at-startup "obsidian"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "voxtype"
+
+spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
+
+
+//-----  GENERAL
+animations {
+    slowdown 0.65
+}
+
+
+//-----  WORKSPACES
+workspace "L1" {
+    open-on-output "DP-3"
+}
+
+workspace "L2" {
+    open-on-output "DP-3"
+}
+
+workspace "L3" {
+    open-on-output "DP-3"
+}
+
+workspace "MAIL" {
+    open-on-output "DP-3"
+}
+
+workspace "GAMES" {
+    open-on-output "DP-3"
+}
+
+workspace "R1" {
+    open-on-output "DP-1"
+}
+
+workspace "R2" {
+    open-on-output "DP-1"
+}
+
+workspace "R3" {
+    open-on-output "DP-1"
+}
+
+workspace "CHAT" {
+    open-on-output "DP-1"
+}
+workspace "NOTES" {
+    open-on-output "DP-1"
+}
+
+
+//-----  RULES
+window-rule {
+    match title="^Picture-in-Picture$"
+    open-on-output "DP-1"
+    open-floating true
+    open-focused false
+    default-floating-position x=20 y=40 relative-to="top-right"
+    opacity 0.75
+    default-column-width { fixed 448; }
+    default-window-height { fixed 252; }
+    shadow {
+      off
+      softness 30
+      spread 5
+      draw-behind-window false
+    }
+}
+
+window-rule {
+  match app-id="steam" title="^Steam Big Picture Mode$"
+  open-on-output "DP-3"
+  open-fullscreen true
+}
+
+window-rule {
+  match app-id="steam" title="^Steam$"
+  open-on-output "DP-3"
+  open-on-workspace "GAMES"
+  default-column-width { proportion 0.76; }
+}
+
+window-rule {
+  match app-id="steam" title="^Friends List$"
+  open-on-output "DP-3"
+  open-on-workspace "GAMES"
+  default-column-width { proportion 0.24; }
+}
+
+window-rule {
+  match app-id="^steam_app"
+  match app-id="gamescope"
+  open-on-output "DP-3"
+  open-on-workspace "GAMES"
+  open-fullscreen true
+  variable-refresh-rate true
+}
+
+window-rule {
+  match title="^Picture-in-Picture$"
+  opacity 1.0
+}
+
+window-rule {
+  match app-id="^figma-linux$"
+  open-on-output "DP-3"
+  default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="zen" at-startup=true
+    open-on-workspace "L1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="kitty" at-startup=true
+    open-on-output "DP-1"
+    open-on-workspace "R1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="chrome-mail.google.com__mail_u_0_-Work"
+    open-maximized true
+    open-on-workspace "CHAT"
+}
+
+
+//----- BINDS
+binds {
+    Mod+Shift+BracketLeft  { spawn-sh "~/.config/niri/scripts/wallpaper.sh prev"; }
+    Mod+Shift+BracketRight { spawn-sh "~/.config/niri/scripts/wallpaper.sh next"; }
+
+    F8 { spawn "gsr.sh" "save-replay"; }
+    F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
+
+    // Hyper keybinds
+    Super+Ctrl+Shift+Alt+R { spawn-sh "voxtype record toggle"; }
+}

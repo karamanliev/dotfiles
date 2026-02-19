@@ -19,39 +19,17 @@ environment {
 
 
 //-----  AUTOSTART
-spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-
-spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
-spawn-at-startup "~/.config/niri/scripts/sunsetr_gaming.sh"
-// spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Extension.*' -- 'move-window-to-floating' 'set-window-width 30%' 'set-window-height 60%' 'center-window'"
-// spawn-sh-at-startup "~/.config/niri/scripts/dynamic_rules.sh 'zen:Developer Tools.*' -- 'set-window-width 800'"
-
-// spawn-at-startup "swaync"
 spawn-at-startup "waybar"
 spawn-at-startup "nm-applet"
 spawn-at-startup "blueman-applet"
-spawn-at-startup "solaar" "--window=hide"
-spawn-at-startup "gtk-launch" "razer-battery-tray.desktop"
 
 spawn-at-startup "wpaperd" "-d"
-spawn-at-startup "swayidle" "-w" \
-"timeout" "600" "niri msg action power-off-monitors" \
-"timeout" "3600" "systemctl suspend"
-
 
 spawn-at-startup "sunsetr"
-spawn-at-startup "wayvnc" "--output=DP-3" "0.0.0.0" "5900"
 
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "Telegram"
-spawn-at-startup "zen-browser"
-spawn-at-startup "betterbird"
-spawn-at-startup "obsidian"
 spawn-at-startup "kitty"
-spawn-at-startup "xwayland-satellite"
-spawn-at-startup "voxtype"
-
-spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
 
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
@@ -80,10 +58,6 @@ screenshot-path "/tmp/screenshot.png"
 
 clipboard {
     disable-primary
-}
-
-animations {
-    slowdown 0.65
 }
 
 
@@ -168,107 +142,12 @@ recent-windows {
 
 
 //-----  WORKSPACES
-workspace "L1" {
-    open-on-output "DP-3"
-}
-
-workspace "L2" {
-    open-on-output "DP-3"
-}
-
-workspace "L3" {
-    open-on-output "DP-3"
-}
-
-workspace "MAIL" {
-    open-on-output "DP-3"
-}
-
-workspace "GAMES" {
-    open-on-output "DP-3"
-}
-
-workspace "R1" {
-    open-on-output "DP-1"
-}
-
-workspace "R2" {
-    open-on-output "DP-1"
-}
-
-workspace "R3" {
-    open-on-output "DP-1"
-}
-
-workspace "CHAT" {
-    open-on-output "DP-1"
-}
-workspace "NOTES" {
-    open-on-output "DP-1"
-}
 
 
 //-----  RULES
 layer-rule {
     match namespace="^wpaperd"
     place-within-backdrop true
-}
-
-window-rule {
-    match title="^Picture-in-Picture$"
-    open-on-output "DP-1"
-    open-floating true
-    open-focused false
-    default-floating-position x=20 y=40 relative-to="top-right"
-    opacity 0.75
-    default-column-width { fixed 448; }
-    default-window-height { fixed 252; }
-    shadow {
-      off
-      softness 30
-      spread 5
-      draw-behind-window false
-    }
-}
-
-window-rule {
-  match app-id="steam" title="^Steam Big Picture Mode$"
-  open-on-output "DP-3"
-  open-fullscreen true
-}
-
-window-rule {
-  match app-id="steam" title="^Steam$"
-  open-on-output "DP-3"
-  open-on-workspace "GAMES"
-  default-column-width { proportion 0.76; }
-}
-
-window-rule {
-  match app-id="steam" title="^Friends List$"
-  open-on-output "DP-3"
-  open-on-workspace "GAMES"
-  default-column-width { proportion 0.24; }
-}
-
-window-rule {
-  match app-id="^steam_app"
-  match app-id="gamescope"
-  open-on-output "DP-3"
-  open-on-workspace "GAMES"
-  open-fullscreen true
-  variable-refresh-rate true
-}
-
-window-rule {
-  match title="^Picture-in-Picture$"
-  opacity 1.0
-}
-
-window-rule {
-  match app-id="^figma-linux$"
-  open-on-output "DP-3"
-  default-column-width { proportion 1.0; }
 }
 
 window-rule {
@@ -298,67 +177,31 @@ window-rule {
 }
 
 window-rule {
-    match app-id="zen" at-startup=true
-    open-on-output "DP-3"
-    open-on-workspace "L1"
-    open-maximized true
-}
-
-window-rule {
   match title="DevTools"
   default-column-width { fixed 680; }
 }
 
 window-rule {
-    match app-id="kitty" at-startup=true
-    open-on-output "DP-1"
-    open-on-workspace "R1"
-    open-maximized true
-}
-
-window-rule {
     match app-id="org.telegram.desktop"
-    open-on-output "DP-1"
-    open-on-workspace "CHAT"
     open-maximized true
-}
-
-window-rule {
-    match app-id="obsidian"
-    open-on-output "DP-1"
-    open-on-workspace "NOTES"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="eu.betterbird.Betterbird" at-startup=true
-    open-on-output "DP-3"
-    open-on-workspace "MAIL"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="org.telegram.desktop"
     open-on-workspace "CHAT"
 }
 
 window-rule {
     match app-id="com.viber.Viber"
-    open-on-workspace "CHAT"
-}
-
-window-rule {
-    match app-id="chrome-mail.google.com__mail_u_0_-Work"
+    open-maximized true
     open-on-workspace "CHAT"
 }
 
 window-rule {
     match app-id="obsidian"
+    open-maximized true
     open-on-workspace "NOTES"
 }
 
 window-rule {
-    match app-id="betterbird"
+    match app-id="eu.betterbird.Betterbird" app-id="thunderbird_thunderbird"
+    open-maximized true
     open-on-workspace "MAIL"
 }
 
@@ -442,9 +285,6 @@ binds {
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
-    Mod+Shift+BracketLeft  { spawn-sh "~/.config/niri/scripts/wallpaper.sh prev"; }
-    Mod+Shift+BracketRight { spawn-sh "~/.config/niri/scripts/wallpaper.sh next"; }
-
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
 
@@ -492,11 +332,6 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    F8 { spawn "gsr.sh" "save-replay"; }
     F12 { spawn-sh "pkill -x waybar; waybar"; }
-    F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
     Mod+F12 { power-off-monitors; }
-
-    // Hyper keybinds
-    Super+Ctrl+Shift+Alt+R { spawn-sh "voxtype record toggle"; }
 }

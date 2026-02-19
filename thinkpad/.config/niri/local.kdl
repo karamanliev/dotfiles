@@ -5,3 +5,81 @@ output "eDP-1" {
     transform "normal"
     position x=0 y=0
 }
+
+
+//-----  AUTOSTART
+// spawn-at-startup "/usr/lib/polkit-1/polkit-agent-helper-1"
+spawn-at-startup "swayidle" "-w" \
+"timeout" "120" "niri msg action power-off-monitors" \
+"timeout" "600" "systemctl suspend"
+
+spawn-at-startup "zen-browser-snap.zen-browser"
+
+spawn-at-startup "gtk-launch" "noto-chat.desktop"
+
+
+//-----  GENERAL
+animations {
+    slowdown 0.35
+}
+
+
+//-----  INPUT
+input {
+    touchpad {
+        dwt // disable-while-typing
+        tap
+        drag true
+        scroll-method "two-finger"
+        middle-emulation
+    }
+}
+
+
+//-----  WORKSPACES
+workspace "1" {
+    open-on-output "eDP-1"
+}
+
+workspace "2" {
+    open-on-output "eDP-1"
+}
+
+workspace "3" {
+    open-on-output "eDP-1"
+}
+
+workspace "MAIL" {
+    open-on-output "eDP-1"
+}
+
+workspace "CHAT" {
+    open-on-output "DP-1"
+}
+
+
+//-----  RULES
+window-rule {
+    match app-id="zen" at-startup=true
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="kitty" at-startup=true
+    open-on-workspace "2"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="chrome-mail.google.com__mail_u_0_-Default"
+    open-maximized true
+    open-on-workspace "CHAT"
+}
+
+
+//----- BINDS
+binds {
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl set 5%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "brightnessctl set 5%+"; }
+}
