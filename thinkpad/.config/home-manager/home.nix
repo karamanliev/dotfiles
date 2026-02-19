@@ -45,6 +45,7 @@
     telegram-desktop
     tmux
     ungoogled-chromium
+    uv
     vicinae
     vivid
     waybar
