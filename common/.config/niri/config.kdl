@@ -34,7 +34,7 @@ spawn-at-startup "kitty"
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
-                 "karamanliev-dav:" "~/Server" "--daemon"
+                 "karamanliev-dav:" "Server" "--daemon"
 
 //-----  GENERAL
 hotkey-overlay {
