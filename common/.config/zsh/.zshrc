@@ -2,7 +2,6 @@
 stty -ixon
 
 export ZSH_MODULES=$XDG_CONFIG_HOME/zsh
-[[ -f $ZSH_MODULES/zsh-nix ]] && source $ZSH_MODULES/zsh-nix
 source $ZSH_MODULES/zsh-env
 
 # History options
