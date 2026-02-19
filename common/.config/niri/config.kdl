@@ -34,7 +34,7 @@ spawn-at-startup "kitty"
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
-                 "karamanliev-dav:" "$HOME/Server" "--daemon"
+                 "karamanliev-dav:" "~/Server" "--daemon"
 
 //-----  GENERAL
 hotkey-overlay {
@@ -200,7 +200,8 @@ window-rule {
 }
 
 window-rule {
-    match app-id="eu.betterbird.Betterbird" app-id="thunderbird_thunderbird"
+    match app-id="betterbird"
+    match app-id="thunderbird"
     open-maximized true
     open-on-workspace "MAIL"
 }
@@ -332,6 +333,6 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    F12 { spawn-sh "pkill -x waybar; waybar"; }
+    F12 { spawn-sh "pkill -9 waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
 }
