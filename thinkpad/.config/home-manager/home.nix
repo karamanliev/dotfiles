@@ -34,6 +34,7 @@
     nerd-fonts.symbols-only
     niri
     pavucontrol
+    polkit_gnome
     power-profiles-daemon
     ripgrep
     satty

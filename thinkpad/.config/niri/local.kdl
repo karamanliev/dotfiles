@@ -8,7 +8,7 @@ output "eDP-1" {
 
 
 //-----  AUTOSTART
-// spawn-at-startup "/usr/lib/polkit-1/polkit-agent-helper-1"
+spawn-at-startup "sh" "-c" "$HOME/.nix-profile/libexec/polkit-gnome-authentication-agent-1"
 spawn-at-startup "swayidle" "-w" \
 "timeout" "120" "niri msg action power-off-monitors" \
 "timeout" "600" "systemctl suspend"
@@ -33,6 +33,12 @@ input {
         scroll-method "two-finger"
         middle-emulation
     }
+}
+
+
+//----- SWITCH EVENTS
+switch-events {
+    lid-close { spawn "systemctl" "suspend"; }
 }
 
 
