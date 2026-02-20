@@ -46,7 +46,9 @@
     tealdeer
     telegram-desktop
     tmux
-    ungoogled-chromium
+    (ungoogled-chromium.override {
+      commandLineArgs = [ "--password-store=basic" ];
+    })
     uv
     vicinae
     vivid
