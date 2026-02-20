@@ -41,6 +41,7 @@
     sesh
     starship
     sunsetr
+    sunshine
     swaynotificationcenter
     tealdeer
     telegram-desktop

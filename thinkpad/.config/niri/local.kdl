@@ -13,10 +13,9 @@ spawn-at-startup "swayidle" "-w" \
 "timeout" "120" "niri msg action power-off-monitors" \
 "timeout" "600" "systemctl suspend"
 
-spawn-at-startup "zen-browser-snap.zen-browser"
-
-spawn-at-startup "gtk-launch" "noto-chat.desktop"
-
+spawn-at-startup "gtk-launch" "zen.desktop"
+spawn-at-startup "gtk-launch" "chrome-mail.google.com__mail_u_0_-Default.desktop"
+spawn-at-startup "sunshine"
 
 //-----  GENERAL
 animations {
