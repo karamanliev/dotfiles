@@ -335,4 +335,7 @@ binds {
 
     F12 { spawn-sh "pkill -9 waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
+
+    Mod+Ctrl+Shift+Alt+O { spawn-sh "cat ~/Server/clipboard.md | wl-copy"; }
+    Mod+Ctrl+Shift+Alt+P { spawn-sh "echo $(wl-paste) > ~/Server/clipboard.md"; }
 }
