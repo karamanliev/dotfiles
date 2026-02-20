@@ -3,4 +3,5 @@ common/.config/tmux/sessions
 common/.config/tmux/plugins
 common/.config/nvim/lazy-lock.json
 common/.config/kitty/kitty.conf.bak
+common/.config/zsh/zsh-secrets
 .env
