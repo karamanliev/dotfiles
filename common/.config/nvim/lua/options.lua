@@ -163,6 +163,9 @@ vim.opt.langmap =
 -- vim.opt.ttimeoutlen = 0
 -- vim.opt.ttimeout = false
 
+-- Enable project-local .nvim.lua config files
+vim.opt.exrc = true
+
 -- Add filetype for http files
 vim.filetype.add({
   extension = {
