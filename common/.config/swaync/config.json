@@ -26,6 +26,10 @@
       "state": "ignored",
       "app-name": "niri",
       "summary": "^Screenshot captured$"
+    },
+    "snap-theme": {
+      "state": "ignored",
+      "body": "^Some required theme snaps are missing"
     }
   },
   "positionX": "right",
