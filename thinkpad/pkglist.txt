@@ -64,6 +64,7 @@ pavucontrol
 pulseaudio-utils
 rclone
 shim-signed
+socat
 stow
 swayidle
 thin-provisioning-tools

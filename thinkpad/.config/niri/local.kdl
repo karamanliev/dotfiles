@@ -85,6 +85,6 @@ window-rule {
 
 //----- BINDS
 binds {
-    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl set 5%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "brightnessctl set 5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "~/.config/waybar/scripts/sunsetr.sh down"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "~/.config/waybar/scripts/sunsetr.sh up"; }
 }

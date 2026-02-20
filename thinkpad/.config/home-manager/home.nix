@@ -45,9 +45,6 @@
     tealdeer
     telegram-desktop
     tmux
-    (ungoogled-chromium.override {
-      commandLineArgs = [ "--password-store=basic" ];
-    })
     uv
     vicinae
     vivid
@@ -58,6 +55,9 @@
     zsh-autosuggestions
     zsh-completions
     zsh-fast-syntax-highlighting
+    (ungoogled-chromium.override {
+     commandLineArgs = [ "--password-store=basic" ];
+     })
     (zsh-autocomplete.overrideAttrs (old: {
       installPhase = ''
         install -D zsh-autocomplete.plugin.zsh \
