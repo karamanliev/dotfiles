@@ -32,7 +32,7 @@ sync_current() {
 }
 
 # Wait for waybar to be running and fully initialized before sending any signals
-while ! pgrep -x waybar >/dev/null; do sleep 0.5; done
+while ! pgrep waybar >/dev/null; do sleep 0.5; done
 sleep 2
 
 # Wait for sunsetr socket to be ready
