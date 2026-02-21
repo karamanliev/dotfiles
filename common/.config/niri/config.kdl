@@ -310,7 +310,7 @@ binds {
     Mod+T { focus-window-down-or-top; }
 
     Hangul { switch-layout "next"; }
-    Mod+E  { spawn "nautilus"; }
+    Mod+E  { spawn-sh "nautilus -w"; }
 
     Mod+I { spawn-sh "name=$(zenity --entry --title='Workspace' --text='Enter new workspace name:') && [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
     Mod+Shift+I { unset-workspace-name; }
