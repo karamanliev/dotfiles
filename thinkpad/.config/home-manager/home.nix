@@ -16,6 +16,7 @@
   programs.zsh.enable = false;
 
   home.packages = with pkgs; [
+    adw-gtk3
     alacritty
     atuin
     bat
@@ -55,9 +56,13 @@
     zsh-autosuggestions
     zsh-completions
     zsh-fast-syntax-highlighting
+    (catppuccin-papirus-folders.override {
+      flavor = "macchiato";
+      accent = "mauve";
+    })
     (ungoogled-chromium.override {
-     commandLineArgs = [ "--password-store=basic" ];
-     })
+      commandLineArgs = [ "--password-store=basic" ];
+    })
     (zsh-autocomplete.overrideAttrs (old: {
       installPhase = ''
         install -D zsh-autocomplete.plugin.zsh \
