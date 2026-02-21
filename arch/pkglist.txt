@@ -27,7 +27,6 @@ dmidecode
 docker
 docker-compose
 dosfstools
-droidcam
 dust
 efibootmgr
 ethtool
