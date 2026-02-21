@@ -60,9 +60,6 @@
       flavor = "macchiato";
       accent = "mauve";
     })
-    (ungoogled-chromium.override {
-      commandLineArgs = [ "--password-store=basic" ];
-    })
     (zsh-autocomplete.overrideAttrs (old: {
       installPhase = ''
         install -D zsh-autocomplete.plugin.zsh \

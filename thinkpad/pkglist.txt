@@ -20,6 +20,7 @@ findutils
 fonts-indic
 fonts-jetbrains-mono
 git
+gnome-remote-desktop
 grep
 grub2-common
 grub-common
@@ -73,6 +74,10 @@ ubuntu-desktop-minimal
 ubuntu-minimal
 ubuntu-standard
 ubuntu-wallpapers
+ungoogled-chromium
 vim
 wl-clipboard
+xdg-desktop-portal
+xdg-desktop-portal-gnome
+xtradeb-apt-source
 zsh
