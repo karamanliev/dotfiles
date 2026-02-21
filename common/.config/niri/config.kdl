@@ -17,7 +17,6 @@ spawn-at-startup "blueman-applet"
 spawn-at-startup "wpaperd" "-d"
 
 spawn-at-startup "sunsetr"
-spawn-at-startup "~/.config/niri/scripts/sunsetr_theme_sync.sh"
 
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "Telegram"
@@ -27,6 +26,9 @@ spawn-at-startup "kitty"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
                  "karamanliev-dav:" "Server" "--daemon"
+
+spawn-at-startup "~/.config/niri/scripts/sunsetr_theme_sync.sh"
+
 
 //-----  GENERAL
 hotkey-overlay {
