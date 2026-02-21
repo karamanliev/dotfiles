@@ -9,7 +9,7 @@ set_gtk_theme() {
   case "$period" in
   day | sunset)
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Light'
+    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
     ;;
   night | sunrise)

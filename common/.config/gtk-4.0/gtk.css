@@ -15,22 +15,22 @@
 
 /* Global color definitions */
 /* dark colors (default) */
-@define-color window_bg_color #eaeaea;
-@define-color window_fg_color rgba(0,0,0,0.8);
-@define-color view_bg_color #f7f7f7;
-
-@media (prefers-color-scheme: dark) {
-  @define-color window_bg_color #1E2030;
-  @define-color window_fg_color #c8d3f5;
-  @define-color view_bg_color #222436;
-}
+/* @define-color window_bg_color #eaeaea; */
+/* @define-color window_fg_color rgba(0,0,0,0.8); */
+/* @define-color view_bg_color #f7f7f7; */
+/**/
+/* @media (prefers-color-scheme: dark) { */
+/*   @define-color window_bg_color #1E2030; */
+/*   @define-color window_fg_color #c8d3f5; */
+/*   @define-color view_bg_color #222436; */
+/* } */
 
 @define-color view_fg_color @window_fg_color;
 @define-color accent_bg_color #bd93f9;
 @define-color accent_color @accent_bg_color;
 @define-color headerbar_bg_color @window_bg_color;
 @define-color headerbar_fg_color @window_fg_color;
-@define-color popover_bg_color #2f334d;
+/* @define-color popover_bg_color #2f334d; */
 @define-color popover_fg_color @view_fg_color;
 @define-color dialog_bg_color @popover_bg_color;
 @define-color dialog_fg_color @popover_fg_color;
