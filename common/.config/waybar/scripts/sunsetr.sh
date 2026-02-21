@@ -5,20 +5,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Source machine-specific brightness backend (arch: ddcutil, thinkpad: brightnessctl)
 source "$SCRIPT_DIR/brightness.sh"
 
-set_gtk_theme() {
-  local period="$1"
-  case "$period" in
-    day|sunset)
-      gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
-      gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-      ;;
-    night|sunrise)
-      gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-      gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-      ;;
-  esac
-}
-
 get_status() {
   BRIGHTNESS="$(get_brightness)"
   SUNSETR_STATUS=$(sunsetr status --json 2>/dev/null)
@@ -68,11 +54,9 @@ toggle_preset() {
     sunsetr preset default >/dev/null 2>&1
   elif [ "$PERIOD" = "night" ]; then
     sunsetr preset day >/dev/null 2>&1
-    set_gtk_theme "day"
   else
     # day, sunset, sunrise → override with static night
     sunsetr preset night >/dev/null 2>&1
-    set_gtk_theme "night"
   fi
 
   pkill -RTMIN+2 waybar

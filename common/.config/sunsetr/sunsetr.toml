@@ -3,7 +3,7 @@ backend = "auto"         # Backend to use: "auto", "hyprland", "hyprsunset" or "
 transition_mode = "geo"  # Select: "geo", "finish_by", "start_at", "center", "static"
 
 #[Smoothing]
-smoothing = true         # Enable smooth transitions during startup and exit
+smoothing = false      # Enable smooth transitions during startup and exit
 startup_duration = 5   # Duration of smooth startup in seconds (0.1-60 | 0 = instant)
 shutdown_duration = 5  # Duration of smooth shutdown in seconds (0.1-60 | 0 = instant)
 adaptive_interval = 150    # Adaptive interval base for smooth transitions (1-1000)ms

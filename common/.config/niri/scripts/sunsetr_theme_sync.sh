@@ -8,11 +8,13 @@ set_gtk_theme() {
   local period="$1"
   case "$period" in
   day | sunset)
+    niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
     ;;
   night | sunrise)
+    niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
@@ -30,7 +32,7 @@ sync_current() {
 }
 
 # Wait for waybar to be running and fully initialized before sending any signals
-while ! pgrep -x waybar > /dev/null; do sleep 0.5; done
+while ! pgrep -x waybar >/dev/null; do sleep 0.5; done
 sleep 2
 
 # Wait for sunsetr socket to be ready
