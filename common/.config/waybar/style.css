@@ -197,6 +197,7 @@ tooltip label {
 #memory:hover,
 #custom-gsr:hover,
 #custom-claude-usage:hover,
+#custom-codex-usage:hover,
 #custom-voxtype:hover {
   background: @bg_hover;
 }
@@ -256,7 +257,8 @@ tooltip label {
 }
 
 /* Claude Code Usage Monitor Styling */
-#custom-claude-usage {
+#custom-claude-usage,
+#custom-codex-usage {
   margin: 6px 0;
   padding: 0 8px;
   border-radius: 4px;
@@ -266,20 +268,24 @@ tooltip label {
 
 /* Hover effect: show clickable */
 /* Color-coded by usage level */
-#custom-claude-usage.claude-low {
+#custom-claude-usage.claude-low,
+#custom-codex-usage.codex-low {
   color: #a6e3a1; /* Green: low usage (0-49%) */
 }
 
-#custom-claude-usage.claude-mid {
+#custom-claude-usage.claude-mid,
+#custom-codex-usage.codex-mid {
   color: #f9e2af; /* Yellow: medium usage (50-79%) */
 }
 
-#custom-claude-usage.claude-high {
+#custom-claude-usage.claude-high,
+#custom-codex-usage.codex-high {
   color: #f38ba8; /* Red: high usage (80-99%) */
 }
 
 /* Error state (network failures, auth errors, etc.) */
-#custom-claude-usage.critical {
+#custom-claude-usage.critical,
+#custom-codex-usage.critical {
   color: #ff5555;
   background: rgba(255, 85, 85, 0.1);
 }

@@ -17,7 +17,9 @@
       // "custom/separator",
       // "custom/timer",
       "custom/separator",
-      "custom/claude-usage"
+      "custom/claude-usage",
+      "custom/separator",
+      "custom/codex-usage"
     ],
     "modules-center": [
       "custom/weather",
@@ -75,11 +77,19 @@
       "return-type": "json",
       "interval": 120,
       "format": "{}",
-      // "format": "󰜡",
       "tooltip": true,
       "on-click": "rm -f ~/.cache/waybar-ai-usage/claude.json && pkill -RTMIN+8 waybar",
       "on-click-middle": "claude -p hi;sleep 1;pkill -RTMIN+8 waybar",
-      // "on-click-middle": "kitty -e claude -p hi;sleep 5;pkill -RTMIN+8 waybar",
+      "signal": 8
+    },
+    "custom/codex-usage": {
+      "exec": "codex-usage --waybar --show-5h --format '{icon} {?5h_reset}{5h_pct}%   {time_icon} {5h_reset}{/5h_reset}'",
+      "return-type": "json",
+      "interval": 120,
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "rm -f ~/.cache/waybar-ai-usage/codex.json && pkill -RTMIN+8 waybar",
+      "on-click-middle": "codex exec --skip-git-repo-check hi;sleep 1;pkill -RTMIN+8 waybar",
       "signal": 8
     },
     "custom/vicinae": {
