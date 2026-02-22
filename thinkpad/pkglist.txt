@@ -76,6 +76,7 @@ ubuntu-standard
 ubuntu-wallpapers
 ungoogled-chromium
 vim
+wev
 wl-clipboard
 xdg-desktop-portal
 xdg-desktop-portal-gnome
