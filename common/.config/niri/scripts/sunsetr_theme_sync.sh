@@ -8,13 +8,13 @@ set_gtk_theme() {
   local period="$1"
   case "$period" in
   day | sunset)
-    niri msg action do-screen-transition --delay-ms 300 2>/dev/null &
+    niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
     ;;
   night | sunrise)
-    niri msg action do-screen-transition --delay-ms 300 2>/dev/null &
+    niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
@@ -22,27 +22,12 @@ set_gtk_theme() {
   esac
 }
 
-# Sync theme to current sunsetr state on startup / reconnect.
-# Only triggers the screen transition if the theme actually needs to change.
+# Sync theme to current sunsetr state on startup / reconnect
 sync_current() {
-  local status period current_scheme want_scheme
+  local status period
   status=$(sunsetr status --json 2>/dev/null) || return
   period=$(echo "$status" | jq -r '.period // empty')
-  [ -z "$period" ] && return
-
-  current_scheme=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)
-  case "$period" in
-  day | sunset) want_scheme="'prefer-light'" ;;
-  night | sunrise) want_scheme="'prefer-dark'" ;;
-  *)
-    pkill -RTMIN+2 waybar
-    return
-    ;;
-  esac
-
-  if [ "$current_scheme" != "$want_scheme" ]; then
-    set_gtk_theme "$period"
-  fi
+  set_gtk_theme "$period"
   pkill -RTMIN+2 waybar
 }
 
