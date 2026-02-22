@@ -3,17 +3,23 @@
 # Start this as a background daemon (e.g. from niri autostart).
 
 SOCKET="${XDG_RUNTIME_DIR}/sunsetr-events.sock"
+LAST_APPLIED_PERIOD=""
 
 set_gtk_theme() {
   local period="$1"
+
+  [ "$period" = "$LAST_APPLIED_PERIOD" ] && return
+
   case "$period" in
   day | sunset)
+    LAST_APPLIED_PERIOD="$period"
     niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
     ;;
   night | sunrise)
+    LAST_APPLIED_PERIOD="$period"
     niri msg action do-screen-transition 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
@@ -69,9 +75,8 @@ while true; do
         pkill -RTMIN+2 waybar
         ;;
       esac
-    done < <(socat UNIX-CONNECT:"$SOCKET" - 2>/dev/null)
+    done < <(socat -u UNIX-CONNECT:"$SOCKET" - 2>/dev/null)
   fi
-  # Resync after disconnect to catch any missed events
   sleep 2
   sync_current
 done
