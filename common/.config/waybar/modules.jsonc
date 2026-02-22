@@ -221,5 +221,44 @@
     "on-click": "${HOME}/.config/waybar/scripts/gsr.sh DP-3",
     "on-click-right": "${HOME}/.config/waybar/scripts/gsr.sh DP-1",
     "tooltip": true
+  },
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "<span font_size='x-large' baseline_shift='-5pt'>{icon}</span> <span font_scale='small-caps' baseline_shift='-3pt'>{capacity}%</span> ",
+    "tooltip-format": "{timeTo}",
+    "format-icons": {
+      "default": [
+        "󰂎",
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ],
+      "charging": [
+        "󰢟",
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ]
+    }
   }
 }

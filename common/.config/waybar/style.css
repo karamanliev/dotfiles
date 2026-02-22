@@ -160,6 +160,22 @@ tooltip label {
   background: @bg_hover;
 }
 
+#battery {
+  margin-left: 8px;
+}
+
+#battery.charging {
+  color: aquamarine;
+}
+
+#battery.warning:not(.charging) {
+  color: palegoldenrod;
+}
+
+#battery.critical:not(.charging) {
+  color: lightcoral;
+}
+
 #custom-notification,
 #custom-agenda,
 #custom-weather,
