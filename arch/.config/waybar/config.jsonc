@@ -1,0 +1,76 @@
+[
+  {
+    "output": "DP-3",
+    "include": [
+      "~/.config/waybar/common.jsonc",
+      "~/.config/waybar/modules.jsonc"
+    ],
+    "modules-left": [
+      "custom/vicinae",
+      "custom/separator",
+      "niri/workspaces",
+      "custom/separator",
+      "cffi/niri-taskbar",
+      "custom/separator",
+      "custom/claude-usage",
+      "custom/separator",
+      "custom/codex-usage"
+    ],
+    "modules-center": [
+      "custom/weather",
+      "custom/separator",
+      "clock",
+      "custom/separator",
+      "custom/agenda"
+    ],
+    "modules-right": [
+      "cpu",
+      "custom/separator",
+      "custom/gpu",
+      "custom/separator",
+      "memory",
+      "custom/separator",
+      "tray",
+      "idle_inhibitor",
+      "custom/sunsetr",
+      "custom/gsr",
+      "custom/separator",
+      "niri/language",
+      "custom/separator",
+      "custom/voxtype",
+      "pulseaudio",
+      "custom/separator",
+      "custom/notification"
+    ]
+  },
+  {
+    "output": "DP-1",
+    "include": [
+      "~/.config/waybar/common.jsonc",
+      "~/.config/waybar/modules.jsonc"
+    ],
+    "modules-left": [
+      "custom/vicinae",
+      "custom/separator",
+      "niri/workspaces",
+      "custom/separator",
+      "cffi/niri-taskbar"
+    ],
+    "modules-center": [
+      "custom/weather",
+      "custom/separator",
+      "clock"
+    ],
+    "modules-right": [
+      "idle_inhibitor",
+      "custom/sunsetr",
+      "custom/gsr",
+      "custom/separator",
+      "niri/language",
+      "custom/separator",
+      "pulseaudio",
+      "custom/separator",
+      "custom/notification"
+    ]
+  }
+]
