@@ -235,6 +235,8 @@
     "custom/sunsetr": {
       "exec": "${HOME}/.config/waybar/scripts/sunsetr.sh status",
       "return-type": "json",
+      "interval": "once",
+      "signal": 2,
       "format": "<span font_size='x-large'>{icon}</span> <span font_scale='small-caps' baseline_shift='2pt'>{text}%</span>",
       "format-icons": {
         "day": "󰖨",
