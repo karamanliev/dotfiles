@@ -373,17 +373,20 @@ return {
             },
             transform = function(item)
               local allowed = {
-                'catppuccin-frappe',
-                'catppuccin-macchiato',
-                'catppuccin-mocha',
+                'rose-pine-dawn',
                 'rose-pine-main',
                 'rose-pine-moon',
                 'poimandres',
                 'kanagawa-paper-ink',
                 'oldworld',
+                'tokyonight-day',
                 'tokyonight-moon',
                 'tokyonight-night',
                 'tokyonight-storm',
+                'catppuccin-latte',
+                'catppuccin-frappe',
+                'catppuccin-macchiato',
+                'catppuccin-mocha',
               }
 
               if vim.tbl_contains(allowed, item.text) then

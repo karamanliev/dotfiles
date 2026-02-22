@@ -37,20 +37,12 @@
   tabs = true
   hyprlinks = true
   true-color = always
-  syntax-theme = tokyonight_night
-  minus-style = "syntax #3b263a"
-  minus-emph-style = "syntax #5e355c"
-  zero-style = "syntax auto"
-  plus-style = "syntax #263949"
-  plus-emph-style = "syntax #394b70"
-  line-numbers-minus-style = "#f7768e auto"
-  line-numbers-zero-style = "#565f89 auto"
-  line-numbers-left-style = "#565f89 auto"
-  line-numbers-plus-style = "#41a6b5 auto"
-  hunk-header-decoration-style = "blue box"
 
 [delta "interactive"]
   side-by-side = true
 
 [include]
-  path = ~/.config/git/local
+  path = ~/.config/git/delta.conf
+
+[include]
+  path = ~/.config/git/local.conf
