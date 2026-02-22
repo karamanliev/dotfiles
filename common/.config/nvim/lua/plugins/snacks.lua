@@ -219,8 +219,9 @@ return {
               preset = 'ivy',
               layout = {
                 height = 0.25,
+                backdrop = false,
               },
-              hidden = { 'preview' },
+              hidden = { 'preview', 'input' },
             },
             current = false,
             focus = 'list',
