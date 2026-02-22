@@ -403,6 +403,24 @@ def parse_args() -> argparse.Namespace:
         help="Show only the next occurrence of repeating meetings (based on duplicates in the query window)",
     )
 
+    parser.add_argument(
+        "--icon-only",
+        action="store_true",
+        help="Waybar: show only an icon depending on recurring/non-recurring presence",
+    )
+
+    parser.add_argument(
+        "--icon-symbol",
+        default=" ⏺",
+        help="Symbol to show in --icon-only mode",
+    )
+
+    parser.add_argument(
+        "--icon-new-color",
+        default="#bd93f9",
+        help="Color for icon when non-recurring events exist in addition to recurring ones",
+    )
+
     return parser.parse_args()
 
 
@@ -566,44 +584,174 @@ def apply_recurring_policy(events: list[dict], args: argparse.Namespace) -> list
         collapsed.append(ev)
     return collapsed
 
+def is_upcoming_today(ev: dict, now: datetime.datetime, all_day_meeting_hours: int) -> bool:
+    """
+    True if event is relevant for the icon:
+    - happens today
+    - and is upcoming (start >= now) OR currently ongoing (end > now)
+    - all-day events count for the whole day as long as it's today
+    """
+    start = ev["startdate"]
+    end = ev["enddate"]
+
+    if start.date() != now.date():
+        return False
+
+    # Treat all-day events as relevant for the whole day
+    # Your existing logic considers "all-day" as spanning >= all_day_meeting_hours
+    if end > (start + datetime.timedelta(hours=all_day_meeting_hours)):
+        return end > now  # still ongoing today
+
+    # Normal events: upcoming or currently ongoing
+    return end > now
+
+
+def upcoming_today_events(events: list[dict], all_day_meeting_hours: int) -> list[dict]:
+    now = datetime.datetime.now()
+    return [ev for ev in events if is_upcoming_today(ev, now, all_day_meeting_hours)]
+
+
+def recurring_flags(events: list[dict]) -> tuple[bool, bool]:
+    """
+    Returns:
+      has_recurring: at least one meeting signature appears >1 times in this set
+      has_nonrecurring: at least one meeting signature appears exactly once in this set
+    """
+    if not events:
+        return (False, False)
+
+    counts = defaultdict(int)
+    for ev in events:
+        counts[recurrence_key(ev)] += 1
+
+    has_recurring = any(v > 1 for v in counts.values())
+    has_nonrecurring = any(v == 1 for v in counts.values())
+    return (has_recurring, has_nonrecurring)
+
+
+def events_today(events: list[dict]) -> list[dict]:
+    today = datetime.datetime.now().date()
+    return [
+        ev for ev in events
+        if ev["startdate"].date() == today
+    ]
+
+
+def recurring_flags(events: list[dict]) -> tuple[bool, bool]:
+    """
+    Returns:
+      has_recurring: at least one meeting signature appears >1 times in the window
+      has_nonrecurring: at least one meeting signature appears exactly once in the window
+    """
+    if not events:
+        return (False, False)
+
+    counts = defaultdict(int)
+    keys = []
+    for ev in events:
+        k = recurrence_key(ev)
+        keys.append(k)
+        counts[k] += 1
+
+    has_recurring = any(counts[k] > 1 for k in counts)
+    has_nonrecurring = any(counts[k] == 1 for k in counts)
+    return (has_recurring, has_nonrecurring)
+
 def main():
     args = parse_args()
     args.cache_dir.mkdir(parents=True, exist_ok=True)
 
     # Get events from plann
     raw_events = plann_output(args)
-    raw_events = apply_recurring_policy(raw_events, args)
 
-    events, cssclass = ret_events(raw_events, args)
+    # Icon logic: ONLY upcoming/ongoing events today (including all-day)
+    icon_events = upcoming_today_events(raw_events, int(args.all_day_meeting_hours))
+    has_rec, has_nonrec = recurring_flags(icon_events)
+
+    # Display/tooltip logic remains based on all events in horizon
+    filtered_events = apply_recurring_policy(raw_events, args)
+    events, cssclass = ret_events(filtered_events, args)
 
     if args.open_meet_url:
         open_meet_url(events, args)
         return
 
     if args.waybar:
+
+        tooltip = group_events_by_date(events) if events else "No events"
+
+        # ICON-ONLY MODE
+        if args.icon_only:
+            # No upcoming events today -> show nothing
+            if not icon_events:
+                ret = {
+                    "text": "",
+                    "tooltip": tooltip,
+                    "tooltip-markup": True,
+                }
+
+            # Any non-recurring upcoming event today -> red dot
+            elif has_nonrec:
+                icon_text = (
+                    f'<span foreground="{args.icon_new_color}">'
+                    f'{html.escape(args.icon_symbol)}'
+                    f'</span>'
+                )
+                ret = {
+                    "text": icon_text,
+                    "tooltip": tooltip,
+                    "tooltip-markup": True,
+                    "markup": True,
+                    "class": "has-nonrecurring-today",
+                }
+
+            # Otherwise, only recurring upcoming events today -> normal dot
+            else:
+                gray_color = "#5c6370"   # change this to whatever gray you like
+
+                icon_text = (
+                    f'<span foreground="{gray_color}">'
+                    f'{html.escape(args.icon_symbol)}'
+                    f'</span>'
+                )
+
+                ret = {
+                    "text": icon_text,
+                    "tooltip": tooltip,
+                    "tooltip-markup": True,
+                    "markup": True,
+                    "class": "only-recurring-today",
+                }
+
+            json.dump(ret, sys.stdout)
+            return
+
+        # DEFAULT MODE (no --icon-only)
         if not events:
             ret = {"text": "No meeting 🏖️"}
-        else:
-            # Always use next non-all-day meeting for main display
-            coming_up_next = get_next_non_all_day_meeting(
-                events, int(args.all_day_meeting_hours)
-            )
-            if not coming_up_next:  # only all days meeting
-                coming_up_next = events[0]
+            json.dump(ret, sys.stdout)
+            return
 
-            # Format tooltip with grouped and styled events
-            tooltip = group_events_by_date(events)
+        coming_up_next = get_next_non_all_day_meeting(
+            events, int(args.all_day_meeting_hours)
+        )
+        if not coming_up_next:
+            coming_up_next = events[0]
 
-            ret = {
-                "text": coming_up_next["display"],
-                "tooltip": tooltip,
-                "tooltip-markup": True  # Enable markup in tooltip for styling
-            }
-            if cssclass:
-                ret["class"] = cssclass
+        ret = {
+            "text": coming_up_next["display"],
+            "tooltip": tooltip,
+            "tooltip-markup": True,
+        }
+
+        if cssclass:
+            ret["class"] = cssclass
+
         json.dump(ret, sys.stdout)
+        return
+
     else:
-        # For non-waybar output, show the grouped format
+        # Non-waybar output
         print(group_events_by_date(events))
 
 
