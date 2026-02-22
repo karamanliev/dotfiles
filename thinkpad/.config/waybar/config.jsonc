@@ -1,0 +1,55 @@
+[
+  {
+    "output": "eDP-1",
+    "include": [
+      "~/.config/waybar/common.jsonc",
+      "~/.config/waybar/modules.jsonc"
+    ],
+    "modules-left": [
+      "custom/vicinae",
+      "custom/separator",
+      "niri/workspaces",
+      "custom/separator",
+      "cffi/niri-taskbar",
+      "custom/separator",
+      "custom/claude-usage",
+      "custom/separator",
+      "custom/codex-usage"
+    ],
+    "modules-center": [
+      "custom/weather",
+      "custom/separator",
+      "clock",
+      "custom/separator",
+      "custom/agenda"
+    ],
+    "modules-right": [
+      "tray",
+      "idle_inhibitor",
+      "custom/sunsetr",
+      "battery",
+      "custom/separator",
+      "niri/language",
+      "custom/separator",
+      "pulseaudio",
+      "custom/separator",
+      "custom/notification"
+    ],
+    "custom/agenda": {
+      "format": "<span font_size='large'>󰨲</span>{}",
+      "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal --collapse-recurring --icon-only"
+    },
+    "custom/claude-usage": {
+      "exec": "claude-usage --waybar --show-5h --format '{icon} {5h_pct}%'"
+    },
+    "custom/codex-usage": {
+      "exec": "codex-usage --waybar --show-5h --format '{icon} {5h_pct}%'"
+    },
+    "cpu": {
+      "format": "C {usage}%"
+    },
+    "memory": {
+      "format": "M {percentage}%"
+    }
+  }
+]
