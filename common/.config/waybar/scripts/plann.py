@@ -129,11 +129,6 @@ def parse_plann_output(output: str) -> list[dict]:
             if enddate < datetime.datetime.now():
                 continue
 
-            # Skip events that start more than 2 weeks in the future
-            two_weeks_from_now = datetime.datetime.now() + datetime.timedelta(weeks=2)
-            if startdate > two_weeks_from_now:
-                continue
-
             # Detect all-day events
             # An all-day event starts at 00:00 and either:
             # - ends at 00:00 on a different day, or
@@ -162,14 +157,19 @@ def parse_plann_output(output: str) -> list[dict]:
 def plann_output(args: argparse.Namespace) -> list[dict]:
     """Execute plann and parse output"""
     cmd = ['plann']
+    now = datetime.datetime.now()
+    end = now + datetime.timedelta(days=args.horizon_days)
 
     # Add config section if provided
     if args.config_section:
         cmd.extend(['--config-section', args.config_section])
 
     cmd.extend([
-        'select',
-        '--event', 'list',
+        'select', '--event',
+        '--start', now.strftime('%Y-%m-%d %H:%M'),
+        '--end',   end.strftime('%Y-%m-%d %H:%M'),
+        '--sort-key', '{DTSTART}',
+        'list',
         '--template=start:{DTSTART:%F %H:%M} | end:{DTEND:%F %H:%M} | summary:{SUMMARY} | loc:{LOCATION}'
     ])
 
@@ -384,6 +384,25 @@ def parse_args() -> argparse.Namespace:
         help="Notification icon to use for notify-send",
     )
 
+    parser.add_argument(
+        "--horizon-days",
+        type=int,
+        default=14,
+        help="Number of days to show in the horizon",
+    )
+
+    g = parser.add_mutually_exclusive_group()
+    g.add_argument(
+        "--hide-recurring",
+        action="store_true",
+        help="Hide meetings that appear to repeat (based on duplicates in the query window)",
+    )
+    g.add_argument(
+        "--collapse-recurring",
+        action="store_true",
+        help="Show only the next occurrence of repeating meetings (based on duplicates in the query window)",
+    )
+
     return parser.parse_args()
 
 
@@ -499,6 +518,53 @@ def open_meet_url(events: list[dict], args: argparse.Namespace):
         )
     sys.exit(0)
 
+def recurrence_key(ev: dict) -> tuple:
+    """
+    A stable signature for "same meeting repeats".
+    We intentionally ignore the date and keep only:
+    - title
+    - location
+    - meeting URL (if any)
+    - start time of day
+    - duration
+    - all-day flag
+    """
+    start = ev["startdate"]
+    end = ev["enddate"]
+    duration_min = int((end - start).total_seconds() // 60)
+    return (
+        ev.get("title", "").strip(),
+        ev.get("location", "").strip(),
+        ev.get("meet_url", "").strip(),
+        start.hour,
+        start.minute,
+        duration_min,
+        bool(ev.get("is_all_day", False)),
+    )
+
+def apply_recurring_policy(events: list[dict], args: argparse.Namespace) -> list[dict]:
+    if not (args.hide_recurring or args.collapse_recurring):
+        return events
+
+    # Count how many times each "meeting signature" appears in the window
+    counts: dict[tuple, int] = defaultdict(int)
+    for ev in events:
+        counts[recurrence_key(ev)] += 1
+
+    if args.hide_recurring:
+        # Keep only meetings that occur once in the window
+        return [ev for ev in events if counts[recurrence_key(ev)] == 1]
+
+    # collapse_recurring: keep only the earliest occurrence for each repeating meeting
+    seen: set[tuple] = set()
+    collapsed: list[dict] = []
+    for ev in sorted(events, key=lambda e: e["startdate"]):
+        k = recurrence_key(ev)
+        if k in seen:
+            continue
+        seen.add(k)
+        collapsed.append(ev)
+    return collapsed
 
 def main():
     args = parse_args()
@@ -506,6 +572,8 @@ def main():
 
     # Get events from plann
     raw_events = plann_output(args)
+    raw_events = apply_recurring_policy(raw_events, args)
+
     events, cssclass = ret_events(raw_events, args)
 
     if args.open_meet_url:

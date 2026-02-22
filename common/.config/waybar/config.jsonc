@@ -93,7 +93,7 @@
     },
     "custom/agenda": {
       "format": "<span font_size='large'>󰨲</span>  {0}",
-      "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal",
+      "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal --collapse-recurring",
       "on-click-middle": "${HOME}/.config/waybar/scripts/plann.py --open-meet-url --config-section personal",
       "on-click": "betterbird -calendar;niri msg action focus-workspace \"MAIL\"",
       "interval": 59,
