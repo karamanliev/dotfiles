@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   home.username = "hristo.karamanliev";
   home.homeDirectory = "/home/hristo.karamanliev";
 
@@ -48,6 +50,7 @@
     uv
     vicinae
     vivid
+    vscode
     waybar
     wpaperd
     yazi
