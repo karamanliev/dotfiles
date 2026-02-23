@@ -50,6 +50,9 @@
     },
     "memory": {
       "format": "M {percentage}%"
+    },
+    "pulseaudio": {
+      "scroll-step": 1
     }
   }
 ]
