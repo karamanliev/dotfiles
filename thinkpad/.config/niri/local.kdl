@@ -54,7 +54,7 @@ workspace "3" {
     open-on-output "eDP-1"
 }
 
-workspace "MAIL" {
+workspace "4" {
     open-on-output "eDP-1"
 }
 
