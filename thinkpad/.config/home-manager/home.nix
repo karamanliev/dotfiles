@@ -28,7 +28,6 @@
     fd
     fnm
     fzf
-    kitty
     lazydocker
     lazygit
     neovim
