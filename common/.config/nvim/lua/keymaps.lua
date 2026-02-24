@@ -88,10 +88,10 @@ vim.keymap.set('v', '<M-k>', ":'<,'>m '<-2<cr>gv=gv", { desc = 'Move block up' }
 vim.keymap.set('n', 'zfm', '<cmd>SelectFoldMethod<cr>', { desc = 'Select foldmethod' })
 
 -- Open lazygit in new tmux window
-vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
--- vim.keymap.set('n', 'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
-vim.keymap.set('n', 'gH', '<cmd>LazyGit!<cr>', { desc = 'LazyGit split' })
-vim.keymap.set('n', 'gL', '<cmd>LazyGitLogsFile<cr>', { desc = 'LazyGit' })
+-- vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+-- vim.keymap.set('n', keymaps'gh', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+-- vim.keymap.set('n', 'gH', '<cmd>LazyGit!<cr>', { desc = 'LazyGit split' })
+-- vim.keymap.set('n', 'gL', '<cmd>LazyGitLogsFile<cr>', { desc = 'LazyGit' })
 vim.keymap.set('n', '<leader>L', function()
   require('lazy').home()
 end, { desc = 'Lazy' })
