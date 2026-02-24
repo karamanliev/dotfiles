@@ -24,8 +24,7 @@ bindkey -M vicmd '^R' atuin-search
 bindkey '^Y' menu-complete-wrap # Select first completion from the menu
 
 # Accept autosuggestion (ghost text)
-bindkey '^[[C' autosuggest-accept # Right arrow
-bindkey '^I' autosuggest-accept   # Or Tab
+bindkey '^I' autosuggest-accept # Tab
 
 # ============================================
 # INSIDE COMPLETION MENU
