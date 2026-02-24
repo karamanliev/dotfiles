@@ -38,6 +38,8 @@
    "favorites": [
       "@botkooper/store.vicinae.power-profile:power-profile",
       "@knoopx/store.vicinae.stocks:stocks",
+      "applications:thinkpad-remote",
+      "applications:thinkpad-ssh",
       "@LuggaPugga/store.vicinae.port-killer:port-killer",
       "@leonkohli/store.vicinae.process-manager:processes",
       "shortcuts:7fb0aead-18c7-4dcc-ac83-36b45b9a9632",
