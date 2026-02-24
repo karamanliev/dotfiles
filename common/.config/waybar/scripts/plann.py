@@ -411,7 +411,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--icon-symbol",
-        default=" ⏺",
+        default="  ⏺",
         help="Symbol to show in --icon-only mode",
     )
 
