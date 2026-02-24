@@ -19,6 +19,7 @@ bindkey "^[v" edit-command-line
 # ============================================
 bindkey '^N' down-line-or-select # Enter the menu completion
 bindkey "^P" atuin-up-search     # Go to atuin history search
+bindkey -M vicmd '^R' atuin-search
 
 bindkey '^Y' menu-complete-wrap # Select first completion from the menu
 
