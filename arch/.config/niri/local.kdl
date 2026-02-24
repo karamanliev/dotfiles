@@ -51,7 +51,6 @@ spawn-at-startup "zen-browser"
 
 spawn-at-startup "betterbird"
 spawn-at-startup "obsidian"
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "voxtype"
 
 spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"

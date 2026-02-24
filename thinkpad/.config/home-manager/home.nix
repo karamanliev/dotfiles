@@ -53,6 +53,7 @@
     vscode
     waybar
     wpaperd
+    xwayland-satellite
     yazi
     zoxide
     zsh-autosuggestions

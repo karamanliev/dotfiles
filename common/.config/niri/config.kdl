@@ -18,6 +18,7 @@ spawn-at-startup "blueman-applet"
 spawn-at-startup "wpaperd" "-d"
 
 spawn-at-startup "sunsetr"
+spawn-at-startup "xwayland-satellite"
 
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "Telegram"
