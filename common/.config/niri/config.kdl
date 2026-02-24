@@ -178,6 +178,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id="com.moonlight_stream.Moonlight"
+    open-maximized true
+}
+
+window-rule {
     match app-id="org.telegram.desktop"
     open-maximized true
     open-on-workspace "CHAT"
