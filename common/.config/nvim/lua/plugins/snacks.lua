@@ -305,13 +305,22 @@ return {
         desc = 'Grep Open Buffers',
       },
       {
-        '<leader>fg',
+        '<leader>gg',
         function()
           Snacks.picker.git_status({
             cwd = vim.fn.expand('%:p:h'),
           })
         end,
         desc = 'Git Status',
+      },
+      {
+        '<leader>gf',
+        function()
+          Snacks.picker.git_log_file({
+            focus = 'list',
+          })
+        end,
+        desc = 'Git Log File',
       },
       {
         '<leader>/',
