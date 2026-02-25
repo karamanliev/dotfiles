@@ -3,7 +3,7 @@ local augroup = vim.api.nvim_create_augroup("oculus-eslint", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	group = augroup,
-	pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
+	pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.mjs", "*.json" },
 	callback = function(args)
 		-- Disable conform (prettierd) for this buffer
 		vim.b[args.buf].dont_format_on_write = true
