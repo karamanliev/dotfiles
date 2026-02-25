@@ -13,7 +13,6 @@ gui:
   expandedSidePanelWeight: 3
   nerdFontsVersion: "3"
   border: "single"
-  showDivergenceFromBaseBranch: arrowAndNumber
   theme:
     activeBorderColor:
       - "#b4befe"
