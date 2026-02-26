@@ -22,5 +22,5 @@ dark)
 esac
 
 [[ -r "$GIT_CONFIG_DIR/$DELTA_FILE" ]] || exit 0
-sed "s|^  syntax-theme = .*|  syntax-theme = $CURRENT_THEME|" \
+sed "s|^\tsyntax-theme = .*|\tsyntax-theme = $CURRENT_THEME|" \
   "$GIT_CONFIG_DIR/$DELTA_FILE" >"$GIT_CONFIG_DIR/delta.conf"
