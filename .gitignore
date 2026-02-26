@@ -2,6 +2,9 @@ common/.config/zsh/zsh-history
 common/.config/tmux/sessions
 common/.config/tmux/plugins
 common/.config/nvim/lazy-lock.json
-common/.config/kitty/kitty.conf.bak
+common/.config/kitty/*.bak
+common/.config/kitty/current-theme.conf
+common/.config/tmux/dynamic_colors.conf
+common/.config/btop/themes/current.theme
 common/.config/zsh/zsh-secrets
 .env

@@ -7,8 +7,6 @@ bindkey '^F' cdi_widget # open zoxide zi widget
 
 bindkey '^[s' sesh-sessions # open sesh outside tmux
 
-bindkey '^[t' change_terminal_colorscheme # change terminal colorscheme
-
 # edit in vim buffer
 autoload edit-command-line
 zle -N edit-command-line

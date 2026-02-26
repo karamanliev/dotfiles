@@ -14,10 +14,10 @@ update_brightness_cache() {
 }
 
 get_brightness() {
-  if [ ! -f "$BRIGHTNESS_CACHE" ]; then
-    update_brightness_cache
+  if [ ! -s "$BRIGHTNESS_CACHE" ]; then
+    for _ in {1..10}; do update_brightness_cache; [ -s "$BRIGHTNESS_CACHE" ] && break; sleep 0.2; done
   fi
-  cat "$BRIGHTNESS_CACHE" 2>/dev/null || echo "0"
+  [ -s "$BRIGHTNESS_CACHE" ] && cat "$BRIGHTNESS_CACHE" 2>/dev/null || echo "0"
 }
 
 brightness_up() {

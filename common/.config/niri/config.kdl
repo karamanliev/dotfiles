@@ -17,6 +17,7 @@ spawn-at-startup "blueman-applet"
 
 spawn-at-startup "wpaperd" "-d"
 
+spawn-at-startup "darkman" "run"
 spawn-at-startup "sunsetr"
 spawn-at-startup "xwayland-satellite"
 
@@ -29,7 +30,7 @@ spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
                  "karamanliev-dav:" "Server" "--daemon"
 
-spawn-at-startup "~/.config/niri/scripts/sunsetr_theme_sync.sh"
+spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
 
 
 //-----  GENERAL

@@ -12,12 +12,44 @@ export SAVEHIST=1000000
 export MANPAGER='nvim +Man!'
 
 # Add colors for commands and completions
-export LS_COLORS="$(vivid generate tokyonight-moon)"
+if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/darkman/themes.conf" ]]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/darkman/themes.conf"
+fi
+
+THEME_SYNC_STATE_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/current_theme"
+
+if [[ -r "$THEME_SYNC_STATE_FILE" ]]; then
+  export CURRENT_THEME="$(<"$THEME_SYNC_STATE_FILE")"
+else
+  export CURRENT_THEME="$DARK_THEME"
+fi
+
+theme_sync_apply_ls_colors() {
+  export BAT_THEME="$CURRENT_THEME"
+  export LS_COLORS="$(vivid generate "$CURRENT_THEME")"
+  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+}
+
+if command -v vivid >/dev/null 2>&1; then
+  theme_sync_apply_ls_colors
+fi
+
+theme_sync_reload_ls_colors() {
+  local theme="$(<"$THEME_SYNC_STATE_FILE" 2>/dev/null)"
+  [[ -z "$theme" || "$theme" == "$CURRENT_THEME" ]] && return
+  export CURRENT_THEME="$theme"
+  command -v vivid >/dev/null 2>&1 || return
+  theme_sync_apply_ls_colors
+}
+precmd_functions+=(theme_sync_reload_ls_colors)
+preexec_functions+=(theme_sync_reload_ls_colors)
 
 # Check for secret envs and source them
 [[ -f $ZSH_MODULES/zsh-secrets ]] && source $ZSH_MODULES/zsh-secrets
 
 # Default fzf options
+FZF_THEME_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes"
+
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS} \
 	--height 60% \
 	--preview 'bat -n --style=full --color=always {}' \
@@ -25,6 +57,8 @@ export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS} \
 	--bind ctrl-/:toggle-preview \
 	--bind alt-j:preview-down,alt-k:preview-up \
 	--bind alt-n:preview-down,alt-p:preview-up"
+
+[[ -r "$FZF_THEME_DIR/$CURRENT_THEME.sh" ]] && source "$FZF_THEME_DIR/$CURRENT_THEME.sh"
 
 # View full path in preview window (?)
 export FZF_ALT_C_OPTS="${FZF_ALT_C_OPTS:+$FZF_ALT_C_OPTS} \

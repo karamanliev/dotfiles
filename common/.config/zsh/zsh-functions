@@ -21,11 +21,6 @@ menu-complete-wrap() {
 }
 zle -N menu-complete-wrap
 
-change_terminal_colorscheme() {
-  zsh-sync-colors.sh
-}
-zle -N change_terminal_colorscheme
-
 function cdi_widget() {
   zle -I
   cdi

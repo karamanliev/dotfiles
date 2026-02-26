@@ -50,7 +50,7 @@ toggle_preset() {
 
   if [ "$PRESET" != "default" ]; then
     # On any non-default preset → go back to default/geo
-    # IPC daemon handles theme instantly via preset_changed.target_period
+    # sunsetr_darkman_sync applies the matching darkman mode via Sunsetr events
     sunsetr preset default >/dev/null 2>&1
   elif [ "$PERIOD" = "night" ]; then
     sunsetr preset day >/dev/null 2>&1
