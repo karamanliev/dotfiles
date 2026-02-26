@@ -1,4 +1,10 @@
 return {
+  -- Auto detect indentation
+  {
+    'tpope/vim-sleuth',
+    event = 'BufReadPre',
+  },
+
   -- Autoformat on save
   {
     'stevearc/conform.nvim',
