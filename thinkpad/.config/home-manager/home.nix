@@ -25,6 +25,7 @@
     blueman
     brightnessctl
     btop
+    darkman
     delta
     eza
     fd
