@@ -137,6 +137,7 @@ papirus-icon-theme
 pavucontrol
 picard
 pika-backup
+piper-tts-bin
 pipewire
 pipewire-alsa
 pipewire-jack
