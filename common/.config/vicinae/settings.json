@@ -36,6 +36,8 @@
       "open-search-filter": "control+F"
    },
    "favorites": [
+      "@thomaslombart/store.raycast.jira:open-issues",
+      "@thomaslombart/store.raycast.jira:my-filters",
       "@botkooper/store.vicinae.power-profile:power-profile",
       "@knoopx/store.vicinae.stocks:stocks",
       "applications:thinkpad-remote",
