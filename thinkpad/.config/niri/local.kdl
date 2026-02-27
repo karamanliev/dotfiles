@@ -79,7 +79,7 @@ window-rule {
 
 window-rule {
     match app-id="ungoogled-chromium" at-startup=true
-    open-on-workspace "2"
+    open-on-workspace "3"
     open-maximized true
 }
 
