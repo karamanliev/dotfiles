@@ -26,6 +26,14 @@ local modes = {
   ['t'] = 'TERMINAL',
 }
 
+local hide_when_small = function(module)
+  if vim.o.columns < 120 then
+    return ''
+  else
+    return module
+  end
+end
+
 local function mode()
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_name = modes[current_mode] or 'UNKNOWN'
@@ -178,19 +186,111 @@ local function branch()
     branch_name = branch_name:sub(1, 30) .. '...'
   end
 
-  return ' ' .. branch_name
+  return branch_name
 end
 
-local hide_when_small = function(module)
-  if vim.o.columns < 120 then
-    return ''
-  else
-    return module
+local last_commit_cache = {}
+local last_commit_ttl_seconds = 60
+
+local function format_committer_name(name)
+  local initials = {}
+
+  for word in vim.trim(name or ''):gmatch('%S+') do
+    table.insert(initials, word:sub(1, 1):upper())
   end
+
+  return table.concat(initials)
+end
+
+local function format_commit_age(commit_ts)
+  local age = math.max(os.time() - commit_ts, 0)
+
+  if age < 3600 then
+    return tostring(math.max(math.floor(age / 60), 1)) .. 'm'
+  end
+
+  if age < 86400 then
+    return tostring(math.floor(age / 3600)) .. 'h'
+  end
+
+  if age < 30 * 86400 then
+    return tostring(math.floor(age / 86400)) .. 'd'
+  end
+
+  if age < 365 * 86400 then
+    return tostring(math.floor(age / (30 * 86400))) .. 'mo'
+  end
+
+  return tostring(math.floor(age / (365 * 86400))) .. 'y'
+end
+
+local function get_last_commit(bufnr)
+  local now = os.time()
+  local filepath = vim.api.nvim_buf_get_name(bufnr)
+
+  if filepath == '' or vim.bo[bufnr].buftype ~= '' or vim.fn.filereadable(filepath) == 0 then
+    return nil
+  end
+
+  local cached = last_commit_cache[bufnr]
+  if cached and cached.filepath == filepath and now - cached.fetched_at < last_commit_ttl_seconds then
+    return cached
+  end
+
+  -- Avoid spawning multiple concurrent jobs for the same buffer
+  if cached and cached.filepath == filepath and cached.pending then
+    return cached
+  end
+
+  last_commit_cache[bufnr] = { filepath = filepath, fetched_at = now, pending = true, found = false }
+
+  local dir = vim.fn.fnamemodify(filepath, ':h')
+
+  vim.system({ 'git', '-C', dir, 'log', '-n', '1', '--format=%ct%x1f%cn', '--', filepath }, { text = true }, function(result)
+    local entry = { filepath = filepath, fetched_at = now, pending = false, found = false }
+    if result.code == 0 and result.stdout then
+      local line = vim.trim(result.stdout)
+      local ts, committer = line:match('^(%d+)\31(.+)$')
+      if ts and committer then
+        entry.found = true
+        entry.commit_ts = tonumber(ts)
+        entry.committer = committer
+      end
+    end
+    last_commit_cache[bufnr] = entry
+    vim.schedule(function()
+      vim.cmd('redrawstatus')
+    end)
+  end)
+
+  return last_commit_cache[bufnr]
+end
+
+local function last_commit_module()
+  local commit = get_last_commit(vim.api.nvim_get_current_buf())
+
+  if not commit or not commit.found or not commit.commit_ts or not commit.committer then
+    return ''
+  end
+
+  local committer = format_committer_name(commit.committer)
+  if committer == '' then
+    return ''
+  end
+
+  return '%#StatusLine#'
+    .. ' '
+    .. hide_when_small('%#StatusLineNoChanges#' .. committer .. '(')
+    .. '%#StatusLine#'
+    .. format_commit_age(commit.commit_ts)
+    .. hide_when_small(' ago%#StatusLineNoChanges#)')
+    .. ' %#StatusLineNoChanges#on%#StatusLine#'
 end
 
 Statusline.active = function()
   local custom_modules = {}
+  local last_commit = last_commit_module()
+  local last_commit_segment = last_commit ~= '' and (' ' .. last_commit) or ''
 
   for _, func in pairs(M.custom_modules) do
     local result = func()
@@ -215,6 +315,7 @@ Statusline.active = function()
     diagnostics(),
     ' %#StatusLine#',
     lineinfo(),
+    last_commit_segment,
     ' ',
     branch(),
     ' ',
@@ -265,6 +366,14 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
     if not should_skip_statusline() then
       vim.wo.statusline = '%!v:lua.Statusline.inactive()'
     end
+  end,
+})
+
+-- redraw statusline when gitsigns updates
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'GitSignsUpdate',
+  callback = function()
+    vim.cmd('redrawstatus')
   end,
 })
 
