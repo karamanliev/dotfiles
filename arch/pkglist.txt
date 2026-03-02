@@ -3,6 +3,7 @@ adobe-source-sans-fonts
 adw-gtk-theme
 alsa-plugins
 amd-ucode
+at
 atuin
 baobab
 base
