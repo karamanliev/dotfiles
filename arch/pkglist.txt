@@ -33,6 +33,7 @@ efibootmgr
 ethtool
 eza
 fastfetch
+faugus-launcher
 fd
 feishin-bin
 figma-linux-bin
@@ -102,7 +103,6 @@ linux-firmware
 linux-headers
 localsearch
 loupe
-lutris
 ly
 man-db
 mangohud
@@ -146,7 +146,6 @@ playerctl
 plocate
 polkit-gnome
 polychromatic
-protonup-qt-bin
 python-llfuse
 python-pipx
 python-pystray
