@@ -177,6 +177,22 @@ command('Search', function(o)
   vim.ui.open(url)
 end, { nargs = 1, desc = 'search in browser' })
 
+command('YankPath', function(opts)
+  local path = opts.bang and vim.fn.expand('%:p') or vim.fn.expand('%:.')
+  if path == '' then
+    vim.notify('No file associated with current buffer', vim.log.levels.WARN)
+    return
+  end
+
+  vim.fn.setreg('"', path)
+  pcall(vim.fn.setreg, '+', path)
+  local label = opts.bang and 'Yanked absolute path' or 'Yanked relative path'
+  vim.notify(label .. ': ' .. path, vim.log.levels.INFO)
+end, {
+  bang = true,
+  desc = 'Yank current file path (relative, absolute with !)',
+})
+
 -- Create a command to select fold method using vim.ui.select
 command('SelectFoldMethod', function()
   local methods = { 'manual', 'indent', 'expr', 'marker', 'syntax', 'diff' }
