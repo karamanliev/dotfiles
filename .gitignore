@@ -7,4 +7,5 @@ common/.config/kitty/current-theme.conf
 common/.config/tmux/dynamic_colors.conf
 common/.config/btop/themes/current.theme
 common/.config/zsh/zsh-secrets
+common/.config/yazi/plugins
 .env
