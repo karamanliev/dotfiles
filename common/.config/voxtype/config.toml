@@ -60,7 +60,7 @@ theme = "default"
 # Transcription backend: "local" or "remote"
 # - local: Use whisper.cpp locally (default)
 # - remote: Send audio to a remote whisper.cpp server or OpenAI-compatible API
-backend = "local"
+mode = "local"
 
 # Model to use for transcription (local backend)
 # Options: tiny, tiny.en, base, base.en, small, small.en, medium, medium.en, large-v3, large-v3-turbo
@@ -86,10 +86,25 @@ translate = false
 # Number of CPU threads for inference (omit for auto-detection)
 # threads = 4
 
+# Load model on-demand when recording starts (true) or keep loaded (false)
+# When true, model is loaded when recording starts and unloaded after transcription
+# When false, model is kept in memory for faster response times (default)
+on_demand_loading = false
+
+# GPU memory isolation mode
+# Enable on laptops with hybrid graphics to let dGPU sleep between transcriptions.
+# gpu_isolation = true
+
+# Context window optimization for short recordings (disabled by default)
+# Speeds up transcription for clips under 22.5 seconds. Disabled by default
+# because some models (especially large-v3/turbo) may experience repetition
+# loops. Enable if you want faster transcription and don't experience issues.
+# context_window_optimization = true
+
 # Initial prompt to provide context for transcription
 # Use this to hint at terminology, proper nouns, or formatting conventions.
 # Example: "Technical discussion about Rust, TypeScript, and Kubernetes."
-initial_prompt = "Linux, JavaScript, TypeScript, Frontend Development, Programming, Bash, Shell, Terminal"
+# initial_prompt = "Linux, JavaScript, TypeScript, Frontend Development, Programming, Bash, Shell, Terminal"
 
 # --- Multi-model settings ---
 #
@@ -162,7 +177,7 @@ type_delay_ms = 0
 # Automatically submit (send Enter key) after outputting transcribed text
 # Useful for chat applications, command lines, or forms where you want
 # to auto-submit after dictation
-auto_submit = false
+auto_submit = true
 
 # Convert newlines to Shift+Enter instead of regular Enter
 # Useful for applications where Enter submits (e.g., Cursor IDE, Slack, Discord)
