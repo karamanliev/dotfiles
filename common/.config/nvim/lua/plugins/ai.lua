@@ -22,7 +22,23 @@ return {
         condition = function()
           local filename = vim.fn.expand('%:t')
           local fullpath = vim.fn.expand('%:p')
-          return string.match(filename, 'obsidian') or string.match(fullpath, 'obsidian')
+          local home_ssh = vim.fn.expand('~/.ssh/')
+
+          local is_env_example_file = filename:match('%.env%.example$') ~= nil
+          local is_env_file = (filename:match('%.env$') ~= nil or filename:match('%.env%.') ~= nil)
+            and not is_env_example_file
+          local is_credentials_file = filename == 'credentials' or filename:match('^credentials%.') ~= nil
+          local is_key_file = filename:match('%.key$') ~= nil
+          local is_etc_ssh_file = fullpath:sub(1, #'/etc/ssh/') == '/etc/ssh/'
+          local is_home_ssh_file = fullpath:sub(1, #home_ssh) == home_ssh
+
+          return filename:match('obsidian') ~= nil
+            or fullpath:match('obsidian') ~= nil
+            or is_env_file
+            or is_credentials_file
+            or is_key_file
+            or is_etc_ssh_file
+            or is_home_ssh_file
         end,
       })
     end,
