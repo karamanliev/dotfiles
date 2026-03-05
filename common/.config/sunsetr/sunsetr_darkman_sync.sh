@@ -21,6 +21,10 @@ apply_mode() {
   LAST_MODE="$mode"
 }
 
+refresh_waybar() {
+  pkill -RTMIN+2 waybar >/dev/null 2>&1 || true
+}
+
 sync_current() {
   local status preset period mode
 
@@ -45,6 +49,7 @@ sync_current() {
 
 until [[ -S "$SOCKET" ]]; do sleep 0.5; done
 sync_current
+refresh_waybar
 
 while true; do
   if [[ -S "$SOCKET" ]]; then
@@ -56,6 +61,7 @@ while true; do
       period_changed)
         mode="$(period_to_mode "$(jq -r '.to_period // empty' <<<"$line")" || true)"
         [[ -n "${mode:-}" ]] && apply_mode "$mode"
+        refresh_waybar
         ;;
       preset_changed)
         to_preset="$(jq -r '.to_preset // empty' <<<"$line")"
@@ -69,6 +75,7 @@ while true; do
           mode="$(period_to_mode "$target_period" || true)"
           [[ -n "${mode:-}" ]] && apply_mode "$mode"
         fi
+        refresh_waybar
         ;;
       esac
     done < <(socat -u UNIX-CONNECT:"$SOCKET" - 2>/dev/null)
