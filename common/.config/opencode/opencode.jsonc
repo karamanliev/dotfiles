@@ -34,5 +34,35 @@
       },
       "enabled": true
     },
+  },
+  "agent": {
+    "approve": {
+      "description": "Ask-first mode with safe auto-allow",
+      "mode": "primary",
+      "permission": {
+        "edit": "ask",
+        "read": "allow",
+        "list": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "ls*": "allow",
+          "pwd*": "allow",
+          "which*": "allow",
+          "grep *": "allow",
+          "rg *": "allow",
+          "find": "allow",
+          "find *": "allow",
+          "fd": "allow",
+          "fd *": "allow",
+          "fdfind": "allow",
+          "fdfind *": "allow"
+        }
+      }
+    }
   }
 }
