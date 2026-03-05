@@ -48,7 +48,8 @@
       "default": "󰌧"
     },
     "on-click": "vicinae toggle",
-    "on-click-right": "vicinae vicinae://extensions/vicinae/wm/switch-windows"
+    "on-click-right": "vicinae vicinae://extensions/vicinae/wm/switch-windows",
+    "on-click-middle": "niri msg action toggle-overview"
   },
   "custom/agenda": {
     "format": "<span font_size='large'>󰨲</span>  {}",
