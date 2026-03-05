@@ -230,7 +230,7 @@ return {
             return require('codecompanion.adapters').extend('openai_compatible', {
               env = {
                 url = 'https://openrouter.ai/api',
-                api_key = 'cmd:grep "^OPENROUTER_API_KEY" $DOTFILES/.env | cut -d"=" -f2-',
+                api_key = 'OPENROUTER_API_KEY',
                 chat_url = '/v1/chat/completions',
               },
               schema = {

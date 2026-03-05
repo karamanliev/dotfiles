@@ -45,6 +45,12 @@ precmd_functions+=(theme_sync_reload_ls_colors)
 preexec_functions+=(theme_sync_reload_ls_colors)
 
 # Check for secret envs and source them
+if [[ -f "$DOTFILES/.env" ]]; then
+  set -a
+  source "$DOTFILES/.env"
+  set +a
+fi
+
 [[ -f $ZSH_MODULES/zsh-secrets ]] && source $ZSH_MODULES/zsh-secrets
 
 # Default fzf options

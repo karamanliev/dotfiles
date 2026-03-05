@@ -14,19 +14,6 @@ import os
 # - weather warnings
 
 ### CONSTANTS ###
-env_path = os.path.expanduser('~/dotfiles/.env')
-
-def load_env_file(path):
-    with open(path) as f:
-        for line in f:
-            # Ignore comments and empty lines
-            if line.strip() and not line.startswith("#"):
-                key, value = line.strip().split("=", 1)
-                os.environ[key] = value
-
-# Load environment variables from the specified .env file
-load_env_file(env_path)
-
 # api key - get it at https://openweathermap.org/
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
@@ -555,7 +542,7 @@ def main():
                 print_help()
         # constants not set
         elif API_KEY is None or LATITUDE is None or LONGITUDE is None:
-            print_error('please modify the constants within the script before use.')
+            print_error('missing OPENWEATHER_API_KEY, OPENWEATHER_LAT, or OPENWEATHER_LONG in environment.')
         # current weather
         elif sys.argv[1] == 'current':
             current_weather()
