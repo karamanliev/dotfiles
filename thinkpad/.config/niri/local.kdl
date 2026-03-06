@@ -9,9 +9,7 @@ output "eDP-1" {
 
 //-----  AUTOSTART
 spawn-at-startup "~/.nix-profile/libexec/polkit-gnome-authentication-agent-1"
-spawn-at-startup "swayidle" "-w" \
-  "timeout" "120" "niri msg action power-off-monitors" \
-  "timeout" "600" "sh -c '[ -e /tmp/no-suspend ] || systemctl suspend'"
+spawn-at-startup "~/.config/niri/scripts/idle-manager.sh" "--watch"
 
 spawn-at-startup "ungoogled-chromium"
 spawn-at-startup "gtk-launch" "zen.desktop"

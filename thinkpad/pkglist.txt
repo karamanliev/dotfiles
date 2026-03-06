@@ -33,6 +33,7 @@ gzip
 hostname
 hyphen-en-us
 init
+inotify-tools
 jcagent
 jcpwm
 keyd
