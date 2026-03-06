@@ -12,3 +12,10 @@ fi
 fpath=(~/.nix-profile/share/zsh/site-functions $fpath)
 fpath=(~/.nix-profile/share/zsh/vendor-completions $fpath)
 fpath=(/nix/var/nix/profiles/default/share/zsh/site-functions $fpath)
+
+nix-update() {
+  nix-channel --update
+  nix store diff-closures ~/.local/state/home-manager/gcroots/current-home $(home-manager build --no-out-link)
+  read "reply?Apply changes? [y/N] "
+  [[ "$reply" =~ ^[Yy]$ ]] && home-manager switch || echo "Aborted."
+}
