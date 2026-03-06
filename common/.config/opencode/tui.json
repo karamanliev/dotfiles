@@ -4,6 +4,7 @@
     "messages_half_page_down": "ctrl+d",
     "messages_half_page_up": "ctrl+u",
     "leader": "ctrl+s",
+    "editor_open": "ctrl+g",
     "session_share": ""
   }
 }

@@ -55,6 +55,7 @@
           "which*": "allow",
           "grep *": "allow",
           "rg *": "allow",
+          "wc *": "allow",
           "find": "allow",
           "find *": "allow",
           "fd": "allow",
