@@ -22,7 +22,7 @@
   },
   // uses uv tool waybar-ai-usage - `uv tool list`
   "custom/claude-usage": {
-    "exec": "claude-usage --waybar --show-5h --format '{icon} {?5h_reset}{5h_pct}%   {time_icon} {5h_reset}{/5h_reset}'",
+    "exec": "claude-usage --waybar --show-5h --format '{icon} {?5h_pct}{5h_pct}%{/5h_pct}'",
     "return-type": "json",
     "interval": 120,
     "format": "{}",
@@ -32,7 +32,7 @@
     "signal": 8
   },
   "custom/codex-usage": {
-    "exec": "codex-usage --waybar --show-5h --format '{icon} {?5h_reset}{5h_pct}%   {time_icon} {5h_reset}{/5h_reset}'",
+    "exec": "codex-usage --waybar --show-5h --format '{icon} {?5h_pct}{5h_pct}%{/5h_pct}'",
     "return-type": "json",
     "interval": 120,
     "format": "{}",

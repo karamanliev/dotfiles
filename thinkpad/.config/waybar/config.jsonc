@@ -39,12 +39,6 @@
       "format": "<span font_size='large'>󰨲</span>{}",
       "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal --collapse-recurring --icon-only"
     },
-    "custom/claude-usage": {
-      "exec": "claude-usage --waybar --show-5h --format '{icon} {5h_pct}%'"
-    },
-    "custom/codex-usage": {
-      "exec": "codex-usage --waybar --show-5h --format '{icon} {5h_pct}%'"
-    },
     "cpu": {
       "format": "C {usage}%"
     },
