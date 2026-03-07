@@ -46,3 +46,13 @@ function sesh-sessions() {
 }
 
 zle -N sesh-sessions
+
+# Refresh tmux environment variables (fixes clipboard/SSH sockets in current shell)
+tmux_refresh() {
+  if [ -n "$TMUX" ]; then
+    eval $(tmux show-environment -s | grep -E '^(DISPLAY|WAYLAND_DISPLAY|SSH_AUTH_SOCK)')
+    echo "Environment refreshed: DISPLAY, WAYLAND_DISPLAY, SSH_AUTH_SOCK"
+  else
+    echo "Not in a tmux session"
+  fi
+}

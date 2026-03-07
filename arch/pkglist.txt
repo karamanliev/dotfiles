@@ -180,7 +180,7 @@ swayidle
 swaync
 tealdeer
 telegram-desktop
-tmux-git
+tmux
 tmux-plugin-manager
 tree
 ttf-bitstream-vera
