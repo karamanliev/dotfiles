@@ -1,6 +1,6 @@
 -- Custom Claude integration with tmux
 -- Provides direct tmux integration without the claudecode plugin
-local cli = 'claude'
+local cli = vim.env.AGENT_CMD or 'claude'
 
 -- Initialize shared Claude pane utilities globally
 _G.claude_utils = {

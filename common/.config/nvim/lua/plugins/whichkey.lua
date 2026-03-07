@@ -20,7 +20,7 @@ return {
         { '<leader>d', group = 'Diff' },
         { '<leader>t', group = 'Toggle' },
         -- { '<leader>o', group = 'OpenCode', icon = '󰚩' },
-        { '\\', group = 'Claude Code', icon = '󰚩' },
+        { '\\', group = 'Agent', icon = '󰚩' },
       })
       -- visual mode
       wk.add({

@@ -1,4 +1,4 @@
-blacklist = ["lazygit", "claude", "scratch"]
+blacklist = ["lazygit", "agent", "scratch"]
 # [default_session]
 # startup_command = "fastfetch"
 #
