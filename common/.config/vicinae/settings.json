@@ -16,6 +16,7 @@
    "search_files_in_root": true,
    "font": {
       "normal": {
+         "family": "SF Pro Text",
          "size": 10.5
       }
    },
@@ -33,7 +34,8 @@
       "opacity": 0.98
    },
    "keybinds": {
-      "open-search-filter": "control+F"
+      "open-search-filter": "control+F",
+      "toggle-action-panel": "control+K"
    },
    "favorites": [
       "@thomaslombart/store.raycast.jira:open-issues",
