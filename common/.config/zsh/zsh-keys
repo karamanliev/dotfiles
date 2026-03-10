@@ -8,9 +8,9 @@ bindkey '^F' cdi_widget # open zoxide zi widget
 bindkey '^[s' sesh-sessions # open sesh outside tmux
 
 # edit in vim buffer
-autoload edit-command-line
+autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey "^[v" edit-command-line
+bindkey '^X^E' edit-command-line
 
 # ============================================
 # COMMAND LINE (not in menu)
