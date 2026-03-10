@@ -56,3 +56,78 @@ tmux_refresh() {
     echo "Not in a tmux session"
   fi
 }
+
+# Share clipboard between wayland machines over SSH
+_clip_default_host() {
+  local key value os_id=""
+
+  [[ -r /etc/os-release ]] || return 1
+
+  while IFS='=' read -r key value; do
+    if [[ $key == ID ]]; then
+      os_id=${value//\"/}
+      break
+    fi
+  done < /etc/os-release
+
+  case "$os_id" in
+    arch)
+      print -r -- noto
+      ;;
+    ubuntu)
+      print -r -- arch
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+_clip_pick_mime() {
+  local type
+
+  while IFS= read -r type; do
+    [[ $type == image/* ]] && print -r -- "$type" && return
+    [[ $type == text/plain ]] && print -r -- "$type" && return
+  done <<< "$1"
+
+  while IFS= read -r type; do
+    [[ $type == text/* ]] && print -r -- "$type" && return
+  done <<< "$1"
+
+  print -r -- "${${(f)1}[1]}"
+}
+
+clipsend() {
+  local host="${1:-$(_clip_default_host)}"
+  local mime
+
+  mime=$(_clip_pick_mime "$(wl-paste --list-types 2>/dev/null)") || return 1
+
+  wl-paste -n --type "$mime" |
+    ssh "$host" "env WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/\$(id -u) wl-copy --type '$mime' >/dev/null 2>&1"
+}
+
+clipget() {
+  local host="${1:-$(_clip_default_host)}"
+  local mime
+
+  mime=$(_clip_pick_mime "$(ssh "$host" 'env WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/$(id -u) wl-paste --list-types' 2>/dev/null)") || return 1
+
+  ssh "$host" "env WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/\$(id -u) wl-paste -n --type '$mime'" |
+    wl-copy --type "$mime" >/dev/null 2>&1
+}
+
+# Send a local clipboard image to the other Wayland machine
+shotput() {
+  local host="${1:-$(_clip_default_host)}"
+  local dest=""
+
+  dest=$(wl-paste --type image | ssh "$host" 'dest=$(mktemp /tmp/screen-XXXXXXXX.png) && cat > "$dest" && printf "%s" "$dest"') || {
+    print -u2 -- "shotput: failed to copy image to $host"
+    return 1
+  }
+
+  print -rn -- "$dest" | wl-copy
+  print -r -- "$dest"
+}
