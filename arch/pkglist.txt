@@ -190,6 +190,7 @@ ttf-liberation
 ttf-nerd-fonts-symbols-mono
 ungoogled-chromium-bin
 unrar
+unzip
 uv
 viber
 vicinae-bin
