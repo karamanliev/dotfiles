@@ -487,7 +487,7 @@ return {
         desc = 'Select Scratch Buffer',
       },
       {
-        '<leader>gB',
+        '<leader>go',
         function()
           Snacks.gitbrowse()
         end,
