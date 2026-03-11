@@ -55,6 +55,7 @@ linux-generic-hwe-24.04
 linux-zabbly
 login
 lvm2
+mate-polkit
 mokutil
 mythes-en-us
 ncurses-base
