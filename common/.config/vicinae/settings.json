@@ -22,11 +22,11 @@
    },
    "theme": {
       "light": {
-         "name": "vicinae-light",
+         "name": "catppuccin-latte",
          "icon_theme": "Papirus-Light"
       },
       "dark": {
-         "name": "vicinae-dark",
+         "name": "catppuccin-macchiato",
          "icon_theme": "Papirus-Dark"
       }
    },
