@@ -78,6 +78,81 @@ return {
     end,
   },
 
+  {
+    'echasnovski/mini.ai',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      local mini_ai = require('mini.ai')
+      local gen_spec = mini_ai.gen_spec
+      local js_filetypes = {
+        javascript = true,
+        javascriptreact = true,
+        jsx = true,
+        typescript = true,
+        typescriptreact = true,
+        ['typescript.tsx'] = true,
+        tsx = true,
+      }
+
+      local js_comment = function()
+        if not js_filetypes[vim.bo.filetype] then
+          return nil
+        end
+
+        return {
+          {
+            { '//[^\n]*', '^//()%s*.-()%s*$' },
+            { '/%*+.-%*+/', '^/%*+()%s*.-()%s*%*+/$' },
+          },
+        }
+      end
+
+      local js_treesitter = function(captures)
+        local textobject = gen_spec.treesitter(captures)
+
+        return function(ai_type, id, opts)
+          if not js_filetypes[vim.bo.filetype] then
+            return nil
+          end
+          return textobject(ai_type, id, opts)
+        end
+      end
+
+      vim.treesitter.language.register('javascript', 'javascriptreact')
+      vim.treesitter.language.register('javascript', 'jsx')
+      vim.treesitter.language.register('tsx', 'typescriptreact')
+
+      mini_ai.setup({
+        custom_textobjects = {
+          -- subword
+          e = {
+            {
+              '%u[%l%d]+%f[^%l%d]',
+              '%f[%S][%l%d]+%f[^%l%d]',
+              '%f[%P][%l%d]+%f[^%l%d]',
+              '^[%l%d]+%f[^%l%d]',
+            },
+            '^().*()$',
+          },
+          -- whole buffer
+          g = function()
+            local from = { line = 1, col = 1 }
+            local to = {
+              line = vim.fn.line('$'),
+              col = math.max(vim.fn.getline('$'):len(), 1),
+            }
+            return { from = from, to = to }
+          end,
+          c = js_comment,
+          k = js_treesitter({ a = '@jsxprop.key.outer', i = '@jsxprop.key.inner' }),
+          v = js_treesitter({ a = '@jsxprop.value.outer', i = '@jsxprop.value.inner' }),
+          p = js_treesitter({ a = '@jsxprop.outer', i = '@jsxprop.inner' }),
+        },
+      })
+    end,
+  },
+
   -- Textobjects
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
