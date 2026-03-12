@@ -27,6 +27,7 @@
       "tray",
       "idle_inhibitor",
       "custom/sunsetr",
+      "custom/gsr",
       "battery",
       "custom/separator",
       "niri/language",
@@ -38,6 +39,10 @@
     "custom/agenda": {
       "format": "<span font_size='large'>󰨲</span>{}",
       "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal --collapse-recurring --icon-only"
+    },
+    "custom/gsr": {
+      "on-click": "${HOME}/.config/waybar/scripts/gsr.sh eDP-1",
+      "on-click-right": "${HOME}/.config/waybar/scripts/gsr.sh eDP-1"
     },
     "cpu": {
       "format": "C {usage}%"

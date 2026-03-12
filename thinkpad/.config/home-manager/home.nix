@@ -31,6 +31,7 @@
     fd
     fnm
     fzf
+    gpu-screen-recorder
     lazydocker
     lazygit
     neovim

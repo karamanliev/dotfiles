@@ -16,6 +16,7 @@ docker-ce
 docker-ce-cli
 docker-compose-plugin
 efibootmgr
+ffmpeg
 findutils
 fonts-indic
 fonts-jetbrains-mono
@@ -57,6 +58,7 @@ login
 lvm2
 mate-polkit
 mokutil
+mpv
 mythes-en-us
 ncurses-base
 ncurses-bin
