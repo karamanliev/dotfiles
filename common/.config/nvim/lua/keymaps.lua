@@ -108,9 +108,20 @@ local function remove_qf_item()
   vim.fn.setqflist(list, 'r')
 end
 
+local function remove_qf_items()
+  local list = vim.fn.getqflist()
+  local line_start = vim.fn.line("'<")
+  local line_end = vim.fn.line("'>")
+  for i = line_end, line_start, -1 do
+    table.remove(list, i)
+  end
+  vim.fn.setqflist(list, 'r')
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'qf',
   callback = function()
     vim.keymap.set('n', 'dd', remove_qf_item, { buffer = true, desc = 'Delete quickfix entry' })
+    vim.keymap.set('v', 'dd', remove_qf_items, { buffer = true, desc = 'Delete quickfix entries' })
   end,
 })
