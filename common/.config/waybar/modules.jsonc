@@ -3,15 +3,6 @@
     "format": "       ",
     "tooltip": false
   },
-  // https://github.com/peteonrails/voxtype
-  "custom/voxtype": {
-    "exec": "voxtype status --follow --format json --extended",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "on-click": "voxtype record toggle",
-    "on-click-right": "voxtype record cancel"
-  },
   // get it from the forked repo at https://github.com/karamanliev/niri-taskbar
   "cffi/niri-taskbar": {
     "module_path": ".config/waybar/plugins/libniri_taskbar.so",

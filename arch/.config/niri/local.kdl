@@ -51,7 +51,6 @@ spawn-at-startup "zen-browser"
 
 spawn-at-startup "betterbird"
 spawn-at-startup "obsidian"
-spawn-at-startup "voxtype"
 
 spawn-sh-at-startup "sleep 10;~/.local/bin/gsr.sh start-replay DP-3"
 
@@ -188,7 +187,4 @@ binds {
 
     F8 { spawn "gsr.sh" "save-replay"; }
     F11 { spawn "~/.config/niri/scripts/toggle_output.sh"; }
-
-    // Hyper keybinds
-    Super+Ctrl+Shift+Alt+R { spawn-sh "voxtype record toggle"; }
 }

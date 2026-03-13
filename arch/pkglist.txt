@@ -199,7 +199,6 @@ vim
 vivid
 vkbasalt
 vkd3d
-voxtype-bin
 vulkan-tools
 waybar
 wayvnc
