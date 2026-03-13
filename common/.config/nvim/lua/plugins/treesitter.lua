@@ -125,7 +125,10 @@ return {
 
       mini_ai.setup({
         custom_textobjects = {
-          -- subword
+          -- any bracket
+          b = false,
+          o = { { '%b()', '%b[]', '%b{}' }, '^.().*().$' },
+          -- camelCase subword
           e = {
             {
               '%u[%l%d]+%f[^%l%d]',
@@ -135,6 +138,8 @@ return {
             },
             '^().*()$',
           },
+          -- digits
+          d = { '%f[%d]%d+' },
           -- whole buffer
           g = function()
             local from = { line = 1, col = 1 }
@@ -144,12 +149,26 @@ return {
             }
             return { from = from, to = to }
           end,
+          -- js/jsx comments
           c = js_comment,
+          -- jsx key
           k = js_treesitter({ a = '@jsxprop.key.outer', i = '@jsxprop.key.inner' }),
+          -- jsx value
           v = js_treesitter({ a = '@jsxprop.value.outer', i = '@jsxprop.value.inner' }),
+          -- jsx key+value
           p = js_treesitter({ a = '@jsxprop.outer', i = '@jsxprop.inner' }),
         },
       })
+
+      -- to next closing bracket
+      vim.keymap.set({ 'o', 'x' }, 'O', function()
+        mini_ai.move_cursor('right', 'a', 'o')
+      end, { desc = 'To next closing bracket' })
+
+      -- to next quotation mark
+      vim.keymap.set({ 'o', 'x' }, 'Q', function()
+        mini_ai.move_cursor('right', 'a', 'q')
+      end, { desc = 'To next quotation mark' })
     end,
   },
 
