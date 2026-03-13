@@ -17,6 +17,7 @@ return {
       wk.add({
         { '<leader>f', group = 'Find' },
         { '<leader>g', group = 'Git' },
+        { '<leader>q', group = 'Quickfix' },
         { '<leader>d', group = 'Diff' },
         { '<leader>t', group = 'Toggle' },
         -- { '<leader>o', group = 'OpenCode', icon = '󰚩' },

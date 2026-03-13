@@ -187,7 +187,7 @@ return {
           gitsigns.toggle_deleted()
           gitsigns.toggle_word_diff()
         end, { desc = 'git toggle preview file hunk' })
-        map('n', '<leader>gq', gitsigns.setqflist, { desc = 'git qflist hunk' })
+        map('n', '<leader>qg', gitsigns.setqflist, { desc = 'Git hunks in qflist' })
         map('n', '<leader>dt', gitsigns.diffthis, { desc = 'diff against index' })
         map('n', '<leader>dT', function()
           gitsigns.diffthis('@')

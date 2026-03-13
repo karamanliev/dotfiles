@@ -72,7 +72,6 @@ vim.keymap.set('n', ']e', function()
   vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, float = false, count = 1 })
 end, { desc = 'Go to next Error message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic Error messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic Quickfix list' })
 
 -- Don't move cursor when using J
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines J' })
@@ -99,6 +98,46 @@ end, { desc = 'Lazy' })
 
 -- Open yazi in tmux split
 vim.keymap.set('n', '-', '<cmd>Yazi<cr>', { desc = 'Yazi' })
+
+-- Quickfix list keymaps
+local function toggle_qflist()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 and win.loclist == 0 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+
+  vim.cmd.copen()
+end
+
+local function append_current_line_to_qflist()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local text = vim.api.nvim_buf_get_lines(bufnr, cursor[1] - 1, cursor[1], false)[1] or ''
+
+  vim.fn.setqflist({}, 'a', {
+    items = {
+      {
+        bufnr = bufnr,
+        lnum = cursor[1],
+        col = cursor[2] + 1,
+        text = text,
+      },
+    },
+  })
+
+  vim.cmd.copen()
+end
+
+local function clear_qflist()
+  vim.fn.setqflist({}, 'r')
+end
+
+vim.keymap.set('n', '<leader>qq', toggle_qflist, { desc = 'Toggle qflist' })
+vim.keymap.set('n', '<leader>qa', append_current_line_to_qflist, { desc = 'Append line to qflist' })
+vim.keymap.set('n', '<leader>qd', vim.diagnostic.setqflist, { desc = 'Diagnostics in qflist' })
+vim.keymap.set('n', '<leader>qc', clear_qflist, { desc = 'Clear qflist' })
 
 -- Add a mapping (dd) to delete the current quickfix item
 local function remove_qf_item()
