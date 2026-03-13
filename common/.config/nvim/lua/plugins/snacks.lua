@@ -553,6 +553,21 @@ return {
             Snacks.debug.backtrace()
           end
 
+          -- Show full relative path in preview window title
+          local pickers = { 'grep', 'grep_buffers', 'grep_word' }
+          local orig_file_preview = Snacks.picker.preview.file
+          ---@param ctx snacks.picker.preview.ctx
+          Snacks.picker.preview.file = function(ctx)
+            if
+              vim.tbl_contains(pickers, ctx.picker.opts.source)
+              and not (ctx.item.preview_title or ctx.item.title)
+              and ctx.item.file
+            then
+              ctx.item.preview_title = vim.fn.fnamemodify(ctx.item.file, ':.')
+            end
+            return orig_file_preview(ctx)
+          end
+
           -- Override print to use snacks for `:=` command
           if vim.fn.has('nvim-0.11') == 1 then
             vim._print = function(_, ...)
