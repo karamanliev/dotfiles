@@ -22,6 +22,7 @@ spawn-at-startup "sunsetr"
 spawn-at-startup "xwayland-satellite"
 
 spawn-at-startup "vicinae" "server"
+spawn-at-startup "handy" "--start-hidden"
 spawn-at-startup "Telegram"
 spawn-at-startup "kitty"
 
@@ -31,6 +32,7 @@ spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "karamanliev-dav:" "Server" "--daemon"
 
 spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
+
 
 
 //-----  GENERAL
@@ -145,6 +147,11 @@ recent-windows {
 layer-rule {
     match namespace="^wpaperd"
     place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="gtk-layer-shell"
+    opacity 0.7
 }
 
 window-rule {

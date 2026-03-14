@@ -65,6 +65,7 @@ gvfs-mtp
 gvfs-nfs
 gvfs-onedrive
 gvfs-smb
+handy-bin
 inkscape
 jq
 kitty
