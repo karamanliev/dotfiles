@@ -8,6 +8,13 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export DOTFILES=$HOME/dotfiles
 
+# Check for secret envs and source them
+if [[ -f "$DOTFILES/.env" ]]; then
+  set -a
+  source "$DOTFILES/.env"
+  set +a
+fi
+
 # set custom zsh config path
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
