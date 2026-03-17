@@ -16,7 +16,8 @@ local function is_agent_running()
 end
 
 local function get_agent_pane()
-  return vim.fn.system('tmux list-panes -t "' .. get_agent_session() .. '" -F "#{pane_id}" 2>/dev/null'):gsub('\n', '')
+  local result = vim.fn.system({ 'tmux', 'list-panes', '-t', get_agent_session(), '-F', '#{pane_id}' })
+  return (result:match('[^\n]+')) or ''
 end
 
 local function show_popup()
@@ -37,23 +38,51 @@ local function show_popup()
 end
 
 local function send_keys_to_pane(pane_id, message, with_enter)
-  vim.fn.system('tmux send-keys -t ' .. pane_id .. ' "' .. message:gsub('"', '\\"') .. '"')
+  -- Use table form (bypasses shell) and -l (literal) to prevent any character
+  -- from being interpreted, which could cause garbled input / autocomplete bugs.
+  vim.fn.system({ 'tmux', 'send-keys', '-t', pane_id, '-l', message })
   if with_enter then
-    vim.fn.system('tmux send-keys -t ' .. pane_id .. ' C-m')
+    vim.fn.system({ 'tmux', 'send-keys', '-t', pane_id, 'Enter' })
   else
-    vim.fn.system('tmux send-keys -t ' .. pane_id .. ' Space')
+    vim.fn.system({ 'tmux', 'send-keys', '-t', pane_id, '-l', ' ' })
   end
+end
+
+-- Polls the agent tmux pane until the opencode TUI has rendered (the
+-- status bar text "commands" appears in the captured
+-- pane content), then sends keys. Uses async vim.system so Neovim never
+-- blocks. Gives up after ~9s (30 × 300ms).
+local function wait_for_agent_ready(message, with_enter, attempts)
+  attempts = attempts or 0
+  if attempts >= 30 then
+    return
+  end
+
+  local pane_id = get_agent_pane()
+  if pane_id == '' then
+    vim.defer_fn(function()
+      wait_for_agent_ready(message, with_enter, attempts + 1)
+    end, 300)
+    return
+  end
+
+  vim.system({ 'tmux', 'capture-pane', '-t', pane_id, '-p' }, {}, function(result)
+    vim.schedule(function()
+      if result.code == 0 and (result.stdout or ''):find('commands') then
+        send_keys_to_pane(pane_id, message, with_enter)
+      else
+        vim.defer_fn(function()
+          wait_for_agent_ready(message, with_enter, attempts + 1)
+        end, 300)
+      end
+    end)
+  end)
 end
 
 local function send_to_agent(message, with_enter, show_after)
   if not is_agent_running() then
     show_popup()
-    vim.defer_fn(function()
-      local pane_id = get_agent_pane()
-      if pane_id ~= '' then
-        send_keys_to_pane(pane_id, message, with_enter)
-      end
-    end, 2500)
+    wait_for_agent_ready(message, with_enter)
     return
   end
 
@@ -69,14 +98,34 @@ local function send_to_agent(message, with_enter, show_after)
   end
 end
 
+-- Exits visual mode and returns the selected line range (start, end).
+local function get_visual_range()
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+  return start_line, end_line
+end
+
+-- Builds an "@filepath #L<n>" or "@filepath #L<start>-<end>" reference string.
+local function make_file_ref(filepath, start_line, end_line)
+  if start_line == end_line then
+    return string.format('@%s #L%d', filepath, start_line)
+  else
+    return string.format('@%s #L%d-%d', filepath, start_line, end_line)
+  end
+end
+
 _G.agent_utils = {
   continue_agent = function()
     if is_agent_running() then
       local pane_id = get_agent_pane()
       if pane_id ~= '' then
         -- C-s is the leader in opencode, followed by l for sessions
-        vim.fn.system('tmux send-keys -t ' .. pane_id .. ' C-s')
-        vim.fn.system('tmux send-keys -t ' .. pane_id .. ' l')
+        vim.fn.system({ 'tmux', 'send-keys', '-t', pane_id, 'C-s' })
+        vim.fn.system({ 'tmux', 'send-keys', '-t', pane_id, 'l' })
       end
       show_popup()
     else
@@ -102,55 +151,37 @@ _G.agent_utils = {
 vim.keymap.set('n', '\\c', _G.agent_utils.continue_agent, { desc = 'Continue Agent or show sessions' })
 
 vim.keymap.set('n', '\\b', function()
-  send_to_agent('@' .. vim.fn.expand('%:.'), true, true)
-end, { desc = 'Send buffer to Agent' })
-
-vim.keymap.set({ 'n', 'v' }, '\\s', function()
-  local mode = vim.fn.mode()
   local filepath = vim.fn.expand('%:.')
-  local message
-
   if filepath == '' then
     return
   end
+  send_to_agent('@' .. filepath, false, true)
+end, { desc = 'Send buffer to Agent' })
 
-  if mode == 'v' or mode == 'V' or mode == '' then
-    -- Read marks before exiting visual mode
-    local start_line = vim.fn.line('v')
-    local end_line = vim.fn.line('.')
-    if start_line > end_line then
-      start_line, end_line = end_line, start_line
-    end
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
-    message = string.format('@%s #L%d-%d', filepath, start_line, end_line)
-  else
-    local line = vim.fn.line('.')
-    message = string.format('@%s #L%d-%d', filepath, line, line)
+vim.keymap.set({ 'n', 'v' }, '\\s', function()
+  local filepath = vim.fn.expand('%:.')
+  if filepath == '' then
+    return
   end
-
-  send_to_agent(message, false, true)
+  local start_line, end_line
+  if vim.fn.mode():match('^[vV\22]') then
+    start_line, end_line = get_visual_range()
+  else
+    start_line = vim.fn.line('.')
+    end_line = start_line
+  end
+  send_to_agent(make_file_ref(filepath, start_line, end_line), false, true)
 end, { desc = 'Send selection/line to Agent' })
 
 vim.keymap.set({ 'n', 'v' }, '\\a', function()
   -- Capture visual selection if in visual mode
   local visual_selection = nil
-  local mode = vim.fn.mode()
-  if mode == 'v' or mode == 'V' or mode == '' then
-    -- Read marks before exiting visual mode
-    local start_line = vim.fn.line('v')
-    local end_line = vim.fn.line('.')
-    if start_line > end_line then
-      start_line, end_line = end_line, start_line
-    end
+  if vim.fn.mode():match('^[vV\22]') then
     local filepath = vim.fn.expand('%:.')
+    local start_line, end_line = get_visual_range()
     if filepath ~= '' then
-      visual_selection = {
-        start_line = start_line,
-        end_line = end_line,
-        filepath = filepath,
-      }
+      visual_selection = { filepath = filepath, start_line = start_line, end_line = end_line }
     end
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
   end
 
   -- Create input popup
@@ -172,7 +203,7 @@ vim.keymap.set({ 'n', 'v' }, '\\a', function()
 
   -- Pre-fill with file reference if in visual mode
   if visual_selection then
-    local prefill = string.format('@%s #L%d-%d ', visual_selection.filepath, visual_selection.start_line, visual_selection.end_line)
+    local prefill = make_file_ref(visual_selection.filepath, visual_selection.start_line, visual_selection.end_line) .. ' '
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, { prefill })
   end
 
@@ -191,7 +222,7 @@ vim.keymap.set({ 'n', 'v' }, '\\a', function()
       message = string.format('@%s %s', filepath, input:gsub('^@b%s*', ''))
     elseif input:match('^@') and filepath ~= '' then
       local line = vim.fn.line('.')
-      message = string.format('@%s #L%d-%d %s', filepath, line, line, input:gsub('^@%s*', ''))
+      message = make_file_ref(filepath, line, line) .. ' ' .. input:gsub('^@%s*', '')
     else
       message = input
     end
