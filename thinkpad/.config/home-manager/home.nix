@@ -32,6 +32,8 @@
     fnm
     fzf
     gpu-screen-recorder
+    gh
+    jira-cli-go
     lazydocker
     lazygit
     neovim
