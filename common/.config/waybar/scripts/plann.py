@@ -32,18 +32,30 @@ from collections import defaultdict
 import dateutil.parser as dtparse
 import dateutil.relativedelta as dtrel
 
-# Regex to parse plann output
-# Format: "start:2025-12-06 17:00 | end:2025-12-06 18:00 | summary:Event Title | loc:Location"
+# Regex to parse plann output (one record, possibly multiline due to DESCRIPTION)
+# Format: "start:... | end:... | summary:... | loc:... | conf:... | desc:..."
 REG_PLANN = re.compile(
-    r"start:(?P<start_datetime>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*end:(?P<end_datetime>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*summary:(?P<title>.*?)\s*\|\s*loc:(?P<location>.*)$"
+    r"start:(?P<start_datetime>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*"
+    r"end:(?P<end_datetime>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*"
+    r"summary:(?P<title>.*?)\s*\|\s*"
+    r"loc:(?P<location>.*?)\s*\|\s*"
+    r"conf:(?P<conference>.*?)\s*\|\s*"
+    r"desc:(?P<description>.*)",
+    re.DOTALL,
 )
+
+# Split multiline plann output into individual event records
+RECORD_BOUNDARY = re.compile(r"(?=start:\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s*\|)")
+
+# Unfold iCalendar line continuations (newline followed by leading space/tab)
+ICAL_LINE_FOLD = re.compile(r"\r?\n[ \t]")
 
 # Regex patterns to extract meeting URLs from location field
 MEETING_URL_PATTERNS = [
-    re.compile(r'(https://meet\.google\.com/[a-z\-]+)', re.IGNORECASE),
-    re.compile(r'(https://[a-z0-9\-]+\.zoom\.us/j/[0-9]+[^\s]*)', re.IGNORECASE),
-    re.compile(r'(https://teams\.microsoft\.com/l/meetup-join/[^\s]+)', re.IGNORECASE),
-    re.compile(r'(https://teams\.live\.com/meet/[^\s]+)', re.IGNORECASE),
+    re.compile(r"(https://meet\.google\.com/[a-z\-]+)", re.IGNORECASE),
+    re.compile(r"(https://[a-z0-9\-]+\.zoom\.us/j/[0-9]+[^\s]*)", re.IGNORECASE),
+    re.compile(r"(https://teams\.microsoft\.com/l/meetup-join/[^\s]+)", re.IGNORECASE),
+    re.compile(r"(https://teams\.live\.com/meet/[^\s]+)", re.IGNORECASE),
 ]
 
 TITLE_ELIPSIS_LENGTH = 50
@@ -92,38 +104,59 @@ def pretty_date(
     return s
 
 
-def extract_meeting_url(location: str) -> str:
-    """Extract meeting URL from location field using common patterns"""
-    if not location:
-        return ""
+def extract_meeting_url(
+    conference: str = "", location: str = "", description: str = ""
+) -> str:
+    """Extract meeting URL with priority: conference > location > description"""
+    # 1. X-GOOGLE-CONFERENCE — dedicated clean URL field
+    # 2. LOCATION — may contain Zoom/Teams/Meet URLs
+    for text in (conference, location):
+        if not text:
+            continue
+        for pattern in MEETING_URL_PATTERNS:
+            match = pattern.search(text)
+            if match:
+                return match.group(1)
 
-    for pattern in MEETING_URL_PATTERNS:
-        match = pattern.search(location)
-        if match:
-            return match.group(1)
+    # 3. DESCRIPTION — last resort; unfold iCalendar line continuations first
+    #    (lines split with \r?\n followed by a space/tab)
+    if description:
+        unfolded = ICAL_LINE_FOLD.sub("", description)
+        for pattern in MEETING_URL_PATTERNS:
+            match = pattern.search(unfolded)
+            if match:
+                return match.group(1)
 
     return ""
 
 
 def parse_plann_output(output: str) -> list[dict]:
-    """Parse plann output format"""
+    """Parse plann output format.
+
+    Uses record-splitting instead of line-splitting because {DESCRIPTION}
+    can contain real newlines, producing multiline records.
+    """
     ret = []
-    for line in output.strip().split('\n'):
-        if not line.strip():
+    records = RECORD_BOUNDARY.split(output.strip())
+
+    for record in records:
+        if not record.strip():
             continue
 
-        match = REG_PLANN.match(line)
+        match = REG_PLANN.match(record)
         if not match:
             continue
 
         try:
-            startdate = dtparse.parse(match.group('start_datetime'))
-            enddate = dtparse.parse(match.group('end_datetime'))
-            title = match.group('title').strip()
-            location = match.group('location').strip() if match.group('location') else ""
+            startdate = dtparse.parse(match.group("start_datetime"))
+            enddate = dtparse.parse(match.group("end_datetime"))
+            title = match.group("title").strip()
+            location = match.group("location").strip()
+            conference = match.group("conference").strip()
+            description = match.group("description").strip()
 
-            # Extract meeting URL from location
-            meet_url = extract_meeting_url(location)
+            # Extract meeting URL: conference > location > description
+            meet_url = extract_meeting_url(conference, location, description)
 
             # Skip past events (check if end date is in the past)
             if enddate < datetime.datetime.now():
@@ -134,21 +167,25 @@ def parse_plann_output(output: str) -> list[dict]:
             # - ends at 00:00 on a different day, or
             # - spans multiple days
             is_all_day = (
-                startdate.hour == 0 and startdate.minute == 0 and
-                enddate.hour == 0 and enddate.minute == 0 and
-                (enddate.date() != startdate.date())
+                startdate.hour == 0
+                and startdate.minute == 0
+                and enddate.hour == 0
+                and enddate.minute == 0
+                and (enddate.date() != startdate.date())
             )
 
-            ret.append({
-                'startdate': startdate,
-                'enddate': enddate,
-                'title': title,
-                'location': location,
-                'meet_url': meet_url,
-                'is_all_day': is_all_day
-            })
+            ret.append(
+                {
+                    "startdate": startdate,
+                    "enddate": enddate,
+                    "title": title,
+                    "location": location,
+                    "meet_url": meet_url,
+                    "is_all_day": is_all_day,
+                }
+            )
         except Exception as e:
-            print(f"Error parsing line: {line}, error: {e}", file=sys.stderr)
+            print(f"Error parsing record: {record[:120]}, error: {e}", file=sys.stderr)
             continue
 
     return ret
@@ -156,30 +193,31 @@ def parse_plann_output(output: str) -> list[dict]:
 
 def plann_output(args: argparse.Namespace) -> list[dict]:
     """Execute plann and parse output"""
-    cmd = ['plann']
+    cmd = ["plann"]
     now = datetime.datetime.now()
     end = now + datetime.timedelta(days=args.horizon_days)
 
     # Add config section if provided
     if args.config_section:
-        cmd.extend(['--config-section', args.config_section])
+        cmd.extend(["--config-section", args.config_section])
 
-    cmd.extend([
-        'select', '--event',
-        '--start', now.strftime('%Y-%m-%d %H:%M'),
-        '--end',   end.strftime('%Y-%m-%d %H:%M'),
-        '--sort-key', '{DTSTART}',
-        'list',
-        '--template=start:{DTSTART:%F %H:%M} | end:{DTEND:%F %H:%M} | summary:{SUMMARY} | loc:{LOCATION}'
-    ])
+    cmd.extend(
+        [
+            "select",
+            "--event",
+            "--start",
+            now.strftime("%Y-%m-%d %H:%M"),
+            "--end",
+            end.strftime("%Y-%m-%d %H:%M"),
+            "--sort-key",
+            "{DTSTART}",
+            "list",
+            "--template=start:{DTSTART:%F %H:%M} | end:{DTEND:%F %H:%M} | summary:{SUMMARY} | loc:{LOCATION} | conf:{X-GOOGLE-CONFERENCE} | desc:{DESCRIPTION}",
+        ]
+    )
 
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            check=True
-        )
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return parse_plann_output(result.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Error running plann: {e}", file=sys.stderr)
@@ -197,7 +235,7 @@ def ret_events(
     cssclass = ""
 
     for event in events:
-        title = event['title']
+        title = event["title"]
         full_title = title
 
         if args.max_title_length > 0:
@@ -207,9 +245,9 @@ def ret_events(
             title = html.escape(title)
             full_title = html.escape(full_title)
 
-        startdate = event['startdate']
-        enddate = event['enddate']
-        is_all_day = event.get('is_all_day', False)
+        startdate = event["startdate"]
+        enddate = event["enddate"]
+        is_all_day = event.get("is_all_day", False)
 
         # Skip all-day meetings if requested
         if args.skip_all_day_meeting and is_all_day:
@@ -221,7 +259,7 @@ def ret_events(
             "startdate": startdate,
             "enddate": enddate,
             "is_all_day": is_all_day,
-            "meet_url": event.get('meet_url', ''),
+            "meet_url": event.get("meet_url", ""),
         }
 
         # For all-day events
@@ -441,7 +479,7 @@ def group_events_by_date(events: list[dict]) -> str:
             event_time = event["startdate"].strftime("%H:%M")
 
         # Wrap long titles to new lines (around 40 chars, at word boundaries)
-        title = event['title']
+        title = event["title"]
         if len(title) > 40:
             wrapped_title = ""
             remaining_text = title
@@ -457,7 +495,7 @@ def group_events_by_date(events: list[dict]) -> str:
                         break
 
                 if break_pos == max_length and len(remaining_text) > max_length + 20:
-                    last_space = remaining_text[:max_length].rfind(' ')
+                    last_space = remaining_text[:max_length].rfind(" ")
                     if last_space > max_length // 2:
                         break_pos = last_space + 1
 
@@ -469,7 +507,9 @@ def group_events_by_date(events: list[dict]) -> str:
         else:
             wrapped_title = title
 
-        grouped_events[date_key].append(f"<span color='#c4bed1'>{event_time}</span> {wrapped_title}")
+        grouped_events[date_key].append(
+            f"<span color='#c4bed1'>{event_time}</span> {wrapped_title}"
+        )
 
     # Format the output with styled date headers
     result = []
@@ -502,9 +542,7 @@ def open_meet_url(events: list[dict], args: argparse.Namespace):
         return
 
     # Get the next non-all-day meeting
-    next_event = get_next_non_all_day_meeting(
-        events, int(args.all_day_meeting_hours)
-    )
+    next_event = get_next_non_all_day_meeting(events, int(args.all_day_meeting_hours))
 
     if not next_event:
         # Only all-day meetings or no meetings
@@ -536,6 +574,7 @@ def open_meet_url(events: list[dict], args: argparse.Namespace):
         )
     sys.exit(0)
 
+
 def recurrence_key(ev: dict) -> tuple:
     """
     A stable signature for "same meeting repeats".
@@ -559,6 +598,7 @@ def recurrence_key(ev: dict) -> tuple:
         duration_min,
         bool(ev.get("is_all_day", False)),
     )
+
 
 def apply_recurring_policy(events: list[dict], args: argparse.Namespace) -> list[dict]:
     if not (args.hide_recurring or args.collapse_recurring):
@@ -584,7 +624,10 @@ def apply_recurring_policy(events: list[dict], args: argparse.Namespace) -> list
         collapsed.append(ev)
     return collapsed
 
-def is_upcoming_today(ev: dict, now: datetime.datetime, all_day_meeting_hours: int) -> bool:
+
+def is_upcoming_today(
+    ev: dict, now: datetime.datetime, all_day_meeting_hours: int
+) -> bool:
     """
     True if event is relevant for the icon:
     - happens today
@@ -631,10 +674,7 @@ def recurring_flags(events: list[dict]) -> tuple[bool, bool]:
 
 def events_today(events: list[dict]) -> list[dict]:
     today = datetime.datetime.now().date()
-    return [
-        ev for ev in events
-        if ev["startdate"].date() == today
-    ]
+    return [ev for ev in events if ev["startdate"].date() == today]
 
 
 def recurring_flags(events: list[dict]) -> tuple[bool, bool]:
@@ -657,6 +697,7 @@ def recurring_flags(events: list[dict]) -> tuple[bool, bool]:
     has_nonrecurring = any(counts[k] == 1 for k in counts)
     return (has_recurring, has_nonrecurring)
 
+
 def main():
     args = parse_args()
     args.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -677,7 +718,6 @@ def main():
         return
 
     if args.waybar:
-
         tooltip = group_events_by_date(events) if events else "No events"
 
         # ICON-ONLY MODE
@@ -694,8 +734,8 @@ def main():
             elif has_nonrec:
                 icon_text = (
                     f'<span foreground="{args.icon_new_color}">'
-                    f'{html.escape(args.icon_symbol)}'
-                    f'</span>'
+                    f"{html.escape(args.icon_symbol)}"
+                    f"</span>"
                 )
                 ret = {
                     "text": icon_text,
@@ -707,12 +747,12 @@ def main():
 
             # Otherwise, only recurring upcoming events today -> normal dot
             else:
-                gray_color = "#5c6370"   # change this to whatever gray you like
+                gray_color = "#5c6370"  # change this to whatever gray you like
 
                 icon_text = (
                     f'<span foreground="{gray_color}">'
-                    f'{html.escape(args.icon_symbol)}'
-                    f'</span>'
+                    f"{html.escape(args.icon_symbol)}"
+                    f"</span>"
                 )
 
                 ret = {
