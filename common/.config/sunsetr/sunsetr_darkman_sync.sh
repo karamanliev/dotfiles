@@ -3,6 +3,7 @@ set -euo pipefail
 
 SOCKET="${XDG_RUNTIME_DIR}/sunsetr-events.sock"
 LAST_MODE=""
+PRE_GAMING_MODE=""
 
 period_to_mode() {
   case "${1:-}" in
@@ -32,11 +33,16 @@ sync_current() {
   preset="$(jq -r '.active_preset // "default"' <<<"$status")"
 
   case "$preset" in
-  day | gaming)
+  day)
     mode="light"
     ;;
   night)
     mode="dark"
+    ;;
+  gaming)
+    # Preserve current darkman mode during gaming
+    LAST_MODE="$(darkman get 2>/dev/null || echo "$LAST_MODE")"
+    return
     ;;
   *)
     period="$(jq -r '.period // empty' <<<"$status")"
@@ -67,13 +73,30 @@ while true; do
         to_preset="$(jq -r '.to_preset // empty' <<<"$line")"
         if [[ -n "$to_preset" ]]; then
           case "$to_preset" in
-          day | gaming) apply_mode "light" ;;
-          night) apply_mode "dark" ;;
+          gaming)
+            # Save current mode and don't change it
+            PRE_GAMING_MODE="$LAST_MODE"
+            ;;
+          day)
+            PRE_GAMING_MODE=""
+            apply_mode "light"
+            ;;
+          night)
+            PRE_GAMING_MODE=""
+            apply_mode "dark"
+            ;;
           esac
         else
-          target_period="$(jq -r '.target_period // empty' <<<"$line")"
-          mode="$(period_to_mode "$target_period" || true)"
-          [[ -n "${mode:-}" ]] && apply_mode "$mode"
+          # Returning to default preset
+          if [[ -n "$PRE_GAMING_MODE" ]]; then
+            # Restore mode from before gaming
+            apply_mode "$PRE_GAMING_MODE"
+            PRE_GAMING_MODE=""
+          else
+            target_period="$(jq -r '.target_period // empty' <<<"$line")"
+            mode="$(period_to_mode "$target_period" || true)"
+            [[ -n "${mode:-}" ]] && apply_mode "$mode"
+          fi
         fi
         refresh_waybar
         ;;
