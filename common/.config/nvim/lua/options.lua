@@ -87,7 +87,7 @@ vim.opt.cmdwinheight = 20
 -- Clipboard
 vim.opt.clipboard = ''
 -- Use OSC52 when SSH
-if vim.env.SSH_TTY then
+if vim.env.SSH_CONNECTION then
   vim.g.clipboard = {
     name = 'OSC 52',
     copy = {
