@@ -43,12 +43,14 @@
     "on-click-middle": "niri msg action toggle-overview"
   },
   "custom/agenda": {
-    "format": "<span font_size='large'>󰨲</span>  {}",
+    "format": "<span font_size='large'>󰨲</span>{}",
     "exec": "${HOME}/.config/waybar/scripts/plann.py --max-title-length 30 --notify-min-before-events 10 --waybar-show-all-day-meeting --waybar --config-section personal --collapse-recurring",
     "on-click-middle": "${HOME}/.config/waybar/scripts/plann.py --open-meet-url --config-section personal",
+    "on-click-right": "${HOME}/.config/waybar/scripts/plann.py --toggle-mode",
     "on-click": "betterbird -calendar;niri msg action focus-workspace \"MAIL\"",
     "interval": 59,
     "return-type": "json",
+    "signal": 3,
     "tooltip": "true"
   },
   "custom/timer": {

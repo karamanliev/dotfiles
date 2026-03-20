@@ -370,6 +370,12 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--browser",
+        default=os.environ.get("PLANN_BROWSER"),
+        help="Browser command to open meeting URLs (e.g. 'chromium --profile-directory=\"Work\"'). Falls back to xdg-open.",
+    )
+
+    parser.add_argument(
         "--waybar-show-all-day-meeting",
         action="store_true",
         help="show all day meeting in next event for waybar",
@@ -448,8 +454,14 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--toggle-mode",
+        action="store_true",
+        help="Toggle between icon-only and label display modes",
+    )
+
+    parser.add_argument(
         "--icon-symbol",
-        default="  ⏺",
+        default="⏺",
         help="Symbol to show in --icon-only mode",
     )
 
@@ -557,7 +569,11 @@ def open_meet_url(events: list[dict], args: argparse.Namespace):
 
     if url:
         print(f"Opening meeting URL: {url}")
-        subprocess.run(["xdg-open", url], check=False)
+        if args.browser:
+            import shlex
+            subprocess.run([*shlex.split(args.browser), url], check=False)
+        else:
+            subprocess.run(["xdg-open", url], check=False)
         sys.exit(0)
 
     message = "No meeting URL found for the next event"
@@ -702,6 +718,20 @@ def main():
     args = parse_args()
     args.cache_dir.mkdir(parents=True, exist_ok=True)
 
+    toggle_file = pathlib.Path(args.cache_dir) / "toggle-display"
+
+    if args.toggle_mode:
+        if toggle_file.exists():
+            toggle_file.unlink()
+        else:
+            toggle_file.touch()
+        subprocess.run(["pkill", "-RTMIN+3", "waybar"], check=False)
+        return
+
+    # Toggle file inverts the --icon-only flag
+    if toggle_file.exists():
+        args.icon_only = not args.icon_only
+
     # Get events from plann
     raw_events = plann_output(args)
 
@@ -734,7 +764,7 @@ def main():
             elif has_nonrec:
                 icon_text = (
                     f'<span foreground="{args.icon_new_color}">'
-                    f"{html.escape(args.icon_symbol)}"
+                    f" {html.escape(args.icon_symbol)}"
                     f"</span>"
                 )
                 ret = {
@@ -751,7 +781,7 @@ def main():
 
                 icon_text = (
                     f'<span foreground="{gray_color}">'
-                    f"{html.escape(args.icon_symbol)}"
+                    f" {html.escape(args.icon_symbol)}"
                     f"</span>"
                 )
 
@@ -768,7 +798,7 @@ def main():
 
         # DEFAULT MODE (no --icon-only)
         if not events:
-            ret = {"text": "No meeting 🏖️"}
+            ret = {"text": "  No meeting 🏖️"}
             json.dump(ret, sys.stdout)
             return
 
@@ -779,7 +809,7 @@ def main():
             coming_up_next = events[0]
 
         ret = {
-            "text": coming_up_next["display"],
+            "text": "  " + coming_up_next["display"],
             "tooltip": tooltip,
             "tooltip-markup": True,
         }
