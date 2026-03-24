@@ -49,6 +49,7 @@ gamescope
 gimp
 git
 git-delta
+github-cli
 gnome-calculator
 gnome-disk-utility
 gnome-keyring
