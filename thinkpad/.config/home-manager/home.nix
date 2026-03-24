@@ -16,6 +16,7 @@
   targets.genericLinux.enable = true;
 
   programs.zsh.enable = false;
+  programs.zsh.enableCompletion = false;
 
   home.packages = with pkgs; [
     adw-gtk3
