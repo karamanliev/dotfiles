@@ -30,6 +30,9 @@
          "icon_theme": "Papirus-Dark"
       }
    },
+   "telemetry": {
+      "system_info": false
+   },
    "launcher_window": {
       "opacity": 0.98
    },
@@ -80,7 +83,8 @@
       },
       "@knoopx/store.vicinae.stocks": {
          "preferences": {
-            "symbols": "FWRA.MI,BTC-USD,AMD,INTC,BYDDY,TSLA"
+            "symbols": "FWRA.MI,BTC-USD,AMD,INTC,BYDDY,TSLA,GOOGL,META,PI35697-USD",
+            "refreshInterval": "60"
          }
       },
       "applications": {
