@@ -9,3 +9,7 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Case-insensitive completion (foo matches Foo, FOO, FoO)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# zsh-autocomplete tuning: prevent terminal freezes with slow completions (opencode specifically)
+# https://github.com/marlonrichert/zsh-autocomplete/issues/736
+zstyle ':autocomplete:*' timeout 0.5
