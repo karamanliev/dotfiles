@@ -131,7 +131,6 @@ nvidia-settings
 nvidia-utils
 obsidian
 opencl-nvidia
-opencode
 otf-san-francisco
 otf-san-francisco-mono
 pacman-contrib

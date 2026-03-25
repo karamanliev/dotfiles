@@ -24,5 +24,6 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 # load nix bin paths and completions
 [[ -f $ZDOTDIR/zsh-nix ]] && source $ZDOTDIR/zsh-nix
 
-# add scripts to path
-PATH=$HOME/.local/bin:$PATH
+# add local and npm-global scripts to path
+# mkdir -p ~/.npm-global && npm config set prefix ~/.npm-global to set npm prefix
+PATH=$HOME/.local/bin:$HOME/.npm-global/bin:$PATH

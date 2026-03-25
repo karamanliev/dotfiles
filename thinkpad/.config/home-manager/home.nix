@@ -40,7 +40,6 @@
     neovim
     nerd-fonts.symbols-only
     niri
-    opencode
     power-profiles-daemon
     ripgrep
     satty
