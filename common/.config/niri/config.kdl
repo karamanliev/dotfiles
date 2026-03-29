@@ -165,6 +165,13 @@ window-rule {
 }
 
 window-rule {
+    match app-id="org.gnome.Nautilus" title="^Enter name of file to save"
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+}
+
+window-rule {
     match app-id="pavucontrol"
     open-floating true
     default-floating-position x=65 y=8 relative-to="top-right"
