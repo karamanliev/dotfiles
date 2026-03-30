@@ -27,5 +27,7 @@ source $ZSH_MODULES/zsh-plugins
 # source $ZSH_MODULES/zsh-tmux
 source $ZSH_MODULES/zsh-completions
 source $ZSH_MODULES/zsh-keys
-source $ZSH_MODULES/zsh-aliases
+for aliases_file in "$ZSH_MODULES"/*-aliases(N); do
+  source "$aliases_file"
+done
 source $ZSH_MODULES/zsh-functions
