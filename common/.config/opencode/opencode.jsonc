@@ -66,7 +66,7 @@
       "model": "openai/gpt-5.4"
     },
     "explore": {
-      "model": "openai/gpt-5.4"
+      "model": "openai/gpt-5.4-mini"
     },
     "approve": {
       "description": "Ask-first mode with safe auto-allow",
@@ -101,6 +101,7 @@
   "compaction": {
     "auto": false
   },
+  "share": "disabled",
   "plugin": [
     "opencode-claude-auth",
     "cc-safety-net",
