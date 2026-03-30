@@ -35,9 +35,10 @@ input {
 
 
 //----- SWITCH EVENTS
-switch-events {
-    lid-close { spawn "systemctl" "suspend"; }
-}
+// not really needed, systemd handles it
+// switch-events {
+//     lid-close { spawn-sh "~/.local/bin/clamctl status | grep -q '^on$' || systemctl suspend"; }
+// }
 
 
 //-----  WORKSPACES

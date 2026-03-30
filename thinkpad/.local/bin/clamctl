@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+LOGIND_DROP="/etc/systemd/logind.conf.d/clamshell.conf"
+IDLE_LOCK="/tmp/niri-idle-watch.lock"
+
+needs_root() {
+    case "${1:-}" in on | off | toggle) return 0 ;; *) return 1 ;; esac
+}
+[[ $EUID -ne 0 ]] && needs_root "${1:-}" && exec sudo "$0" "$@"
+
+is_on() {
+    [[ -f "$LOGIND_DROP" ]] && grep -q "HandleLidSwitch=ignore" "$LOGIND_DROP"
+}
+
+get_desktop_user() {
+    ps -C niri -o user= 2>/dev/null | grep -v '^root$' | head -1
+}
+
+# niri sets NIRI_SOCKET for its children, not in its own /proc environ.
+# Scan all user processes to find one where the socket is set and exists.
+find_niri_socket() {
+    local uid="$1" fallback="$2" pid sock
+
+    while IFS= read -r pid; do
+        sock=$(tr '\0' '\n' <"/proc/$pid/environ" 2>/dev/null |
+            grep "^NIRI_SOCKET=" | cut -d= -f2)
+        if [[ -n "$sock" && -S "$sock" ]]; then
+            echo "$sock"
+            return
+        fi
+    done < <(pgrep -u "$uid" 2>/dev/null)
+
+    echo "$fallback"
+}
+
+# SIGKILL prevents idle-manager cleanup traps from firing and spawning more instances
+kill_idle() {
+    pkill -9 -f "idle-manager.sh" 2>/dev/null || true
+    sleep 0.2
+    pkill -9 -x swayidle 2>/dev/null || true
+    rm -f "$IDLE_LOCK"
+}
+
+start_idle() {
+    local user uid wayland niri_socket niri_pid runtime_dir idle_script
+
+    user=$(get_desktop_user)
+    [[ -z "$user" ]] && {
+        echo "warning: no niri session found" >&2
+        return 1
+    }
+
+    uid=$(id -u "$user")
+    runtime_dir="/run/user/$uid"
+    idle_script="/home/$user/.config/niri/scripts/idle-manager.sh"
+
+    [[ ! -x "$idle_script" ]] && {
+        echo "warning: $idle_script not found" >&2
+        return 1
+    }
+
+    niri_pid=$(pgrep -u "$uid" -x niri 2>/dev/null | head -1)
+    if [[ -n "$niri_pid" ]]; then
+        wayland=$(tr '\0' '\n' <"/proc/$niri_pid/environ" 2>/dev/null |
+            grep "^WAYLAND_DISPLAY=" | cut -d= -f2)
+    fi
+    wayland="${wayland:-wayland-1}"
+    niri_socket=$(find_niri_socket "$uid" "$runtime_dir/niri/socket")
+
+    kill_idle
+
+    sudo -u "$user" \
+        WAYLAND_DISPLAY="$wayland" \
+        XDG_RUNTIME_DIR="$runtime_dir" \
+        NIRI_SOCKET="$niri_socket" \
+        nohup "$idle_script" --watch >/dev/null 2>&1 &
+}
+
+enable() {
+    mkdir -p /etc/systemd/logind.conf.d
+    printf '[Login]\nHandleLidSwitch=ignore\nHandleLidSwitchExternalPower=ignore\n' >"$LOGIND_DROP"
+    systemctl kill -s HUP systemd-logind
+    kill_idle
+    echo "clamshell mode: ON"
+}
+
+disable() {
+    rm -f "$LOGIND_DROP"
+    systemctl kill -s HUP systemd-logind
+    start_idle
+    echo "clamshell mode: OFF"
+}
+
+usage() { echo "Usage: $(basename "$0") [on|off|toggle|status]"; }
+
+case "${1:-}" in
+"") usage ;;
+on) enable ;;
+off) disable ;;
+status) is_on && echo "on" || echo "off" ;;
+toggle) is_on && disable || enable ;;
+*) usage ;;
+esac

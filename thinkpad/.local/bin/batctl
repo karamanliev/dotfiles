@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+BAT_START="/sys/class/power_supply/BAT0/charge_start_threshold"
+BAT_STOP="/sys/class/power_supply/BAT0/charge_stop_threshold"
+
+needs_root() {
+    case "${1:-}" in on | off | toggle) return 0 ;; *) return 1 ;; esac
+}
+[[ $EUID -ne 0 ]] && needs_root "${1:-}" && exec sudo "$0" "$@"
+
+is_on() {
+    [[ -f "$BAT_START" ]] && [[ $(<"$BAT_START") -eq 60 ]]
+}
+
+enable() {
+    echo "60" >"$BAT_START"
+    echo "80" >"$BAT_STOP"
+    echo "battery: conservation ON (60-80%)"
+}
+
+disable() {
+    echo "100" >"$BAT_STOP"
+    echo "95" >"$BAT_START"
+    echo "battery: normal (95-100%)"
+}
+
+usage() { echo "Usage: $(basename "$0") [on|off|toggle|status]"; }
+
+case "${1:-}" in
+"") usage ;;
+on) enable ;;
+off) disable ;;
+status) is_on && echo "on" || echo "off" ;;
+toggle) is_on && disable || enable ;;
+*) usage ;;
+esac

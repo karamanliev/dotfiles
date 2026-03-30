@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+BIN="$(dirname "$(realpath "$0")")"
+
+is_on() {
+    "$BIN/clamctl" status 2>/dev/null | grep -q "^on$"
+}
+
+enable() {
+    "$BIN/batctl" on
+    "$BIN/clamctl" on
+}
+
+disable() {
+    "$BIN/batctl" off
+    "$BIN/clamctl" off
+}
+
+usage() { echo "Usage: $(basename "$0") [on|off|toggle|status]"; }
+
+case "${1:-}" in
+"") usage ;;
+on) enable ;;
+off) disable ;;
+status)
+    echo "clamshell mode:    $("$BIN/clamctl" status)"
+    echo "battery threshold: $("$BIN/batctl" status)"
+    ;;
+toggle) is_on && disable || enable ;;
+*) usage ;;
+esac
