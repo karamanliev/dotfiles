@@ -3,7 +3,6 @@
   "theme": "catppuccin",
   "keybinds": {
     "messages_next": "ctrl+f",
-    "messages_previous": "ctrl+b",
-    "session_share": ""
+    "messages_previous": "ctrl+b"
   }
 }
