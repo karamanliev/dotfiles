@@ -57,6 +57,7 @@
     vscode
     waybar
     wpaperd
+    xh
     xwayland-satellite
     yazi
     zoxide
