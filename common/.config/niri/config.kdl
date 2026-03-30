@@ -33,6 +33,7 @@ spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
 
 spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
 
+spawn-at-startup "opencode" "serve" "--hostname" "0.0.0.0" "--port" "1337"
 
 
 //-----  GENERAL
