@@ -1,0 +1,7 @@
+npm() {
+  if [[ "$1" == "run" && "$2" == "dev" ]]; then
+    command npm run dev -- --host "${@:3}"
+  else
+    command npm "$@"
+  fi
+}
