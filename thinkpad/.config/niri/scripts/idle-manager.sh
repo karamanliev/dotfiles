@@ -6,11 +6,13 @@ SCRIPT_PATH="$HOME/.config/niri/scripts/idle-manager.sh"
 LOCK_FILE="/tmp/niri-idle-watch.lock"
 FALLBACK_POLL_SECONDS="${NIRI_IDLE_POLL_SECONDS:-60}"
 
+NIRI_BIN="$HOME/.nix-profile/bin/niri"
+
 run_swayidle() {
   local suspend_timeout="$1"
 
   exec swayidle -w \
-    timeout 120 'niri msg action power-off-monitors' \
+    timeout 120 "$NIRI_BIN msg action power-off-monitors" \
     timeout "$suspend_timeout" 'systemctl suspend'
 }
 
