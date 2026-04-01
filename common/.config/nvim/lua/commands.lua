@@ -308,6 +308,7 @@ autocmd('FileType', {
     'gitsigns-blame',
     'git',
     'image_nvim',
+    'nvim-undotree',
   },
   group = general,
   desc = 'Close some windows with <q>',

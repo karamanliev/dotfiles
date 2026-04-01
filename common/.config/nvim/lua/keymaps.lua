@@ -164,3 +164,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('v', 'dd', remove_qf_items, { buffer = true, desc = 'Delete quickfix entries' })
   end,
 })
+
+-- nvim 0.12 Undotree toggle
+vim.keymap.set('n', '<leader>u', function()
+  vim.cmd('packadd nvim.undotree')
+  require('undotree').open({
+    command = math.floor(vim.api.nvim_win_get_width(0) / 3) .. 'vnew',
+  })
+end, { desc = 'Undotree toggle' })
