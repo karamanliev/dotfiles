@@ -22,6 +22,7 @@ fonts-indic
 fonts-jetbrains-mono
 git
 gnome-remote-desktop
+google-chrome-stable
 grep
 grub2-common
 grub-common
