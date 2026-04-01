@@ -2,7 +2,12 @@
 
 command -v upower >/dev/null 2>&1 || exit 0
 
-info="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null)"
+battery_device="/org/freedesktop/UPower/devices/battery_BAT0"
+
+devices="$(upower -e 2>/dev/null)"
+printf '%s\n' "$devices" | awk -v dev="$battery_device" '$0 == dev { found = 1 } END { exit !found }' || exit 0
+
+info="$(upower -i "$battery_device" 2>/dev/null)"
 [ -n "$info" ] || exit 0
 
 get_upower_field() {
@@ -19,7 +24,6 @@ get_upower_field() {
 }
 
 percentage="$(get_upower_field percentage | tr -d '[:space:]')"
-status="$(get_upower_field state | tr '[:upper:]' '[:lower:]')"
 icon_name="$(get_upower_field icon-name)"
 
 [ -n "$percentage" ] || exit 0
