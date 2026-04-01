@@ -40,6 +40,7 @@
     neovim
     nerd-fonts.symbols-only
     niri
+    nodejs_24
     power-profiles-daemon
     ripgrep
     satty
