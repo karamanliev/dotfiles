@@ -39,7 +39,6 @@ alias vi='nvim'
 alias vim='nvim'
 alias neofetch='fastfetch'
 alias loc='locate'
-alias opencode='ocv'
 
 ## fzf
 ### pacman
