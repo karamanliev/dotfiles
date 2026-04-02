@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  lazyjira = (builtins.getFlake "github:textfuel/lazyjira").packages.${pkgs.system}.default;
+in
+
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -37,6 +41,7 @@
     jira-cli-go
     lazydocker
     lazygit
+    lazyjira
     neovim
     nerd-fonts.symbols-only
     niri
