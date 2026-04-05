@@ -48,7 +48,7 @@ alias pkginfo="yay -Qe | fzf --multi --height 80% --reverse --preview 'yay -Qi {
 alias mancmd='man -k . | cut -d " " -f 1 | fzf --layout "reverse" --preview "man {}" --bind "enter:execute(man {})" --preview-window right:70%:wrap:nohidden'
 
 ## Misc
-alias reboot-win='sudo efibootmgr --bootnext 0003 && reboot'
+alias reboot-win='sudo efibootmgr --bootnext 0001 && reboot'
 alias reboot-bios='sudo systemctl reboot --firmware-setup'
 ### Kitty imgcat
 alias icat='kitten icat'
