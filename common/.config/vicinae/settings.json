@@ -110,6 +110,12 @@
       },
       "power": {
          "entrypoints": {
+            "logout": {
+               "preferences": {
+                  "confirm": true,
+                  "customProgram": "systemctl start --user niri-shutdown.target"
+               }
+            },
             "reboot": {
                "preferences": {
                   "confirm": false
