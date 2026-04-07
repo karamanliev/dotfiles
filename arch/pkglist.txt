@@ -112,7 +112,7 @@ moonlight-qt
 nano
 nano-syntax-highlighting
 nautilus
-neovim-nightly-bin
+neovim
 network-manager-applet
 networkmanager
 networkmanager-l2tp
