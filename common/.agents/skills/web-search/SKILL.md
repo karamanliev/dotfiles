@@ -5,8 +5,8 @@ description: USE FOR web search. Returns ranked results with snippets, URLs, thu
 
 # Web Search
 
-> **Requires API Key**: Get one at https://api.search.brave.com
->
+> **API Key**: `${BRAVE_SEARCH_API_KEY}` is already configured in the environment — no setup needed.
+
 > **Plan**: Included in the **Search** plan. See https://api-dashboard.search.brave.com/app/subscriptions/subscribe
 
 ## Quick Start (cURL)
