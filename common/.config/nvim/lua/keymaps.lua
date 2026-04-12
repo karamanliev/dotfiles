@@ -172,3 +172,10 @@ vim.keymap.set('n', '<leader>u', function()
     command = math.floor(vim.api.nvim_win_get_width(0) / 3) .. 'vnew',
   })
 end, { desc = 'Undotree toggle' })
+
+-- nvim 0.12 Save session & restart
+vim.keymap.set('n', '<leader>R', function()
+  local session = vim.fn.stdpath('state') .. '/restart_session.vim'
+  vim.cmd('mksession! ' .. vim.fn.fnameescape(session))
+  vim.cmd('restart source ' .. vim.fn.fnameescape(session))
+end, { desc = 'Restart Neovim' })
