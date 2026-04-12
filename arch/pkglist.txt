@@ -46,6 +46,7 @@ fragments
 fzf
 gamemode
 gamescope
+gdu
 gimp
 git
 git-delta
@@ -60,7 +61,6 @@ gst-plugin-pipewire
 gvfs
 gvfs-afc
 gvfs-goa
-gvfs-google
 gvfs-gphoto2
 gvfs-mtp
 gvfs-nfs
