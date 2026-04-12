@@ -173,3 +173,6 @@ vim.filetype.add({
     ['http'] = 'http',
   },
 })
+
+-- Fix CTRL+A and CTRL+X behaviour
+vim.o.nrformats = 'unsigned'
