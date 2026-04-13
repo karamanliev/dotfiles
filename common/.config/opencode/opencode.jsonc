@@ -54,6 +54,5 @@
   "plugin": [
     "opencode-claude-auth",
     "cc-safety-net",
-    "opencode-handoff",
   ]
 }
