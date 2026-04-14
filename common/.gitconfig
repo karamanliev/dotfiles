@@ -46,3 +46,5 @@
 
 [include]
   path = ~/.config/git/local.conf
+[init]
+	defaultBranch = main
