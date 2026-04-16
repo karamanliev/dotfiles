@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  lazyjira = (builtins.getFlake "github:textfuel/lazyjira").packages.${pkgs.system}.default;
+  lazyjira = (builtins.getFlake "github:textfuel/lazyjira").packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 
 {
