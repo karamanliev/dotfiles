@@ -201,6 +201,7 @@ vivid
 vkbasalt
 vkd3d
 vulkan-tools
+wakeonlan
 waybar
 wayvnc
 wev
@@ -218,6 +219,7 @@ xorg-xinit
 xwayland-satellite
 yay
 yazi
+yt-dlp
 zen-browser-bin
 zoxide
 zram-generator
