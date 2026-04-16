@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/lazygit"
+THEME_STATE="$HOME/.local/state/current_theme"
+
+BASE_CONF=""
+ARGS=()
+TMUX_MODE=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --tmux)
+      TMUX_MODE=true
+      shift
+      ;;
+    -ucf|--use-config-file)
+      shift
+      [[ $# -gt 0 ]] && shift
+      ;;
+    -ucf=*|--use-config-file=*)
+      shift
+      ;;
+    *)
+      ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if $TMUX_MODE; then
+  BASE_CONF="$CONF_DIR/config_tmux.yml"
+else
+  BASE_CONF="$CONF_DIR/config.yml"
+fi
+
+if [[ -f "$THEME_STATE" ]]; then
+  case "$(cat "$THEME_STATE")" in
+    catppuccin-latte)     THEME_CONF="$CONF_DIR/themes/latte-mauve.yml" ;;
+    catppuccin-macchiato) THEME_CONF="$CONF_DIR/themes/macchiato-mauve.yml" ;;
+  esac
+fi
+
+LAZYGIT_BIN="/usr/bin/lazygit"
+
+if [[ -n "${THEME_CONF:-}" && -f "$THEME_CONF" ]]; then
+  exec "$LAZYGIT_BIN" --use-config-file="$BASE_CONF,$THEME_CONF" "${ARGS[@]}"
+else
+  exec "$LAZYGIT_BIN" --config-file="$BASE_CONF" "${ARGS[@]}"
+fi

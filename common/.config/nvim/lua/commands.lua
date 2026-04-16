@@ -101,7 +101,7 @@ command('LazyGit', function(opts)
       .. socket_path
       .. ' LAZYGIT_KILL_PANE='
       .. kill_pane
-      .. ' lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
+      .. ' lazygit --tmux; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
   )
 end, { desc = 'LazyGit', bang = true })
 
@@ -113,7 +113,7 @@ command('LazyGitLogs', function()
       .. cwd
       .. '" "NVIM_SERVER='
       .. socket_path
-      .. ' LAZYGIT_KILL_PANE=true lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --sm full --filter '
+      .. ' LAZYGIT_KILL_PANE=true lazygit --tmux --sm full --filter '
       .. cwd
       .. '; tmux kill-pane"'
   )
@@ -127,7 +127,7 @@ command('LazyGitLogsFile', function()
       .. vim.fn.getcwd()
       .. '" "NVIM_SERVER='
       .. socket_path
-      .. ' LAZYGIT_KILL_PANE=true lazygit -ucf $XDG_CONFIG_HOME/lazygit/config_nvim.yml --filter '
+      .. ' LAZYGIT_KILL_PANE=true lazygit --tmux --filter '
       .. file
       .. '; tmux kill-pane"'
   )
