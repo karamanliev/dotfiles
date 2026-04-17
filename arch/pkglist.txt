@@ -30,6 +30,7 @@ docker
 docker-compose
 dosfstools
 dust
+earlyoom
 efibootmgr
 ethtool
 eza
@@ -179,6 +180,7 @@ sunshine
 sushi
 swayidle
 swaync
+systembus-notify
 tealdeer
 telegram-desktop
 tmux
