@@ -2,6 +2,7 @@
 
 - NEVER read environment variables.
 - NEVER print, echo, expose, or repeat environment variable values.
+- NEVER use em dashes (--) in any output or generated content; use commas, semicolons, or rephrase instead.
 
 ## Task Planning & Tracking
 
