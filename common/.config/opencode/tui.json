@@ -3,6 +3,11 @@
   "theme": "catppuccin",
   "keybinds": {
     "messages_next": "ctrl+f",
-    "messages_previous": "ctrl+b"
-  }
+    "messages_previous": "ctrl+b",
+    "display_thinking": "<leader>t"
+  },
+  // opencode-vim settings
+  "vim_enter_submit": true,
+  "prompt_max_height": 25,
+  "prompt_scrollbar": true
 }
