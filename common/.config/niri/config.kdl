@@ -166,7 +166,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="org.gnome.Nautilus" title="^Enter name of file to save"
+    match app-id="org.gnome.Nautilus" title="^Enter name of file to save|^All Files|^Save|^Location"
     open-floating true
     default-column-width { fixed 1280; }
     default-window-height { fixed 720; }
