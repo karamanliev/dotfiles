@@ -12,21 +12,21 @@
   prompt = false
 
 [diff]
-  tool = nvimdiff
+  tool = codediff
   colorMoved = default
 
-[difftool "nvimdiff"]
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[difftool "codediff"]
+  cmd = "nvim \"$LOCAL\" \"$REMOTE\" +\"CodeDiff file $LOCAL $REMOTE\""
 
 [merge]
-  tool = diffview
+  tool = codediff
 
 [mergetool]
   prompt = false
   keepBackup = false
 
-[mergetool "diffview"]
-  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+[mergetool "codediff"]
+  cmd = "nvim \"$MERGED\" -c \"CodeDiff merge \"$MERGED\"\""
 
 [interactive]
   diffFilter = delta
@@ -46,5 +46,6 @@
 
 [include]
   path = ~/.config/git/local.conf
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
