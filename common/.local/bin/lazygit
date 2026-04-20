@@ -41,7 +41,13 @@ if [[ -f "$THEME_STATE" ]]; then
   esac
 fi
 
-LAZYGIT_BIN="/usr/bin/lazygit"
+LAZYGIT_BIN=""
+while IFS= read -r candidate; do
+  [[ "$(realpath "$candidate")" == "$(realpath "$0")" ]] && continue
+  LAZYGIT_BIN="$candidate"
+  break
+done < <(type -aP lazygit 2>/dev/null)
+[[ -n "$LAZYGIT_BIN" ]] || { echo "lazygit: real binary not found" >&2; exit 1; }
 
 if [[ -n "${THEME_CONF:-}" && -f "$THEME_CONF" ]]; then
   exec "$LAZYGIT_BIN" --use-config-file="$BASE_CONF,$THEME_CONF" "${ARGS[@]}"
