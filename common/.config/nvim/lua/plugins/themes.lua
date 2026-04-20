@@ -1,6 +1,7 @@
 return {
   {
     'folke/tokyonight.nvim',
+    enabled = false,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     lazy = true,
     config = function()
@@ -59,7 +60,7 @@ return {
         flavour = 'latte', -- latte, frappe, macchiato, mocha
         background = { -- :h background
           light = 'latte',
-          dark = 'latte',
+          dark = 'macchiato',
         },
         transparent_background = false, -- disables setting the background color.
         float = {
@@ -157,6 +158,7 @@ return {
 
   {
     'rose-pine/neovim',
+    enabled = false,
     name = 'rose-pine',
     lazy = true,
     priority = 1000,

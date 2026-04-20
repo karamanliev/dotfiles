@@ -10,9 +10,6 @@ vim.opt.numberwidth = 5
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
--- Set dark background
-vim.opt.background = 'dark'
-
 -- Diagnostics
 vim.diagnostic.config({
   virtual_text = {
