@@ -62,7 +62,7 @@ _clip_default_host() {
 
   case "$os_id" in
     arch)
-      print -r -- noto
+      print -r -- thinkpad
       ;;
     ubuntu)
       print -r -- arch
