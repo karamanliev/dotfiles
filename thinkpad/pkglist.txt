@@ -22,6 +22,7 @@ fonts-indic
 fonts-jetbrains-mono
 git
 gnome-remote-desktop
+gnupg
 google-chrome-stable
 grep
 grub2-common
@@ -64,6 +65,7 @@ mpv
 mythes-en-us
 ncurses-base
 ncurses-bin
+netbird-ui
 openssh-server
 os-prober
 papirus-icon-theme
