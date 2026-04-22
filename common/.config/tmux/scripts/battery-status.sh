@@ -52,4 +52,4 @@ case "$icon_name" in
   ;;
 esac
 
-printf '#[default]%s #[fg=#{fg_color}]%s' "$icon" "$percentage"
+printf '#[default]%s #[fg=#{fg_color}]%s  ' "$icon" "$percentage"
