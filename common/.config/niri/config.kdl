@@ -23,7 +23,6 @@ spawn-at-startup "xwayland-satellite"
 
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "handy" "--start-hidden"
-spawn-at-startup "Telegram"
 spawn-at-startup "kitty"
 
 // mount the server nas as a local folder "~/Server"
@@ -33,7 +32,7 @@ spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
 
 spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
 
-spawn-at-startup "opencode" "serve" "--hostname" "0.0.0.0" "--port" "1337"
+spawn-sh-at-startup "$AGENT_CMD serve --hostname 0.0.0.0 --port 1337"
 
 
 //-----  GENERAL
