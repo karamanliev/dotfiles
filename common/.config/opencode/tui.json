@@ -4,10 +4,15 @@
   "keybinds": {
     "messages_next": "ctrl+f",
     "messages_previous": "ctrl+b",
-    "display_thinking": "<leader>t"
+    "display_thinking": "<leader>t",
+    "session_child_first": "<leader>j",
+    "session_child_cycle": "l",
+    "session_child_cycle_reverse": "h",
+    "session_parent": "k"
   },
   // opencode-vim settings
   "vim_enter_submit": true,
   "prompt_max_height": 25,
-  "prompt_scrollbar": true
+  "prompt_scrollbar": true,
+  "plugin": ["@slkiser/opencode-quota"]
 }

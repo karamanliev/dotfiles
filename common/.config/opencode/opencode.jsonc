@@ -76,5 +76,19 @@
   "plugin": [
     "opencode-claude-auth",
     "cc-safety-net",
-  ]
+    "@slkiser/opencode-quota",
+    "caveman-opencode-plugin"
+  ],
+  "experimental": {
+    "quotaToast": {
+      "enableToast": false,
+      "percentDisplayMode": "used",
+      "formatStyle": "grouped",
+      "enabledProviders": [
+        "openai",
+        "opencode-go",
+        "anthropic"
+      ],
+    },
+  },
 }
