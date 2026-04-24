@@ -2,6 +2,8 @@
   "$schema": "https://opencode.ai/tui.json",
   "theme": "catppuccin",
   "keybinds": {
+    "messages_half_page_up": "ctrl+u",
+    "messages_half_page_down": "ctrl+d",
     "messages_next": "ctrl+f",
     "messages_previous": "ctrl+b",
     "display_thinking": "<leader>t",
