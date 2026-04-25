@@ -153,6 +153,33 @@ vim.keymap.set({ 'n', 'v' }, '\\l', function()
   send_file_ref_to_agent(filepath, make_line_ref(start_line, end_line), false, true)
 end, { desc = 'Send selection/line to Agent' })
 
+vim.keymap.set({ 'n', 'v' }, '\\\\', function()
+  local filepath = vim.fn.expand('%:.')
+  if filepath == '' then
+    return
+  end
+  local start_line, end_line
+  if vim.fn.mode():match('^[vV\22]') then
+    start_line, end_line = get_visual_range()
+  else
+    start_line = vim.fn.line('.')
+    end_line = start_line
+  end
+  local ref = '@' .. filepath .. make_line_ref(start_line, end_line)
+  vim.fn.setreg('+', ref)
+  vim.notify('Copied: ' .. ref, vim.log.levels.INFO)
+end, { desc = 'Copy buffer + line ref to clipboard' })
+
+vim.keymap.set('n', '\\|', function()
+  local filepath = vim.fn.expand('%:.')
+  if filepath == '' then
+    return
+  end
+  local ref = '@' .. filepath .. ' '
+  vim.fn.setreg('+', ref)
+  vim.notify('Copied: ' .. ref, vim.log.levels.INFO)
+end, { desc = 'Copy buffer ref to clipboard' })
+
 vim.keymap.set({ 'n', 'v' }, '\\L', function()
   local filepath = vim.fn.expand('%:.')
   if filepath == '' then
