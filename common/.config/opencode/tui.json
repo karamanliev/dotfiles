@@ -6,11 +6,15 @@
     "messages_half_page_down": "ctrl+d",
     "messages_next": "ctrl+f",
     "messages_previous": "ctrl+b",
-    "display_thinking": "<leader>t",
+    "display_thinking": "ctrl+t",
     "session_child_first": "<leader>j",
     "session_child_cycle": "l",
     "session_child_cycle_reverse": "h",
-    "session_parent": "k"
+    "session_parent": "k",
+    "variant_cycle": "shift+tab",
+    "session_list": "ctrl+space",
+    "session_timeline": "alt+space",
+    "model_list": "ctrl+q"
   },
   // opencode-vim settings
   "vim_enter_submit": true,
