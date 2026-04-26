@@ -24,6 +24,14 @@ else
   export CURRENT_THEME="$DARK_THEME"
 fi
 
+theme_sync_apply_colorfgbg() {
+  case "$CURRENT_THEME" in
+    "$LIGHT_THEME") export COLORFGBG="0;15" ;;
+    "$DARK_THEME")  export COLORFGBG="15;0" ;;
+  esac
+}
+theme_sync_apply_colorfgbg
+
 theme_sync_apply_ls_colors() {
   export BAT_THEME="$CURRENT_THEME"
   export LS_COLORS="$(vivid generate "$CURRENT_THEME")"
@@ -38,6 +46,7 @@ theme_sync_reload_ls_colors() {
   local theme="$(<"$THEME_SYNC_STATE_FILE" 2>/dev/null)"
   [[ -z "$theme" || "$theme" == "$CURRENT_THEME" ]] && return
   export CURRENT_THEME="$theme"
+  theme_sync_apply_colorfgbg
   command -v vivid >/dev/null 2>&1 || return
   theme_sync_apply_ls_colors
 }
