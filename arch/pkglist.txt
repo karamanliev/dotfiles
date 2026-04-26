@@ -48,10 +48,12 @@ fzf
 gamemode
 gamescope
 gdu
+ghostty
 gimp
 git
 git-delta
 github-cli
+glow
 gnome-calculator
 gnome-disk-utility
 gnome-keyring
