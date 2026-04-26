@@ -121,3 +121,19 @@ shotput() {
   print -rn -- "$dest" | wl-copy
   print -r -- "$dest"
 }
+
+# Quickly query a llm with ocv
+q() {
+  local prompt session_id
+  local model="opencode-go/deepseek-v4-flash"
+  if [[ $# -eq 0 ]]; then
+    print -n "> "
+    read -r prompt
+    [[ -z "$prompt" ]] && return 0
+    noglob ${AGENT_CMD:-ocv} --model "$model" run "$prompt" | glow
+  else
+    noglob ${AGENT_CMD:-ocv} --model "$model" run "$@" | glow
+  fi
+  session_id=$(${AGENT_CMD:-ocv} session list --format json -n 1 2>/dev/null | jq -r ".[0].id // empty" 2>/dev/null)
+  [[ -n "$session_id" ]] && ${AGENT_CMD:-ocv} session delete "$session_id" >/dev/null 2>&1
+}
