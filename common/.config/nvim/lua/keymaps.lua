@@ -96,6 +96,8 @@ vim.keymap.set('n', '<leader>L', function()
   require('lazy').home()
 end, { desc = 'Lazy' })
 
+vim.keymap.set('n', '<leader>l', '<cmd>LazyGit!<cr>', { desc = 'LazyGit' })
+
 -- Open yazi in tmux split
 vim.keymap.set('n', '-', '<cmd>Yazi<cr>', { desc = 'Yazi' })
 
