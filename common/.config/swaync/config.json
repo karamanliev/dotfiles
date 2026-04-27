@@ -1,5 +1,5 @@
 {
-  "$schema": "configSchema.json",
+  "$schema": "https://raw.githubusercontent.com/ErikReider/SwayNotificationCenter/refs/heads/main/src/configSchema.json",
   "layer": "overlay",
   "control-center-margin-bottom": 20,
   "control-center-margin-left": 0,
