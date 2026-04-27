@@ -29,6 +29,15 @@
       "pluginName": "agent-browser",
       "installedAt": "2026-03-31T10:33:50.795Z",
       "updatedAt": "2026-03-31T10:33:50.795Z"
+    },
+    "opencode-memory": {
+      "source": "carson2222/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/carson2222/skills.git",
+      "skillPath": "opencode-memory/SKILL.md",
+      "skillFolderHash": "b8d33c73d5459091c25d10ce8c5bd960a5625e1d",
+      "installedAt": "2026-04-27T08:44:28.444Z",
+      "updatedAt": "2026-04-27T08:44:28.444Z"
     }
   },
   "dismissed": {
@@ -41,6 +50,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "firebender",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
