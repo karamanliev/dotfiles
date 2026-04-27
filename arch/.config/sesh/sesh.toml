@@ -1,0 +1,19 @@
+blacklist = ["lazygit", "agent", "scratch"]
+
+[[wildcard]]
+pattern = "~/Projects/*"
+startup_command = "tmux renamew nvim;nvim -c 'LazyGit!'"
+disable_startup_command = false
+windows = ["opencode"]
+
+[[window]]
+name = "nvim"
+startup_script = "nvim -c 'sleep 1000m | LazyGit!'"
+
+[[window]]
+name = "opencode"
+startup_script = "ocv"
+
+[[window]]
+name = "server"
+startup_script = "[ -f package.json ] && grep -q '\"dev\"' package.json && npm run dev"
