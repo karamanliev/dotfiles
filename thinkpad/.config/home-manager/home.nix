@@ -36,8 +36,9 @@ in
     fd
     fnm
     fzf
-    gpu-screen-recorder
     gh
+    glow
+    gpu-screen-recorder
     jira-cli-go
     lazydocker
     lazygit
