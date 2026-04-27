@@ -88,8 +88,9 @@ end, {
 command('LazyGit', function(opts)
   local socket_path = vim.v.servername
   local zoom_flag = opts.bang and '' or '-Z'
-  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h' or '-v'
+  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h -l 35\\%' or '-v'
   local kill_pane = opts.bang and 'false' or 'true'
+  local screen_mode = opts.bang and 'half' or 'normal'
   vim.cmd(
     'silent !tmux split-window '
       .. orientation
@@ -101,7 +102,9 @@ command('LazyGit', function(opts)
       .. socket_path
       .. ' LAZYGIT_KILL_PANE='
       .. kill_pane
-      .. ' lazygit --tmux; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
+      .. ' lazygit --tmux --screen-mode='
+      .. screen_mode
+      .. '; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
   )
 end, { desc = 'LazyGit', bang = true })
 
