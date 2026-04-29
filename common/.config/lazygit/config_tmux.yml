@@ -14,6 +14,7 @@ gui:
   expandFocusedSidePanel: true
   expandedSidePanelWeight: 3
   border: "single"
+  showNumstatInFilesView: true
 promptToReturnFromSubprocess: false
 notARepository: "skip"
 keybinding:
