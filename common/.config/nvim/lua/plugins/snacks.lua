@@ -68,6 +68,16 @@ return {
           },
         },
         win = {
+          input = {
+            keys = {
+              ['<c-\\>'] = { 'toggle_preview', mode = { 'i', 'n' } },
+            },
+          },
+          list = {
+            keys = {
+              ['<c-\\>'] = { 'toggle_preview', mode = { 'i', 'n' } },
+            },
+          },
           preview = {
             wo = {
               foldcolumn = '0',
@@ -554,7 +564,7 @@ return {
           end
 
           -- Show full relative path in preview window title
-          local pickers = { 'grep', 'grep_buffers', 'grep_word' }
+          local pickers = { 'grep', 'grep_buffers', 'grep_word', 'lsp_references' }
           local orig_file_preview = Snacks.picker.preview.file
           ---@param ctx snacks.picker.preview.ctx
           Snacks.picker.preview.file = function(ctx)
