@@ -338,8 +338,8 @@ binds {
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
 
-    Mod+V { spawn-sh "vicinae vicinae://extensions/vicinae/clipboard/history"; }
-    Mod+W { spawn-sh "vicinae vicinae://extensions/vicinae/wm/switch-windows"; }
+    Mod+V { spawn-sh "vicinae vicinae://launch/clipboard/history"; }
+    Mod+W { spawn-sh "vicinae vicinae://launch/wm/switch-windows"; }
 
     Mod+D       { toggle-window-floating; }
     Mod+Shift+D { switch-focus-between-floating-and-tiling; }
