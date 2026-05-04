@@ -12,7 +12,7 @@ spawn-at-startup "/usr/libexec/polkit-mate-authentication-agent-1"
 spawn-at-startup "~/.config/niri/scripts/idle-manager.sh" "--watch"
 
 spawn-at-startup "ungoogled-chromium"
-spawn-at-startup "gtk-launch" "zen.desktop"
+// spawn-at-startup "gtk-launch" "zen.desktop"
 spawn-at-startup "gtk-launch" "chrome-mail.google.com__mail_u_0_-Default.desktop"
 spawn-at-startup "sunshine"
 
@@ -64,8 +64,14 @@ workspace "CHAT" {
 
 
 //-----  RULES
+// window-rule {
+//     match app-id="zen" at-startup=true
+//     open-on-workspace "1"
+//     open-maximized true
+// }
+
 window-rule {
-    match app-id="zen" at-startup=true
+    match app-id="ungoogled-chromium" at-startup=true
     open-on-workspace "1"
     open-maximized true
 }
@@ -73,12 +79,6 @@ window-rule {
 window-rule {
     match app-id="kitty" at-startup=true
     open-on-workspace "2"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="ungoogled-chromium" at-startup=true
-    open-on-workspace "3"
     open-maximized true
 }
 
