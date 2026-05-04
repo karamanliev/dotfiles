@@ -37,7 +37,8 @@
   },
   "agent": {
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "high",
     },
     "approve": {
       "description": "Ask-first mode with safe auto-allow",
