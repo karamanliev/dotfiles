@@ -11,14 +11,46 @@
     "session_child_cycle": "l",
     "session_child_cycle_reverse": "h",
     "session_parent": "k",
-    "variant_cycle": "shift+tab",
+    "variant_cycle": "ctrl+e",
     "session_list": "ctrl+space",
     "session_timeline": "alt+space",
-    "model_list": "ctrl+q"
+    "model_list": "ctrl+q",
+    "session_rename": "ctrl+y"
   },
   // opencode-vim settings
-  "vim_enter_submit": true,
-  "prompt_max_height": 25,
-  "prompt_scrollbar": true,
-  "plugin": ["@slkiser/opencode-quota"]
+  "plugin": [
+    "@slkiser/opencode-quota",
+    [
+      "opencode-vim",
+      {
+        "autoUpdate": true,
+        "vim": {
+          "defaultMode": "insert",
+          "keymapTimeout": 500,
+          "pendingDisplayDelay": 120,
+          "cursorStyles": {
+            "insert": {
+              "style": "line",
+              "blinking": true
+            },
+            "normal": {
+              "style": "block",
+              "blinking": true
+            }
+          },
+          "debug": false,
+          "debugPath": "/home/ico/.cache/opencode/opencode-vim.log",
+          "keymaps": {
+            "insert": {
+              // "kj": "normal"
+            },
+            "normal": {
+              "<CR>": "submit",
+              "Y": "y$"
+            }
+          }
+        }
+      }
+    ]
+  ]
 }
