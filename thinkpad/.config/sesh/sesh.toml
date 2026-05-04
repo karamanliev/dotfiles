@@ -12,7 +12,7 @@ startup_script = "nvim -c 'sleep 1000m | LazyGit!'"
 
 [[window]]
 name = "opencode"
-startup_script = "ocv"
+startup_script = "ocs"
 
 [[window]]
 name = "server"
