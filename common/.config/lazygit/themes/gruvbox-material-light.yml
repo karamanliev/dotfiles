@@ -1,0 +1,30 @@
+gui:
+  theme:
+    activeBorderColor:
+      - "#945e80"
+      - bold
+    inactiveBorderColor:
+      - "#928374"
+    searchingActiveBorderColor:
+      - "#b47109"
+    optionsTextColor:
+      - "#45707a"
+    selectedLineBgColor:
+      - "#eee0b7"
+    inactiveViewSelectedLineBgColor:
+      - "#ddccab"
+    cherryPickedCommitFgColor:
+      - "#945e80"
+    cherryPickedCommitBgColor:
+      - "#efdec3"
+    markedBaseCommitFgColor:
+      - "#45707a"
+    markedBaseCommitBgColor:
+      - "#fae7b3"
+    unstagedChangesColor:
+      - "#c14a4a"
+    defaultFgColor:
+      - "#654735"
+  authorColors:
+    "*": "#45707a"
+    "Hristo Karamanliev": "#b47109"
