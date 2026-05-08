@@ -45,8 +45,9 @@ for _, level in ipairs({ 'Error', 'Warn', 'Hint', 'Info' }) do
 end
 
 -- CMP
-set_hl('CmpBorder', { fg = statusline_bg, bg = statusline_bg })
-set_hl('CmpNormal', { bg = statusline_bg })
+local cmp_bg = adjust_hex(statusline_bg, 'darken', 3)
+set_hl('CmpBorder', { fg = cmp_bg, bg = cmp_bg })
+set_hl('CmpNormal', { bg = cmp_bg })
 set_hl('CmpDocBorder', { bg = cursorline_bg, fg = cursorline_bg })
 set_hl('CmpDoc', { bg = cursorline_bg })
 set_hl('BlinkCmpDocSeparator', { bg = cursorline_bg })
@@ -79,8 +80,8 @@ set_hl('SnacksPickerBorder', { fg = statusline_bg, bg = statusline_bg })
 set_hl('SnacksPickerList', { fg = text_fg, bg = statusline_bg })
 set_hl('SnacksPickerPreview', { fg = text_fg, bg = cursorline_bg })
 set_hl('SnacksPickerPreviewBorder', { fg = cursorline_bg, bg = cursorline_bg })
-set_hl('SnacksPickerInput', { bg = prompt_bg, fg = text_fg, bold = true })
-set_hl('SnacksPickerInputBorder', { fg = prompt_bg, bg = prompt_bg })
+-- set_hl('SnacksPickerInput', { bg = prompt_bg, fg = text_fg, bold = true })
+-- set_hl('SnacksPickerInputBorder', { fg = prompt_bg, bg = prompt_bg })
 set_hl('SnacksPickerInputTitle', { link = 'TodoBgNOTE' })
 
 -- Floats like diagnostics and gitsigns preview, hover and signature help
