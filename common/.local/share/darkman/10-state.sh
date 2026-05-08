@@ -15,6 +15,3 @@ esac
 
 mkdir -p "$(dirname "$STATE_FILE")"
 printf '%s\n' "$CURRENT_THEME" >"$STATE_FILE"
-
-mkdir -p "$HOME/.config/vivid"
-printf '%s\n' "$CURRENT_THEME" >"$HOME/.config/vivid/current_theme"
