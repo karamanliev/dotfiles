@@ -2,7 +2,6 @@
 set -euo pipefail
 
 CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/lazygit"
-THEME_STATE="$HOME/.local/state/current_theme"
 
 BASE_CONF=""
 ARGS=()
@@ -34,11 +33,9 @@ else
   BASE_CONF="$CONF_DIR/config.yml"
 fi
 
+THEME_STATE="$HOME/.local/state/current_theme"
 if [[ -f "$THEME_STATE" ]]; then
-  case "$(cat "$THEME_STATE")" in
-    catppuccin-latte)     THEME_CONF="$CONF_DIR/themes/latte-mauve.yml" ;;
-    catppuccin-macchiato) THEME_CONF="$CONF_DIR/themes/macchiato-mauve.yml" ;;
-  esac
+  THEME_CONF="$CONF_DIR/themes/$(cat "$THEME_STATE").yml"
 fi
 
 LAZYGIT_BIN=""
