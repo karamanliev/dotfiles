@@ -8,21 +8,13 @@ GIT_CONFIG_DIR="$HOME/.config/git"
 source "$CONFIG_FILE"
 
 case "$MODE" in
-light)
-  CURRENT_THEME="$LIGHT_THEME"
-  DELTA_FILE="delta-light.conf"
-  ;;
-dark)
-  CURRENT_THEME="$DARK_THEME"
-  DELTA_FILE="delta-dark.conf"
-  ;;
-*)
-  exit 0
-  ;;
+light) CURRENT_THEME="$LIGHT_THEME" ;;
+dark)  CURRENT_THEME="$DARK_THEME" ;;
+*)     exit 0 ;;
 esac
 
-[[ -r "$GIT_CONFIG_DIR/$DELTA_FILE" ]] || exit 0
-sed "s|^\([[:space:]]*\)syntax-theme = .*|\1syntax-theme = $CURRENT_THEME|" \
-  "$GIT_CONFIG_DIR/$DELTA_FILE" >"$GIT_CONFIG_DIR/delta.conf"
+DELTA_FILE="$GIT_CONFIG_DIR/$CURRENT_THEME.conf"
+[[ -r "$DELTA_FILE" ]] || exit 0
+cp "$DELTA_FILE" "$GIT_CONFIG_DIR/delta.conf"
 
 cat "$GIT_CONFIG_DIR/delta.conf"
