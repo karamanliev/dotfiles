@@ -78,7 +78,8 @@
     "opencode-claude-auth",
     "cc-safety-net",
     "@slkiser/opencode-quota",
-    "caveman-opencode-plugin"
+    "caveman-opencode-plugin",
+    "opencode-bytheway"
   ],
   "experimental": {
     "quotaToast": {

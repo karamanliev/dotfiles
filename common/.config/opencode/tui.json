@@ -17,40 +17,5 @@
     "model_list": "ctrl+q",
     "session_rename": "ctrl+y"
   },
-  // opencode-vim settings
-  "plugin": [
-    "@slkiser/opencode-quota",
-    [
-      "opencode-vim",
-      {
-        "autoUpdate": true,
-        "vim": {
-          "defaultMode": "insert",
-          "keymapTimeout": 500,
-          "pendingDisplayDelay": 120,
-          "cursorStyles": {
-            "insert": {
-              "style": "line",
-              "blinking": true
-            },
-            "normal": {
-              "style": "block",
-              "blinking": true
-            }
-          },
-          "debug": false,
-          "debugPath": "/home/ico/.cache/opencode/opencode-vim.log",
-          "keymaps": {
-            "insert": {
-              // "kj": "normal"
-            },
-            "normal": {
-              "<CR>": "submit",
-              "Y": "y$"
-            }
-          }
-        }
-      }
-    ]
-  ]
+  "plugin": ["@slkiser/opencode-quota", "opencode-vim", "opencode-bytheway"]
 }
