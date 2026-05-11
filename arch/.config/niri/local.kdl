@@ -130,6 +130,7 @@ window-rule {
 
 window-rule {
   match app-id="steam" title="^Steam$"
+  match app-id="^battle.net.exe$" title="^Battle.net$"
   open-on-output "DP-3"
   open-on-workspace "GAMES"
   default-column-width { proportion 0.76; }
@@ -149,6 +150,36 @@ window-rule {
   open-on-workspace "GAMES"
   open-fullscreen true
   variable-refresh-rate true
+}
+
+window-rule {
+  match app-id="^diablo iv.exe"
+  open-on-output "DP-3"
+  open-on-workspace "GAMES"
+  open-fullscreen true
+  variable-refresh-rate true
+}
+
+window-rule {
+    match app-id="^explorer.exe$"
+    default-column-width { fixed 0; }
+    default-window-height { fixed 0; }
+    max-width 0
+    max-height 0
+    open-maximized false
+    open-fullscreen false
+    open-focused false
+    open-floating true
+    opacity 0.0
+    default-floating-position x=0 y=0 relative-to="bottom-left"
+
+    focus-ring {
+        off
+    }
+
+    border {
+        off
+    }
 }
 
 window-rule {
