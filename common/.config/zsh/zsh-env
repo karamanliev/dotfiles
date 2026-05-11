@@ -1,6 +1,8 @@
 # Set correct terminal colors
 export COLORTERM=truecolor
 
+export SUDO_ASKPASS="$HOME/.local/bin/askpass"
+
 export EDITOR="nvim"
 export VISUAL="nvim"
 
