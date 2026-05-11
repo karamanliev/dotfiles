@@ -17,7 +17,6 @@ btop
 btrfs-assistant
 btrfs-progs
 celluloid
-code
 cpio
 cpupower
 czkawka-gui-bin
@@ -223,6 +222,7 @@ xwayland-satellite
 yay
 yazi
 yt-dlp
+zed
 zen-browser-bin
 zoxide
 zram-generator
