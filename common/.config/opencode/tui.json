@@ -17,5 +17,5 @@
     "model_list": "ctrl+q",
     "session_rename": "ctrl+y"
   },
-  "plugin": ["@slkiser/opencode-quota", "opencode-vim", "opencode-bytheway"]
+  "plugin": ["@slkiser/opencode-quota", "opencode-vim"]
 }
