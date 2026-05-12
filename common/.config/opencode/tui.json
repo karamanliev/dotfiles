@@ -11,7 +11,7 @@
     "session_child_cycle": "l",
     "session_child_cycle_reverse": "h",
     "session_parent": "k",
-    "variant_cycle": "ctrl+e",
+    "variant_list": "ctrl+e",
     "session_list": "ctrl+space",
     "session_timeline": "alt+space",
     "model_list": "ctrl+q",
