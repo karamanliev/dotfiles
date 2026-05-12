@@ -10,7 +10,7 @@
 - As soon as a task or feature is being planned, immediately create a todo list with all known tasks using the TodoWrite tool.
 - Keep the todo list updated throughout the back-and-forth discussion; add, remove, or revise tasks as the plan evolves.
 - The todo list is the shared source of truth for what will be built; it should reflect the latest agreed-upon plan at all times.
-- After you believe a plan is finalized, ask via the `question` tool whether the user wants the detailed plan written to a file. Offer these options: `Yes, write it`, `No, keep it in chat`, and `I want changes to the plan`.
+- After you believe a plan is finalized and output it to the user, ask via the `question` tool whether the user wants the detailed plan written to a file. Offer these options: `Yes, write it`, `No, keep it in chat`, and `I want changes to the plan`.
 - If the user chooses `Yes, write it`, stay in Plan mode and invoke the `plan-writer` subagent to write the detailed plan into `.opencode/plans/` in the current project.
 
 **Build mode (actively implementing):**
