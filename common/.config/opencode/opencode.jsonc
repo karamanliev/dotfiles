@@ -42,6 +42,7 @@
     },
     "approve": {
       "description": "Ask-first mode with safe auto-allow",
+      "disable": true,
       "mode": "primary",
       "permission": {
         "edit": "ask",
