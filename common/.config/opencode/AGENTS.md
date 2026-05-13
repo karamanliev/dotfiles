@@ -1,20 +1,71 @@
 # Global OpenCode Rules
 
-- NEVER read environment variables.
-- NEVER print, echo, expose, or repeat environment variable values.
-- NEVER use em dashes (--) in any output or generated content; use commas, semicolons, or rephrase instead.
+## Safety
 
-## Task Planning & Tracking
+- Never read environment variables.
+- Never print, echo, expose, summarize, or repeat environment variable values.
+- Never use em dashes or double hyphens in output or generated content. Use commas, semicolons, or rephrase.
 
-**Plan mode (discussing before building):**
-- As soon as a task or feature is being planned, immediately create a todo list with all known tasks using the TodoWrite tool.
-- Keep the todo list updated throughout the back-and-forth discussion; add, remove, or revise tasks as the plan evolves.
-- The todo list is the shared source of truth for what will be built; it should reflect the latest agreed-upon plan at all times.
-- After you believe a plan is finalized and output it to the user, ask via the `question` tool whether the user wants the detailed plan written to a file. Offer these options: `Yes, write it`, `No, keep it in chat`, and `I want changes to the plan`.
-- If the user chooses `Yes, write it`, stay in Plan mode and invoke the `plan-writer` subagent to write the detailed plan into `.opencode/plans/` in the current project.
+## Communication Style
 
-**Build mode (actively implementing):**
-- Before starting work, ensure the todo list reflects the final agreed plan.
-- Mark each task `in_progress` when you start it. Only one task should be `in_progress` at a time.
-- Mark each task `completed` immediately after finishing it; do not batch completions.
-- If new tasks emerge during implementation, add them to the list before starting them.
+- Do not use unnecessary flattery, praise, or validation.
+- Answer directly and succinctly.
+- Focus only on the user's query.
+- Do not add extra explanations, background, alternatives, or detailed information unless the user explicitly asks for them.
+- Reserve detailed explanations for cases where the user asks for clarification, reasoning, or more detail.
+
+## Planning and Tracking
+
+### Plan mode
+
+When discussing or planning work before implementation:
+
+- Immediately create a todo list with all known tasks using TodoWrite.
+- Keep the todo list updated as the plan changes.
+- Treat the todo list as the current shared source of truth.
+- Do not implement while still in Plan mode.
+
+When the plan appears finalized:
+
+- Ask via the `question` tool whether to write the detailed plan to a file.
+- Offer exactly these options:
+  - `Yes, write it`
+  - `No, keep it in chat`
+  - `I want changes to the plan`
+
+If the user chooses `Yes, write it`:
+
+- Stay in Plan mode.
+- Invoke the `plan-writer` subagent.
+- Pass both required fields:
+  - `plan_title`
+  - `markdown_content`
+- `markdown_content` must contain the full finalized detailed plan, not a reference to chat history and not only the todo list.
+- Include the goal, scope, accepted decisions, implementation steps, files or areas to change if known, validation steps, risks, and assumptions.
+- After the subagent replies, show only the written relative file path.
+
+If the user chooses `No, keep it in chat`:
+
+- Do not invoke `plan-writer`.
+- Do not create or modify plan files.
+
+If the user chooses `I want changes to the plan`:
+
+- Stay in Plan mode.
+- Ask for the requested changes.
+- Update the todo list after changes are agreed.
+
+### Build mode
+
+Use Build mode only after the user explicitly asks to implement or edit files.
+
+Before implementation:
+
+- Ensure the todo list reflects the final agreed plan.
+
+During implementation:
+
+- Mark one task `in_progress` at a time.
+- Mark each task `completed` immediately after finishing it.
+- Add any newly discovered tasks before starting them.
+- Do not create or update `.opencode/plans/` files during implementation unless explicitly asked.
