@@ -203,7 +203,7 @@ return {
   },
   -- Diffview
   {
-    'sindrets/diffview.nvim',
+    'dlyongemallo/diffview.nvim',
     enabled = false,
     cmd = {
       'DiffviewClose',
@@ -234,6 +234,7 @@ return {
 
       require('diffview').setup({
         enhanced_diff_hl = true,
+        diffopt = { algorithm = 'histogram' },
         key_bindings = {
           view = {
             {
@@ -405,8 +406,8 @@ return {
         file_panel = {
           listing_style = 'list',
           win_config = {
-            position = 'top',
-            height = 15,
+            position = 'left',
+            height = 35,
           },
         },
       })
@@ -415,6 +416,7 @@ return {
 
   {
     'esmuellert/codediff.nvim',
+    enabled = true,
     cmd = 'CodeDiff',
     keys = {
       { '<leader>dd', '<cmd>CodeDiff<cr>', desc = 'Workspace Diff' },
