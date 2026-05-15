@@ -37,6 +37,7 @@ spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 spawn-at-startup "~/.config/niri/scripts/qmk_led_on_layout_switch.sh"
 spawn-at-startup "~/.config/niri/scripts/sunsetr_gaming.sh"
+spawn-at-startup "~/.config/niri/scripts/pip_stack.sh"
 
 spawn-at-startup "solaar" "--window=hide"
 spawn-at-startup "gtk-launch" "razer-battery-tray.desktop"
@@ -108,12 +109,12 @@ workspace "NOTES" {
 window-rule {
     match title="^Picture-in-Picture$"
     open-on-output "DP-1"
-    open-floating true
+    open-floating false
     open-focused false
     default-floating-position x=20 y=40 relative-to="top-right"
-    opacity 0.75
-    default-column-width { fixed 448; }
-    default-window-height { fixed 252; }
+    opacity 1.0
+    // default-column-width { fixed 448; }
+    default-window-height { proportion 0.28; }
     shadow {
       off
       softness 30
