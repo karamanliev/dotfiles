@@ -27,7 +27,8 @@ When discussing or planning work before implementation:
 
 When the plan appears finalized:
 
-- Ask via the `question` tool whether to write the detailed plan to a file.
+- First present a short, compact version of the plan's main points to the user. Include the goal, key decisions, major implementation steps, and validation approach, but keep it concise.
+- Only after presenting that compact plan summary, ask via the `question` tool whether to write the detailed plan to a file.
 - Offer exactly these options:
   - `Yes, write it`
   - `No, keep it in chat`
