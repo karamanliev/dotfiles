@@ -165,9 +165,18 @@ return {
       },
       scroll = { enabled = false },
       statuscolumn = {
-        enabled = false,
-        left = { 'git', 'sign' },
-        right = { 'fold' },
+        enabled = true,
+        left = { 'git' }, -- priority of signs on the left (high to low)
+        right = { 'mark', 'sign', 'fold' }, -- priority of signs on the right (high to low)
+        folds = {
+          open = false, -- show open fold icons
+          git_hl = false, -- use Git Signs hl for fold icons
+        },
+        git = {
+          -- patterns to match Git signs
+          patterns = { 'GitSign', 'MiniDiffSign' },
+        },
+        refresh = 50, -- refresh at most every 50ms
       },
       words = { enabled = true },
       toggle = {
@@ -568,11 +577,7 @@ return {
           local orig_file_preview = Snacks.picker.preview.file
           ---@param ctx snacks.picker.preview.ctx
           Snacks.picker.preview.file = function(ctx)
-            if
-              vim.tbl_contains(pickers, ctx.picker.opts.source)
-              and not (ctx.item.preview_title or ctx.item.title)
-              and ctx.item.file
-            then
+            if vim.tbl_contains(pickers, ctx.picker.opts.source) and not (ctx.item.preview_title or ctx.item.title) and ctx.item.file then
               ctx.item.preview_title = vim.fn.fnamemodify(ctx.item.file, ':.')
             end
             return orig_file_preview(ctx)

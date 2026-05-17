@@ -90,12 +90,19 @@ return {
         col = 1,
       },
       signs = {
-        add = { text = '┃' },
-        change = { text = '┃' },
-        delete = { text = '┃' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked = { text = '┆' },
+        add = { text = '▌' },
+        change = { text = '▌' },
+        delete = { text = '▌' },
+        topdelete = { text = '▔' },
+        changedelete = { text = '▌' },
+        untracked = { text = '▌' },
+      },
+      signs_staged = {
+        add = { text = '▌' },
+        change = { text = '▌' },
+        delete = { text = '▌' },
+        topdelete = { text = '▔' },
+        changedelete = { text = '▌' },
       },
 
       on_attach = function(bufnr)

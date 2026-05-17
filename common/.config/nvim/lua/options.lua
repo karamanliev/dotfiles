@@ -4,11 +4,11 @@ vim.g.maplocalleader = ' '
 
 -- Relative line numbers
 vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.numberwidth = 5
+-- vim.opt.relativenumber = false
+-- vim.opt.numberwidth = 5
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+-- vim.opt.signcolumn = 'yes'
 
 -- Diagnostics
 vim.diagnostic.config({
@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- custom statuscolumn
-vim.opt.statuscolumn = " %s%{&nu ? (&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : '') : ''} "
+-- vim.opt.statuscolumn = " %s%{&nu && v:virtnum < 1 ? (v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''} "
 
 -- enable changing buffers without saving
 vim.opt.hidden = true
