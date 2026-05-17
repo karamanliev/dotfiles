@@ -12,8 +12,8 @@
       "custom/separator",
       "cffi/niri-taskbar",
       "custom/separator",
-      "custom/claude-usage",
-      "custom/separator",
+      // "custom/claude-usage",
+      // "custom/separator",
       "custom/codex-usage"
     ],
     "modules-center": [
