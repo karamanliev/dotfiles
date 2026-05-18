@@ -76,8 +76,7 @@
   "share": "disabled",
   "plugin": [
     "cc-safety-net",
-    "@slkiser/opencode-quota",
-    "caveman-opencode-plugin"
+    "@slkiser/opencode-quota"
   ],
   "experimental": {
     "quotaToast": {
