@@ -38,6 +38,16 @@
       "skillFolderHash": "b8d33c73d5459091c25d10ce8c5bd960a5625e1d",
       "installedAt": "2026-04-27T08:44:28.444Z",
       "updatedAt": "2026-04-27T08:44:28.444Z"
+    },
+    "handoff": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/handoff/SKILL.md",
+      "skillFolderHash": "7bbb60d64c911617cee7f71b2ba9e24364faa14e",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-05-22T17:30:12.986Z",
+      "updatedAt": "2026-05-22T17:30:12.986Z"
     }
   },
   "dismissed": {
@@ -50,6 +60,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "dexto",
     "firebender",
     "gemini-cli",
     "github-copilot",
