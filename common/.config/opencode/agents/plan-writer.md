@@ -9,6 +9,9 @@ model: opencode-go/deepseek-v4-flash
 temperature: 0
 permission:
   "*": deny
+  write:
+    "*": deny
+    ".opencode/plans/*.md": allow
   edit:
     "*": deny
     ".opencode/plans/*.md": allow
