@@ -1,4 +1,3 @@
-1password
 adobe-source-sans-fonts
 adw-gtk-theme
 alsa-plugins
@@ -11,7 +10,6 @@ base-devel
 bat
 betterbird-bin
 bind
-bitwarden
 blueman
 btop
 btrfs-assistant
