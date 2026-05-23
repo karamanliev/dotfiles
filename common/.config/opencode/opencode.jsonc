@@ -79,6 +79,7 @@
     "@slkiser/opencode-quota"
   ],
   "experimental": {
+    "disable_paste_summary": true,
     "quotaToast": {
       "enableToast": false,
       "percentDisplayMode": "used",
