@@ -14,14 +14,13 @@
       "custom/separator",
       // "custom/claude-usage",
       // "custom/separator",
-      "custom/codex-usage"
+      // "custom/codex-usage"
+      "custom/agenda"
     ],
     "modules-center": [
       "custom/weather",
       "custom/separator",
-      "clock",
-      "custom/separator",
-      "custom/agenda"
+      "clock"
     ],
     "modules-right": [
       "cpu",
