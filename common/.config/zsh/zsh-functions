@@ -125,7 +125,7 @@ shotput() {
 # Quickly query a llm with opencode
 q() {
   local prompt session_id
-  local model="opencode-go/deepseek-v4-flash"
+  local model="opencode/deepseek-v4-flash-free"
   if [[ $# -eq 0 ]]; then
     print -n "> "
     read -r prompt
