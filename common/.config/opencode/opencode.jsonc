@@ -36,8 +36,8 @@
   },
   "agent": {
     "explore": {
-      "model": "opencode-go/deepseek-v4-flash",
-      "variant": "high",
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "max",
     },
     "approve": {
       "description": "Ask-first mode with safe auto-allow",
