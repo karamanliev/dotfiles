@@ -24,6 +24,9 @@
     "llama.cpp",
     "opencode-go"
   ],
+  "permission": {
+    "websearch": "allow",
+  },
   "mcp": {
     "context7": {
       "type": "remote",
