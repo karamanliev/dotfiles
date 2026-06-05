@@ -20,9 +20,11 @@
   },
   "enabled_providers": [
     "openai",
-    "github-copilot",
-    "llama.cpp",
-    "opencode-go"
+    "opencode"
+    // "llama.cpp",
+    // "opencode-go",
+    // "openrouter",
+    // "github-copilot",
   ],
   "permission": {
     "websearch": "allow",
@@ -59,7 +61,7 @@
       "formatStyle": "grouped",
       "enabledProviders": [
         "openai",
-        "opencode-go"
+        // "opencode-go"
       ],
     },
   },
