@@ -39,36 +39,6 @@
       "model": "opencode/deepseek-v4-flash-free",
       "variant": "max",
     },
-    "approve": {
-      "description": "Ask-first mode with safe auto-allow",
-      "disable": true,
-      "mode": "primary",
-      "permission": {
-        "edit": "ask",
-        "read": "allow",
-        "list": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "bash": {
-          "*": "ask",
-          "git status*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "ls*": "allow",
-          "pwd*": "allow",
-          "which*": "allow",
-          "grep *": "allow",
-          "rg *": "allow",
-          "wc *": "allow",
-          "find": "allow",
-          "find *": "allow",
-          "fd": "allow",
-          "fd *": "allow",
-          "fdfind": "allow",
-          "fdfind *": "allow"
-        }
-      }
-    }
   },
   "compaction": {
     "auto": true
