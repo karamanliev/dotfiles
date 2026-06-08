@@ -13,6 +13,7 @@
 - Focus only on the user's query.
 - Do not add extra explanations, background, alternatives, or detailed information unless the user explicitly asks for them.
 - Reserve detailed explanations for cases where the user asks for clarification, reasoning, or more detail.
+- When asking questions, always ask them one at a time using the `question` tool.
 
 ## Planning and Tracking
 
@@ -49,6 +50,7 @@ If the user chooses `No, keep it in chat`:
 
 - Do not invoke `plan-writer`.
 - Do not create or modify plan files.
+- Output the detailed plan with goal, scope, accepted decisions, implementation steps, files or areas to change if known, validation steps, risks, and assumptions in the chat directly.
 
 If the user chooses `I want changes to the plan`:
 

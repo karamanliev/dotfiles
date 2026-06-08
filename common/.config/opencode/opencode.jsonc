@@ -20,14 +20,14 @@
   },
   "enabled_providers": [
     "openai",
-    "opencode"
+    "opencode",
+    "opencode-go",
     // "llama.cpp",
-    // "opencode-go",
     // "openrouter",
-    // "github-copilot",
+    // "github-copilot"
   ],
   "permission": {
-    "websearch": "allow",
+    "websearch": "allow"
   },
   "mcp": {
     "context7": {
@@ -41,8 +41,8 @@
   },
   "agent": {
     "explore": {
-      "model": "opencode/deepseek-v4-flash-free",
-      "variant": "max",
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "max"
     },
   },
   "compaction": {
@@ -61,7 +61,7 @@
       "formatStyle": "grouped",
       "enabledProviders": [
         "openai",
-        // "opencode-go"
+        "opencode-go"
       ],
     },
   },

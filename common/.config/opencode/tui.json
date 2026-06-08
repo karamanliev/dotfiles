@@ -21,9 +21,13 @@
     "@slkiser/opencode-quota",
     "opencode-vim",
     [
+      // "/home/ico/Projects/personal/opencode-mini-session/src",
       "opencode-mini-session",
       {
-        "model": "opencode/deepseek-v4-flash-free"
+        "model": "opencode/deepseek-v4-flash-free",
+        "variant": "max",
+        "enableThinking": true,
+        "freshKeybind": "alt+v"
       }
     ]
   ]

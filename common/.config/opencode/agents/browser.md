@@ -1,7 +1,7 @@
 ---
 description: Browser operations agent. Use when user needs to interact with websites, navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps or automating any browser task
 mode: subagent
-model: opencode/deepseek-v4-flash-free
+model: opencode-go/deepseek-v4-flash
 temperature: 0
 permission:
   "*": deny
