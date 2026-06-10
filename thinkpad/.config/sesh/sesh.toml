@@ -2,13 +2,21 @@ blacklist = ["lazygit", "agent", "scratch"]
 
 [[wildcard]]
 pattern = "~/Projects/*"
-startup_command = "tmux renamew nvim;nvim -c 'LazyGit!'"
+startup_command = "tmux renamew lazygit;lazygit"
 disable_startup_command = false
-windows = ["opencode", "server"]
+windows = ["PR review", "server"]
 
 [[window]]
 name = "nvim"
 startup_script = "nvim -c 'sleep 1000m | LazyGit!'"
+
+[[window]]
+name = "PR review"
+startup_script = "nvim -c 'CodeDiff master...'"
+
+[[window]]
+name = "lazygit"
+startup_script = "lazygit"
 
 [[window]]
 name = "opencode"
