@@ -430,13 +430,36 @@ return {
       { '<leader>df', '<cmd>CodeDiff history %<cr>', desc = 'File Diff' },
       { '<leader>dF', '<cmd>CodeDiff history<cr>', desc = 'All Files/Commits Diff' },
       { '<leader>dv', "<Esc><Cmd>'<,'>CodeDiff history<CR>", desc = 'Visual Selection Diff', mode = { 'v' } },
+      { '<leader>dp', '<cmd>CodeDiff file HEAD<cr>', desc = 'Diff File' },
+      {
+        '<leader>dP',
+        function()
+          local user_input = vim.fn.input('Diff with Branch/tag/commit: ')
+          vim.cmd('CodeDiff file ' .. user_input)
+        end,
+        desc = 'Diff File with Branch',
+      },
       {
         '<leader>db',
         function()
-          local user_input = vim.fn.input('Diff HEAD with Branch: ')
-          vim.cmd('CodeDiff ' .. user_input .. ' HEAD')
+          local user_input = vim.fn.input('Diff with Branch: ')
+          vim.cmd('CodeDiff ' .. user_input)
         end,
         desc = 'Diff with Branch',
+      },
+      {
+        '<leader>dr',
+        function()
+          for _, branch in ipairs({ 'master', 'main' }) do
+            local ok = vim.fn.systemlist('git rev-parse --verify --quiet refs/heads/' .. branch .. ' refs/remotes/*/' .. branch)[1]
+            if ok and ok ~= '' then
+              vim.cmd('CodeDiff ' .. branch .. '...')
+              return
+            end
+          end
+          vim.notify('No main or master branch found', vim.log.levels.WARN)
+        end,
+        desc = 'Diff PR Review',
       },
     },
     opts = {
