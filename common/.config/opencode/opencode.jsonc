@@ -22,6 +22,7 @@
     "openai",
     "opencode",
     "opencode-go",
+    "google"
     // "llama.cpp",
     // "openrouter",
     // "github-copilot"
@@ -61,7 +62,8 @@
       "formatStyle": "grouped",
       "enabledProviders": [
         "openai",
-        "opencode-go"
+        "opencode-go",
+        "google"
       ],
     },
   },
