@@ -61,7 +61,6 @@ in
     uv
     vicinae
     vivid
-    vscode
     waybar
     wpaperd
     xh
