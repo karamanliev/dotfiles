@@ -275,10 +275,18 @@ binds {
     Mod+Shift+Ctrl+L  { move-column-to-monitor-right; }
     Mod+Shift+Tab     { move-workspace-to-monitor-next; }
 
-    Mod+Left          { focus-column-first; }
-    Mod+Right         { focus-column-last; }
-    Mod+Shift+Left    { move-column-to-first; }
-    Mod+Shift+Right   { move-column-to-last; }
+    Mod+Ctrl+Shift+Alt+Q { focus-column 1; };
+    Mod+Ctrl+Shift+Alt+W { focus-column 2; };
+    Mod+Ctrl+Shift+Alt+E { focus-column 3; };
+    Mod+Ctrl+Shift+Alt+R { focus-column 4; };
+    Mod+Ctrl+Shift+Alt+T { focus-column 5; };
+
+    Mod+Ctrl+Shift+Alt+A { focus-column-first; };
+    Mod+Left             { focus-column-first; }
+    Mod+Ctrl+Shift+Alt+D { focus-column-last; };
+    Mod+Right            { focus-column-last; }
+    Mod+Shift+Left       { move-column-to-first; }
+    Mod+Shift+Right      { move-column-to-last; }
 
     Mod+WheelScrollDown      cooldown-ms=200 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=200 { focus-workspace-up; }
@@ -363,11 +371,11 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    F12 { spawn-sh "pkill -9 waybar; waybar"; }
+    Alt+F12 { spawn-sh "pkill -9 waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
 
-    Page_Down { spawn-sh "handy --toggle-transcription"; }
-    Page_Up   { spawn-sh "handy --toggle-post-process"; }
+    Mod+Page_Down { spawn-sh "handy --toggle-transcription"; }
+    Mod+Page_Up   { spawn-sh "handy --toggle-post-process"; }
 
     Mod+Ctrl+Shift+Alt+O { spawn-sh "wl-copy < ~/Server/clipboard.md && notify-send -e -i edit-copy -t 2000 'Loaded from clipboard.md!'"; }
     Mod+Ctrl+Shift+Alt+P { spawn-sh "wl-paste > ~/Server/clipboard.md && notify-send -e -i edit-paste -t 2000 'Sent to clipboard.md!'"; }
