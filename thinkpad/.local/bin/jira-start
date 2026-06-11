@@ -1,0 +1,280 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# -----------------------------------------------------------------------------
+# jira-start
+# Automates the Jira ticket setup workflow with a gum-based UI.
+#
+# Usage:
+#   jira-start            Interactively pick from your assigned tickets.
+#   jira-start UM-1234    Skip the picker and use the given ticket.
+# -----------------------------------------------------------------------------
+
+REPO="$HOME/Projects/oculus"
+TICKET="${1:-}"
+TICKET="${TICKET^^}"
+CURRENT_STEP="startup"
+
+on_error() {
+    local code=${1:-$?}
+    if command -v gum >/dev/null 2>&1; then
+        gum log -l error "Failed during: $CURRENT_STEP (exit $code)"
+    else
+        echo "Failed during: $CURRENT_STEP (exit $code)" >&2
+    fi
+    exit "$code"
+}
+trap 'on_error $?' ERR
+
+# -----------------------------------------------------------------------------
+# Preflight
+# -----------------------------------------------------------------------------
+require_cmd() {
+    command -v "$1" >/dev/null 2>&1 \
+        || { echo "Required command not found: $1" >&2; exit 1; }
+}
+for c in gum jira git tmux npm jq awk column; do require_cmd "$c"; done
+
+if [[ ! -d "$REPO" ]]; then
+    echo "Repo not found at: $REPO" >&2
+    exit 1
+fi
+
+case ":$PATH:" in
+    *":$HOME/.local/bin:"*) ;;
+    *)
+        echo "Notice: $HOME/.local/bin is not on PATH. Add:" >&2
+        echo "  export PATH=\"\$HOME/.local/bin:\$PATH\"" >&2
+        ;;
+esac
+
+# -----------------------------------------------------------------------------
+# Helpers
+# -----------------------------------------------------------------------------
+
+STEPS=()
+
+has_step() {
+    local needle=$1 s
+    (( ${#STEPS[@]} == 0 )) && return 1
+    for s in "${STEPS[@]}"; do
+        [[ "$s" == "$needle" ]] && return 0
+    done
+    return 1
+}
+
+worktree_path() {
+    printf '%s/Projects/%s' "$HOME" "$1"
+}
+
+pick_ticket_interactive() {
+    local me lines aligned header options pick
+    me=$(jira me)
+    lines=$(jira issue list -a "$me" \
+        -q 'status not in (Closed, Dropped)' \
+        --plain --no-headers \
+        --columns key,summary,status | tr -s '\t')
+    if [[ -z "$lines" ]]; then
+        echo "No active assigned tickets found." >&2
+        exit 1
+    fi
+    aligned=$({ printf 'Key\tSummary\tStatus\n'; printf '%s\n' "$lines"; } \
+        | column -t -s $'\t' -o '  ')
+    header=$(printf '%s\n' "$aligned" | head -1)
+    options=$(printf '%s\n' "$aligned" | tail -n +2)
+    pick=$(printf '%s\n' "$options" \
+        | gum choose --header "  $header" --height 20) \
+        || { echo "Cancelled." >&2; exit 0; }
+    awk '{print $1}' <<< "$pick"
+}
+
+show_ticket_details() {
+    local key=$1
+    jira issue view "$key" --plain | gum style --border rounded --padding "1 2"
+}
+
+step_fetch_master() {
+    CURRENT_STEP="Fetch and pull master"
+    gum log -l info "Fetching origin and updating master..."
+    git -C "$REPO" fetch --all --prune
+    local current
+    current=$(git -C "$REPO" rev-parse --abbrev-ref HEAD)
+    if [[ "$current" == "master" ]]; then
+        git -C "$REPO" pull --ff-only origin master
+    else
+        git -C "$REPO" fetch origin master:master 2>/dev/null \
+            || gum log -l warn "Could not fast-forward local master (diverged?)"
+    fi
+    gum log -l info "Master is up to date"
+}
+
+step_create_worktree() {
+    CURRENT_STEP="Create worktree"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    if git -C "$REPO" worktree list | awk '{print $1}' | grep -qx "$wt"; then
+        gum log -l info "Worktree already exists at $wt, skipping create"
+        return 0
+    fi
+    if git -C "$REPO" show-ref --verify --quiet "refs/heads/$key"; then
+        git -C "$REPO" worktree add "$wt" "$key"
+    else
+        local base="origin/master"
+        if git -C "$REPO" show-ref --verify --quiet "refs/remotes/origin/$key"; then
+            base="origin/$key"
+        fi
+        git -C "$REPO" worktree add "$wt" -b "$key" "$base"
+    fi
+    gum log -l info "Worktree created at $wt"
+}
+
+step_symlinks() {
+    CURRENT_STEP="Symlink shared files"
+    local key=$1 wt f
+    wt=$(worktree_path "$key")
+    if [[ ! -d "$wt" ]]; then
+        gum log -l warn "Worktree $wt does not exist, skipping symlinks"
+        return 0
+    fi
+    for f in AGENTS.md .nvim.lua .agents .opencode; do
+        if [[ -e "$wt/$f" || -L "$wt/$f" ]]; then
+            gum log -l info "$f already present in worktree, skipping"
+        else
+            ln -s "$REPO/$f" "$wt/$f"
+            gum log -l info "Linked $f"
+        fi
+    done
+}
+
+step_npm_install() {
+    CURRENT_STEP="Install dependencies"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    if [[ ! -d "$wt" ]]; then
+        gum log -l warn "Worktree $wt does not exist, skipping npm install"
+        return 0
+    fi
+    gum log -l info "Running npm install in $wt..."
+    npm --prefix "$wt" install
+    gum log -l info "Dependencies installed"
+}
+
+step_tmux_session() {
+    CURRENT_STEP="Create tmux session"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    if tmux has-session -t "$key" 2>/dev/null; then
+        gum log -l info "tmux session $key already exists, skipping create"
+        return 0
+    fi
+    if [[ ! -d "$wt" ]]; then
+        gum log -l warn "Worktree $wt does not exist, skipping tmux session"
+        return 0
+    fi
+    tmux new-session -d -s "$key" -c "$wt"
+    gum log -l info "tmux session $key created"
+}
+
+step_move_in_progress() {
+    CURRENT_STEP="Move to In Progress"
+    local key=$1 status
+    status=$(jira issue view "$key" --raw | jq -r '.fields.status.name // "Unknown"')
+    if [[ "$status" == "In Progress" ]]; then
+        gum log -l info "Ticket already In Progress, skipping"
+        return 0
+    fi
+    if gum confirm "Move $key to In Progress? (currently: $status)"; then
+        jira issue move "$key" "In Progress"
+        gum log -l info "Moved $key to In Progress"
+    fi
+}
+
+step_story_points() {
+    CURRENT_STEP="Set story points"
+    local key=$1 sp sp_display header choice n
+    sp=$(jira issue view "$key" --raw | jq -r '.fields.customfield_10002')
+    if [[ -n "$sp" && "$sp" != "null" && "$sp" != "0" && "$sp" != "0.0" ]]; then
+        sp_display="${sp%.0}"
+        header="Story points already set to $sp_display. Change or skip:"
+    else
+        header="Set story points for $key"
+    fi
+    choice=$(gum choose --header "$header" \
+        "Skip - leave story points unchanged" \
+        "1 - Very small task, almost no complexity" \
+        "2 - Small task with a bit more work" \
+        "3 - Medium task" \
+        "5 - Larger task" \
+        "8 - High workload" \
+        "13 - Very complex task" \
+        "21 - Extremely complex task") || true
+    choice="${choice%$'\r'}"
+    if [[ -z "$choice" || "$choice" == Skip* ]]; then
+        return 0
+    fi
+    n=$(awk '{print $1}' <<< "$choice")
+    if [[ ! "$n" =~ ^[0-9]+$ ]]; then
+        gum log -l warn "Could not parse story points from '$choice', skipping"
+        return 0
+    fi
+    jira issue edit "$key" --custom "story-points=$n" --no-input
+    gum log -l info "Story points set to $n"
+}
+
+step_tmux_switch() {
+    CURRENT_STEP="Switch tmux"
+    local key=$1
+    if ! tmux has-session -t "$key" 2>/dev/null; then
+        gum log -l warn "tmux session $key does not exist, nothing to switch to"
+        return 0
+    fi
+    if ! gum confirm "Switch to tmux session $key?"; then
+        echo "Run later with:  tmux attach-session -t $key"
+        return 0
+    fi
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux switch-client -t "$key"
+    else
+        tmux attach-session -t "$key"
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# Main flow
+# -----------------------------------------------------------------------------
+
+CURRENT_STEP="Pick ticket"
+while true; do
+    if [[ -z "$TICKET" || ! "$TICKET" =~ ^[A-Z]+-[0-9]+$ ]]; then
+        TICKET=$(pick_ticket_interactive)
+    fi
+    CURRENT_STEP="Show details"
+    show_ticket_details "$TICKET"
+    if gum confirm "Start working on $TICKET?"; then
+        break
+    fi
+    TICKET=""
+done
+
+CURRENT_STEP="Choose setup steps"
+out=$(gum choose --no-limit --selected='*' \
+    --header "Toggle off any setup steps to skip:" \
+    "Fetch and pull master" \
+    "Create worktree" \
+    "Symlink shared files" \
+    "Install dependencies" \
+    "Create tmux session") || out=""
+
+if [[ -n "$out" ]]; then
+    mapfile -t STEPS <<< "$out"
+fi
+
+has_step "Fetch and pull master" && step_fetch_master
+has_step "Create worktree"       && step_create_worktree "$TICKET"
+has_step "Symlink shared files"  && step_symlinks        "$TICKET"
+has_step "Install dependencies"  && step_npm_install     "$TICKET"
+has_step "Create tmux session"   && step_tmux_session    "$TICKET"
+
+step_move_in_progress "$TICKET"
+step_story_points     "$TICKET"
+step_tmux_switch      "$TICKET"
