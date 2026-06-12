@@ -192,6 +192,7 @@ wev
 wget
 wireplumber
 wl-clipboard
+worktrunk
 wpaperd
 wtype
 xdg-desktop-portal-gnome
