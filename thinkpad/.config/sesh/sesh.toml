@@ -4,14 +4,14 @@ blacklist = ["lazygit", "agent", "scratch"]
 pattern = "~/Projects/*"
 startup_command = "tmux renamew lazygit;lazygit"
 disable_startup_command = false
-windows = ["PR review", "server"]
+windows = ["review", "server"]
 
 [[window]]
 name = "nvim"
 startup_script = "nvim -c 'sleep 1000m | LazyGit!'"
 
 [[window]]
-name = "PR review"
+name = "review"
 startup_script = "nvim -c 'CodeDiff master...'"
 
 [[window]]
