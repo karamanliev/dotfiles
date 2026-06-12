@@ -38,6 +38,7 @@ in
     fzf
     gh
     glow
+    gum
     gpu-screen-recorder
     jira-cli-go
     lazydocker
@@ -63,6 +64,7 @@ in
     vivid
     waybar
     wpaperd
+    worktrunk
     xh
     xwayland-satellite
     yazi
