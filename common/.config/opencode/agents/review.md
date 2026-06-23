@@ -6,7 +6,7 @@ reasoningEffort: high
 temperature: 0.1
 permission:
   bash:
-    "*": deny
+    "*": ask
     "git diff*": allow
     "git log*": allow
     "git show*": allow
