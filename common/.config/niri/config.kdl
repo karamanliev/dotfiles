@@ -374,8 +374,8 @@ binds {
     Alt+F12 { spawn-sh "pkill -9 waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
 
-    Mod+Page_Down { spawn-sh "handy --toggle-transcription"; }
-    Mod+Page_Up   { spawn-sh "handy --toggle-post-process"; }
+    Ctrl+Page_Down { spawn-sh "handy --toggle-transcription"; }
+    Ctrl+Page_Up   { spawn-sh "handy --toggle-post-process"; }
 
     Mod+Ctrl+Shift+Alt+O { spawn-sh "wl-copy < ~/Server/clipboard.md && notify-send -e -i edit-copy -t 2000 'Loaded from clipboard.md!'"; }
     Mod+Ctrl+Shift+Alt+P { spawn-sh "wl-paste > ~/Server/clipboard.md && notify-send -e -i edit-paste -t 2000 'Sent to clipboard.md!'"; }
