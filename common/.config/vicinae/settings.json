@@ -46,15 +46,16 @@
    "favorites": [
       "@knoopx/store.vicinae.stocks:stocks",
       "@xevrion/store.vicinae.clean-keyboard:clean-keyboard",
+      "applications:zen",
+      "applications:helium",
       "applications:chrome-ieomlfcofjijngdmkgppehbkhehmdman-Default",
       "applications:chrome-iojmkfclanolekmekhaofmadgoondmip-Work",
       "applications:thinkpad-remote",
       "applications:thinkpad-ssh",
+      "applications:chromium-work",
       "@LuggaPugga/store.vicinae.port-killer:port-killer",
       "@leonkohli/store.vicinae.process-manager:processes",
-      "shortcuts:7fb0aead-18c7-4dcc-ac83-36b45b9a9632",
-      "@gebeto/store.raycast.translate:translate",
-      "shortcuts:5ea5c65d-6a28-42d4-a68b-29d2d7bed936"
+      "@gebeto/store.raycast.translate:translate"
    ],
    "providers": {
       "@asubbotin/store.raycast.shell": {
@@ -100,8 +101,10 @@
       },
       "clipboard": {
          "preferences": {
-            "encryption": true,
-            "monitoring": true
+            "encryption": false,
+            "monitoring": true,
+            "eraseOnStartup": false,
+            "ignorePasswords": true
          },
          "entrypoints": {
             "history": {
