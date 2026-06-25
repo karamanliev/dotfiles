@@ -1,6 +1,6 @@
 # set correct locale
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# export LANG=en_GB.UTF-8
+# export LC_ALL=en_GB.UTF-8
 
 # set xdg paths
 export XDG_CONFIG_HOME=$HOME/.config
