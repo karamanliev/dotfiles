@@ -5,3 +5,11 @@ npm() {
     command npm "$@"
   fi
 }
+
+sv-off() {
+  fusermount3 -u "$HOME/Server" 2>/dev/null || umount -l "$HOME/Server";
+}
+
+sv-on() {
+  rclone mount --vfs-cache-mode writes --dir-cache-time 5s karamanliev-dav: "$HOME/Server" --daemon
+}

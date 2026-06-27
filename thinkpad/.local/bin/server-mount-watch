@@ -1,0 +1,41 @@
+#!/bin/sh
+
+MOUNTPOINT="$HOME/Server"
+VPN_NAME="thinkpad"
+CHECK_INTERVAL=15
+
+was_up=0
+
+mount_server() {
+  if mountpoint -q "$MOUNTPOINT"; then
+    return 0
+  fi
+
+  # Clean up a stale FUSE mount before attempting to remount.
+  if mount | grep -Fq " on $MOUNTPOINT type fuse.rclone "; then
+    fusermount3 -u "$MOUNTPOINT" 2>/dev/null || umount -l "$MOUNTPOINT" 2>/dev/null
+  fi
+
+  rclone mount --vfs-cache-mode writes --dir-cache-time 5s karamanliev-dav: "$MOUNTPOINT" --daemon
+}
+
+unmount_server() {
+  mountpoint -q "$MOUNTPOINT" || return 0
+  fusermount3 -u "$MOUNTPOINT" 2>/dev/null || umount -l "$MOUNTPOINT" 2>/dev/null
+}
+
+while sleep "$CHECK_INTERVAL"; do
+  if nmcli -t -f NAME,TYPE connection show --active | grep -Fxq "$VPN_NAME:wireguard"; then
+    if [ "$was_up" -eq 0 ] || ! mountpoint -q "$MOUNTPOINT"; then
+      mount_server
+    fi
+    was_up=1
+    continue
+  fi
+
+  if [ "$was_up" -eq 1 ]; then
+    unmount_server
+  fi
+
+  was_up=0
+done

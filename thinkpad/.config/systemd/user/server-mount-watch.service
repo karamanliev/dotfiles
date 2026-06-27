@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount and unmount ~/Server with thinkpad VPN state
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/server-mount-watch
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
