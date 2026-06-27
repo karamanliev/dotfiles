@@ -11,7 +11,7 @@ Rules:
 - Do not squash unrelated changes into one commit
 
 When implementation is complete:
-1. Invoke the review subagent to review the changes
+1. Invoke the reviewer subagent to review the changes
 2. Wait for findings
 3. Fix any blockers and suggestions from the review
 4. Run tests and typecheck to confirm everything passes

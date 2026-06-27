@@ -1,6 +1,6 @@
 ---
 description: Review code changes and return structured findings
-agent: review
+agent: reviewer
 subtask: true
 ---
 

@@ -2,7 +2,7 @@
 description: Reviews code for correctness, security, style, and maintainability. Returns structured findings to the calling agent.
 mode: subagent
 # model: openai/gpt-5.5
-reasoningEffort: high
+# reasoningEffort: high
 temperature: 0.1
 permission:
   bash:
