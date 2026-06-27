@@ -2,7 +2,7 @@ blacklist = ["lazygit", "agent", "scratch"]
 
 [[wildcard]]
 pattern = "~/Projects/*"
-startup_command = "tmux renamew lazygit;lazygit"
+startup_command = "tmux renamew nvim;nvim"
 disable_startup_command = false
 windows = ["review", "server"]
 
