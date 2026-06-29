@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/bin/ungoogled-chromium --password-store=basic "$@"
