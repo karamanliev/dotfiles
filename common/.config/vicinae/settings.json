@@ -101,7 +101,7 @@
       },
       "clipboard": {
          "preferences": {
-            "encryption": false,
+            "encryption": true,
             "monitoring": true,
             "eraseOnStartup": false,
             "ignorePasswords": true
