@@ -151,7 +151,7 @@ layer-rule {
 
 layer-rule {
     match namespace="gtk-layer-shell"
-    opacity 0.7
+    opacity 0.9
 }
 
 layer-rule {
