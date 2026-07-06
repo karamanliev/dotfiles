@@ -30,7 +30,7 @@
     },
   },
   "compaction": {
-    "auto": true
+    "auto": false
   },
   "share": "disabled",
   "plugin": [
