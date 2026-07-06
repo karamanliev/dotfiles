@@ -8,7 +8,8 @@ git:
     - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --side-by-side
 gui:
   showCommandMode: false
-  sidePanelWidth: 0.25
+  # sidePanelWidth: 0.25
+  shrinkSidePanelsToContent: true
   nerdFontsVersion: "3"
   enlargedSideViewLocation: top
   expandFocusedSidePanel: true
