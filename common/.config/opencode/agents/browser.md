@@ -24,6 +24,7 @@ permission:
     "head -n*": allow
     "python3*": allow
     "echo*": allow
+    "head*": allow
     "git diff*": allow
     "git log*": allow
     "git show*": allow
