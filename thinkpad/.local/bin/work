@@ -176,18 +176,31 @@ normalize_branch_upstream() {
 }
 
 pick_ticket_interactive() {
-    local me lines aligned header options pick
+    local me base_lines lines aligned header options pick key summary status order
     me=$(jira me)
-    lines=$(jira issue list -a "$me" \
+    base_lines=$(jira issue list -a "$me" \
         -q 'status not in (Closed, Dropped)' \
         --plain --no-headers \
         --columns key,summary,status | tr -s '\t')
-    if [[ -z "$lines" ]]; then
+    if [[ -z "$base_lines" ]]; then
         printf 'No active assigned tickets found.\n' >&2
         return 1
     fi
+    lines=""
+    while IFS=$'\t' read -r key summary status; do
+        [[ -z "$key" ]] && continue
+        order=$(jira issue view "$key" --raw | jq -r '
+            if .fields.customfield_10579 == null then "-"
+            else (.fields.customfield_10579 | tostring | sub("\\.0$"; ""))
+            end')
+        lines+="$(printf '%s\t%s\t%s\t%s' "$key" "$order" "$summary" "$status")"$'\n'
+    done <<<"$base_lines"
+    lines=$(printf '%s' "$lines" | awk -F'\t' -v OFS='\t' '{
+        o = ($2 == "-" || $2 == "") ? 999999 : $2 + 0
+        print o, $0
+    }' | sort -t$'\t' -k1,1n | cut -f2-)
     aligned=$({
-        printf 'Key\tSummary\tStatus\n'
+        printf 'Key\tOrder\tSummary\tStatus\n'
         printf '%s\n' "$lines"
     } |
         column -t -s $'\t' -o '  ')
@@ -255,7 +268,7 @@ step_symlinks() {
         log_warn "Worktree $wt does not exist, skipping symlinks"
         return 0
     fi
-    for f in AGENTS.md .nvim.lua .agents .opencode; do
+    for f in AGENTS.md .nvim.lua .agents .opencode .config; do
         if [[ -e "$wt/$f" || -L "$wt/$f" ]]; then
             log_info "$f already present in worktree, skipping"
         else
@@ -435,7 +448,7 @@ move_jira_for_review() {
         fi
     fi
 
-    jira issue move "$issue" ForReview
+    jira issue move "$issue" "FOR REVIEW"
     final_status=$(jira_status "$issue")
     if [[ "$final_status" != "FOR REVIEW" ]]; then
         log_warn "Jira transition finished, but final status is $final_status, expected FOR REVIEW"
