@@ -32,9 +32,6 @@ spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
 
 spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
 
-spawn-sh-at-startup "openchamber --host 0.0.0.0 --port 1337"
-
-
 //-----  GENERAL
 hotkey-overlay {
     skip-at-startup
