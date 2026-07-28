@@ -233,6 +233,11 @@ window-rule {
     open-on-workspace "MAIL"
 }
 
+window-rule {
+    match app-id="openchamber"
+    open-maximized true
+}
+
 //----- BINDS
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
