@@ -163,6 +163,28 @@ return {
           },
         },
       },
+      scratch = {
+        win_by_ft = {
+          javascript = {
+            keys = {
+              source = {
+                '<cr>',
+                function(self)
+                  vim.api.nvim_buf_call(self.buf, function()
+                    -- Save synchronously before Node reads the file
+                    vim.cmd('silent write')
+
+                    -- Equivalent to entering :!node %
+                    vim.cmd('!node %')
+                  end)
+                end,
+                mode = 'n',
+                desc = 'Run JavaScript',
+              },
+            },
+          },
+        },
+      },
       scroll = { enabled = false },
       statuscolumn = {
         enabled = true,
