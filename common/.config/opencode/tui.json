@@ -18,7 +18,6 @@
     "session_rename": "ctrl+y"
   },
   "plugin": [
-    "@slkiser/opencode-quota",
     "opencode-vim",
     [
       // "/home/ico/Projects/personal/opencode-mini-session/src",

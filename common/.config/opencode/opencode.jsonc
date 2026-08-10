@@ -6,10 +6,8 @@
     "opencode",
     "opencode-go",
     "google",
-    "neuralwatt"
-    // "llama.cpp",
-    // "openrouter",
-    // "github-copilot"
+    "neuralwatt",
+    "openrouter"
   ],
   "permission": {
     "websearch": "allow"
@@ -36,19 +34,5 @@
   "share": "disabled",
   "plugin": [
     "cc-safety-net",
-    "@slkiser/opencode-quota"
   ],
-  "experimental": {
-    "disable_paste_summary": true,
-    "quotaToast": {
-      "enableToast": false,
-      "percentDisplayMode": "used",
-      "formatStyle": "grouped",
-      "enabledProviders": [
-        "openai",
-        "opencode-go",
-        "google"
-      ],
-    },
-  },
 }
