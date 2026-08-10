@@ -36,6 +36,7 @@ in
     fd
     fnm
     fzf
+    gearlever
     gh
     glow
     gum
@@ -68,6 +69,7 @@ in
     xh
     xwayland-satellite
     yazi
+    zed-editor
     zoxide
     zsh-autosuggestions
     zsh-completions

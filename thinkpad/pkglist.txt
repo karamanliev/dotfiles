@@ -1,4 +1,5 @@
 apt-rdepends
+apt-show-versions
 base-passwd
 bsdutils
 build-essential
@@ -20,6 +21,7 @@ ffmpeg
 findutils
 fonts-indic
 fonts-jetbrains-mono
+gawk
 git
 gnome-remote-desktop
 gnupg
