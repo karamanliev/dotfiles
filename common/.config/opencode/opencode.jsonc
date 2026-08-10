@@ -24,8 +24,9 @@
   },
   "agent": {
     "explore": {
-      "model": "opencode-go/deepseek-v4-flash",
-      "variant": "max"
+      "model": "neuralwatt/deepseek-v4-flash",
+      "variant": "max",
+      "temperature": 0,
     },
   },
   "compaction": {
