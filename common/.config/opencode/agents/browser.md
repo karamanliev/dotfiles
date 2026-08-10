@@ -1,11 +1,10 @@
 ---
 description: Browser operations agent. Use when user needs to interact with websites, navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps or automating any browser task
 mode: subagent
-model: opencode-go/deepseek-v4-flash
+model: openai/gpt-5.6-luna
 temperature: 0
 permission:
   "*": deny
-
   read: allow
   glob: allow
   list: allow
@@ -14,38 +13,37 @@ permission:
   webfetch: allow
   bash:
     "*": ask
-    "mkdir -p /tmp/agent-browser*": allow
-    "agent-browser*": allow
-    "grep*": allow
-    "rg*": allow
-    "ls*": allow
-    "cat*": allow
-    "sleep*": allow
-    "head -n*": allow
-    "python3*": allow
-    "echo*": allow
-    "head*": allow
-    "git diff*": allow
-    "git log*": allow
-    "git show*": allow
-    "git status*": allow
-    "git branch*": allow
-    "git ls-files*": allow
-    "gh pr view*": allow
-    "gh pr diff*": allow
-    "jira issue view*": allow
-    "jira issue search*": allow
-    "jira issue list*": allow
-
+    mkdir -p /tmp/agent-browser*: allow
+    agent-browser*: allow
+    grep*: allow
+    rg*: allow
+    ls*: allow
+    cat*: allow
+    sleep*: allow
+    head -n*: allow
+    python3*: allow
+    echo*: allow
+    head*: allow
+    git diff*: allow
+    git log*: allow
+    git show*: allow
+    git status*: allow
+    git branch*: allow
+    git ls-files*: allow
+    gh pr view*: allow
+    gh pr diff*: allow
+    jira issue view*: allow
+    jira issue search*: allow
+    jira issue list*: allow
   skill:
     agent-browser: allow
-
   external_directory:
     "*": deny
-    "/tmp": allow
-    "/tmp/*": allow
-    "/tmp/agent-browser": allow
-    "/tmp/agent-browser/*": allow
+    /tmp: allow
+    /tmp/*: allow
+    /tmp/agent-browser: allow
+    /tmp/agent-browser/*: allow
+variant: high
 ---
 
 # Browser Agent
