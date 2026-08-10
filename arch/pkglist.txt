@@ -38,6 +38,7 @@ figma-linux-bin
 file-roller
 firefox
 firefox-tridactyl-native
+flatpak
 fnm
 fzf
 gamemode
