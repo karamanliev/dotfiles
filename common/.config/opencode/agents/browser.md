@@ -11,30 +11,7 @@ permission:
   grep: allow
   question: allow
   webfetch: allow
-  bash:
-    "*": ask
-    mkdir -p /tmp/agent-browser*: allow
-    agent-browser*: allow
-    grep*: allow
-    rg*: allow
-    ls*: allow
-    cat*: allow
-    sleep*: allow
-    head -n*: allow
-    python3*: allow
-    echo*: allow
-    head*: allow
-    git diff*: allow
-    git log*: allow
-    git show*: allow
-    git status*: allow
-    git branch*: allow
-    git ls-files*: allow
-    gh pr view*: allow
-    gh pr diff*: allow
-    jira issue view*: allow
-    jira issue search*: allow
-    jira issue list*: allow
+  bash: allow
   skill:
     agent-browser: allow
   external_directory:

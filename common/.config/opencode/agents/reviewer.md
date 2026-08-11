@@ -1,26 +1,15 @@
 ---
 description: Reviews code for correctness, security, style, and maintainability. Returns structured findings to the calling agent.
 mode: subagent
+model: openai/gpt-5.6-sol
+variant: high
 temperature: 0.1
 permission:
-  bash:
-    "*": ask
-    git diff*: allow
-    git log*: allow
-    git show*: allow
-    git status*: allow
-    git branch*: allow
-    git ls-files*: allow
-    gh pr view*: allow
-    gh pr diff*: allow
-    npm test: allow
-    npm run typecheck: allow
+  bash: allow
   webfetch: allow
   websearch: allow
   write: deny
   edit: deny
-model: openai/gpt-5.6-sol
-variant: high
 ---
 
 You are a code reviewer. Do not modify files.
