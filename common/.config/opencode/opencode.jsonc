@@ -21,19 +21,27 @@
       },
       "enabled": true
     },
+    "deja": {
+      "type": "local",
+      "command": [
+        "deja",
+        "mcp"
+      ],
+      "enabled": true
+    }
   },
   "agent": {
     "explore": {
       "model": "neuralwatt/deepseek-v4-flash",
       "variant": "max",
-      "temperature": 0,
-    },
+      "temperature": 0
+    }
   },
   "compaction": {
     "auto": false
   },
   "share": "disabled",
   "plugin": [
-    "cc-safety-net",
-  ],
+    "cc-safety-net"
+  ]
 }
