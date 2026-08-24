@@ -295,4 +295,16 @@ return {
       vim.cmd([[cab cc CodeCompanion]])
     end,
   },
+  {
+    'karamanliev/code-review.nvim',
+    opts = {
+      integrations = {
+        picker = 'snacks',
+        layout = 'vertical',
+      },
+    },
+    config = function(_, opts)
+      require('code-review').setup(opts)
+    end,
+  },
 }
