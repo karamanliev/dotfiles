@@ -302,6 +302,9 @@ return {
         picker = 'snacks',
         layout = 'vertical',
       },
+      comment = {
+        confirm_delete = false,
+      },
     },
     config = function(_, opts)
       require('code-review').setup(opts)
