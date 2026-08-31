@@ -1,6 +1,6 @@
 [[mgr.prepend_keymap]]
 on   = "<C-q>"
-run  = "shell '~/.config/yazi/scripts/nvim-quickfix.sh \"$@\"' --block"
+run  = "shell '~/.config/yazi/scripts/nvim-quickfix.sh %s' --block"
 desc = "Send selected files to nvim quickfix"
 
 [[mgr.prepend_keymap]]
@@ -30,5 +30,5 @@ desc = "Paste into the hovered directory or CWD"
 
 [[mgr.prepend_keymap]]
 on = "="
-run = "shell 'nvim -d \"$@\"' --block --confirm"
+run = "shell 'nvim -d %s' --block --confirm"
 desc = "Open diff with selected files"

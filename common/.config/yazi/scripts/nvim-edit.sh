@@ -1,8 +1,8 @@
 #!/bin/bash
-filename="$1"
+filename=$(realpath -m -- "$1")
 
 if [ -n "$NVIM_SERVER" ]; then
-  nvim --server "$NVIM_SERVER" --remote-send "<cmd>e ${filename}<cr>"
+  nvim --server "$NVIM_SERVER" --remote "$filename"
   if [ "${YAZI_KILL_PANE}" = "true" ]; then
     tmux kill-pane
   # This focuses the nvim pane on file open
