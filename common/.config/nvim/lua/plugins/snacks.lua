@@ -26,7 +26,7 @@ return {
         end,
       },
       dashboard = { enabled = false },
-      explorer = { replace_netrw = false },
+      explorer = { replace_netrw = true },
       indent = {
         enabled = true,
         animate = {
@@ -134,6 +134,17 @@ return {
             backdrop = {
               bg = '#1e1e2e',
               blend = 25,
+            },
+          },
+        },
+        sources = {
+          explorer = {
+            layout = {
+              preview = 'main',
+              hidden = { 'preview' },
+              layout = {
+                position = 'right',
+              },
             },
           },
         },
@@ -478,12 +489,13 @@ return {
         mode = { 'n', 'v' },
       },
       {
-        '<leader>fe',
+        '-',
         function()
           Snacks.picker.explorer({
             auto_close = false,
             follow_file = true,
             hidden = true,
+            ignored = true,
           })
         end,
         desc = 'Explorer',
@@ -574,6 +586,16 @@ return {
       },
     },
     init = function()
+      local function set_picker_path_highlights()
+        vim.api.nvim_set_hl(0, 'SnacksPickerPathHidden', { link = 'Grey' })
+        -- vim.api.nvim_set_hl(0, 'SnacksPickerPathIgnored', { link = 'Grey' })
+      end
+
+      set_picker_path_highlights()
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        callback = set_picker_path_highlights,
+      })
+
       vim.api.nvim_create_autocmd('User', {
         pattern = 'OilActionsPost',
         callback = function(event)

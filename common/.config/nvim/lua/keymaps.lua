@@ -99,7 +99,7 @@ end, { desc = 'Lazy' })
 vim.keymap.set('n', '<leader>l', '<cmd>LazyGit!<cr>', { desc = 'LazyGit' })
 
 -- Open yazi in tmux split
-vim.keymap.set('n', '-', '<cmd>Yazi<cr>', { desc = 'Yazi' })
+-- vim.keymap.set('n', '-', '<cmd>Yazi<cr>', { desc = 'Yazi' })
 
 -- Quickfix list keymaps
 local function toggle_qflist()
