@@ -5,7 +5,8 @@ description: >-
   the user explicitly chooses to write the plan to a file.
 mode: subagent
 hidden: true
-model: opencode/deepseek-v4-flash-free
+model: openai/gpt-5.6-luna
+variant: low
 temperature: 0
 permission:
   edit:
