@@ -325,6 +325,7 @@ return {
   -- Sticky scope
   {
     'nvim-treesitter/nvim-treesitter-context',
+    enabled = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
@@ -343,5 +344,71 @@ return {
       zindex = 20, -- The Z-index of the context window
       on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
     },
+    config = function()
+      vim.keymap.set('n', '[;', function()
+        require('treesitter-context').go_to_context(vim.v.count1)
+      end, { silent = true })
+    end,
+  },
+
+  -- LSP and Treesitter symbols in the native winbar
+  {
+    'Bekaboo/dropbar.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      icons = {
+        ui = {
+          bar = {
+            separator = '  ',
+          },
+        },
+      },
+      bar = {
+        sources = function(buf, _)
+          local sources = require('dropbar.sources')
+          local utils = require('dropbar.utils')
+          if vim.bo[buf].ft == 'markdown' then
+            return {
+              -- sources.path,
+              sources.markdown,
+            }
+          end
+          if vim.bo[buf].buftype == 'terminal' then
+            return nil
+          end
+          return {
+            -- sources.path,
+            utils.source.fallback({
+              sources.lsp,
+              sources.treesitter,
+            }),
+          }
+        end,
+      },
+      sources = {
+        treesitter = {
+          max_depth = 8,
+        },
+        lsp = {
+          max_depth = 8,
+        },
+      },
+    },
+    config = function(_, opts)
+      require('dropbar').setup(opts)
+
+      vim.api.nvim_set_hl(0, 'WinBar', {
+        link = 'Comment',
+        bg = 'none',
+        bold = false,
+        italic = true,
+      })
+      vim.api.nvim_set_hl(0, 'DropBarIconUISeparator', { link = 'RedSign' })
+
+      local dropbar_api = require('dropbar.api')
+      vim.keymap.set('n', "<leader>'", dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+      vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+      vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+    end,
   },
 }
