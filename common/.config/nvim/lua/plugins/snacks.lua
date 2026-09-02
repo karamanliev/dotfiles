@@ -491,11 +491,18 @@ return {
       {
         '-',
         function()
+          local focused_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+
           Snacks.picker.explorer({
             auto_close = false,
             follow_file = true,
             hidden = true,
             ignored = true,
+            on_change = function(picker, item)
+              if item and vim.fs.normalize(item.file) == focused_file then
+                Snacks.picker.actions.list_scroll_center(picker)
+              end
+            end,
           })
         end,
         desc = 'Explorer',
