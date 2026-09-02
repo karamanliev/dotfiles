@@ -268,7 +268,7 @@ step_symlinks() {
         log_warn "Worktree $wt does not exist, skipping symlinks"
         return 0
     fi
-    for f in AGENTS.md .nvim.lua .agents .opencode .config; do
+    for f in AGENTS.md .nvim.lua .agents .opencode .config .openchamber .zed; do
         if [[ -e "$wt/$f" || -L "$wt/$f" ]]; then
             log_info "$f already present in worktree, skipping"
         else
