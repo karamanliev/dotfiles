@@ -15,6 +15,10 @@
 - Reserve detailed explanations for cases where the user asks for clarification, reasoning, or more detail.
 - When asking questions, always ask them one at a time using the `question` tool.
 
+## Reviews
+
+- Do not automatically conduct code reviews or browser reviews. Perform them only when the user explicitly asks for them.
+
 ## Planning and Tracking
 
 ### Plan mode
