@@ -32,8 +32,8 @@
   },
   "agent": {
     "explore": {
-      "model": "neuralwatt/deepseek-v4-flash-flex",
-      "variant": "max",
+      "model": "openai/gpt-6-luna",
+      "variant": "high",
       "temperature": 0
     }
   },
@@ -41,7 +41,7 @@
     "auto": false
   },
   "share": "disabled",
-  "plugin": [
-    "cc-safety-net"
-  ]
+  "plugins": [
+    "cc-safety-net@latest"
+  ],
 }

@@ -10,3 +10,4 @@ common/.config/btop/themes/current.theme
 common/.config/zsh/zsh-secrets
 common/.config/yazi/plugins
 .env
+/common/.config/opencode/service.json

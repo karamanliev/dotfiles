@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "gruvbox"
+  },
+  "keybinds": {
+    "session.list": "ctrl+space",
+    "session.timeline": "alt+space",
+    "session.rename": "ctrl+y",
+    "session.child.first": "<leader>j",
+    "session.parent": "k",
+    "model.list": "ctrl+q",
+    "variant.list": "ctrl+e",
+    "session.half.page.up": "ctrl+u",
+    "session.half.page.down": "ctrl+d",
+    "session.message.next": "ctrl+f",
+    "session.message.previous": "ctrl+b",
+    "session.toggle.thinking": "ctrl+t"
+  },
+  "plugins": ["opencode-vim"],
+  "diffs": {
+    "wrap": "word"
+  },
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": true,
+    "thinking": "hide"
+  },
+  "animations": true
+}
