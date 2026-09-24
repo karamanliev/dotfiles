@@ -36,7 +36,6 @@ in
     fd
     fnm
     fzf
-    gearlever
     gh
     glow
     gum
@@ -64,6 +63,7 @@ in
     vicinae
     vivid
     waybar
+    wayvnc
     wpaperd
     worktrunk
     xh
@@ -78,16 +78,17 @@ in
       flavor = "macchiato";
       accent = "mauve";
     })
-    (zsh-autocomplete.overrideAttrs (old: {
+    (zsh-autocomplete.overrideAttrs {
       installPhase = ''
         install -D zsh-autocomplete.plugin.zsh \
           $out/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
         cp -R Completions $out/share/zsh/plugins/zsh-autocomplete/Completions
         cp -R Functions $out/share/zsh/plugins/zsh-autocomplete/Functions
+        cp -R z-async $out/share/zsh/plugins/zsh-autocomplete/z-async
         ln -s $out/share/zsh/plugins/zsh-autocomplete \
           $out/share/zsh-autocomplete
       '';
-    }))
+    })
   ];
 
   programs.home-manager.enable = true;

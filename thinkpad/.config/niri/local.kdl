@@ -11,6 +11,8 @@ output "eDP-1" {
 spawn-at-startup "/usr/libexec/polkit-mate-authentication-agent-1"
 spawn-at-startup "~/.config/niri/scripts/idle-manager.sh" "--watch"
 
+spawn-at-startup "wayvnc" "0.0.0.0" "5900"
+
 spawn-at-startup "~/.local/bin/chromium"
 // spawn-at-startup "gtk-launch" "zen.desktop"
 spawn-at-startup "gtk-launch" "chrome-mail.google.com__mail_u_0_-Default.desktop"
