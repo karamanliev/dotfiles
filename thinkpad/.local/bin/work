@@ -139,6 +139,10 @@ jira_status() {
     jira issue view "$1" --raw | jq -r '.fields.status.name // "Unknown"'
 }
 
+jira_fix_versions() {
+    jira issue view "$1" --raw | jq -r '.fields.fixVersions[]?.name // empty'
+}
+
 current_branch() {
     git branch --show-current
 }
@@ -470,6 +474,8 @@ cmd_pr() {
     git rev-parse --is-inside-work-tree >/dev/null
 
     local branch base issue_title status dirty pr_url pr_action pr_title pr_body summary final_status
+    local fix_version fix_versions_raw fix_versions_display
+    local -a fix_versions=()
     CURRENT_STEP="Resolve PR context"
     branch=$(current_branch)
     if [[ -z "$branch" ]]; then
@@ -481,6 +487,14 @@ cmd_pr() {
     base="master"
     issue_title=$(jira_summary "$ISSUE")
     status=$(jira_status "$ISSUE")
+    fix_versions_raw=$(jira_fix_versions "$ISSUE")
+    if [[ -n "$fix_versions_raw" ]]; then
+        mapfile -t fix_versions <<<"$fix_versions_raw"
+        printf -v fix_versions_display '%s, ' "${fix_versions[@]}"
+        fix_versions_display=${fix_versions_display%, }
+    else
+        fix_versions_display="None"
+    fi
     dirty=$(git status --porcelain)
     pr_url=$(existing_pr_url "$branch")
     pr_action="reuse existing PR"
@@ -495,6 +509,7 @@ cmd_pr() {
 Issue: $ISSUE
 Jira title: $issue_title
 Jira status: $status
+Fix versions: $fix_versions_display
 Branch: $branch
 Base: $base
 PR action: $pr_action
@@ -527,6 +542,16 @@ EOF
     CURRENT_STEP="Assign PR"
     gh pr edit "$pr_url" --add-assignee @me
     log_info "Assigned PR to @me"
+
+    if ((${#fix_versions[@]})); then
+        CURRENT_STEP="Add Fix version labels to PR"
+        for fix_version in "${fix_versions[@]}"; do
+            gh pr edit "$pr_url" --add-label "$fix_version"
+            log_info "Added PR label: $fix_version"
+        done
+    else
+        log_warn "$ISSUE has no Fix versions, skipping PR labels"
+    fi
 
     final_status=$(move_jira_for_review "$ISSUE")
 
