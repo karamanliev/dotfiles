@@ -30,13 +30,6 @@
       "enabled": true
     }
   },
-  "agent": {
-    "explore": {
-      "model": "openai/gpt-6-luna",
-      "variant": "high",
-      "temperature": 0
-    }
-  },
   "compaction": {
     "auto": false
   },
@@ -44,4 +37,15 @@
   "plugins": [
     "cc-safety-net@latest"
   ],
+  "agents": {
+    "explore": {
+      "model": "openai/gpt-6-luna",
+      "mode": "subagent",
+      "request": {
+        "body": {
+          "temperature": 0
+        }
+      }
+    }
+  }
 }

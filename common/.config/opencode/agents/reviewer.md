@@ -1,15 +1,27 @@
 ---
-description: Reviews code for correctness, security, style, and maintainability. Returns structured findings to the calling agent.
+description: Reviews code for correctness, security, style, and maintainability.
+  Returns structured findings to the calling agent.
+model: openai/gpt-6.1-sol#high
 mode: subagent
-model: openai/gpt-5.6-sol
-variant: high
-temperature: 0.1
-permission:
-  bash: allow
-  webfetch: allow
-  websearch: allow
-  write: deny
-  edit: deny
+request:
+  body:
+    temperature: 0.1
+permissions:
+  - action: shell
+    resource: "*"
+    effect: allow
+  - action: webfetch
+    resource: "*"
+    effect: allow
+  - action: websearch
+    resource: "*"
+    effect: allow
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: edit
+    resource: "*"
+    effect: deny
 ---
 
 You are a code reviewer. Do not modify files.
