@@ -26,11 +26,13 @@ Usage:
   work start [--issue UM-1234]
   work review [--issue UM-1234]
   work pr [--issue UM-1234]
+  work remove
 
 Modes:
   start    Prepare a Jira ticket worktree and switch to it.
   review   Prepare a review worktree and optionally move Jira to InReview.
   pr       Create or reuse a GitHub PR and move Jira to FOR REVIEW.
+  remove   Remove a linked worktree, its local branch, and related tmux sessions.
 EOF
 }
 
@@ -60,6 +62,18 @@ Usage:
   work pr [--issue UM-1234]
 
 If no issue is provided, the issue key is derived from the current branch.
+EOF
+}
+
+usage_remove() {
+    cat <<'EOF'
+Usage:
+  work remove
+
+Inside a linked worktree, remove that worktree after confirmation.
+Otherwise, choose a linked worktree to remove.
+Uncommitted changes and untracked files must be handled first.
+The main worktree and remote branches are never removed.
 EOF
 }
 
@@ -373,15 +387,19 @@ step_move_in_progress() {
 
 step_move_in_review() {
     CURRENT_STEP="Move to In Review"
-    local key=$1 status
+    local key=$1 status me
     status=$(jira_status "$key")
     if [[ "$status" == "InReview" ]]; then
         log_info "Ticket already In Review, skipping"
         return 0
     fi
-    if gum confirm "Move $key to In Review? (currently: $status)"; then
+    if gum confirm "Move $key to In Review and assign it to you? (currently: $status)"; then
+        me=$(jira me)
         jira issue move "$key" "InReview"
         log_info "Moved $key to In Review"
+        CURRENT_STEP="Assign review ticket"
+        jira issue assign "$key" "$me"
+        log_info "Assigned $key to you"
     fi
 }
 
@@ -690,6 +708,174 @@ EOF
     printf 'Jira status: %s\n' "$final_status"
 }
 
+removable_worktrees() {
+    git -C "$REPO" worktree list --porcelain -z | {
+        local field wt="" branch="-" locked=0 primary=1
+        while IFS= read -r -d '' field; do
+            case "$field" in
+            'worktree '*) wt=${field#worktree } ;;
+            'branch refs/heads/'*) branch=${field#branch refs/heads/} ;;
+            locked | locked\ *) locked=1 ;;
+            '')
+                if ((primary == 0)) && [[ -d "$wt" ]]; then
+                    printf '%s\t%s\t%s\n' "$wt" "$branch" "$locked"
+                fi
+                primary=0
+                wt="" branch="-" locked=0
+                ;;
+            esac
+        done
+    }
+}
+
+remove_worktree_worker() {
+    local repo=$1 wt=$2 branch=$3 prefix=$4
+    local registered dirty sessions id name
+    REPO=$repo
+    registered=$(removable_worktrees)
+    if ! grep -Fxq "$wt"$'\t'"$branch"$'\t0' <<<"$registered"; then
+        printf 'Worktree is no longer eligible for removal: %s\n' "$wt" >&2
+        return 1
+    fi
+    dirty=$(git -C "$wt" status --porcelain --untracked-files=all)
+    if [[ -n "$dirty" ]]; then
+        printf 'Worktree has uncommitted or untracked changes, refusing removal.\n%s\n' "$dirty" >&2
+        return 1
+    fi
+
+    # Run outside the caller's tmux session so closing it cannot interrupt cleanup.
+    sessions=$(tmux list-sessions -F $'#{session_id}\t#{session_name}' 2>/dev/null || true)
+    while IFS=$'\t' read -r id name; do
+        if [[ "$name" == "$prefix" || "$name" == "${prefix}_"* ]]; then
+            tmux kill-session -t "$id"
+            printf 'Closed tmux session: %s\n' "$name"
+        fi
+    done <<<"$sessions"
+
+    git -C "$repo" worktree remove "$wt"
+    printf 'Removed worktree: %s\n' "$wt"
+    if [[ "$branch" != "-" ]]; then
+        git -C "$repo" branch -D "$branch"
+    fi
+}
+
+cmd_remove() {
+    case "${1:-}" in
+    -h | --help)
+        usage_remove
+        return 0
+        ;;
+    '') ;;
+    *)
+        usage_remove >&2
+        return 1
+        ;;
+    esac
+    for c in gum git tmux nohup setsid mktemp grep; do require_cmd "$c"; done
+    require_repo
+
+    CURRENT_STEP="Choose worktree to remove"
+    local records current wt branch locked pick selected=-1 i prefix sessions summary dirty log_file pid
+    local base="master" ticket merged developer status ticket_data lines="" aligned header
+    local -a paths=() branches=() locks=() choices=()
+    records=$(removable_worktrees)
+    if [[ -z "$records" ]]; then
+        log_info "No linked worktrees available to remove."
+        return 0
+    fi
+    current=$(git rev-parse --show-toplevel 2>/dev/null || true)
+    if ! git -C "$REPO" show-ref --verify --quiet refs/heads/master; then
+        base="origin/master"
+    fi
+    while IFS=$'\t' read -r wt branch locked; do
+        i=${#paths[@]}
+        paths+=("$wt") branches+=("$branch") locks+=("$locked")
+        [[ "$current" == "$wt" ]] && selected=$i
+    done <<<"$records"
+    if ((selected < 0)); then
+        for c in jira jq column; do require_cmd "$c"; done
+        for i in "${!paths[@]}"; do
+            branch=${branches[i]}
+            ticket=$(issue_from_branch "$branch")
+            developer="-" status="-" merged="Unknown"
+            if [[ "$branch" != "-" ]] && git -C "$REPO" rev-parse --verify "$base" >/dev/null 2>&1; then
+                if git -C "$REPO" merge-base --is-ancestor "$branch" "$base"; then
+                    merged="Yes"
+                else
+                    merged="No"
+                fi
+            fi
+            if [[ -n "$ticket" ]]; then
+                if ticket_data=$(jira issue view "$ticket" --raw); then
+                    developer=$(jq -r '.fields.customfield_11142.displayName // "-"' <<<"$ticket_data")
+                    status=$(jq -r '.fields.status.name // "Unknown"' <<<"$ticket_data")
+                else
+                    log_warn "Could not fetch Jira details for $ticket" >&2
+                    status="Unknown"
+                fi
+            else
+                ticket=$branch
+            fi
+            lines+="$(printf '%s\t%s\t%s\t%s' "$ticket" "$merged" "$developer" "$status")"$'\n'
+        done
+        aligned=$({
+            printf 'Ticket\tMerged into %s\tDeveloper\tJira Status\n' "$base"
+            printf '%s' "$lines"
+        } | column -t -s $'\t' -o '  ')
+        header=${aligned%%$'\n'*}
+        mapfile -t choices <<<"${aligned#*$'\n'}"
+        pick=$(printf '%s\n' "${choices[@]}" |
+            gum choose --header $'Choose a worktree to remove:\n  '"$header" --height 20) || return 0
+        for i in "${!choices[@]}"; do
+            [[ "$pick" == "${choices[i]}" ]] && selected=$i
+        done
+    fi
+    ((selected >= 0)) || return 1
+    wt=${paths[selected]} branch=${branches[selected]}
+    if [[ "${locks[selected]}" == "1" ]]; then
+        log_warn "Worktree is locked, refusing removal: $wt"
+        return 1
+    fi
+    dirty=$(git -C "$wt" status --porcelain --untracked-files=all)
+    if [[ -n "$dirty" ]]; then
+        log_warn "Worktree has uncommitted or untracked changes, refusing removal: $wt"
+        printf '%s\n' "$dirty" >&2
+        return 1
+    fi
+
+    prefix=${wt##*/}
+    prefix=${prefix//./_}
+    sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null || true)
+    summary="Worktree: $wt"$'\n'"Local branch: $branch"$'\n'"Tmux sessions to close:"
+    while IFS= read -r pick; do
+        if [[ "$pick" == "$prefix" || "$pick" == "${prefix}_"* ]]; then
+            summary+=$'\n'"  $pick"
+        fi
+    done <<<"$sessions"
+    summary+=$'\n\nRemote branches will not be deleted.'
+    if [[ "$branch" != "-" ]] && ! git -C "$REPO" merge-base --is-ancestor "$branch" "$base"; then
+        summary+=$'\n'"Warning: this local branch contains commits not merged into $base."
+    fi
+    show_pr_summary "$summary"
+    confirm_or_exit "Remove this worktree and local branch, and close its tmux sessions?"
+
+    CURRENT_STEP="Remove worktree, branch, and tmux sessions"
+    cd "$REPO"
+    log_file=$(mktemp -t work-remove.XXXXXX.log)
+    log_info "Cleanup log: $log_file"
+    nohup setsid -w bash -c "$(declare -f removable_worktrees remove_worktree_worker)
+        set -euo pipefail
+        remove_worktree_worker \"\$@\"" work-remove "$REPO" "$wt" "$branch" "$prefix" \
+        </dev/null >"$log_file" 2>&1 &
+    pid=$!
+    if wait "$pid"; then
+        cat "$log_file"
+    else
+        cat "$log_file" >&2
+        return 1
+    fi
+}
+
 main() {
     local mode=${1:-}
     case "$mode" in
@@ -704,6 +890,10 @@ main() {
     pr)
         shift
         cmd_pr "$@"
+        ;;
+    remove)
+        shift
+        cmd_remove "$@"
         ;;
     -h | --help | help)
         usage
