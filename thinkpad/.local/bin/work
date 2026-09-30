@@ -180,7 +180,7 @@ normalize_branch_upstream() {
 }
 
 pick_ticket_interactive() {
-    local me base_lines lines aligned header options pick key summary status order
+    local me base_lines lines aligned header options pick key summary status order task_size ticket
     me=$(jira me)
     base_lines=$(jira issue list -a "$me" \
         -q 'status not in (Closed, Dropped)' \
@@ -193,18 +193,20 @@ pick_ticket_interactive() {
     lines=""
     while IFS=$'\t' read -r key summary status; do
         [[ -z "$key" ]] && continue
-        order=$(jira issue view "$key" --raw | jq -r '
+        ticket=$(jira issue view "$key" --raw)
+        order=$(jq -r '
             if .fields.customfield_10579 == null then "-"
             else (.fields.customfield_10579 | tostring | sub("\\.0$"; ""))
-            end')
-        lines+="$(printf '%s\t%s\t%s\t%s' "$key" "$order" "$summary" "$status")"$'\n'
+            end' <<<"$ticket")
+        task_size=$(jq -r '.fields.customfield_11177.value // "-"' <<<"$ticket")
+        lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$task_size" "$summary" "$status")"$'\n'
     done <<<"$base_lines"
     lines=$(printf '%s' "$lines" | awk -F'\t' -v OFS='\t' '{
         o = ($2 == "-" || $2 == "") ? 999999 : $2 + 0
         print o, $0
     }' | sort -t$'\t' -k1,1n | cut -f2-)
     aligned=$({
-        printf 'Key\tOrder\tSummary\tStatus\n'
+        printf 'Key\tOrder\tTask Size\tSummary\tStatus\n'
         printf '%s\n' "$lines"
     } |
         column -t -s $'\t' -o '  ')
@@ -342,6 +344,39 @@ step_story_points() {
     log_info "Story points set to $n"
 }
 
+step_task_size() {
+    CURRENT_STEP="Set task size"
+    local key=$1 task_size header choice size
+    task_size=$(jira issue view "$key" --raw | jq -r '.fields.customfield_11177.value // ""')
+    if [[ -n "$task_size" ]]; then
+        header="Task size already set to $task_size. Change or skip:"
+    else
+        header="Set task size for $key"
+    fi
+    choice=$(gum choose --header "$header" \
+        "Skip - leave task size unchanged" \
+        "XS - up to 2h" \
+        "S - 1-2 days" \
+        "M - 2-4 days" \
+        "L - 1-2 weeks" \
+        "XL - 2-4 weeks" \
+        "XXL - 4+ weeks") || true
+    choice="${choice%$'\r'}"
+    if [[ -z "$choice" || "$choice" == Skip* ]]; then
+        return 0
+    fi
+    size=${choice%% *}
+    case "$size" in
+    XS | S | M | L | XL | XXL) ;;
+    *)
+        log_warn "Could not parse task size from '$choice', skipping"
+        return 0
+        ;;
+    esac
+    jira issue edit "$key" --custom "task-size=$size" --no-input
+    log_info "Task size set to $size"
+}
+
 step_tmux_switch() {
     CURRENT_STEP="Switch tmux"
     local key=$1 wt
@@ -401,6 +436,7 @@ cmd_start() {
 
     step_move_in_progress "$ISSUE"
     step_story_points "$ISSUE"
+    step_task_size "$ISSUE"
     step_tmux_switch "$ISSUE"
 }
 
