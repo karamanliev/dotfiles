@@ -24,10 +24,12 @@ usage() {
     cat <<'EOF'
 Usage:
   work start [--issue UM-1234]
+  work review [--issue UM-1234]
   work pr [--issue UM-1234]
 
 Modes:
   start    Prepare a Jira ticket worktree and switch to it.
+  review   Prepare a review worktree and optionally move Jira to InReview.
   pr       Create or reuse a GitHub PR and move Jira to FOR REVIEW.
 EOF
 }
@@ -39,6 +41,16 @@ Usage:
   work start UM-1234
 
 If no issue is provided, an interactive picker is shown.
+EOF
+}
+
+usage_review() {
+    cat <<'EOF'
+Usage:
+  work review [--issue UM-1234]
+  work review UM-1234
+
+If no issue is provided, a picker shows Front End Team tickets in FOR REVIEW.
 EOF
 }
 
@@ -179,15 +191,44 @@ normalize_branch_upstream() {
     fi
 }
 
+review_pr_details() {
+    local key=$1 current_user=$2 prs
+    prs=$(cd "$REPO" && gh pr list --state open --search "$key in:title" \
+        --limit 100 --json number,author,title) || return 1
+    jq -r --arg key "$key" --arg current_user "$current_user" '
+        map(select([.title | scan("[A-Z]+-[0-9]+") ] | index($key)))
+        | sort_by(.number)
+        | if length == 0 then ["-", "-"]
+          else map(select(.author.login != $current_user))
+            | if length == 0 then empty
+              else [(map(.author.login // "Unknown") | join(", ")),
+                    (map("#" + (.number | tostring)) | join(", "))]
+              end
+          end
+        | @tsv' <<<"$prs"
+}
+
 pick_ticket_interactive() {
+    local mode=${1:-start}
     local me base_lines lines aligned header options pick key summary status order task_size ticket
-    me=$(jira me)
-    base_lines=$(jira issue list -a "$me" \
-        -q 'status not in (Closed, Dropped)' \
-        --plain --no-headers \
-        --columns key,summary,status | tr -s '\t')
+    local pr_details pr_author pr_number current_user
+    if [[ "$mode" == "review" ]]; then
+        current_user=$(gh api user --jq '.login') || return 1
+        base_lines=$(jira issue list -q 'status = "FOR REVIEW" AND cf[10401] = "1cf0f840-c7d1-40b9-9db8-82c837865a25"' \
+            --plain --no-headers --columns key,summary | tr -s '\t')
+    else
+        me=$(jira me)
+        base_lines=$(jira issue list -a "$me" \
+            -q 'status not in (Closed, Dropped)' \
+            --plain --no-headers \
+            --columns key,summary,status | tr -s '\t')
+    fi
     if [[ -z "$base_lines" ]]; then
-        printf 'No active assigned tickets found.\n' >&2
+        if [[ "$mode" == "review" ]]; then
+            printf 'No Front End Team tickets in FOR REVIEW found.\n' >&2
+        else
+            printf 'No active assigned tickets found.\n' >&2
+        fi
         return 1
     fi
     lines=""
@@ -198,15 +239,33 @@ pick_ticket_interactive() {
             if .fields.customfield_10579 == null then "-"
             else (.fields.customfield_10579 | tostring | sub("\\.0$"; ""))
             end' <<<"$ticket")
-        task_size=$(jq -r '.fields.customfield_11177.value // "-"' <<<"$ticket")
-        lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$task_size" "$summary" "$status")"$'\n'
+        if [[ "$mode" == "review" ]]; then
+            if ! pr_details=$(review_pr_details "$key" "$current_user"); then
+                log_warn "Could not fetch PR details for $key" >&2
+                pr_details=$'-\t-'
+            fi
+            [[ -z "$pr_details" ]] && continue
+            IFS=$'\t' read -r pr_author pr_number <<<"$pr_details"
+            lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$pr_author" "$pr_number" "$summary")"$'\n'
+        else
+            task_size=$(jq -r '.fields.customfield_11177.value // "-"' <<<"$ticket")
+            lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$task_size" "$summary" "$status")"$'\n'
+        fi
     done <<<"$base_lines"
+    if [[ -z "$lines" ]]; then
+        printf 'No tickets with PRs from other authors available for review.\n' >&2
+        return 1
+    fi
     lines=$(printf '%s' "$lines" | awk -F'\t' -v OFS='\t' '{
         o = ($2 == "-" || $2 == "") ? 999999 : $2 + 0
         print o, $0
     }' | sort -t$'\t' -k1,1n | cut -f2-)
     aligned=$({
-        printf 'Key\tOrder\tTask Size\tSummary\tStatus\n'
+        if [[ "$mode" == "review" ]]; then
+            printf 'Key\tOrder\tPR Author\tGitHub PR\tSummary\n'
+        else
+            printf 'Key\tOrder\tTask Size\tSummary\tStatus\n'
+        fi
         printf '%s\n' "$lines"
     } |
         column -t -s $'\t' -o '  ')
@@ -312,6 +371,20 @@ step_move_in_progress() {
     fi
 }
 
+step_move_in_review() {
+    CURRENT_STEP="Move to In Review"
+    local key=$1 status
+    status=$(jira_status "$key")
+    if [[ "$status" == "InReview" ]]; then
+        log_info "Ticket already In Review, skipping"
+        return 0
+    fi
+    if gum confirm "Move $key to In Review? (currently: $status)"; then
+        jira issue move "$key" "InReview"
+        log_info "Moved $key to In Review"
+    fi
+}
+
 step_story_points() {
     CURRENT_STEP="Set story points"
     local key=$1 sp sp_display header choice n
@@ -385,20 +458,33 @@ step_tmux_switch() {
 }
 
 cmd_start() {
+    cmd_setup start "$@"
+}
+
+cmd_review() {
+    cmd_setup review "$@"
+}
+
+cmd_setup() {
+    local mode=$1 prompt
+    shift
     if parse_issue_args "$@"; then
         :
     else
-        usage_start
+        "usage_$mode"
         exit 0
     fi
 
     for c in gum jira git sesh npm jq awk column; do require_cmd "$c"; done
+    if [[ "$mode" == "review" ]]; then
+        require_cmd gh
+    fi
     require_repo
 
     CURRENT_STEP="Pick ticket"
     while true; do
         if [[ -z "$ISSUE" ]]; then
-            if ISSUE=$(pick_ticket_interactive); then
+            if ISSUE=$(pick_ticket_interactive "$mode"); then
                 :
             else
                 local status=$?
@@ -410,7 +496,12 @@ cmd_start() {
         fi
         CURRENT_STEP="Show details"
         show_ticket_details "$ISSUE"
-        if gum confirm "Start working on $ISSUE?"; then
+        if [[ "$mode" == "review" ]]; then
+            prompt="Start reviewing $ISSUE?"
+        else
+            prompt="Start working on $ISSUE?"
+        fi
+        if gum confirm "$prompt"; then
             break
         fi
         ISSUE=""
@@ -434,9 +525,13 @@ cmd_start() {
     has_step "Symlink shared files" && step_symlinks "$ISSUE"
     has_step "Install dependencies" && step_npm_install "$ISSUE"
 
-    step_move_in_progress "$ISSUE"
-    step_story_points "$ISSUE"
-    step_task_size "$ISSUE"
+    if [[ "$mode" == "review" ]]; then
+        step_move_in_review "$ISSUE"
+    else
+        step_move_in_progress "$ISSUE"
+        step_story_points "$ISSUE"
+        step_task_size "$ISSUE"
+    fi
     step_tmux_switch "$ISSUE"
 }
 
@@ -601,6 +696,10 @@ main() {
     start)
         shift
         cmd_start "$@"
+        ;;
+    review)
+        shift
+        cmd_review "$@"
         ;;
     pr)
         shift
