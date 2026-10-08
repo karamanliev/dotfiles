@@ -1,3 +1,7 @@
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
+
 if [[ -f $ZSH_MODULES/zsh-nix ]]; then
   ZSH_PLUGINS_FOLDER=~/.nix-profile/share/zsh/plugins
 else
