@@ -13,7 +13,6 @@ set tabsort mru
 
 set editorcmd kitty --app-id=tridactyl --title="Tridactyl" --name=tridactyl --single-instance --execute nvim
 
-" autocmd DocStart karamanliev.com mode ignore
 " autocmd DocStart 192.168.100.* mode ignore
 " autocmd DocStart 127.0.0.1 mode ignore
 
@@ -94,13 +93,6 @@ bind A fillcmdline open a
 "bind ;A hint -JW fillcmdline open ax
 bind <C-A> composite js document.documentURI | fillcmdline open ax
 set searchengine s
-set searchurls.a https://ai.karamanliev.com/?model=browser-search&q=%s
-set searchurls.as https://ai.karamanliev.com/?model=browser-search&web-search=true&q=%s
-set searchurls.ai https://ai.karamanliev.com/?model=openai/gpt-4.1&q=%s
-set searchurls.ais https://ai.karamanliev.com/?model=openai/gpt-4.1&web-search=true&q=%s
-set searchurls.ax https://ai.karamanliev.com/?model=browser-search&temporary-chat=true&q=%s
-set searchurls.axs https://ai.karamanliev.com/?model=browser-search&temporary-chat=true&web-search=true&q=%s
-set searchurls.s https://search.karamanliev.com/search?q=%s
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.g https://www.google.com/search?q=%s
 set searchurls.r https://www.reddit.com/r/%s
