@@ -6,13 +6,26 @@ fi
 
 export ZSH_PLUGINS_FOLDER
 
-source $ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+[[ -r "$ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]] && source "$ZSH_PLUGINS_FOLDER/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zasync/zasync" ]] && autoload -Uz +X "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zasync/zasync"
+[[ -r "$ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]] && source "$ZSH_PLUGINS_FOLDER/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+[[ -r "$ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]] && source "$ZSH_PLUGINS_FOLDER/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-FZF_CTRL_R_COMMAND= eval "$(fzf --zsh)"
-eval "$(atuin init zsh)"
-eval "$(fnm env --use-on-cd)"
-eval "$(wt config shell init zsh)"
+if (( $+commands[starship] )); then
+  eval "$(starship init zsh)"
+fi
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+if (( $+commands[fzf] )); then
+  FZF_CTRL_R_COMMAND= eval "$(fzf --zsh)"
+fi
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh)"
+fi
+if (( $+commands[fnm] )); then
+  eval "$(fnm env --use-on-cd)"
+fi
+if (( $+commands[wt] )); then
+  eval "$(wt config shell init zsh)"
+fi
