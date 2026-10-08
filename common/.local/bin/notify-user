@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ -z "${APPRISE_ENDPOINT:-}" ]]; then
+  printf '%s\n' 'APPRISE_ENDPOINT is not set' >&2
+  exit 2
+fi
+
+status=$(
+  curl -sS -o /dev/null -w '%{http_code}' \
+    -X POST \
+    "$@" \
+    "$APPRISE_ENDPOINT"
+)
+
+if [[ "$status" != "200" ]]; then
+  printf 'Apprise notification failed with HTTP %s\n' "$status" >&2
+  exit 1
+fi

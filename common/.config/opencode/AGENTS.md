@@ -77,6 +77,21 @@ During implementation:
 - Add any newly discovered tasks before starting them.
 - Do not create or update `.opencode/plans/` files during implementation unless explicitly asked.
 
+## Apprise Notifications
+
+When the user explicitly asks for a notification, send one when any automation, scheduled task, long-running task, or other unattended work finishes. If asked after completion, send the known result immediately.
+
+Use `notify-user`, which reads the private endpoint from `APPRISE_ENDPOINT`. Pass multipart fields using `body`, optional `title`, `type` (`info`, `success`, `warning`, `failure`), and `format` (`text`, `markdown`, `html`). Attach local files with `attach=@/path/file`, multiple files with `attach1`, `attach2`, and remote files with `attachment=https://...`.
+
+```sh
+notify-user -F "title=Task name" \
+  -F "body=Task completed successfully" \
+  -F "type=success" \
+  -F "format=text"
+```
+
+Include the task name, final status, and concise result. Use `failure` or `warning` when work fails, times out, or is cancelled. Attach files only when requested, never include secrets or sensitive files, and report a nonzero exit as a notification failure.
+
 <!-- deja guidance:start -->
 Before re-deriving past work, search deja when the user refers to past work, previous sessions, or what was decided before. Use the deja MCP tools:
 
