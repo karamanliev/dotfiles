@@ -21,7 +21,7 @@
     "opencode-vim",
     [
       // "/home/ico/Projects/personal/opencode-mini-session/src",
-      "opencode-mini-session",
+      "opencode-mini-session@1",
       {
         "model": "opencode/deepseek-v4-flash-free",
         "variant": "max",
