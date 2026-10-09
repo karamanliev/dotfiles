@@ -16,6 +16,11 @@ return {
           snacks = true,
           whichkey = true,
         },
+        on_highlights = function(highlights)
+          for _, group in ipairs({ 'LineNr', 'SignColumn', 'FoldColumn' }) do
+            highlights[group].bg = 'NONE'
+          end
+        end,
       })
     end,
   },
