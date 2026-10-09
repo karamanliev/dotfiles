@@ -1,0 +1,913 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="$HOME/projects/noto/oculus"
+CURRENT_STEP="startup"
+ISSUE=""
+
+on_error() {
+    local code=${1:-$?}
+    if command -v gum >/dev/null 2>&1; then
+        gum log -l error "Failed during: $CURRENT_STEP (exit $code)"
+    else
+        printf 'Failed during: %s (exit %s)\n' "$CURRENT_STEP" "$code" >&2
+    fi
+    exit "$code"
+}
+
+trap 'on_error $?' ERR
+trap 'stty sane 2>/dev/null || true' EXIT
+
+STEPS=()
+
+usage() {
+    cat <<'EOF'
+Usage:
+  work start [--issue UM-1234]
+  work review [--issue UM-1234]
+  work pr [--issue UM-1234]
+  work remove
+
+Modes:
+  start    Prepare a Jira ticket worktree and switch to it.
+  review   Prepare a review worktree and optionally move Jira to InReview.
+  pr       Create or reuse a GitHub PR and move Jira to FOR REVIEW.
+  remove   Remove a linked worktree, its local branch, and related tmux sessions.
+EOF
+}
+
+usage_start() {
+    cat <<'EOF'
+Usage:
+  work start [--issue UM-1234]
+  work start UM-1234
+
+If no issue is provided, an interactive picker is shown.
+EOF
+}
+
+usage_review() {
+    cat <<'EOF'
+Usage:
+  work review [--issue UM-1234]
+  work review UM-1234
+
+If no issue is provided, a picker shows Front End Team tickets in FOR REVIEW.
+EOF
+}
+
+usage_pr() {
+    cat <<'EOF'
+Usage:
+  work pr [--issue UM-1234]
+
+If no issue is provided, the issue key is derived from the current branch.
+EOF
+}
+
+usage_remove() {
+    cat <<'EOF'
+Usage:
+  work remove
+
+Inside a linked worktree, remove that worktree after confirmation.
+Otherwise, choose a linked worktree to remove.
+Uncommitted changes and untracked files must be handled first.
+The main worktree and remote branches are never removed.
+EOF
+}
+
+require_cmd() {
+    command -v "$1" >/dev/null 2>&1 ||
+        {
+            printf 'Required command not found: %s\n' "$1" >&2
+            exit 1
+        }
+}
+
+require_repo() {
+    if [[ ! -d "$REPO" ]]; then
+        printf 'Repo not found at: %s\n' "$REPO" >&2
+        exit 1
+    fi
+}
+
+normalize_issue_key() {
+    local issue=${1^^}
+    if [[ ! "$issue" =~ ^[A-Z]+-[0-9]+$ ]]; then
+        printf 'Invalid issue key: %s\n' "$1" >&2
+        exit 1
+    fi
+    printf '%s\n' "$issue"
+}
+
+parse_issue_args() {
+    ISSUE=""
+    while (($#)); do
+        case "$1" in
+        --issue)
+            shift
+            if [[ -z "${1:-}" ]]; then
+                printf 'Missing value for --issue\n' >&2
+                exit 1
+            fi
+            ISSUE=$(normalize_issue_key "$1")
+            ;;
+        --issue=*)
+            ISSUE=$(normalize_issue_key "${1#--issue=}")
+            ;;
+        -h | --help)
+            return 2
+            ;;
+        *)
+            if [[ -z "$ISSUE" ]]; then
+                ISSUE=$(normalize_issue_key "$1")
+            else
+                printf 'Unexpected argument: %s\n' "$1" >&2
+                exit 1
+            fi
+            ;;
+        esac
+        shift
+    done
+    return 0
+}
+
+log_info() {
+    if command -v gum >/dev/null 2>&1; then
+        gum log -l info "$1"
+    else
+        printf '%s\n' "$1"
+    fi
+}
+
+log_warn() {
+    if command -v gum >/dev/null 2>&1; then
+        gum log -l warn "$1"
+    else
+        printf 'Warning: %s\n' "$1" >&2
+    fi
+}
+
+confirm_or_exit() {
+    local prompt=$1
+    if ! gum confirm "$prompt"; then
+        printf 'Cancelled.\n' >&2
+        exit 0
+    fi
+}
+
+jira_summary() {
+    jira issue view "$1" --raw | jq -r '.fields.summary // ""'
+}
+
+jira_status() {
+    jira issue view "$1" --raw | jq -r '.fields.status.name // "Unknown"'
+}
+
+jira_fix_versions() {
+    jira issue view "$1" --raw | jq -r '.fields.fixVersions[]?.name // empty'
+}
+
+current_branch() {
+    git branch --show-current
+}
+
+issue_from_branch() {
+    grep -Eo '[A-Z]+-[0-9]+' <<<"$1" | head -n 1 || true
+}
+
+has_step() {
+    local needle=$1 s
+    ((${#STEPS[@]} == 0)) && return 1
+    for s in "${STEPS[@]}"; do
+        [[ "$s" == "$needle" ]] && return 0
+    done
+    return 1
+}
+
+worktree_path() {
+    printf '%s/projects/noto/oculus.%s' "$HOME" "$1"
+}
+
+normalize_branch_upstream() {
+    local key=$1 wt=$2 expected="origin/$1" upstream
+    git -C "$wt" rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 0
+    upstream=$(git -C "$wt" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)
+    if git -C "$REPO" show-ref --verify --quiet "refs/remotes/$expected"; then
+        if [[ "$upstream" != "$expected" ]]; then
+            git -C "$wt" branch --set-upstream-to "$expected" "$key" >/dev/null
+            log_info "Branch $key now tracks $expected"
+        fi
+    elif [[ -n "$upstream" ]]; then
+        git -C "$wt" branch --unset-upstream >/dev/null
+        log_info "Cleared upstream for $key; first push should be git push -u origin HEAD"
+    fi
+}
+
+review_pr_details() {
+    local key=$1 current_user=$2 prs
+    prs=$(cd "$REPO" && gh pr list --state open --search "$key in:title" \
+        --limit 100 --json number,author,title) || return 1
+    jq -r --arg key "$key" --arg current_user "$current_user" '
+        map(select([.title | scan("[A-Z]+-[0-9]+") ] | index($key)))
+        | sort_by(.number)
+        | if length == 0 then ["-", "-"]
+          else map(select(.author.login != $current_user))
+            | if length == 0 then empty
+              else [(map(.author.login // "Unknown") | join(", ")),
+                    (map("#" + (.number | tostring)) | join(", "))]
+              end
+          end
+        | @tsv' <<<"$prs"
+}
+
+pick_ticket_interactive() {
+    local mode=${1:-start}
+    local me base_lines lines aligned header options pick key summary status order task_size ticket
+    local pr_details pr_author pr_number current_user
+    if [[ "$mode" == "review" ]]; then
+        current_user=$(gh api user --jq '.login') || return 1
+        base_lines=$(jira issue list -q 'status = "FOR REVIEW" AND cf[10401] = "1cf0f840-c7d1-40b9-9db8-82c837865a25"' \
+            --plain --no-headers --columns key,summary | tr -s '\t')
+    else
+        me=$(jira me)
+        base_lines=$(jira issue list -a "$me" \
+            -q 'status not in (Closed, Dropped)' \
+            --plain --no-headers \
+            --columns key,summary,status | tr -s '\t')
+    fi
+    if [[ -z "$base_lines" ]]; then
+        if [[ "$mode" == "review" ]]; then
+            printf 'No Front End Team tickets in FOR REVIEW found.\n' >&2
+        else
+            printf 'No active assigned tickets found.\n' >&2
+        fi
+        return 1
+    fi
+    lines=""
+    while IFS=$'\t' read -r key summary status; do
+        [[ -z "$key" ]] && continue
+        ticket=$(jira issue view "$key" --raw)
+        order=$(jq -r '
+            if .fields.customfield_10579 == null then "-"
+            else (.fields.customfield_10579 | tostring | sub("\\.0$"; ""))
+            end' <<<"$ticket")
+        if [[ "$mode" == "review" ]]; then
+            if ! pr_details=$(review_pr_details "$key" "$current_user"); then
+                log_warn "Could not fetch PR details for $key" >&2
+                pr_details=$'-\t-'
+            fi
+            [[ -z "$pr_details" ]] && continue
+            IFS=$'\t' read -r pr_author pr_number <<<"$pr_details"
+            lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$pr_author" "$pr_number" "$summary")"$'\n'
+        else
+            task_size=$(jq -r '.fields.customfield_11177.value // "-"' <<<"$ticket")
+            lines+="$(printf '%s\t%s\t%s\t%s\t%s' "$key" "$order" "$task_size" "$summary" "$status")"$'\n'
+        fi
+    done <<<"$base_lines"
+    if [[ -z "$lines" ]]; then
+        printf 'No tickets with PRs from other authors available for review.\n' >&2
+        return 1
+    fi
+    lines=$(printf '%s' "$lines" | awk -F'\t' -v OFS='\t' '{
+        o = ($2 == "-" || $2 == "") ? 999999 : $2 + 0
+        print o, $0
+    }' | sort -t$'\t' -k1,1n | cut -f2-)
+    aligned=$({
+        if [[ "$mode" == "review" ]]; then
+            printf 'Key\tOrder\tPR Author\tGitHub PR\tSummary\n'
+        else
+            printf 'Key\tOrder\tTask Size\tSummary\tStatus\n'
+        fi
+        printf '%s\n' "$lines"
+    } |
+        column -t -s $'\t' -o '  ')
+    header=$(printf '%s\n' "$aligned" | head -1)
+    options=$(printf '%s\n' "$aligned" | tail -n +2)
+    pick=$(printf '%s\n' "$options" |
+        gum choose --header "  $header" --height 20) ||
+        {
+            printf 'Cancelled.\n' >&2
+            return 130
+        }
+    awk '{print $1}' <<<"$pick"
+}
+
+show_ticket_details() {
+    local key=$1
+    jira issue view "$key" --plain | gum style --border rounded --padding "1 2"
+}
+
+step_fetch_master() {
+    CURRENT_STEP="Fetch and pull master"
+    log_info "Fetching origin and updating master..."
+    git -C "$REPO" fetch --all --prune
+    local current
+    current=$(git -C "$REPO" rev-parse --abbrev-ref HEAD)
+    if [[ "$current" == "master" ]]; then
+        git -C "$REPO" pull --ff-only origin master
+        log_info "Checked-out master updated"
+    else
+        if git -C "$REPO" fetch origin master:master 2>/dev/null; then
+            log_info "Local master updated"
+        else
+            log_warn "Fetched origin, but local master was not updated; master is likely checked out in another worktree"
+        fi
+    fi
+}
+
+step_create_worktree() {
+    CURRENT_STEP="Create worktree"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    if git -C "$REPO" worktree list | awk '{print $1}' | grep -qx "$wt"; then
+        log_info "Worktree already exists at $wt, skipping create"
+        normalize_branch_upstream "$key" "$wt"
+        return 0
+    fi
+    if git -C "$REPO" show-ref --verify --quiet "refs/heads/$key"; then
+        git -C "$REPO" worktree add "$wt" "$key"
+    else
+        local base="origin/master"
+        if git -C "$REPO" show-ref --verify --quiet "refs/remotes/origin/$key"; then
+            base="origin/$key"
+        fi
+        git -C "$REPO" worktree add --no-track "$wt" -b "$key" "$base"
+    fi
+    normalize_branch_upstream "$key" "$wt"
+    log_info "Worktree created at $wt"
+}
+
+step_symlinks() {
+    CURRENT_STEP="Symlink shared files"
+    local key=$1 wt f
+    wt=$(worktree_path "$key")
+    if [[ ! -d "$wt" ]]; then
+        log_warn "Worktree $wt does not exist, skipping symlinks"
+        return 0
+    fi
+    for f in AGENTS.md .nvim.lua .agents .opencode .openchamber; do
+        if [[ -e "$wt/$f" || -L "$wt/$f" ]]; then
+            log_info "$f already present in worktree, skipping"
+        else
+            ln -s "$REPO/$f" "$wt/$f"
+            log_info "Linked $f"
+        fi
+    done
+}
+
+step_npm_install() {
+    CURRENT_STEP="Install dependencies"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    if [[ ! -d "$wt" ]]; then
+        log_warn "Worktree $wt does not exist, skipping npm install"
+        return 0
+    fi
+    log_info "Running npm install in $wt..."
+    npm --prefix "$wt" install
+    git -C "$wt" checkout -- package-lock.json 2>/dev/null || true
+    log_info "Dependencies installed"
+}
+
+step_move_in_progress() {
+    CURRENT_STEP="Move to In Progress"
+    local key=$1 status
+    status=$(jira_status "$key")
+    if [[ "$status" == "In Progress" ]]; then
+        log_info "Ticket already In Progress, skipping"
+        return 0
+    fi
+    if gum confirm "Move $key to In Progress? (currently: $status)"; then
+        jira issue move "$key" "In Progress"
+        log_info "Moved $key to In Progress"
+    fi
+}
+
+step_move_in_review() {
+    CURRENT_STEP="Move to In Review"
+    local key=$1 status me
+    status=$(jira_status "$key")
+    if [[ "$status" == "InReview" ]]; then
+        log_info "Ticket already In Review, skipping"
+        return 0
+    fi
+    if gum confirm "Move $key to In Review and assign it to you? (currently: $status)"; then
+        me=$(jira me)
+        jira issue move "$key" "InReview"
+        log_info "Moved $key to In Review"
+        CURRENT_STEP="Assign review ticket"
+        jira issue assign "$key" "$me"
+        log_info "Assigned $key to you"
+    fi
+}
+
+step_story_points() {
+    CURRENT_STEP="Set story points"
+    local key=$1 sp sp_display header choice n
+    sp=$(jira issue view "$key" --raw | jq -r '.fields.customfield_10002')
+    if [[ -n "$sp" && "$sp" != "null" && "$sp" != "0" && "$sp" != "0.0" ]]; then
+        sp_display="${sp%.0}"
+        header="Story points already set to $sp_display. Change or skip:"
+    else
+        header="Set story points for $key"
+    fi
+    choice=$(gum choose --header "$header" \
+        "Skip - leave story points unchanged" \
+        "1 - Very small task, almost no complexity" \
+        "2 - Small task with a bit more work" \
+        "3 - Medium task" \
+        "5 - Larger task" \
+        "8 - High workload" \
+        "13 - Very complex task" \
+        "21 - Extremely complex task") || true
+    choice="${choice%$'\r'}"
+    if [[ -z "$choice" || "$choice" == Skip* ]]; then
+        return 0
+    fi
+    n=$(awk '{print $1}' <<<"$choice")
+    if [[ ! "$n" =~ ^[0-9]+$ ]]; then
+        log_warn "Could not parse story points from '$choice', skipping"
+        return 0
+    fi
+    jira issue edit "$key" --custom "story-points=$n" --no-input
+    log_info "Story points set to $n"
+}
+
+step_task_size() {
+    CURRENT_STEP="Set task size"
+    local key=$1 task_size header choice size
+    task_size=$(jira issue view "$key" --raw | jq -r '.fields.customfield_11177.value // ""')
+    if [[ -n "$task_size" ]]; then
+        header="Task size already set to $task_size. Change or skip:"
+    else
+        header="Set task size for $key"
+    fi
+    choice=$(gum choose --header "$header" \
+        "Skip - leave task size unchanged" \
+        "XS - up to 2h" \
+        "S - 1-2 days" \
+        "M - 2-4 days" \
+        "L - 1-2 weeks" \
+        "XL - 2-4 weeks" \
+        "XXL - 4+ weeks") || true
+    choice="${choice%$'\r'}"
+    if [[ -z "$choice" || "$choice" == Skip* ]]; then
+        return 0
+    fi
+    size=${choice%% *}
+    case "$size" in
+    XS | S | M | L | XL | XXL) ;;
+    *)
+        log_warn "Could not parse task size from '$choice', skipping"
+        return 0
+        ;;
+    esac
+    jira issue edit "$key" --custom "task-size=$size" --no-input
+    log_info "Task size set to $size"
+}
+
+step_tmux_switch() {
+    CURRENT_STEP="Switch tmux"
+    local key=$1 wt
+    wt=$(worktree_path "$key")
+    sesh connect "$wt"
+}
+
+cmd_start() {
+    cmd_setup start "$@"
+}
+
+cmd_review() {
+    cmd_setup review "$@"
+}
+
+cmd_setup() {
+    local mode=$1 prompt
+    shift
+    if parse_issue_args "$@"; then
+        :
+    else
+        "usage_$mode"
+        exit 0
+    fi
+
+    for c in gum jira git sesh npm jq awk column; do require_cmd "$c"; done
+    if [[ "$mode" == "review" ]]; then
+        require_cmd gh
+    fi
+    require_repo
+
+    CURRENT_STEP="Pick ticket"
+    while true; do
+        if [[ -z "$ISSUE" ]]; then
+            if ISSUE=$(pick_ticket_interactive "$mode"); then
+                :
+            else
+                local status=$?
+                if ((status == 130)); then
+                    exit 0
+                fi
+                exit "$status"
+            fi
+        fi
+        CURRENT_STEP="Show details"
+        show_ticket_details "$ISSUE"
+        if [[ "$mode" == "review" ]]; then
+            prompt="Start reviewing $ISSUE?"
+        else
+            prompt="Start working on $ISSUE?"
+        fi
+        if gum confirm "$prompt"; then
+            break
+        fi
+        ISSUE=""
+    done
+
+    CURRENT_STEP="Choose setup steps"
+    local out
+    out=$(gum choose --no-limit --selected='*' \
+        --header "Toggle off any setup steps to skip:" \
+        "Fetch and pull master" \
+        "Create worktree" \
+        "Symlink shared files" \
+        "Install dependencies") || out=""
+
+    if [[ -n "$out" ]]; then
+        mapfile -t STEPS <<<"$out"
+    fi
+
+    has_step "Fetch and pull master" && step_fetch_master
+    has_step "Create worktree" && step_create_worktree "$ISSUE"
+    has_step "Symlink shared files" && step_symlinks "$ISSUE"
+    has_step "Install dependencies" && step_npm_install "$ISSUE"
+
+    if [[ "$mode" == "review" ]]; then
+        step_move_in_review "$ISSUE"
+    else
+        step_move_in_progress "$ISSUE"
+        step_story_points "$ISSUE"
+        step_task_size "$ISSUE"
+    fi
+    step_tmux_switch "$ISSUE"
+}
+
+resolve_pr_issue() {
+    local branch=$1 derived
+    if [[ -n "$ISSUE" ]]; then
+        if [[ "$branch" != *"$ISSUE"* ]]; then
+            printf 'Current branch "%s" does not contain issue key "%s".\n' "$branch" "$ISSUE" >&2
+            exit 1
+        fi
+        return 0
+    fi
+
+    derived=$(issue_from_branch "$branch")
+    if [[ -z "$derived" ]]; then
+        printf 'Could not derive issue key from branch: %s\n' "$branch" >&2
+        exit 1
+    fi
+    ISSUE=$(normalize_issue_key "$derived")
+}
+
+existing_pr_url() {
+    local branch=$1
+    gh pr view "$branch" --json url --jq '.url' 2>/dev/null || true
+}
+
+show_pr_summary() {
+    local summary=$1
+    gum style --border rounded --padding "1 2" "$summary"
+}
+
+move_jira_for_review() {
+    local issue=$1 status final_status
+    CURRENT_STEP="Move Jira to FOR REVIEW"
+    status=$(jira_status "$issue")
+
+    if [[ "$status" == "FOR REVIEW" ]]; then
+        log_info "Skipped Jira transition because $issue is already FOR REVIEW."
+        printf '%s\n' "$status"
+        return 0
+    fi
+
+    if [[ "$status" == "InReview" ]]; then
+        log_warn "$issue is already InReview, which means review has started."
+        if ! gum confirm "Move $issue back to FOR REVIEW?"; then
+            log_info "Skipped Jira transition by user choice. Current status: $status"
+            printf '%s\n' "$status"
+            return 0
+        fi
+    fi
+
+    jira issue move "$issue" "FOR REVIEW"
+    final_status=$(jira_status "$issue")
+    if [[ "$final_status" != "FOR REVIEW" ]]; then
+        log_warn "Jira transition finished, but final status is $final_status, expected FOR REVIEW"
+    else
+        log_info "Moved $issue to FOR REVIEW"
+    fi
+    printf '%s\n' "$final_status"
+}
+
+cmd_pr() {
+    if parse_issue_args "$@"; then
+        :
+    else
+        usage_pr
+        exit 0
+    fi
+
+    for c in gum jira git gh jq; do require_cmd "$c"; done
+    git rev-parse --is-inside-work-tree >/dev/null
+
+    local branch base issue_title status dirty pr_url pr_action pr_title pr_body summary final_status
+    local fix_version fix_versions_raw fix_versions_display
+    local -a fix_versions=()
+    CURRENT_STEP="Resolve PR context"
+    branch=$(current_branch)
+    if [[ -z "$branch" ]]; then
+        printf 'Cannot create a PR from a detached HEAD.\n' >&2
+        exit 1
+    fi
+    resolve_pr_issue "$branch"
+
+    base="master"
+    issue_title=$(jira_summary "$ISSUE")
+    status=$(jira_status "$ISSUE")
+    fix_versions_raw=$(jira_fix_versions "$ISSUE")
+    if [[ -n "$fix_versions_raw" ]]; then
+        mapfile -t fix_versions <<<"$fix_versions_raw"
+        printf -v fix_versions_display '%s, ' "${fix_versions[@]}"
+        fix_versions_display=${fix_versions_display%, }
+    else
+        fix_versions_display="None"
+    fi
+    dirty=$(git status --porcelain)
+    pr_url=$(existing_pr_url "$branch")
+    pr_action="reuse existing PR"
+    if [[ -z "$pr_url" ]]; then
+        pr_action="create new PR"
+    fi
+    pr_title="$ISSUE"
+    pr_body="[$ISSUE - $issue_title](https://notolytix.atlassian.net/browse/$ISSUE)"
+
+    summary=$(
+        cat <<EOF
+Issue: $ISSUE
+Jira title: $issue_title
+Jira status: $status
+Fix versions: $fix_versions_display
+Branch: $branch
+Base: $base
+PR action: $pr_action
+PR title: $pr_title
+PR body: $pr_body
+Jira target: FOR REVIEW
+EOF
+    )
+
+    if [[ -n "$dirty" ]]; then
+        summary+=$'\n\nWarning: working tree has uncommitted changes.'
+        summary+=$'\n'
+        summary+="$dirty"
+    fi
+
+    show_pr_summary "$summary"
+    confirm_or_exit "Continue with push, PR update, assignment, and Jira transition?"
+
+    CURRENT_STEP="Push branch"
+    git push -u origin HEAD
+
+    CURRENT_STEP="Create or reuse PR"
+    if [[ -z "$pr_url" ]]; then
+        pr_url=$(gh pr create --base "$base" --head "$branch" --title "$pr_title" --body "$pr_body")
+        log_info "Created PR: $pr_url"
+    else
+        log_info "Reusing PR: $pr_url"
+    fi
+
+    CURRENT_STEP="Assign PR"
+    gh pr edit "$pr_url" --add-assignee @me
+    log_info "Assigned PR to @me"
+
+    if ((${#fix_versions[@]})); then
+        CURRENT_STEP="Add Fix version labels to PR"
+        for fix_version in "${fix_versions[@]}"; do
+            gh pr edit "$pr_url" --add-label "$fix_version"
+            log_info "Added PR label: $fix_version"
+        done
+    else
+        log_warn "$ISSUE has no Fix versions, skipping PR labels"
+    fi
+
+    final_status=$(move_jira_for_review "$ISSUE")
+
+    printf '\nPR: %s\n' "$pr_url"
+    printf 'Jira status: %s\n' "$final_status"
+}
+
+removable_worktrees() {
+    git -C "$REPO" worktree list --porcelain -z | {
+        local field wt="" branch="-" locked=0 primary=1
+        while IFS= read -r -d '' field; do
+            case "$field" in
+            'worktree '*) wt=${field#worktree } ;;
+            'branch refs/heads/'*) branch=${field#branch refs/heads/} ;;
+            locked | locked\ *) locked=1 ;;
+            '')
+                if ((primary == 0)) && [[ -d "$wt" ]]; then
+                    printf '%s\t%s\t%s\n' "$wt" "$branch" "$locked"
+                fi
+                primary=0
+                wt="" branch="-" locked=0
+                ;;
+            esac
+        done
+    }
+}
+
+remove_worktree_worker() {
+    local repo=$1 wt=$2 branch=$3 prefix=$4
+    local registered dirty sessions id name
+    REPO=$repo
+    registered=$(removable_worktrees)
+    if ! grep -Fxq "$wt"$'\t'"$branch"$'\t0' <<<"$registered"; then
+        printf 'Worktree is no longer eligible for removal: %s\n' "$wt" >&2
+        return 1
+    fi
+    dirty=$(git -C "$wt" status --porcelain --untracked-files=all)
+    if [[ -n "$dirty" ]]; then
+        printf 'Worktree has uncommitted or untracked changes, refusing removal.\n%s\n' "$dirty" >&2
+        return 1
+    fi
+
+    # Run outside the caller's tmux session so closing it cannot interrupt cleanup.
+    sessions=$(tmux list-sessions -F $'#{session_id}\t#{session_name}' 2>/dev/null || true)
+    while IFS=$'\t' read -r id name; do
+        if [[ "$name" == "$prefix" || "$name" == "${prefix}_"* ]]; then
+            tmux kill-session -t "$id"
+            printf 'Closed tmux session: %s\n' "$name"
+        fi
+    done <<<"$sessions"
+
+    git -C "$repo" worktree remove "$wt"
+    printf 'Removed worktree: %s\n' "$wt"
+    if [[ "$branch" != "-" ]]; then
+        git -C "$repo" branch -D "$branch"
+    fi
+}
+
+cmd_remove() {
+    case "${1:-}" in
+    -h | --help)
+        usage_remove
+        return 0
+        ;;
+    '') ;;
+    *)
+        usage_remove >&2
+        return 1
+        ;;
+    esac
+    for c in gum git tmux nohup setsid mktemp grep; do require_cmd "$c"; done
+    require_repo
+
+    CURRENT_STEP="Choose worktree to remove"
+    local records current wt branch locked pick selected=-1 i prefix sessions summary dirty log_file pid
+    local base="master" ticket merged developer status ticket_data lines="" aligned header
+    local -a paths=() branches=() locks=() choices=()
+    records=$(removable_worktrees)
+    if [[ -z "$records" ]]; then
+        log_info "No linked worktrees available to remove."
+        return 0
+    fi
+    current=$(git rev-parse --show-toplevel 2>/dev/null || true)
+    if ! git -C "$REPO" show-ref --verify --quiet refs/heads/master; then
+        base="origin/master"
+    fi
+    while IFS=$'\t' read -r wt branch locked; do
+        i=${#paths[@]}
+        paths+=("$wt") branches+=("$branch") locks+=("$locked")
+        [[ "$current" == "$wt" ]] && selected=$i
+    done <<<"$records"
+    if ((selected < 0)); then
+        for c in jira jq column; do require_cmd "$c"; done
+        for i in "${!paths[@]}"; do
+            branch=${branches[i]}
+            ticket=$(issue_from_branch "$branch")
+            developer="-" status="-" merged="Unknown"
+            if [[ "$branch" != "-" ]] && git -C "$REPO" rev-parse --verify "$base" >/dev/null 2>&1; then
+                if git -C "$REPO" merge-base --is-ancestor "$branch" "$base"; then
+                    merged="Yes"
+                else
+                    merged="No"
+                fi
+            fi
+            if [[ -n "$ticket" ]]; then
+                if ticket_data=$(jira issue view "$ticket" --raw); then
+                    developer=$(jq -r '.fields.customfield_11142.displayName // "-"' <<<"$ticket_data")
+                    status=$(jq -r '.fields.status.name // "Unknown"' <<<"$ticket_data")
+                else
+                    log_warn "Could not fetch Jira details for $ticket" >&2
+                    status="Unknown"
+                fi
+            else
+                ticket=$branch
+            fi
+            lines+="$(printf '%s\t%s\t%s\t%s' "$ticket" "$merged" "$developer" "$status")"$'\n'
+        done
+        aligned=$({
+            printf 'Ticket\tMerged into %s\tDeveloper\tJira Status\n' "$base"
+            printf '%s' "$lines"
+        } | column -t -s $'\t' -o '  ')
+        header=${aligned%%$'\n'*}
+        mapfile -t choices <<<"${aligned#*$'\n'}"
+        pick=$(printf '%s\n' "${choices[@]}" |
+            gum choose --header $'Choose a worktree to remove:\n  '"$header" --height 20) || return 0
+        for i in "${!choices[@]}"; do
+            [[ "$pick" == "${choices[i]}" ]] && selected=$i
+        done
+    fi
+    ((selected >= 0)) || return 1
+    wt=${paths[selected]} branch=${branches[selected]}
+    if [[ "${locks[selected]}" == "1" ]]; then
+        log_warn "Worktree is locked, refusing removal: $wt"
+        return 1
+    fi
+    dirty=$(git -C "$wt" status --porcelain --untracked-files=all)
+    if [[ -n "$dirty" ]]; then
+        log_warn "Worktree has uncommitted or untracked changes, refusing removal: $wt"
+        printf '%s\n' "$dirty" >&2
+        return 1
+    fi
+
+    prefix=${wt##*/}
+    prefix=${prefix//./_}
+    sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null || true)
+    summary="Worktree: $wt"$'\n'"Local branch: $branch"$'\n'"Tmux sessions to close:"
+    while IFS= read -r pick; do
+        if [[ "$pick" == "$prefix" || "$pick" == "${prefix}_"* ]]; then
+            summary+=$'\n'"  $pick"
+        fi
+    done <<<"$sessions"
+    summary+=$'\n\nRemote branches will not be deleted.'
+    if [[ "$branch" != "-" ]] && ! git -C "$REPO" merge-base --is-ancestor "$branch" "$base"; then
+        summary+=$'\n'"Warning: this local branch contains commits not merged into $base."
+    fi
+    show_pr_summary "$summary"
+    confirm_or_exit "Remove this worktree and local branch, and close its tmux sessions?"
+
+    CURRENT_STEP="Remove worktree, branch, and tmux sessions"
+    cd "$REPO"
+    log_file=$(mktemp -t work-remove.XXXXXX.log)
+    log_info "Cleanup log: $log_file"
+    nohup setsid -w bash -c "$(declare -f removable_worktrees remove_worktree_worker)
+        set -euo pipefail
+        remove_worktree_worker \"\$@\"" work-remove "$REPO" "$wt" "$branch" "$prefix" \
+        </dev/null >"$log_file" 2>&1 &
+    pid=$!
+    if wait "$pid"; then
+        cat "$log_file"
+    else
+        cat "$log_file" >&2
+        return 1
+    fi
+}
+
+main() {
+    local mode=${1:-}
+    case "$mode" in
+    start)
+        shift
+        cmd_start "$@"
+        ;;
+    review)
+        shift
+        cmd_review "$@"
+        ;;
+    pr)
+        shift
+        cmd_pr "$@"
+        ;;
+    remove)
+        shift
+        cmd_remove "$@"
+        ;;
+    -h | --help | help)
+        usage
+        ;;
+    "")
+        usage
+        exit 1
+        ;;
+    *)
+        printf 'Unknown mode: %s\n\n' "$mode" >&2
+        usage >&2
+        exit 1
+        ;;
+    esac
+}
+
+main "$@"

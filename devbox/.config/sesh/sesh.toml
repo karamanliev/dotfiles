@@ -1,0 +1,27 @@
+blacklist = ["lazygit", "agent", "scratch"]
+
+[[wildcard]]
+pattern = "~/projects/noto/*"
+startup_command = "tmux renamew nvim;nvim"
+disable_startup_command = false
+windows = ["review", "server"]
+
+[[window]]
+name = "nvim"
+startup_script = "nvim -c 'sleep 1000m | LazyGit!'"
+
+[[window]]
+name = "review"
+startup_script = "nvim -c 'CodeDiff master...'"
+
+[[window]]
+name = "lazygit"
+startup_script = "lazygit"
+
+[[window]]
+name = "opencode"
+startup_script = "ocs"
+
+[[window]]
+name = "server"
+startup_script = "[ -f package.json ] && grep -q '\"dev\"' package.json && npm run dev"
