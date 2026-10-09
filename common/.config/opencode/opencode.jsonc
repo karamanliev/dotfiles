@@ -47,5 +47,8 @@
         }
       }
     }
+  },
+  "websearch": {
+    "provider": "random"
   }
 }
