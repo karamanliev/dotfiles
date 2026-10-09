@@ -1,19 +1,33 @@
-local local_config_file = vim.fn.stdpath('config') .. '/lua/custom/local.lua'
-local local_config = vim.fn.filereadable(local_config_file) == 1 and require('custom.local') or {}
-
 return {
   {
-    'savq/melange-nvim',
-    enabled = local_config.colorscheme == 'melange',
-    lazy = false,
+    'ThorstenRhau/token',
+    version = '*',
+    enabled = true,
+    lazy = true,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme('melange')
+      require('token').setup({
+        plugins = {
+          blink = true,
+          gitsigns = true,
+          lazy = true,
+          mason = true,
+          mini = true,
+          snacks = true,
+          whichkey = true,
+        },
+      })
     end,
   },
   {
+    'savq/melange-nvim',
+    enabled = true,
+    lazy = true,
+    priority = 1000,
+  },
+  {
     'sainnhe/gruvbox-material',
-    lazy = local_config.colorscheme ~= nil,
+    lazy = false,
     priority = 1000,
     config = function()
       vim.g.gruvbox_material_enable_italic = true
@@ -79,27 +93,27 @@ return {
     config = function()
       require('catppuccin').setup({
         flavour = 'latte', -- latte, frappe, macchiato, mocha
-        background = { -- :h background
+        background = {     -- :h background
           light = 'latte',
           dark = 'macchiato',
         },
         transparent_background = false, -- disables setting the background color.
         float = {
-          transparent = false, -- enable transparent floating windows
-          solid = false, -- use solid styling for floating windows, see |winborder|
+          transparent = false,          -- enable transparent floating windows
+          solid = false,                -- use solid styling for floating windows, see |winborder|
         },
-        show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-        term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        show_end_of_buffer = false,     -- shows the '~' characters after the end of buffers
+        term_colors = false,            -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
-          enabled = false, -- dims the background color of inactive window
+          enabled = false,              -- dims the background color of inactive window
           shade = 'dark',
-          percentage = 0.15, -- percentage of the shade to apply to the inactive window
+          percentage = 0.15,            -- percentage of the shade to apply to the inactive window
         },
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        no_underline = false, -- Force no underline
-        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-          comments = { 'italic' }, -- Change the style of comments
+        no_italic = false,              -- Force no italic
+        no_bold = false,                -- Force no bold
+        no_underline = false,           -- Force no underline
+        styles = {                      -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { 'italic' },      -- Change the style of comments
           conditionals = { 'italic' },
           loops = {},
           functions = {},
@@ -158,11 +172,11 @@ return {
     lazy = true,
     config = function()
       require('poimandres').setup({
-        bold_vert_split = false, -- use bold vertical separators
-        dim_nc_background = false, -- dim 'non-current' window backgrounds
-        disable_background = false, -- disable background
+        bold_vert_split = false,          -- use bold vertical separators
+        dim_nc_background = false,        -- dim 'non-current' window backgrounds
+        disable_background = false,       -- disable background
         disable_float_background = false, -- disable background for floats
-        disable_italics = false, -- disable italics
+        disable_italics = false,          -- disable italics
       })
     end,
     init = function()
@@ -185,7 +199,7 @@ return {
     priority = 1000,
     config = function()
       require('rose-pine').setup({
-        variant = 'auto', -- auto, main, moon, or dawn
+        variant = 'auto',      -- auto, main, moon, or dawn
         dark_variant = 'main', -- main, moon, or dawn
         dim_inactive_windows = false,
         extend_background_behind_borders = true,
@@ -193,7 +207,7 @@ return {
         enable = {
           terminal = true,
           legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-          migrations = true, -- Handle deprecated options automatically
+          migrations = true,        -- Handle deprecated options automatically
         },
 
         styles = {
