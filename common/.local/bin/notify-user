@@ -7,11 +7,16 @@ if [[ -z "${APPRISE_ENDPOINT:-}" ]]; then
   exit 2
 fi
 
+if [[ -z "${APPRISE_KEY:-}" ]]; then
+  printf '%s\n' 'APPRISE_KEY is not set' >&2
+  exit 2
+fi
+
 status=$(
   curl -sS -o /dev/null -w '%{http_code}' \
     -X POST \
     "$@" \
-    "$APPRISE_ENDPOINT"
+    "$APPRISE_ENDPOINT"/notify/"$APPRISE_KEY"
 )
 
 if [[ "$status" != "200" ]]; then
