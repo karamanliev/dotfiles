@@ -1,0 +1,21 @@
+# Terminal palette colors work with both light and dark clients.
+git:
+  diffRenderers:
+    - command: 'DELTA_FEATURES="${DELTA_FEATURES:-+} terminal-pager" delta'
+    - command: 'DELTA_FEATURES="${DELTA_FEATURES:-+} terminal-pager side-by-side" delta'
+gui:
+  theme:
+    activeBorderColor: [blue, bold]
+    inactiveBorderColor: [default]
+    searchingActiveBorderColor: [cyan, bold]
+    optionsTextColor: [blue]
+    selectedLineBgColor: [default, bold]
+    inactiveViewSelectedLineBgColor: [default]
+    cherryPickedCommitFgColor: [magenta]
+    cherryPickedCommitBgColor: [default]
+    markedBaseCommitFgColor: [cyan]
+    markedBaseCommitBgColor: [default]
+    unstagedChangesColor: [red]
+    defaultFgColor: [default]
+    authorColors:
+      '*': blue

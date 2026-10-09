@@ -1,3 +1,12 @@
+local local_config_file = vim.fn.stdpath('config') .. '/lua/custom/local.lua'
+if vim.fn.filereadable(local_config_file) == 1 then
+  local local_config = require('custom.local')
+  if local_config.colorscheme then
+    vim.cmd.colorscheme(local_config.colorscheme)
+    return
+  end
+end
+
 local config_file = vim.fn.expand('~/.config/darkman/themes.conf')
 local state_theme_file = vim.fn.expand('~/.local/state/current_theme')
 

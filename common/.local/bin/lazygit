@@ -34,7 +34,9 @@ else
 fi
 
 THEME_STATE="$HOME/.local/state/current_theme"
-if [[ -f "$THEME_STATE" ]]; then
+if [[ -r "$CONF_DIR/neutral.yml" ]]; then
+  THEME_CONF="$CONF_DIR/neutral.yml"
+elif [[ -f "$THEME_STATE" ]]; then
   THEME_CONF="$CONF_DIR/themes/$(cat "$THEME_STATE").yml"
 fi
 

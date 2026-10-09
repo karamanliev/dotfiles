@@ -1,7 +1,19 @@
+local local_config_file = vim.fn.stdpath('config') .. '/lua/custom/local.lua'
+local local_config = vim.fn.filereadable(local_config_file) == 1 and require('custom.local') or {}
+
 return {
   {
-    'sainnhe/gruvbox-material',
+    'savq/melange-nvim',
+    enabled = local_config.colorscheme == 'melange',
     lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme('melange')
+    end,
+  },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = local_config.colorscheme ~= nil,
     priority = 1000,
     config = function()
       vim.g.gruvbox_material_enable_italic = true
