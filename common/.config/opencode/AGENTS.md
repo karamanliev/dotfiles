@@ -40,13 +40,41 @@ If the user chooses `Yes, write it`:
   - `markdown_content`
 - `markdown_content` must contain the full finalized detailed plan, not a reference to chat history and not only the todo list.
 - Include the goal, scope, accepted decisions, implementation steps, files or areas to change if known, validation steps, risks, and assumptions.
-- After the subagent replies, show only the written relative file path.
+- After the subagent replies, show the written relative file path, then ask the implementation-choice question below.
 
 If the user chooses `No, keep it in chat`:
 
 - Do not invoke `plan-writer`.
 - Do not create or modify plan files.
 - Output the detailed plan with goal, scope, accepted decisions, implementation steps, files or areas to change if known, validation steps, risks, and assumptions in the chat directly.
+- Then ask the implementation-choice question below.
+
+### After delivering the plan
+
+Ask one question via the `question` tool: "Should I switch to Build and start implementation here, or hand off the plan to a fresh Build session?"
+
+Offer exactly these options:
+
+- `Build in this session`: Switch to Build and implement the finalized plan in the current session.
+- `Build in a fresh session`: Create a fresh session, hand off the plan, and start implementation there.
+- `Stay in Plan`: Remain in Plan mode without starting implementation.
+
+If the user chooses `Build in this session`:
+
+- Use `switch_agent` with `agent: "build"` before modifying project files.
+- Start implementation only after the switch takes effect, following the finalized plan and its validation steps.
+- If agent switching is unavailable, ask the user to switch to Build manually. Do not implement while still in Plan mode.
+
+If the user chooses `Build in a fresh session`:
+
+- Use the `openchamber` tool with action `session.create` to create a fresh OpenChamber session in the same working directory. Set `agent: "build"` and pass the handoff as `prompt` so implementation starts in that session.
+- If the plan is inline in chat, include the full finalized plan directly in the handoff prompt, with a brief instruction to implement it and run its validation steps. Do not create a plan file or ask permission to save one.
+- If the plan is in a file, send only its absolute path or file link and a brief starter prompt instructing the new session to read it, implement it, and run its validation steps. Do not repeat the full plan in the prompt.
+- Include any essential constraints or known working-tree changes not already captured in the plan. Do not rely on the new session having access to this conversation.
+- A subagent or a fork of the current conversation is not a fresh primary session.
+- After successful creation and prompt submission, give the user a clickable link to the new OpenChamber session using the session URL returned by the tool. Do not invent a URL or substitute a plan-file link for the session link. Do not also begin implementation in the original session.
+
+If the user chooses `Stay in Plan`, remain in Plan mode and wait for further instructions.
 
 ## Apprise Notifications
 
