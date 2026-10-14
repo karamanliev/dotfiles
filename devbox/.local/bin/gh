@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${WORK_DIR:?Set and export WORK_DIR before running gh}"
+if [[ "$WORK_DIR" != /* || ! -d "$WORK_DIR" ]]; then
+    printf 'Error: WORK_DIR must point to an existing absolute directory.\n' >&2
+    exit 1
+fi
+user_home=$(getent passwd "$(id -u)" | cut -d: -f6)
+directory=$(pwd -P)
+work_account=false
+
+case "$directory" in
+    "$WORK_DIR" | "$WORK_DIR"/*) work_account=true ;;
+esac
+
+# Linked worktrees point back to the original repository's Git directory.
+if [[ "$work_account" == false ]]; then
+    while [[ "$directory" != / ]]; do
+        if [[ -f "$directory/.git" ]]; then
+            IFS= read -r pointer < "$directory/.git"
+            if [[ "$pointer" == 'gitdir: '* ]]; then
+                git_directory=${pointer#gitdir: }
+                [[ "$git_directory" == /* ]] || git_directory="$directory/$git_directory"
+                if [[ -f "$git_directory/commondir" ]]; then
+                    IFS= read -r common_directory < "$git_directory/commondir"
+                    [[ "$common_directory" == /* ]] || common_directory="$git_directory/$common_directory"
+                    common_directory=$(cd "$common_directory" && pwd -P)
+                    case "$common_directory" in
+                        "$WORK_DIR"/*) work_account=true ;;
+                    esac
+                fi
+            fi
+            break
+        fi
+        [[ ! -d "$directory/.git" ]] || break
+        directory=${directory%/*}
+        [[ -n "$directory" ]] || directory=/
+    done
+fi
+
+# Directory selection takes precedence over caller-supplied authentication.
+unset GH_TOKEN GITHUB_TOKEN
+if [[ "$work_account" == true ]]; then
+    export GH_CONFIG_DIR="$user_home/.config/gh-work"
+else
+    export GH_CONFIG_DIR="$user_home/.config/gh"
+fi
+
+# Ask mise for its installed binary, avoiding recursion through this wrapper.
+real_gh=$("$user_home/.local/bin/mise" which gh)
+exec "$real_gh" "$@"
