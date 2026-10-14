@@ -80,6 +80,8 @@ If the user chooses `Stay in Plan`, remain in Plan mode and wait for further ins
 
 When the user explicitly asks for a notification, send one when any automation, scheduled task, long-running task, or other unattended work finishes. If asked after completion, send the known result immediately.
 
+When the user requests a notification at a specified time or after a specified delay, use `at` to schedule the `notify-user` command for that time.
+
 Use `notify-user`, which reads the private endpoint from `APPRISE_ENDPOINT`. Pass multipart fields using `body`, optional `title`, `type` (`info`, `success`, `warning`, `failure`), and `format` (`text`, `markdown`, `html`). Attach local files with `attach=@/path/file`, multiple files with `attach1`, `attach2`, and remote files with `attachment=https://...`.
 
 ```sh
