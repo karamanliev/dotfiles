@@ -48,6 +48,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-05-22T17:30:12.986Z",
       "updatedAt": "2026-05-22T17:30:12.986Z"
+    },
+    "tmux": {
+      "source": "openclaw/openclaw",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openclaw/openclaw.git",
+      "skillPath": "skills/tmux/SKILL.md",
+      "skillFolderHash": "dd5ddfca6522c8d2038bb828f12fbbecbdc7c982",
+      "installedAt": "2026-10-20T14:29:36.434Z",
+      "updatedAt": "2026-10-20T14:29:36.434Z"
     }
   },
   "dismissed": {
