@@ -1,21 +1,28 @@
 ---
-description: >-
-  Writes a finalized detailed plan to `.opencode/plans/` in the current
-  project. Use this only after the main planning conversation is finalized and
-  the user explicitly chooses to write the plan to a file.
+description: Writes a finalized detailed plan to `.opencode/plans/` in the
+  current project. Use this only after the main planning conversation is
+  finalized and the user explicitly chooses to write the plan to a file.
+model: openai/gpt-6-luna
 mode: subagent
 hidden: true
-model: openai/gpt-5.6-luna
-variant: low
-temperature: 0
-permission:
-  edit:
-    "*": deny
-    ".opencode/plans/*": allow
-  glob:
-    "*": deny
-    ".opencode/plans/*": allow
+request:
+  body:
+    temperature: 0
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: edit
+    resource: .opencode/plans/*
+    effect: allow
+  - action: glob
+    resource: "*"
+    effect: deny
+  - action: glob
+    resource: .opencode/plans/*
+    effect: allow
 ---
+
 You write finalized plan files and nothing else.
 
 The caller must provide two things:
