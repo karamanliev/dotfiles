@@ -14,6 +14,7 @@
 - Do not add extra explanations, background, alternatives, or detailed information unless the user explicitly asks for them.
 - Reserve detailed explanations for cases where the user asks for clarification, reasoning, or more detail.
 - When asking questions, always ask them one at a time using the `question` tool.
+- After completing multiple requested code changes, end with a short numbered list of the changes. Each item must briefly describe one change and include clickable Markdown links to the relevant changed code blocks or files, using line anchors where supported. Always show the file name and the exact single line number or line range in the visible link text, for example `src/app.ts:42` or `src/app.ts:42-57`; do not hide them behind generic labels.
 
 ## Reviews
 
