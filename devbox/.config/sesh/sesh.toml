@@ -4,7 +4,7 @@ blacklist = ["lazygit", "agent", "scratch"]
 pattern = "~/projects/noto/*"
 startup_command = "tmux renamew nvim;nvim"
 disable_startup_command = false
-windows = ["review", "server"]
+windows = ["lazygit"]
 
 [[window]]
 name = "nvim"
