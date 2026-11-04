@@ -65,8 +65,8 @@ gvfs-mtp
 gvfs-nfs
 gvfs-onedrive
 gvfs-smb
-handy-bin
 helium-browser-bin
+hex-bin
 inkscape
 jq
 kitty
@@ -129,7 +129,6 @@ papirus-icon-theme
 pavucontrol
 picard
 pika-backup
-piper-tts-bin
 pipewire
 pipewire-alsa
 pipewire-jack
