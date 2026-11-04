@@ -50,8 +50,8 @@ spawn-at-startup "wayvnc" "--output=DP-3" "0.0.0.0" "5900"
 
 spawn-at-startup "zen-browser"
 
-spawn-at-startup "betterbird"
-spawn-at-startup "obsidian"
+// spawn-at-startup "betterbird"
+// spawn-at-startup "obsidian"
 spawn-at-startup "Telegram"
 spawn-at-startup "sunshine"
 
@@ -77,9 +77,9 @@ workspace "L3" {
     open-on-output "DP-3"
 }
 
-workspace "MAIL" {
-    open-on-output "DP-3"
-}
+// workspace "MAIL" {
+//     open-on-output "DP-3"
+// }
 
 workspace "GAMES" {
     open-on-output "DP-3"
@@ -100,9 +100,9 @@ workspace "R3" {
 workspace "CHAT" {
     open-on-output "DP-1"
 }
-workspace "NOTES" {
-    open-on-output "DP-1"
-}
+// workspace "NOTES" {
+//     open-on-output "DP-1"
+// }
 
 
 //-----  RULES
