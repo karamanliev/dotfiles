@@ -15,6 +15,9 @@
    "encrypt_sensitive_data": true,
    "keybinding": "emacs",
    "search_files_in_root": true,
+   "tray": {
+      "enabled": false
+   },
    "font": {
       "normal": {
          "family": "SF Pro Text",
@@ -45,6 +48,7 @@
       "toggle-action-panel": "control+K"
    },
    "favorites": [
+      "@wy3z/store.vicinae.reminders:remind",
       "@knoopx/store.vicinae.stocks:stocks",
       "@xevrion/store.vicinae.clean-keyboard:clean-keyboard",
       "applications:zen",
@@ -93,6 +97,13 @@
             "refreshInterval": "60"
          }
       },
+      "@wy3z/store.vicinae.reminders": {
+         "entrypoints": {
+            "remind": {
+               "alias": "remind"
+            }
+         }
+      },
       "applications": {
          "preferences": {
             "paths": [
@@ -112,6 +123,15 @@
             "history": {
                "preferences": {
                   "defaultAction": "copy"
+               }
+            }
+         }
+      },
+      "core": {
+         "entrypoints": {
+            "store": {
+               "preferences": {
+                  "alwaysShowIntro": false
                }
             }
          }
@@ -144,13 +164,16 @@
       "shortcuts": {
          "entrypoints": {
             "5ea5c65d-6a28-42d4-a68b-29d2d7bed936": {
-               "alias": "ai"
+               "alias": "ai",
+               "enabled": false
             },
             "67d3fa49-eeac-4e2a-a04f-8dc73de96d34": {
-               "alias": "gem"
+               "alias": "gem",
+               "enabled": false
             },
             "7fb0aead-18c7-4dcc-ac83-36b45b9a9632": {
-               "alias": "s"
+               "alias": "s",
+               "enabled": false
             },
             "a384f435-f4d9-4789-a9d9-07dc7502ab30": {
                "alias": "gpt"
