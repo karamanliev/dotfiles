@@ -37,7 +37,6 @@ feishin-bin
 figma-linux-bin
 file-roller
 firefox
-firefox-tridactyl-native
 flatpak
 fnm
 fzf
@@ -56,6 +55,8 @@ gnome-keyring
 go
 goverlay
 gpu-screen-recorder
+gpu-screen-recorder-notification
+gpu-screen-recorder-ui
 gst-plugin-pipewire
 gvfs
 gvfs-afc
