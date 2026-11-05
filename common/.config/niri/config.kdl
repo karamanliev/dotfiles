@@ -23,7 +23,7 @@ spawn-at-startup "xwayland-satellite"
 
 spawn-at-startup "vicinae" "server"
 // spawn-at-startup "handy" "--start-hidden"
-spawn-at-startup "kitty"
+spawn-at-startup "ghostty"
 
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
@@ -242,8 +242,8 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+Return hotkey-overlay-title="Open Named Terminal: kitty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+    Mod+Shift+Return hotkey-overlay-title="Open Named Terminal: ghostty" { spawn-sh "name=$(zenity --entry --title='Kitty' --text='Set window title:') && kitty --title \"$name\""; }
     Mod+Space hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
 
     Mod+A repeat=false { toggle-overview; }

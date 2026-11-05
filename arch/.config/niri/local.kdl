@@ -201,7 +201,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="kitty" at-startup=true
+    match app-id="ghostty" at-startup=true
     open-on-output "DP-1"
     open-on-workspace "R1"
     open-maximized true
