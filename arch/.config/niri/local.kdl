@@ -2,7 +2,7 @@
 output "DP-3" {
     mode "2560x1440@165.08"
     focus-at-startup
-    scale 1
+    scale 1.25
     transform "normal"
     position x=0 y=0
     variable-refresh-rate on-demand=true
@@ -10,9 +10,9 @@ output "DP-3" {
 
 output "DP-1" {
     mode "2560x1440@165.08"
-    scale 1
+    scale 1.25
     transform "270"
-    position x=2560 y=-565
+    position x=2048 y=-452 //x=2560 y=-565 if 1 scale
 
     layout {
       default-column-width { proportion 1.0; }
