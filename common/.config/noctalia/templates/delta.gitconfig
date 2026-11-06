@@ -4,10 +4,10 @@
     dark = {{ mode | replace: "dark", "true" | replace: "light", "false" }}
     syntax-theme = ansi
 
-    minus-style = "syntax {{ colors.surface.default.hex | set_hue 0 | set_saturation 18 | auto_lightness 4 }}"
-    minus-emph-style = "syntax bold {{ colors.surface.default.hex | set_hue 0 | set_saturation 26 | auto_lightness 9 }}"
-    plus-style = "syntax {{ colors.surface.default.hex | set_hue 120 | set_saturation 18 | auto_lightness 4 }}"
-    plus-emph-style = "syntax bold {{ colors.surface.default.hex | set_hue 120 | set_saturation 26 | auto_lightness 9 }}"
+    minus-style = "syntax {{ colors.terminal_background.default.hex | auto_lightness 5 | set_saturation 40 | set_hue 5 }}"
+    minus-emph-style = "syntax bold {{ colors.terminal_background.default.hex | auto_lightness 10 | set_saturation 50 | set_hue 5 }}"
+    plus-style = "syntax {{ colors.terminal_background.default.hex | auto_lightness 5 | set_saturation 40 | set_hue 110 }}"
+    plus-emph-style = "syntax bold {{ colors.terminal_background.default.hex | auto_lightness 10 | set_saturation 50 | set_hue 110 }}"
     zero-style = "syntax auto"
 
     line-numbers-minus-style = "{{ colors.terminal_normal_red.default.hex }} auto"
