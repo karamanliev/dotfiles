@@ -1,0 +1,15 @@
+font-size = 13
+font-family = JetBrains Mono
+cursor-style-blink = true
+cursor-click-to-move = true
+confirm-close-surface = false
+custom-shader = ./shaders/ghostty-cursor-shaders/cursor_warp.glsl
+#custom-shader = ./shaders/ghostty-cursor-shaders/sonic_boom_cursor.glsl
+#custom-shader = ./shaders/in-game-crt-cursor.glsl
+custom-shader-animation = always
+cursor-style = block
+background-opacity = 1.00
+
+# Or both (tries terminfo first, falls back on failure)
+shell-integration-features = ssh-terminfo,ssh-env
+theme = noctalia
