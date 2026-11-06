@@ -9,6 +9,7 @@ custom-shader = ./shaders/ghostty-cursor-shaders/cursor_warp.glsl
 custom-shader-animation = always
 cursor-style = block
 background-opacity = 1.00
+progress-style = true
 
 # Or both (tries terminfo first, falls back on failure)
 shell-integration-features = ssh-terminfo,ssh-env

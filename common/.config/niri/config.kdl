@@ -14,7 +14,7 @@ environment {
 spawn-at-startup "noctalia"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "vicinae" "server"
-spawn-at-startup "ghostty"
+spawn-at-startup "ghostty" "+new-window"
 
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \

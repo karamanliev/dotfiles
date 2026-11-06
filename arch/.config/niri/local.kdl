@@ -158,7 +158,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="ghostty" at-startup=true
+    match app-id="com.mitchellh.ghostty" at-startup=true
     open-on-output "DP-1"
     open-on-workspace "R1"
     open-maximized true
