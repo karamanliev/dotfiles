@@ -85,101 +85,6 @@ end, {
   nargs = '?',
 })
 
-command('LazyGit', function(opts)
-  local socket_path = vim.v.servername
-  local zoom_flag = opts.bang and '' or '-Z'
-  local orientation = vim.o.columns / vim.o.lines >= 2 and '-h -l 40\\%' or '-v'
-  local kill_pane = opts.bang and 'false' or 'true'
-  local screen_mode = opts.bang and 'half' or 'normal'
-  vim.cmd(
-    'silent !tmux split-window '
-      .. orientation
-      .. ' '
-      .. zoom_flag
-      .. ' -c "'
-      .. vim.fn.getcwd()
-      .. '" "NVIM_SERVER='
-      .. socket_path
-      .. ' LAZYGIT_KILL_PANE='
-      .. kill_pane
-      .. ' lazygit --tmux --screen-mode='
-      .. screen_mode
-      .. '; [ \\$LAZYGIT_KILL_PANE = "true" ] && tmux kill-pane || true"'
-  )
-end, { desc = 'LazyGit', bang = true })
-
-command('LazyGitLogs', function()
-  local cwd = vim.fn.getcwd()
-  local socket_path = vim.v.servername
-  vim.cmd(
-    'silent !tmux split-window -Z -c "'
-      .. cwd
-      .. '" "NVIM_SERVER='
-      .. socket_path
-      .. ' LAZYGIT_KILL_PANE=true lazygit --tmux --sm full --filter '
-      .. cwd
-      .. '; tmux kill-pane"'
-  )
-end, { desc = 'LazyGitLogs' })
-
-command('LazyGitLogsFile', function()
-  local file = vim.fn.expand('%:p')
-  local socket_path = vim.v.servername
-  vim.cmd(
-    'silent !tmux split-window -Z -c "'
-      .. vim.fn.getcwd()
-      .. '" "NVIM_SERVER='
-      .. socket_path
-      .. ' LAZYGIT_KILL_PANE=true lazygit --tmux --filter '
-      .. file
-      .. '; tmux kill-pane"'
-  )
-end, { desc = 'LazyGitLogsFile' })
-
-command('Yazi', function(opts)
-  local session = vim.fn.system('tmux display-message -p "#S"'):gsub('\n', '')
-  local window = vim.fn.system('tmux display-message -p "#I"'):gsub('\n', '')
-  local zoom = opts.bang and '-Z' or ' '
-  local kill_pane = opts.bang and 'true' or 'true'
-
-  vim.fn.jobstart({
-    'bash',
-    '-c',
-    '~/.config/tmux/scripts/yazi-split.sh "'
-      .. session
-      .. '" "'
-      .. window
-      .. '" "'
-      .. vim.fn.getcwd()
-      .. '" "'
-      .. vim.fn.expand('%:p')
-      .. '" "'
-      .. zoom
-      .. '" "'
-      .. kill_pane
-      .. '"',
-  })
-end, { desc = 'Yazi', bang = true })
-
-command('QuickfixFromFile', function(opts)
-  local path = opts.args
-  local items = {}
-  for line in io.lines(path) do
-    if line ~= '' then
-      table.insert(items, { filename = line, lnum = 1, col = 1 })
-    end
-  end
-  os.remove(path)
-  vim.fn.setqflist({}, 'r', { items = items, title = 'Yazi' })
-  vim.cmd('copen')
-end, { nargs = 1, desc = 'Populate quickfix from yazi file list' })
-
-command('Search', function(o)
-  local escaped = vim.uri_encode(o.args)
-  local url = ('https://duckduckgo.com/?q=%s'):format(escaped)
-  vim.ui.open(url)
-end, { nargs = 1, desc = 'search in browser' })
-
 command('YankPath', function(opts)
   local path = opts.bang and vim.fn.expand('%:p') or vim.fn.expand('%:.')
   if path == '' then
@@ -250,12 +155,12 @@ autocmd({ 'InsertEnter', 'WinLeave' }, {
 })
 
 -- Trim trailing whitespace on save
-autocmd({ 'BufWritePre' }, {
-  pattern = '*',
-  command = [[%s/\s\+$//e]],
-  group = general,
-  desc = 'Trim trailing whitespace on save',
-})
+-- autocmd({ 'BufWritePre' }, {
+--   pattern = '*',
+--   command = [[%s/\s\+$//e]],
+--   group = general,
+--   desc = 'Trim trailing whitespace on save',
+-- })
 
 -- Open help in vertical split
 autocmd('FileType', {
@@ -336,43 +241,6 @@ autocmd('BufEnter', {
   group = general,
   desc = 'Disable New Line Comment',
 })
-
--- Store/clear nvim server socket in tmux pane option for external lazygit/yazi integration
-if vim.env.TMUX then
-  autocmd('VimEnter', {
-    callback = function()
-      local socket = vim.v.servername
-      if socket ~= '' then
-        vim.fn.system('tmux set-option -p @nvim_server ' .. socket)
-      end
-    end,
-    group = general,
-    desc = 'Store nvim server in tmux pane option',
-  })
-  autocmd('VimLeave', {
-    callback = function()
-      vim.fn.system('tmux set-option -pu @nvim_server')
-    end,
-    group = general,
-    desc = 'Clear nvim server from tmux pane option',
-  })
-
-  -- Open Yazi when nvim is opened with a directory
-  autocmd('VimEnter', {
-    callback = function()
-      local arg = vim.fn.argv(0)
-      if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
-        local dir_buf = vim.fn.bufnr()
-        vim.cmd('cd ' .. vim.fn.fnameescape(tostring(arg)))
-        vim.cmd('enew')
-        pcall(vim.cmd, 'bwipeout ' .. dir_buf)
-        vim.cmd('Yazi!')
-      end
-    end,
-    group = general,
-    desc = 'Open Yazi when nvim is opened with a directory',
-  })
-end
 
 -- Refresh colorscheme highlights on change
 autocmd({ 'ColorScheme' }, {

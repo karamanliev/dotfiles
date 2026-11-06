@@ -32,7 +32,7 @@
       "tray",
       "idle_inhibitor",
       "custom/sunsetr",
-      "custom/gsr",
+      // "custom/gsr",
       "custom/separator",
       "niri/language",
       "custom/separator",
@@ -62,7 +62,7 @@
     "modules-right": [
       "idle_inhibitor",
       "custom/sunsetr",
-      "custom/gsr",
+      // "custom/gsr",
       "custom/separator",
       "niri/language",
       "custom/separator",

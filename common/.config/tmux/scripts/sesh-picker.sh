@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CURRENT_THEME="$(cat "${XDG_STATE_HOME:-$HOME/.local/state}/current_theme" 2>/dev/null || true)"
-FZF_THEME_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/${CURRENT_THEME}.sh"
+FZF_THEME_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh"
 
 [[ -r "$FZF_THEME_FILE" ]] && source "$FZF_THEME_FILE"
 

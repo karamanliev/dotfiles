@@ -1,3 +1,5 @@
+local lazygit_edit = [[nvim --server "$NVIM" --remote-expr 'execute("stopinsert | close")' && nvim --server "$NVIM" --remote]]
+
 return {
   {
     'folke/snacks.nvim',
@@ -55,6 +57,30 @@ return {
       },
       image = {
         enabled = true,
+      },
+      lazygit = {
+        configure = true,
+        config = {
+          os = {
+            edit = lazygit_edit .. ' {{filename}}',
+            editAtLine = lazygit_edit .. [[ {{filename}} && nvim --server "$NVIM" --remote-expr 'cursor({{line}}, 1)' >/dev/null]],
+            openDirInEditor = lazygit_edit .. ' {{dir}}',
+            editInTerminal = false,
+          },
+        },
+        theme = {
+          inactiveBorderColor = { fg = 'DiagnosticInfo' },
+        },
+        win = {
+          border = 'single',
+          keys = {
+            ['<M-l>'] = { 'hide', mode = { 'n', 't' } },
+          },
+          wo = {
+            winblend = 0,
+            winhighlight = 'Normal:Normal,NormalFloat:Normal,FloatBorder:DiagnosticInfo',
+          },
+        },
       },
       notifier = {
         enabled = false,
@@ -228,6 +254,13 @@ return {
       },
     },
     keys = {
+      {
+        '<M-l>',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'LazyGit',
+      },
       -- Top Pickers & Explorer
       {
         '<leader>fs',

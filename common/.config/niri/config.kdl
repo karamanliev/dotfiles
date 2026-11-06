@@ -11,26 +11,15 @@ environment {
 
 
 //-----  AUTOSTART
-spawn-at-startup "waybar"
-spawn-at-startup "nm-applet"
-spawn-at-startup "blueman-applet"
-
-spawn-at-startup "wpaperd" "-d"
-
-spawn-at-startup "darkman" "run"
-spawn-at-startup "sunsetr"
+spawn-at-startup "noctalia"
 spawn-at-startup "xwayland-satellite"
-
 spawn-at-startup "vicinae" "server"
-// spawn-at-startup "handy" "--start-hidden"
 spawn-at-startup "ghostty"
 
 // mount the server nas as a local folder "~/Server"
 spawn-at-startup "rclone" "mount" "--vfs-cache-mode" \
                  "writes" "--dir-cache-time" "5s" \
                  "karamanliev-dav:" "Server" "--daemon"
-
-spawn-at-startup "~/.config/sunsetr/sunsetr_darkman_sync.sh"
 
 //-----  GENERAL
 hotkey-overlay {
@@ -142,27 +131,8 @@ recent-windows {
 
 //-----  RULES
 layer-rule {
-    match namespace="^wpaperd"
+    match namespace="^noctalia-backdrop"
     place-within-backdrop true
-}
-
-layer-rule {
-    match namespace="gtk-layer-shell"
-    opacity 0.9
-}
-
-layer-rule {
-    match namespace="^waybar$"
-
-    background-effect {
-        blur true
-    }
-
-    popups {
-        background-effect {
-            blur true
-        }
-    }
 }
 
 window-rule {
@@ -180,22 +150,6 @@ window-rule {
     open-floating true
     default-column-width { fixed 1280; }
     default-window-height { fixed 720; }
-}
-
-window-rule {
-    match app-id="pavucontrol"
-    open-floating true
-    default-floating-position x=65 y=8 relative-to="top-right"
-    default-column-width { fixed 900; }
-    default-window-height { fixed 750; }
-}
-
-window-rule {
-    match app-id="blueman-manager"
-    open-floating true
-    default-floating-position x=390 y=8 relative-to="top-right"
-    default-column-width { fixed 565; }
-    default-window-height { fixed 450; }
 }
 
 window-rule {
@@ -310,9 +264,8 @@ binds {
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
     Mod+C { focus-workspace "CHAT"; }
-    // Mod+M { focus-workspace "MAIL"; }
     Mod+G { focus-workspace "GAMES"; }
-    // Mod+B { focus-workspace "NOTES"; }
+
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -363,22 +316,20 @@ binds {
     Mod+I { spawn-sh "name=$(zenity --entry --title='Workspace' --text='Enter new workspace name:') && [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
     Mod+Shift+I { unset-workspace-name; }
 
-    Mod+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false"; }
-    Mod+Shift+S { spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot --show-pointer=false && for i in $(seq 1 150); do [ -f /tmp/screenshot.png ] && break; sleep 0.05; done && [ -f /tmp/screenshot.png ] && satty -f /tmp/screenshot.png"; }
-    Mod+Ctrl+S { spawn-sh "wl-paste --type image/png | satty -f -"; }
+    Mod+S { spawn "noctalia" "msg" "screenshot-region" "--no-annotate" "--copy-to-clipboard" "--no-save-to-file" "--no-pipe-to-command" "--no-confirm-region" "--no-show-cursor"; }
+    Mod+Shift+S { spawn "noctalia" "msg" "screenshot-region" "--annotate" "--copy-to-clipboard" "--no-save-to-file" "--no-pipe-to-command" "--no-confirm-region" "--no-skip-annotate-on-copy-save" "--no-show-cursor"; }
+    Mod+Ctrl+S { spawn "noctalia" "msg" "screenshot-fullscreen" "--annotate" "--copy-to-clipboard" "--no-save-to-file" "--no-pipe-to-command" "--no-show-cursor"; }
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Ctrl+Space { spawn-sh "hex dictation toggle"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    Alt+F12 { spawn-sh "pkill -9 waybar; waybar"; }
     Mod+F12 { power-off-monitors; }
-
-    Ctrl+Page_Down { spawn-sh "handy --toggle-transcription"; }
-    Ctrl+Page_Up   { spawn-sh "handy --toggle-post-process"; }
-
-    Mod+Ctrl+Shift+Alt+O { spawn-sh "wl-copy < ~/Server/clipboard.md && notify-send -e -i edit-copy -t 2000 'Loaded from clipboard.md!'"; }
-    Mod+Ctrl+Shift+Alt+P { spawn-sh "wl-paste > ~/Server/clipboard.md && notify-send -e -i edit-paste -t 2000 'Sent to clipboard.md!'"; }
 }
+
+
+include "noctalia.kdl"

@@ -24,6 +24,3 @@ require('lazy').setup('plugins', {
     notify = false,
   },
 })
-
--- Set colorscheme
-require('custom.colorscheme')

@@ -25,6 +25,6 @@ gui:
       - "#ea6962"
     defaultFgColor:
       - "#d4be98"
-  authorColors:
-    "*": "#7daea3"
-    "Hristo Karamanliev": "#d8a657"
+    authorColors:
+      "*": "#7daea3"
+      "Hristo Karamanliev": "#d8a657"

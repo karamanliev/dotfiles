@@ -1,0 +1,12 @@
+[theme.templates.user.delta]
+input_path = "templates/delta.gitconfig"
+output_path = "../git/delta.conf"
+
+[theme.templates.user.vivid]
+input_path = "templates/vivid.yml"
+output_path = "../vivid/themes/noctalia.yml"
+
+[theme.templates.user.tmux]
+input_path = "templates/tmux.conf"
+output_path = "../tmux/themes/noctalia.conf"
+post_hook = "tmux -N source-file ~/.config/tmux/themes/noctalia.conf"

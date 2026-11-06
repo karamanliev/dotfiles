@@ -12,7 +12,7 @@
    "$schema": "https://vicinae.com/schemas/config.json",
    "close_on_focus_loss": false,
    "pop_to_root_on_close": true,
-   "encrypt_sensitive_data": true,
+   "encrypt_sensitive_data": false,
    "keybinding": "emacs",
    "search_files_in_root": true,
    "tray": {
@@ -26,11 +26,11 @@
    },
    "theme": {
       "light": {
-         "name": "gruvbox-light",
+         "name": "noctalia",
          "icon_theme": "Papirus-Light"
       },
       "dark": {
-         "name": "gruvbox-dark",
+         "name": "noctalia",
          "icon_theme": "Papirus-Dark"
       }
    },
@@ -49,6 +49,7 @@
    },
    "favorites": [
       "@wy3z/store.vicinae.reminders:remind",
+      "@bl4zee1g/store.vicinae.bitwarden:browse-vault",
       "@knoopx/store.vicinae.stocks:stocks",
       "@xevrion/store.vicinae.clean-keyboard:clean-keyboard",
       "applications:zen",
@@ -67,6 +68,11 @@
          "preferences": {
             "arguments_terminal_type": "kitty",
             "arguments_terminal": false
+         }
+      },
+      "@bl4zee1g/store.vicinae.bitwarden": {
+         "preferences": {
+            "rbwPath": "rbw"
          }
       },
       "@gebeto/store.raycast.translate": {

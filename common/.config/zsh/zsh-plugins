@@ -30,6 +30,3 @@ fi
 if (( $+commands[fnm] )); then
   eval "$(fnm env --use-on-cd)"
 fi
-if (( $+commands[wt] )); then
-  eval "$(wt config shell init zsh)"
-fi
